@@ -1615,19 +1615,16 @@ async function submitContact(){
   const btn=document.getElementById('cf_submit');
   const fio=document.getElementById('cf_fio').value.trim();
   const company=document.getElementById('cf_company').value.trim();
-  const position=document.getElementById('cf_position').value.trim();
   const email=document.getElementById('cf_email').value.trim();
-  const phone=document.getElementById('cf_phone').value.trim();
-  const message=document.getElementById('cf_message').value.trim();
   const consent=document.getElementById('cf_consent').checked;
   const showErr=t=>{errBox.textContent=t;errBox.style.display='block';};
   errBox.style.display='none';
-  if(!fio||!company||!position||!email){showErr('Заполните обязательные поля');return;}
+  if(!fio||!company||!email){showErr('Заполните обязательные поля');return;}
   if(!email.includes('@')||!email.includes('.')){showErr('Проверьте адрес электронной почты');return;}
   if(!consent){showErr('Необходимо согласие на обработку персональных данных');return;}
   btn.disabled=true;btn.style.opacity='.6';btn.textContent='Отправляем…';
   try{
-    const res=await fetch('/api/submit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({fio,company,position,email,phone,message,consent})});
+    const res=await fetch('/api/submit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({fio,company,email,consent})});
     if(!res.ok)throw new Error('bad status');
     document.getElementById('contactForm').style.display='none';
     document.getElementById('contactThanks').style.display='block';
@@ -2586,38 +2583,35 @@ document.addEventListener('DOMContentLoaded',()=>{
 </div>
 
 <!-- CONTACT FORM -->
-<div id="contactOverlay" style="display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,0.75);backdrop-filter:blur(12px);align-items:center;justify-content:center;">
-  <div id="contactModal" style="width:min(520px,94vw);background:var(--white);box-shadow:0 48px 140px rgba(0,0,0,0.5);transform:translateY(36px) scale(0.97);opacity:0;transition:transform 0.4s cubic-bezier(0.16,1,0.3,1),opacity 0.4s;">
-    <div style="background:#0D0D0D;height:44px;display:flex;align-items:center;padding:0 16px;gap:8px;">
+<div id="contactOverlay" style="display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,0.75);backdrop-filter:blur(12px);align-items:center;justify-content:center;padding:16px;">
+  <div id="contactModal" style="width:min(520px,94vw);max-height:90vh;display:flex;flex-direction:column;background:var(--white);box-shadow:0 48px 140px rgba(0,0,0,0.5);transform:translateY(36px) scale(0.97);opacity:0;transition:transform 0.4s cubic-bezier(0.16,1,0.3,1),opacity 0.4s;">
+    <div style="background:#0D0D0D;height:44px;display:flex;align-items:center;padding:0 16px;gap:8px;flex-shrink:0;">
       <div onclick="closeContact()" style="width:12px;height:12px;border-radius:50%;background:#FF5F57;cursor:pointer;" onmouseenter="this.style.opacity='.75'" onmouseleave="this.style.opacity='1'"></div>
       <div style="width:12px;height:12px;border-radius:50%;background:#FEBC2E;"></div>
       <div style="width:12px;height:12px;border-radius:50%;background:#28C840;"></div>
       <div style="flex:1;text-align:center;font-size:11px;color:rgba(255,255,255,0.35);">Записаться на сессию</div>
     </div>
-    <form id="contactForm" onsubmit="event.preventDefault();submitContact();" style="padding:36px 40px 40px;">
+    <form id="contactForm" onsubmit="event.preventDefault();submitContact();" style="padding:32px 36px 36px;overflow-y:auto;min-height:0;">
       <div style="font-family:var(--serif);font-size:22px;font-weight:400;color:var(--black);margin-bottom:8px;">Структурированная сессия</div>
-      <p style="font-size:13px;color:var(--mid);line-height:1.75;margin-bottom:24px;">Сорок пять минут. Без презентации продукта. Разговор о вашей конкретной ситуации.</p>
+      <p style="font-size:13px;color:var(--mid);line-height:1.75;margin-bottom:22px;">Сорок пять минут. Без презентации продукта. Разговор о вашей конкретной ситуации.</p>
       <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:18px;">
         <div><label style="display:block;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid);margin-bottom:6px;">ФИО <span style="color:var(--red);">*</span></label><input id="cf_fio" type="text" required placeholder="Фамилия Имя Отчество" style="width:100%;padding:12px 16px;border:1px solid var(--line);font-family:var(--sans);font-size:14px;color:var(--black);background:#fff;outline:none;" onfocus="this.style.borderColor='var(--black)'" onblur="this.style.borderColor='var(--line)'"></div>
         <div><label style="display:block;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid);margin-bottom:6px;">Компания <span style="color:var(--red);">*</span></label><input id="cf_company" type="text" required placeholder="Название компании" style="width:100%;padding:12px 16px;border:1px solid var(--line);font-family:var(--sans);font-size:14px;color:var(--black);background:#fff;outline:none;" onfocus="this.style.borderColor='var(--black)'" onblur="this.style.borderColor='var(--line)'"></div>
-        <div><label style="display:block;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid);margin-bottom:6px;">Должность <span style="color:var(--red);">*</span></label><input id="cf_position" type="text" required placeholder="Ваша должность" style="width:100%;padding:12px 16px;border:1px solid var(--line);font-family:var(--sans);font-size:14px;color:var(--black);background:#fff;outline:none;" onfocus="this.style.borderColor='var(--black)'" onblur="this.style.borderColor='var(--line)'"></div>
         <div><label style="display:block;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid);margin-bottom:6px;">Email <span style="color:var(--red);">*</span></label><input id="cf_email" type="email" required placeholder="name@company.ru" style="width:100%;padding:12px 16px;border:1px solid var(--line);font-family:var(--sans);font-size:14px;color:var(--black);background:#fff;outline:none;" onfocus="this.style.borderColor='var(--black)'" onblur="this.style.borderColor='var(--line)'"></div>
-        <div><label style="display:block;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid);margin-bottom:6px;">Телефон <span style="opacity:0.5;">(необязательно)</span></label><input id="cf_phone" type="tel" placeholder="+7 ___ ___ __ __" style="width:100%;padding:12px 16px;border:1px solid var(--line);font-family:var(--sans);font-size:14px;color:var(--black);background:#fff;outline:none;" onfocus="this.style.borderColor='var(--black)'" onblur="this.style.borderColor='var(--line)'"></div>
-        <div><label style="display:block;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid);margin-bottom:6px;">Сообщение <span style="opacity:0.5;">(необязательно)</span></label><textarea id="cf_message" placeholder="Что происходит с наймом, что хочется обсудить" rows="3" style="width:100%;padding:12px 16px;border:1px solid var(--line);font-family:var(--sans);font-size:14px;color:var(--black);background:#fff;outline:none;resize:none;" onfocus="this.style.borderColor='var(--black)'" onblur="this.style.borderColor='var(--line)'"></textarea></div>
       </div>
       <label style="display:flex;align-items:flex-start;gap:10px;font-size:12px;color:var(--mid);line-height:1.6;margin-bottom:18px;cursor:pointer;">
         <input id="cf_consent" type="checkbox" required style="margin-top:3px;flex-shrink:0;accent-color:var(--black);">
         <span>Согласен(-на) с обработкой персональных данных в соответствии с <a href="/privacy" target="_blank" rel="noopener" style="color:var(--mid);border-bottom:1px solid rgba(107,100,89,0.4);text-decoration:none;">политикой</a></span>
       </label>
       <div id="cf_error" style="display:none;font-size:12px;color:var(--red);margin-bottom:14px;line-height:1.6;"></div>
-      <button id="cf_submit" type="submit" style="font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;background:var(--black);color:#fff;padding:14px 32px;border:none;cursor:pointer;width:100%;margin-bottom:14px;transition:opacity 0.25s;" onmouseenter="if(!this.disabled)this.style.opacity='.75'" onmouseleave="if(!this.disabled)this.style.opacity='1'">Отправить</button>
+      <button id="cf_submit" type="submit" style="font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;background:var(--black);color:#fff;padding:14px 32px;border:none;cursor:pointer;width:100%;margin-bottom:12px;transition:opacity 0.25s;" onmouseenter="if(!this.disabled)this.style.opacity='.75'" onmouseleave="if(!this.disabled)this.style.opacity='1'">Отправить</button>
       <p style="font-size:11px;color:var(--mid);text-align:center;">Без автозвонков · Без рассылок · Ответим в течение рабочего дня</p>
     </form>
-    <div id="contactThanks" style="display:none;padding:48px 40px;text-align:center;">
+    <div id="contactThanks" style="display:none;padding:48px 36px;text-align:center;overflow-y:auto;min-height:0;">
       <div style="font-family:var(--serif);font-size:24px;color:var(--black);margin-bottom:14px;">Спасибо</div>
       <p style="font-size:14px;color:var(--mid);line-height:1.75;">Мы свяжемся с вами в течение одного рабочего дня.</p>
     </div>
-    <div id="contactError" style="display:none;padding:48px 40px;text-align:center;">
+    <div id="contactError" style="display:none;padding:48px 36px;text-align:center;overflow-y:auto;min-height:0;">
       <div style="font-family:var(--serif);font-size:22px;color:var(--black);margin-bottom:14px;">Не удалось отправить</div>
       <p style="font-size:14px;color:var(--mid);line-height:1.75;margin-bottom:20px;">Напишите нам на <a href="mailto:aay@hrasc.ru" style="color:var(--black);border-bottom:1px solid var(--black);text-decoration:none;">aay@hrasc.ru</a></p>
       <button onclick="closeContact()" style="font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;border:1px solid var(--black);padding:11px 28px;background:transparent;cursor:pointer;margin-top:10px;" onmouseenter="this.style.background='var(--black)';this.style.color='#fff'" onmouseleave="this.style.background='';this.style.color=''">Закрыть</button>
