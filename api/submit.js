@@ -25,13 +25,10 @@ export default async function handler(req, res) {
 
   const fio = String(body.fio || '').trim();
   const company = String(body.company || '').trim();
-  const position = String(body.position || '').trim();
   const email = String(body.email || '').trim();
-  const phone = String(body.phone || '').trim();
-  const message = String(body.message || '').trim();
   const consent = body.consent === true;
 
-  if (!fio || !company || !position || !email) {
+  if (!fio || !company || !email) {
     return res.status(400).json({ error: 'Обязательные поля не заполнены' });
   }
   if (!email.includes('@')) {
@@ -41,20 +38,13 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Нет согласия на обработку персональных данных' });
   }
 
-  const lines = [
+  const text = [
     '🔔 <b>Новая заявка с hrasc-lab.ru</b>',
     '',
     `<b>ФИО:</b> ${escapeHtml(fio)}`,
     `<b>Компания:</b> ${escapeHtml(company)}`,
-    `<b>Должность:</b> ${escapeHtml(position)}`,
     `<b>Email:</b> ${escapeHtml(email)}`,
-  ];
-  if (phone) lines.push(`<b>Телефон:</b> ${escapeHtml(phone)}`);
-  if (message) {
-    lines.push('');
-    lines.push('<b>Сообщение:</b>');
-    lines.push(escapeHtml(message));
-  }
+  ].join('\n');
 
   try {
     const tgRes = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
@@ -62,14 +52,14 @@ export default async function handler(req, res) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         chat_id: chatId,
-        text: lines.join('\n'),
+        text,
         parse_mode: 'HTML',
         disable_web_page_preview: true,
       }),
     });
     if (!tgRes.ok) {
-      const text = await tgRes.text().catch(() => '');
-      console.error('Telegram API error', tgRes.status, text);
+      const body = await tgRes.text().catch(() => '');
+      console.error('Telegram API error', tgRes.status, body);
       return res.status(500).json({ error: 'Telegram API error' });
     }
     return res.status(200).json({ ok: true });
