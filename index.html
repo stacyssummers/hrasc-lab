@@ -290,6 +290,42 @@ p{font-size:14px;line-height:1.55;}
 .timeline-row--now .timeline-era,
 .timeline-row--now .timeline-title{color:var(--color-accent);}
 
+/* Блок 5 — «Для кого»: три карточки с разделителями 1px через gap */
+.block-5 .kicker{display:block;}
+.block-5 h2{margin-top:8px;}
+.cards-3{
+  margin-top:24px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1px;
+  background:var(--color-border);
+  border:1px solid var(--color-border);
+}
+.card-5{
+  background:var(--color-bg);
+  padding:20px;
+}
+.card-5-label{
+  font-size:10px;
+  font-weight:500;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:var(--color-text-tertiary);
+  margin-bottom:10px;
+}
+.card-5-title{
+  font-size:15px;
+  font-weight:500;
+  letter-spacing:-0.005em;
+  color:var(--color-text);
+  margin-bottom:6px;
+}
+.card-5-body{
+  font-size:13px;
+  line-height:1.5;
+  color:var(--color-text-secondary);
+}
+
 /* Футер */
 .footer{
   border-top:1px solid var(--color-border);
@@ -364,6 +400,13 @@ p{font-size:14px;line-height:1.55;}
   .stats-grid{
     grid-template-columns:1fr;
     gap:10px;
+  }
+  .cards-3{
+    grid-template-columns:1fr;
+  }
+  .timeline-row{
+    grid-template-columns:1fr;
+    gap:6px 0;
   }
 }
 </style>
@@ -484,8 +527,28 @@ p{font-size:14px;line-height:1.55;}
       </div>
     </div>
   </section>
-  <section id="block-5" style="padding:48px 40px;text-align:center;">
-    <span class="placeholder">Для кого — содержание в следующей фазе</span>
+  <section id="block-5" class="section block-5">
+    <div class="section-inner">
+      <span class="kicker">Для кого</span>
+      <h2>Три типа задач, с которыми приходят к нам.</h2>
+      <div class="cards-3">
+        <article class="card-5">
+          <div class="card-5-label">01 · Текучесть</div>
+          <h3 class="card-5-title">Компании со структурной текучестью</h3>
+          <p class="card-5-body">Кандидатов в воронке много, но качественных наймов больше не становится. Затраты на подбор растут, результат тот же. Стандартные оценочные процедуры не отличают подготовленного кандидата от подходящего.</p>
+        </article>
+        <article class="card-5">
+          <div class="card-5-label">02 · Трансформация</div>
+          <h3 class="card-5-title">Организации в фазе перехода</h3>
+          <p class="card-5-body">Реорганизация, M&amp;A, пересмотр операционной модели. Кадровые решения принимаются быстро, в условиях политического давления и неполной информации. Нужен способ оценить людей объективно — так, чтобы решение можно было защитить.</p>
+        </article>
+        <article class="card-5">
+          <div class="card-5-label">03 · Масштаб</div>
+          <h3 class="card-5-title">Бизнесы, наращивающие найм</h3>
+          <p class="card-5-body">Открытие новых направлений, региональная экспансия, плановый массовый набор. Процесс не справляется с объёмом без потери качества. Нужна воспроизводимая модель, которая работает одинаково — независимо от того, какой рекрутер и какой руководитель проводит оценку.</p>
+        </article>
+      </div>
+    </div>
   </section>
   <section id="block-6" style="padding:48px 40px;text-align:center;">
     <span class="placeholder">Что ещё не работает — содержание в следующей фазе</span>
