@@ -70,26 +70,40 @@ p{font-size:14px;line-height:1.55;}
   margin:0 auto;
   padding:0 40px;
 }
-.text-column{max-width:680px;}
+.text-column{
+  max-width:680px;
+  margin-left:auto;
+  margin-right:auto;
+}
 
 /* Кнопки */
-.btn-primary{
+.btn-primary,
+.btn-secondary{
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  background:var(--color-accent);
-  color:var(--color-bg);
   font-family:inherit;
   font-size:13px;
   font-weight:500;
   letter-spacing:-0.005em;
-  padding:10px 20px;
-  border:1px solid var(--color-accent);
-  border-radius:6px;
+  padding:9px 18px;
+  border-radius:4px;
+  border:1px solid transparent;
   cursor:pointer;
-  transition:background 0.2s ease,border-color 0.2s ease;
+  transition:background 0.2s ease,border-color 0.2s ease,color 0.2s ease;
+}
+.btn-primary{
+  background:var(--color-accent);
+  color:var(--color-bg);
+  border-color:var(--color-accent);
 }
 .btn-primary:hover{background:#4a1810;border-color:#4a1810;}
+.btn-secondary{
+  background:transparent;
+  color:var(--color-text);
+  border-color:var(--color-border);
+}
+.btn-secondary:hover{border-color:var(--color-accent);color:var(--color-accent);}
 
 /* Шапка */
 .header{
@@ -141,6 +155,102 @@ p{font-size:14px;line-height:1.55;}
   text-transform:uppercase;
   color:var(--color-text-tertiary);
   text-align:center;
+}
+
+/* Hero */
+.hero{padding:48px 40px;}
+.hero-inner{
+  max-width:1080px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:48px;
+  align-items:center;
+}
+.hero-kicker{display:block;}
+.hero-h1{
+  margin-top:16px;
+  max-width:520px;
+}
+.hero-sub{
+  margin-top:16px;
+  font-size:15px;
+  line-height:1.5;
+  color:var(--color-text-secondary);
+  max-width:520px;
+}
+.hero-ctas{
+  margin-top:24px;
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+.hero-image{
+  width:100%;
+  height:auto;
+  display:block;
+}
+
+/* Блок-секция */
+.section{padding:48px 40px;}
+.section--secondary{background:var(--color-bg-secondary);}
+.section-inner{
+  max-width:1080px;
+  margin:0 auto;
+}
+
+/* Блок 2 — текстовая колонка */
+.block-2 .kicker{display:block;}
+.block-2 h2{margin-top:8px;}
+.block-2 .body-block{margin-top:24px;}
+.block-2 .body-block p + p{margin-top:16px;}
+
+/* Блок 3 — статистика */
+.block-3 .kicker{display:block;}
+.block-3 h2{
+  margin-top:8px;
+  max-width:680px;
+}
+.stats-grid{
+  margin-top:32px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+.stat-card{
+  background:var(--color-bg);
+  border:1px solid var(--color-border);
+  border-radius:6px;
+  padding:18px 20px;
+  display:flex;
+  flex-direction:column;
+}
+.stat-num{
+  font-size:32px;
+  font-weight:500;
+  letter-spacing:-0.02em;
+  line-height:1;
+  color:var(--color-accent);
+}
+.stat-label{
+  margin-top:8px;
+  font-size:10px;
+  font-weight:500;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:var(--color-text-tertiary);
+}
+.stat-desc{
+  margin-top:12px;
+  font-size:13px;
+  line-height:1.5;
+  color:var(--color-text);
+  flex:1;
+}
+.stat-source{
+  margin-top:16px;
+  font-size:10px;
+  color:var(--color-text-tertiary);
 }
 
 /* Футер */
@@ -201,13 +311,23 @@ p{font-size:14px;line-height:1.55;}
 @media (max-width:768px){
   .container,
   .header-inner,
-  .footer-inner{padding-left:20px;padding-right:20px;}
+  .footer-inner,
+  .hero,
+  .section{padding-left:20px;padding-right:20px;}
   .header-inner{gap:16px;}
   .header-nav{display:none;}
   .footer-inner{grid-template-columns:1fr;}
   .footer-links{align-items:flex-start;}
   h1{font-size:28px;}
   h2{font-size:20px;}
+  .hero-inner{
+    grid-template-columns:1fr;
+    gap:32px;
+  }
+  .stats-grid{
+    grid-template-columns:1fr;
+    gap:10px;
+  }
 }
 </style>
 </head>
@@ -228,14 +348,60 @@ p{font-size:14px;line-height:1.55;}
 </header>
 
 <main>
-  <section id="hero" style="padding:80px 40px;text-align:center;">
-    <span class="placeholder">Hero — содержание в следующей фазе</span>
+  <section id="hero" class="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <span class="kicker hero-kicker">Laboratory · hrasc-lab</span>
+        <h1 class="hero-h1">Найм работает иначе. Мы строим инструменты под новую логику рынка труда.</h1>
+        <p class="hero-sub">Стандартные инструменты отбора утратили предиктивную способность. Мы проектируем новые под задачи и ценности работодателя.</p>
+        <div class="hero-ctas">
+          <a href="#" class="btn-primary">Обсудить задачу</a>
+          <a href="#demo-teasers" class="btn-secondary">Посмотреть, как работает</a>
+        </div>
+      </div>
+      <div class="hero-image-wrap">
+        <img src="files/pictures/hero-laboratory.png" alt="" class="hero-image">
+      </div>
+    </div>
   </section>
-  <section id="block-2" style="padding:48px 40px;text-align:center;">
-    <span class="placeholder">Что происходит на рынке — содержание в следующей фазе</span>
+
+  <section id="block-2" class="section block-2">
+    <div class="text-column">
+      <span class="kicker">Что происходит на рынке</span>
+      <h2>Рынок не предупреждает. Он просто меняет правила.</h2>
+      <div class="body-block">
+        <p>Каждые несколько лет рынок труда проходит точку перелома. Не постепенное изменение, а качественный сдвиг, после которого старые инструменты перестают работать.</p>
+        <p>Мы находимся именно в такой точке. Рынок кандидата сменился рынком работодателя. Резюме и вакансии идеализируют стороны, а вопросы и ответы на собеседованиях пишут языковые модели с обеих сторон. Инструменты рекрутинга перестали отличать одного кандидата от другого — и сам процесс отбора потерял структуру.</p>
+        <p>Новые стандарты оценки формируются прямо сейчас — в практике команд, которые работают с этой задачей. Мы из их числа.</p>
+      </div>
+    </div>
   </section>
-  <section id="block-3" style="padding:48px 40px;text-align:center;">
-    <span class="placeholder">Масштаб сдвига — содержание в следующей фазе</span>
+
+  <section id="block-3" class="section section--secondary block-3">
+    <div class="section-inner">
+      <span class="kicker">Масштаб сдвига</span>
+      <h2>Инструменты не успевают за рынком.</h2>
+      <div class="stats-grid">
+        <article class="stat-card">
+          <div class="stat-num">11,4</div>
+          <div class="stat-label">Резюме на вакансию</div>
+          <p class="stat-desc">Исторический максимум hh-индекса, март 2026. За полтора года — трёхкратный рост.</p>
+          <div class="stat-source">hh.ru Research</div>
+        </article>
+        <article class="stat-card">
+          <div class="stat-num">до 24</div>
+          <div class="stat-label">Месяцев</div>
+          <p class="stat-desc">Срок запуска и стабилизации HR-системы в крупной компании. К моменту внедрения рынок уже другой.</p>
+          <div class="stat-source">IBS</div>
+        </article>
+        <article class="stat-card">
+          <div class="stat-num">9%</div>
+          <div class="stat-label">Компаний</div>
+          <p class="stat-desc">Доля российских компаний с зрелой автоматизацией HR. У 42% основные процессы до сих пор выполняются вручную.</p>
+          <div class="stat-source">SAP и Deloitte, МТС Линк</div>
+        </article>
+      </div>
+    </div>
   </section>
   <section id="block-4" style="padding:48px 40px;text-align:center;">
     <span class="placeholder">История вопроса — содержание в следующей фазе</span>
