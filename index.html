@@ -248,6 +248,48 @@ p{font-size:14px;line-height:1.55;}
   color:var(--color-text-tertiary);
 }
 
+/* Блок 4 — таймлайн */
+.block-4 .kicker{display:block;}
+.block-4 h2{margin-top:8px;}
+.block-4 .section-lead{
+  margin-top:16px;
+  margin-bottom:32px;
+  font-size:14px;
+  line-height:1.55;
+  color:var(--color-text-secondary);
+  max-width:680px;
+}
+.timeline{max-width:820px;}
+.timeline-row{
+  display:grid;
+  grid-template-columns:140px 1fr;
+  gap:0 24px;
+  padding:14px 0;
+  border-top:1px solid var(--color-border);
+}
+.timeline-era{
+  font-size:10px;
+  font-weight:500;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:var(--color-text-tertiary);
+}
+.timeline-title{
+  font-size:15px;
+  font-weight:500;
+  letter-spacing:-0.005em;
+  color:var(--color-text);
+}
+.timeline-desc{
+  margin-top:6px;
+  font-size:13px;
+  line-height:1.55;
+  color:var(--color-text-secondary);
+}
+.timeline-row--now{border-bottom:1px solid var(--color-border);}
+.timeline-row--now .timeline-era,
+.timeline-row--now .timeline-title{color:var(--color-accent);}
+
 /* Футер */
 .footer{
   border-top:1px solid var(--color-border);
@@ -398,8 +440,49 @@ p{font-size:14px;line-height:1.55;}
       </div>
     </div>
   </section>
-  <section id="block-4" style="padding:48px 40px;text-align:center;">
-    <span class="placeholder">История вопроса — содержание в следующей фазе</span>
+  <section id="block-4" class="section block-4">
+    <div class="section-inner">
+      <span class="kicker">История вопроса</span>
+      <h2>Смена стандартов — это закономерность.</h2>
+      <p class="section-lead">Каждые 15–20 лет набор инструментов найма обновляется. Привычные сегодня инструменты когда-то были вызовом.</p>
+      <div class="timeline">
+        <div class="timeline-row">
+          <div class="timeline-era">До 1950-х</div>
+          <div>
+            <h3 class="timeline-title">Найм через знакомства и газеты</h3>
+            <p class="timeline-desc">Вакансии публиковали в газетах. Нанимали через личные связи. Резюме как формата не существовало — о себе рассказывали устно, при встрече.</p>
+          </div>
+        </div>
+        <div class="timeline-row">
+          <div class="timeline-era">1960–1990-е</div>
+          <div>
+            <h3 class="timeline-title">Резюме становится стандартом</h3>
+            <p class="timeline-desc">Современный формат резюме утвердился не сразу. И соискатели, и нанимающие руководители долго сомневались: зачем унифицированная форма, если можно просто поговорить. Но постепенно резюме стало общим языком между кандидатом и работодателем — и осталось им на тридцать лет.</p>
+          </div>
+        </div>
+        <div class="timeline-row">
+          <div class="timeline-era">2000-е</div>
+          <div>
+            <h3 class="timeline-title">Job-сайты вытеснили газеты</h3>
+            <p class="timeline-desc">Когда появились онлайн-платформы для поиска работы, компании поначалу продолжали давать объявления и в газеты, и в интернете — «так надёжнее». Но к концу десятилетия газеты ушли. Потому что платформы были эффективнее.</p>
+          </div>
+        </div>
+        <div class="timeline-row">
+          <div class="timeline-era">2020-е</div>
+          <div>
+            <h3 class="timeline-title">Генеративные модели входят в найм</h3>
+            <p class="timeline-desc">Кандидаты готовятся к интервью с помощью языковых моделей. Резюме пишут алгоритмы. Стандартные вопросы на собеседовании кандидат видел в десятке подготовительных материалов. Привычные инструменты оценки больше не показывают, что человек действительно может и чего хочет.</p>
+          </div>
+        </div>
+        <div class="timeline-row timeline-row--now">
+          <div class="timeline-era">2025–2026 и далее</div>
+          <div>
+            <h3 class="timeline-title">Формируется следующий стандарт</h3>
+            <p class="timeline-desc">Сейчас новые инструменты найма создаются в живой практике — там, где команды разбирают реальные задачи работодателей и пересобирают процесс оценки. Через несколько лет эти решения станут отраслевой нормой.</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
   <section id="block-5" style="padding:48px 40px;text-align:center;">
     <span class="placeholder">Для кого — содержание в следующей фазе</span>
