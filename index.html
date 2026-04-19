@@ -552,6 +552,109 @@ p{font-size:14px;line-height:1.55;}
     grid-template-columns:1fr;
   }
 }
+
+/* Модалка с контактной формой */
+.modal-overlay{
+  position:fixed;top:0;left:0;right:0;bottom:0;
+  background:rgba(26,26,26,0.6);
+  z-index:1000;
+  display:flex;align-items:center;justify-content:center;
+  padding:20px;
+  animation:fadeIn 200ms;
+}
+.modal-content{
+  background:var(--color-bg);
+  border:1px solid var(--color-border);
+  max-width:480px;width:100%;
+  padding:32px;
+  position:relative;
+  animation:slideUp 200ms;
+  max-height:90vh;overflow-y:auto;
+}
+.modal-close{
+  position:absolute;top:16px;right:16px;
+  background:none;border:none;
+  font-size:24px;line-height:1;
+  color:var(--color-text-tertiary);cursor:pointer;
+  padding:0;width:32px;height:32px;
+}
+.modal-close:hover{color:var(--color-text);}
+.modal-kicker{
+  font-size:10px;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--color-accent);font-weight:500;
+  display:block;margin-bottom:8px;
+}
+.modal-header h2{
+  font-size:20px;line-height:1.25;font-weight:500;
+  letter-spacing:-0.01em;margin:0 0 24px;
+}
+.form-field{margin-bottom:16px;}
+.form-field > label{
+  display:block;
+  font-size:11px;letter-spacing:0.05em;text-transform:uppercase;
+  color:var(--color-text-secondary);font-weight:500;margin-bottom:6px;
+}
+.form-field input[type="text"],
+.form-field input[type="tel"],
+.form-field input[type="email"]{
+  width:100%;
+  border:none;
+  border-bottom:1px solid var(--color-border);
+  background:transparent;
+  padding:8px 0;
+  font-family:inherit;
+  font-size:14px;
+  color:var(--color-text);
+  transition:border-color 200ms;
+}
+.form-field input:focus{
+  outline:none;
+  border-bottom-color:var(--color-accent);
+}
+.radio-group{display:flex;gap:16px;}
+.radio-option{
+  display:flex;align-items:center;
+  font-size:14px;color:var(--color-text);
+  cursor:pointer;
+  text-transform:none;letter-spacing:normal;
+  font-weight:400;
+}
+.radio-option input{margin-right:6px;}
+.form-consent{
+  margin-top:20px;
+  font-size:12px;color:var(--color-text-secondary);line-height:1.4;
+}
+.checkbox-option{
+  display:flex;align-items:flex-start;gap:8px;
+  text-transform:none;letter-spacing:normal;
+  font-size:12px;cursor:pointer;font-weight:400;color:var(--color-text-secondary);
+}
+.checkbox-option input{margin-top:3px;}
+.checkbox-option a{color:var(--color-accent);}
+.form-submit{
+  width:100%;
+  background:var(--color-accent);color:var(--color-bg);
+  border:none;padding:12px;
+  font-family:inherit;font-size:14px;font-weight:500;
+  cursor:pointer;
+  margin-top:8px;
+  transition:background 200ms;
+}
+.form-submit:hover{background:#4a1610;}
+.form-submit:disabled{opacity:0.5;cursor:not-allowed;}
+.modal-success{text-align:center;padding:24px 0;}
+.modal-success h3{
+  font-size:18px;font-weight:500;margin:0 0 8px;
+}
+.modal-success p{color:var(--color-text-secondary);margin:0;font-size:14px;}
+@keyframes fadeIn{
+  from{opacity:0;}
+  to{opacity:1;}
+}
+@keyframes slideUp{
+  from{transform:translateY(20px);opacity:0;}
+  to{transform:translateY(0);opacity:1;}
+}
 </style>
 </head>
 <body>
@@ -563,7 +666,7 @@ p{font-size:14px;line-height:1.55;}
       <nav class="header-nav" aria-label="Основная навигация">
         <a href="#block-7">Подход</a>
       </nav>
-      <a href="#" class="btn-primary">Записаться</a>
+      <a href="#" class="btn-primary" data-open-modal="contact">Записаться</a>
     </div>
   </div>
 </header>
@@ -576,7 +679,7 @@ p{font-size:14px;line-height:1.55;}
         <h1 class="hero-h1">Найм работает иначе. Мы строим инструменты под новую логику рынка труда.</h1>
         <p class="hero-sub">Стандартные инструменты отбора утратили предиктивную способность. Мы проектируем новые под задачи и ценности работодателя.</p>
         <div class="hero-ctas">
-          <a href="#" class="btn-primary">Обсудить задачу</a>
+          <a href="#" class="btn-primary" data-open-modal="contact">Обсудить задачу</a>
           <a href="#demo-teasers" class="btn-secondary">Посмотреть, как работает</a>
         </div>
       </div>
@@ -796,6 +899,139 @@ p{font-size:14px;line-height:1.55;}
     </nav>
   </div>
 </footer>
+
+<div id="contact-modal" class="modal-overlay" style="display:none;">
+  <div class="modal-content">
+    <button class="modal-close" type="button" aria-label="Закрыть">×</button>
+
+    <div class="modal-header">
+      <span class="modal-kicker">Обсудить задачу</span>
+      <h2>Оставьте контакты — мы свяжемся в течение дня.</h2>
+    </div>
+
+    <form id="contact-form" class="modal-form">
+      <div class="form-field">
+        <label for="cm-name">ФИО</label>
+        <input type="text" id="cm-name" name="name" required autocomplete="name">
+      </div>
+
+      <div class="form-field">
+        <label for="cm-company">Компания</label>
+        <input type="text" id="cm-company" name="company" required autocomplete="organization">
+      </div>
+
+      <div class="form-field">
+        <label>Как с вами связаться?</label>
+        <div class="radio-group">
+          <label class="radio-option">
+            <input type="radio" name="contact_type" value="phone" checked>
+            <span>Телефон</span>
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="contact_type" value="telegram">
+            <span>Telegram</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="form-field">
+        <input type="text" id="cm-contact" name="contact" required placeholder="+7 ...">
+      </div>
+
+      <div class="form-field form-consent">
+        <label class="checkbox-option">
+          <input type="checkbox" name="consent" required>
+          <span>Я согласен на обработку персональных данных согласно <a href="/privacy" target="_blank">политике конфиденциальности</a></span>
+        </label>
+      </div>
+
+      <button type="submit" class="form-submit">Отправить</button>
+    </form>
+
+    <div class="modal-success" style="display:none;">
+      <h3>Спасибо, мы получили запрос.</h3>
+      <p>Свяжемся в течение дня.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const modal = document.getElementById('contact-modal');
+  if(!modal) return;
+  const closeBtn = modal.querySelector('.modal-close');
+  const form = document.getElementById('contact-form');
+  const successBlock = modal.querySelector('.modal-success');
+  const contactInput = document.getElementById('cm-contact');
+  const radios = modal.querySelectorAll('input[name="contact_type"]');
+
+  function openModal(){
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal(){
+    modal.style.display = 'none';
+    document.body.style.overflow = '';
+    form.reset();
+    form.style.display = '';
+    successBlock.style.display = 'none';
+    contactInput.placeholder = '+7 ...';
+    const submitBtn = form.querySelector('.form-submit');
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Отправить';
+  }
+
+  document.querySelectorAll('[data-open-modal="contact"]').forEach(btn => {
+    btn.addEventListener('click', e => { e.preventDefault(); openModal(); });
+  });
+
+  closeBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', e => { if(e.target === modal) closeModal(); });
+  document.addEventListener('keydown', e => {
+    if(e.key === 'Escape' && modal.style.display === 'flex') closeModal();
+  });
+
+  radios.forEach(radio => {
+    radio.addEventListener('change', () => {
+      contactInput.placeholder = radio.value === 'phone' ? '+7 ...' : '@username';
+    });
+  });
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const submitBtn = form.querySelector('.form-submit');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Отправляем...';
+
+    const formData = new FormData(form);
+    const data = {
+      name: formData.get('name'),
+      company: formData.get('company'),
+      contact_type: formData.get('contact_type'),
+      contact: formData.get('contact')
+    };
+
+    try {
+      const response = await fetch('/api/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      if(response.ok){
+        form.style.display = 'none';
+        successBlock.style.display = 'block';
+        setTimeout(closeModal, 3000);
+      } else {
+        throw new Error('Ошибка отправки');
+      }
+    } catch(err) {
+      alert('Не удалось отправить. Попробуйте позже или напишите в Telegram.');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Отправить';
+    }
+  });
+})();
+</script>
 
 </body>
 </html>
