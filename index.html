@@ -326,6 +326,39 @@ p{font-size:14px;line-height:1.55;}
   color:var(--color-text-secondary);
 }
 
+/* Блок 6 — «Что ещё не работает»: вертикальный список пунктов */
+.block-6 .kicker{display:block;}
+.block-6 h2{margin-top:8px;}
+.issue-list{margin-top:24px;}
+.issue{
+  display:grid;
+  grid-template-columns:280px 1fr;
+  gap:40px;
+  padding:24px 0;
+  border-top:1px solid var(--color-border);
+  align-items:start;
+}
+.issue-label{
+  font-size:10px;
+  font-weight:500;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:var(--color-text-tertiary);
+  margin-bottom:8px;
+}
+.issue-title{
+  font-size:15px;
+  font-weight:500;
+  letter-spacing:-0.005em;
+  color:var(--color-text);
+}
+.issue-body{
+  font-size:14px;
+  line-height:1.55;
+  color:var(--color-text);
+  max-width:680px;
+}
+
 /* Футер */
 .footer{
   border-top:1px solid var(--color-border);
@@ -407,6 +440,10 @@ p{font-size:14px;line-height:1.55;}
   .timeline-row{
     grid-template-columns:1fr;
     gap:6px 0;
+  }
+  .issue{
+    grid-template-columns:1fr;
+    gap:10px;
   }
 }
 </style>
@@ -550,8 +587,34 @@ p{font-size:14px;line-height:1.55;}
       </div>
     </div>
   </section>
-  <section id="block-6" style="padding:48px 40px;text-align:center;">
-    <span class="placeholder">Что ещё не работает — содержание в следующей фазе</span>
+  <section id="block-6" class="section section--secondary block-6">
+    <div class="section-inner">
+      <span class="kicker">Что ещё не работает</span>
+      <h2>Что ломает найм, когда воронка в порядке.</h2>
+      <div class="issue-list">
+        <article class="issue">
+          <div class="issue-head">
+            <div class="issue-label">01 · Процесс</div>
+            <h3 class="issue-title">Задокументированный процесс и реальный — разные процессы</h3>
+          </div>
+          <p class="issue-body">Во многих компаниях найм формально описан, но работает иначе. Заявки приходят через мессенджеры, аналитика лежит в разрозненных таблицах, ключевые договорённости никто не фиксирует. Разрыв между регламентом и практикой не виден — и поэтому не устраняется.</p>
+        </article>
+        <article class="issue">
+          <div class="issue-head">
+            <div class="issue-label">02 · Привлечение</div>
+            <h3 class="issue-title">Работодатели тоже используют ИИ — и привлекают не тех</h3>
+          </div>
+          <p class="issue-body">Компании оптимизируют вакансии алгоритмами, генерируют привлекательные описания и шлифуют позиционирование. Кандидат откликается на образ, а выходит на другую работу. Расхождение обнаруживается в первые недели — и становится источником ранней текучести, который не виден в стандартных метриках воронки.</p>
+        </article>
+        <article class="issue">
+          <div class="issue-head">
+            <div class="issue-label">03 · Оценка на стороне руководителя</div>
+            <h3 class="issue-title">Нанимающие менеджеры оценивают без инструментов</h3>
+          </div>
+          <p class="issue-body">У большинства нанимающих руководителей нет ни методологии, ни инструментов оценки — только опыт и интуиция. Там, где регламенты есть, они перегружены и в работе не используются. От менеджера по факту ждут экспертизы рекрутера — без соответствующей подготовки.</p>
+        </article>
+      </div>
+    </div>
   </section>
   <section id="block-7" style="padding:48px 40px;text-align:center;">
     <span class="placeholder">Как мы работаем — содержание в следующей фазе</span>
