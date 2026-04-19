@@ -248,10 +248,8 @@ p{font-size:14px;line-height:1.55;}
   color:var(--color-text-tertiary);
 }
 
-/* Блок 4 — таймлайн */
-.block-4 .kicker{display:block;}
-.block-4 h2{margin-top:8px;}
-.block-4 .section-lead{
+/* Общий lead-параграф под H2 в секциях с таймлайном/колонками */
+.section-lead{
   margin-top:16px;
   margin-bottom:32px;
   font-size:14px;
@@ -259,6 +257,10 @@ p{font-size:14px;line-height:1.55;}
   color:var(--color-text-secondary);
   max-width:680px;
 }
+
+/* Блок 4 — таймлайн */
+.block-4 .kicker{display:block;}
+.block-4 h2{margin-top:8px;}
 .timeline{max-width:820px;}
 .timeline-row{
   display:grid;
@@ -359,6 +361,94 @@ p{font-size:14px;line-height:1.55;}
   max-width:680px;
 }
 
+/* Блок 7 — «Как мы работаем»: три текстовые колонки */
+.block-7 .kicker{display:block;}
+.block-7 h2{margin-top:8px;}
+.how-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:32px;
+}
+.how-title{
+  font-size:15px;
+  font-weight:500;
+  letter-spacing:-0.005em;
+  margin-bottom:8px;
+  color:var(--color-text);
+}
+.how-body{
+  font-size:13px;
+  line-height:1.55;
+  color:var(--color-text-secondary);
+}
+
+/* Переходная фраза к демо */
+.demo-intro{padding:48px 40px 24px;}
+.demo-intro-inner{
+  max-width:680px;
+  margin:0 auto;
+}
+.demo-intro p{
+  font-size:14px;
+  line-height:1.55;
+  color:var(--color-text);
+}
+
+/* Тизеры демо */
+.demo-teasers{padding:24px 40px 48px;}
+.teaser-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+.teaser{
+  display:block;
+  background:var(--color-bg);
+  border:1px solid var(--color-border);
+  padding:24px;
+  color:inherit;
+  transition:border-color 0.2s ease;
+}
+.teaser:hover{border-color:var(--color-accent);}
+.teaser-label{
+  font-size:10px;
+  font-weight:500;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:var(--color-text-tertiary);
+}
+.teaser-title{
+  font-size:15px;
+  font-weight:500;
+  letter-spacing:-0.005em;
+  color:var(--color-text);
+  margin:12px 0 8px;
+}
+.teaser-body{
+  font-size:13px;
+  line-height:1.5;
+  color:var(--color-text-secondary);
+  margin-bottom:16px;
+}
+.teaser-meta-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+}
+.teaser-meta{
+  font-size:10px;
+  font-weight:500;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:var(--color-text-tertiary);
+}
+.teaser-open{
+  font-size:13px;
+  font-weight:500;
+  color:var(--color-accent);
+}
+
 /* Футер */
 .footer{
   border-top:1px solid var(--color-border);
@@ -419,7 +509,9 @@ p{font-size:14px;line-height:1.55;}
   .header-inner,
   .footer-inner,
   .hero,
-  .section{padding-left:20px;padding-right:20px;}
+  .section,
+  .demo-intro,
+  .demo-teasers{padding-left:20px;padding-right:20px;}
   .header-inner{gap:16px;}
   .header-nav{display:none;}
   .footer-inner{grid-template-columns:1fr;}
@@ -444,6 +536,13 @@ p{font-size:14px;line-height:1.55;}
   .issue{
     grid-template-columns:1fr;
     gap:10px;
+  }
+  .how-grid{
+    grid-template-columns:1fr;
+    gap:24px;
+  }
+  .teaser-grid{
+    grid-template-columns:1fr;
   }
 }
 </style>
@@ -616,11 +715,57 @@ p{font-size:14px;line-height:1.55;}
       </div>
     </div>
   </section>
-  <section id="block-7" style="padding:48px 40px;text-align:center;">
-    <span class="placeholder">Как мы работаем — содержание в следующей фазе</span>
+  <section id="block-7" class="section block-7">
+    <div class="section-inner">
+      <span class="kicker">Как мы работаем</span>
+      <h2>Каждый инструмент мы проектируем с нуля.</h2>
+      <p class="section-lead">Не адаптируем шаблон, не настраиваем коробочное решение. Каждая компания, задача и рынок требуют своей методики, своих механик и своей логики оценки.</p>
+      <div class="how-grid">
+        <div class="how-col">
+          <h3 class="how-title">Методология</h3>
+          <p class="how-body">Форсированный выбор, сценарии из реальных рабочих ситуаций, практические задачи, оценка чужого поведения, ранжирование под давлением времени. Методика собирается под задачу, а не наоборот.</p>
+        </div>
+        <div class="how-col">
+          <h3 class="how-title">Технология</h3>
+          <p class="how-body">Открытые ответы кандидата анализирует языковая модель — видит паттерн мышления, а не только выбранный вариант. Механики с таймингом позволяют прогнозировать реальное поведение. На выходе — скоринг, дословные ответы и комментарий по каждому блоку оценки.</p>
+        </div>
+        <div class="how-col">
+          <h3 class="how-title">Формат</h3>
+          <p class="how-body">Отдельно стоящее решение или встраивание в действующую HR-архитектуру. Формат обсуждается в начале проекта.</p>
+        </div>
+      </div>
+    </div>
   </section>
-  <section id="demo-teasers" style="padding:48px 40px;text-align:center;">
-    <span class="placeholder">Демо-тизеры — содержание в следующей фазе</span>
+
+  <section class="demo-intro">
+    <div class="demo-intro-inner">
+      <p>Чтобы показать логику на практике, мы собрали две упрощённые демонстрации. В каждой — фрагмент одного из инструментов, из которых собирается реальный проект.</p>
+    </div>
+  </section>
+
+  <section id="demo-teasers" class="demo-teasers">
+    <div class="section-inner">
+      <div class="teaser-grid">
+        <a class="teaser" href="/demo-finalists">
+          <div class="teaser-label">Демонстрация 1 из 2</div>
+          <h3 class="teaser-title">Четыре финалиста. Кого вы наймёте?</h3>
+          <p class="teaser-body">Резюме, оценка потенциала, интервью — все четыре прошли каждый этап. Выберите одного и увидите, где заканчиваются возможности стандартного процесса.</p>
+          <div class="teaser-meta-row">
+            <span class="teaser-meta">Задача найма · ~5 мин</span>
+            <span class="teaser-open">Открыть →</span>
+          </div>
+        </a>
+        <a class="teaser" href="/demo-tools">
+          <div class="teaser-label">Демонстрация 2 из 2</div>
+          <h3 class="teaser-title">Три инструмента оценки</h3>
+          <p class="teaser-body">Форсированный выбор ценностей, расстановка приоритетов, рабочие ситуации. В конце — ваш профиль и профили четырёх финалистов задачи.</p>
+          <div class="teaser-meta-row">
+            <span class="teaser-meta">Три инструмента · ~5 мин</span>
+            <span class="teaser-open">Открыть →</span>
+          </div>
+        </a>
+      </div>
+    </div>
   </section>
 </main>
 
