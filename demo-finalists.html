@@ -674,9 +674,23 @@ footer .foot-sep{color:var(--line);}
    on a standalone page we paint the body dark so the light demo window reads the same. */
 html,body{overflow:auto;}
 body{background:#0D0D0D;min-height:100vh;}
+.demo-topbar{
+  max-width:1060px;
+  margin:0 auto;
+  padding:18px 16px 0;
+  font-size:12px;
+}
+.demo-topbar a{
+  color:rgba(255,255,255,0.55);
+  text-decoration:none;
+  transition:color 0.2s;
+  letter-spacing:0.02em;
+}
+.demo-topbar a:hover{color:#fff;}
 </style>
 </head>
 <body>
+<div class="demo-topbar"><a href="/#demo-teasers">← Laboratory · вернуться к лендингу</a></div>
 <div id="hireOverlay" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:1000;background:rgba(0,0,0,0.78);overflow-y:auto;-webkit-overflow-scrolling:touch;padding:24px 16px 60px;">
 <div id="hireWin" style="width:min(1060px,98vw);margin:0 auto;background:#F5F4F0;box-shadow:0 56px 160px rgba(0,0,0,0.5);transform:translateY(40px) scale(0.97);opacity:0;transition:transform 0.42s cubic-bezier(0.16,1,0.3,1),opacity 0.42s;position:relative;">
   <div class="mac-bar">
@@ -1499,7 +1513,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 
 /* standalone page overrides: close button navigates back to landing,
    and the demo is visible immediately on load (no open animation). */
-function closeHireApp(){window.location.href='/';}
+function closeHireApp(){window.location.href='/#demo-teasers';}
 window.addEventListener('DOMContentLoaded',function(){
   var ov=document.getElementById('hireOverlay');
   if(ov){ov.style.display='block';ov.style.position='static';ov.style.background='transparent';ov.style.padding='24px 16px 60px';}
