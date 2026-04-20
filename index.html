@@ -300,6 +300,7 @@ p{font-size:14px;line-height:1.55;}
 .timeline-row--now{border-bottom:1px solid var(--color-border);}
 .timeline-row--now .timeline-era,
 .timeline-row--now .timeline-title{color:var(--color-accent);}
+.timeline > .timeline-row:last-child{border-bottom:1px solid var(--color-border);}
 
 /* Блок 5 — «Для кого»: три карточки с разделителями 1px через gap */
 .block-5 .kicker{display:block;}
@@ -457,6 +458,10 @@ p{font-size:14px;line-height:1.55;}
   font-weight:500;
   color:var(--color-accent);
 }
+
+/* Секция 8 — «Процесс работы»: таймлайн 5 этапов (использует .timeline/.timeline-row) */
+.block-8 .kicker{display:block;}
+.block-8 h2{margin-top:8px;margin-bottom:32px;}
 
 /* Футер */
 .footer{
@@ -875,6 +880,50 @@ p{font-size:14px;line-height:1.55;}
             <span class="teaser-open">Открыть →</span>
           </div>
         </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="block-8" class="section block-8">
+    <div class="section-inner">
+      <span class="kicker">Процесс работы</span>
+      <h2>Как устроена работа с нами.</h2>
+      <div class="timeline">
+        <div class="timeline-row">
+          <div class="timeline-era">01</div>
+          <div>
+            <h3 class="timeline-title">Диагностическая встреча</h3>
+            <p class="timeline-desc">45 минут. Разбираем вашу ситуацию, задачу и контекст. По итогу — понимание того, нужен ли вам отдельный инструмент, и если да — какого типа.</p>
+          </div>
+        </div>
+        <div class="timeline-row">
+          <div class="timeline-era">02</div>
+          <div>
+            <h3 class="timeline-title">Коммерческое предложение</h3>
+            <p class="timeline-desc">1 неделя. После диагностики — подготовка КП с объёмом работы, сроками и стоимостью. При подтверждении объёма — подписываем договор и переходим к проектированию.</p>
+          </div>
+        </div>
+        <div class="timeline-row">
+          <div class="timeline-era">03</div>
+          <div>
+            <h3 class="timeline-title">Проектирование</h3>
+            <p class="timeline-desc">2-3 недели. Формулируем задачу в техническом виде, выбираем методологию (какие техники оценки, какие механики), согласовываем состав инструмента. На выходе — спецификация и план.</p>
+          </div>
+        </div>
+        <div class="timeline-row">
+          <div class="timeline-era">04</div>
+          <div>
+            <h3 class="timeline-title">Разработка</h3>
+            <p class="timeline-desc">От 4 до 12 недель в зависимости от сложности. Собираем инструмент, тестируем на пилотной группе, калибруем алгоритмы оценки. Вы видите промежуточные версии и формируете итоговый результат вместе с нами.</p>
+          </div>
+        </div>
+        <div class="timeline-row">
+          <div class="timeline-era">05</div>
+          <div>
+            <h3 class="timeline-title">Внедрение и сопровождение</h3>
+            <p class="timeline-desc">Запуск инструмента в вашем процессе, обучение рекрутеров и менеджеров, аналитика первых недель использования. Дальше — техническое сопровождение и обновления по договорённости.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
