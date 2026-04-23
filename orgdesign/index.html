@@ -402,21 +402,15 @@ body {
 /* ═══════════════════════════════════════════════════════════
    БЛОК 7 · Как мы работаем
 ═══════════════════════════════════════════════════════════ */
-.block-7__layout {
-  display: grid;
-  grid-template-columns: 5fr 7fr;
-  gap: 64px;
-  align-items: start;
-}
-.block-7__left {}
 .block-7__title { margin-bottom: 16px; }
 .work-subtitle {
   margin-bottom: 0;
 }
 .work-cols {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 24px;
+  margin-top: 40px;
 }
 .work-col__title {
   font-size: 20px;
@@ -568,7 +562,7 @@ body {
 }
 
 @media (max-width: 768px) {
-  .block-7__layout { grid-template-columns: 1fr; gap: 32px; }
+  .work-cols { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -829,18 +823,15 @@ body {
 ════════════════════════════════════════════════════════ -->
 <section class="section section--alt" id="block-7">
   <div class="container">
-    <div class="block-7__layout">
-      <div class="block-7__left">
-        <div class="kicker">
-          <svg class="leaf leaf--sm" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M 18 62 C 18 34, 38 14, 62 18 C 62 46, 42 66, 18 62 Z" fill="#5c1c14"/>
-          </svg>
-          Как мы работаем
-        </div>
-        <h2 class="display-l block-7__title">Инструмент собирается из трёх частей.</h2>
-        <p class="body-l work-subtitle">Каждая компания приносит свою структуру, своё штатное расписание и свой контур систем. Под этот контур мы собираем Микросервис из трёх компонентов — методики, расчётной модели и интеграции.</p>
-      </div>
-      <div class="work-cols">
+    <div class="kicker">
+      <svg class="leaf leaf--sm" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M 18 62 C 18 34, 38 14, 62 18 C 62 46, 42 66, 18 62 Z" fill="#5c1c14"/>
+      </svg>
+      Как мы работаем
+    </div>
+    <h2 class="display-l block-7__title">Инструмент собирается из трёх частей.</h2>
+    <p class="body-l work-subtitle">Каждая компания приносит свою структуру, своё штатное расписание и свой контур систем. Под этот контур мы собираем Микросервис из трёх компонентов — методики, расчётной модели и интеграции.</p>
+    <div class="work-cols">
       <div class="work-col">
         <div class="work-col__title">Методика</div>
         <p class="work-col__body">Что и как считается. Нормы управляемости, правила декомпозиции функций, признаки дублирования, критерии критичности роли — собираются в начале проекта, в опоре на отраслевую практику и внутренние регламенты заказчика. Методика — не «лучшая практика вообще», а та логика, по которой будет приниматься решение в этой компании.</p>
@@ -854,7 +845,6 @@ body {
         <p class="work-col__body">Состав инструмента — от объёма импорта из 1С:ЗУП до глубины сценарного дерева и формата выгрузки — определяется задачей и масштабом компании. Формат интеграции обсуждается на старте проекта.</p>
       </div>
     </div><!-- /work-cols -->
-    </div><!-- /block-7__layout -->
   </div><!-- /container -->
 </section>
 
