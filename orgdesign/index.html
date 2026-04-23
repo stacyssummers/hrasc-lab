@@ -36,7 +36,7 @@ html { scroll-behavior: smooth; }
   --max-text:  680px;
   --max-wide:  1080px;
 
-  --px-desk:   48px;
+  --px-desk:   40px;
   --px-tab:    32px;
   --px-mob:    20px;
 }
@@ -91,29 +91,28 @@ body {
 
 /* ─── Typography ─────────────────────────────────────────── */
 .display-xl {
-  font-size: clamp(40px, 6vw, 72px);
-  font-weight: 600;
-  line-height: 1.05;
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 1.15;
   letter-spacing: -0.02em;
   font-optical-sizing: auto;
 }
 .display-l {
-  font-size: clamp(28px, 4vw, 44px);
+  font-size: 22px;
   font-weight: 500;
-  line-height: 1.15;
+  line-height: 1.2;
   letter-spacing: -0.01em;
   font-optical-sizing: auto;
 }
 .body-l {
-  font-size: 18px;
-  font-weight: 400;
+  font-size: 15px;
   line-height: 1.55;
   color: var(--text-2);
 }
 .body {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
-  line-height: 1.6;
+  line-height: 1.55;
 }
 
 /* ─── Buttons ────────────────────────────────────────────── */
@@ -137,6 +136,12 @@ body {
 }
 .btn--primary:hover { background: var(--accent-dark); border-color: var(--accent-dark); }
 
+.site-header .btn--primary {
+  padding: 9px 18px;
+  font-size: 13px;
+  border-radius: 4px;
+}
+
 .btn--secondary {
   background: transparent;
   color: var(--text-1);
@@ -146,7 +151,7 @@ body {
 
 /* ─── Section spacing ────────────────────────────────────── */
 .section {
-  padding-block: 88px;
+  padding-block: 64px;
 }
 .section--alt { background: var(--bg-alt); }
 
@@ -186,7 +191,7 @@ body {
    HERO (Блок 1)
 ═══════════════════════════════════════════════════════════ */
 .hero {
-  padding-block: 96px 88px;
+  padding-block: 40px 32px;
 }
 .hero__inner {
   display: grid;
@@ -690,7 +695,10 @@ body {
     --px-desk: var(--px-mob);
   }
 
-  .section { padding-block: 56px; }
+  .display-xl { font-size: 28px; }
+  .display-l { font-size: 20px; }
+
+  .section { padding-block: 40px; }
 
   .hero { padding-block: 56px 48px; }
   .hero__inner {
