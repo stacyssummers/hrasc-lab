@@ -729,6 +729,213 @@ body {
 @media (max-width: 768px) {
   .work-cols { grid-template-columns: 1fr; }
 }
+
+/* ─── Modal: contact form ────────────────────────────────── */
+.contact-modal {
+  border: none;
+  border-radius: 8px;
+  padding: 0;
+  background: var(--bg);
+  max-width: 520px;
+  width: calc(100% - 32px);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 200ms ease, transform 200ms ease;
+}
+.contact-modal.is-open {
+  opacity: 1;
+  transform: scale(1);
+}
+.contact-modal::backdrop {
+  background: rgba(26,26,26,0.45);
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+.contact-modal.is-open::backdrop {
+  opacity: 1;
+}
+
+body.modal-open { overflow: hidden; }
+
+.modal-inner {
+  position: relative;
+  padding: 40px;
+  overflow-y: auto;
+  max-height: 90vh;
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-3);
+  padding: 4px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 200ms;
+}
+.modal-close:hover { color: var(--text-1); }
+
+.modal-kicker {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+.modal-title {
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--text-1);
+  margin-bottom: 28px;
+  padding-right: 24px;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-label {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-3);
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="tel"] {
+  border: none;
+  border-bottom: 1px solid var(--border);
+  padding: 8px 0;
+  font-family: var(--font);
+  font-size: 16px;
+  color: var(--text-1);
+  background: transparent;
+  outline: none;
+  width: 100%;
+  transition: border-color 200ms;
+}
+.contact-form input[type="text"]::placeholder,
+.contact-form input[type="tel"]::placeholder { color: var(--text-3); }
+.contact-form input[type="text"]:focus,
+.contact-form input[type="tel"]:focus { border-bottom-color: var(--accent); }
+.contact-form input.is-error { border-bottom-color: var(--accent); }
+
+.form-error {
+  font-size: 12px;
+  color: var(--accent);
+  min-height: 16px;
+  display: block;
+}
+
+.contact-toggle {
+  display: inline-flex;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.toggle-option { cursor: pointer; }
+.toggle-option input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+.toggle-option span {
+  display: block;
+  padding: 7px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-2);
+  transition: background 150ms, color 150ms;
+  user-select: none;
+}
+.toggle-option + .toggle-option span { border-left: 1px solid var(--border); }
+.toggle-option input:checked + span {
+  background: var(--accent);
+  color: #fafaf8;
+}
+
+.form-field--check .checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--text-2);
+  line-height: 1.5;
+}
+.form-field--check input[type="checkbox"] {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+.form-field--check .checkbox-label a {
+  color: var(--accent);
+  text-underline-offset: 3px;
+}
+.checkbox-label.is-error { color: var(--accent); }
+
+.btn--wide { display: block; width: 100%; text-align: center; }
+
+.modal-success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 0;
+  text-align: center;
+}
+.modal-success__text {
+  font-size: 16px;
+  color: var(--text-1);
+  line-height: 1.6;
+}
+
+@media (max-width: 640px) {
+  .contact-modal {
+    max-width: 100%;
+    width: 100%;
+    height: 100dvh;
+    border-radius: 0;
+    margin: 0;
+    opacity: 0;
+    transform: translateY(4%);
+  }
+  .contact-modal.is-open {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .modal-inner {
+    padding: 32px 20px 40px;
+    max-height: 100dvh;
+  }
+}
 </style>
 </head>
 <body>
@@ -1274,7 +1481,228 @@ body {
   </div>
 </footer>
 
-<!-- TODO: модалка с формой — следующий запуск -->
+<!-- ═══════════════════════════════════════════════════════
+     МОДАЛКА: ФОРМА «ОБСУДИТЬ ЗАДАЧУ»
+════════════════════════════════════════════════════════ -->
+<dialog id="contact-modal" class="contact-modal" aria-labelledby="modal-title" aria-modal="true">
+  <div class="modal-inner">
+
+    <button class="modal-close" type="button" aria-label="Закрыть">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M15 5L5 15M5 5l10 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </button>
+
+    <div class="modal-kicker">
+      <svg class="leaf leaf--xs" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M 18 62 C 18 34, 38 14, 62 18 C 62 46, 42 66, 18 62 Z" fill="#5c1c14"/>
+      </svg>
+      Обсудить задачу
+    </div>
+
+    <h2 id="modal-title" class="modal-title">Оставьте контакты — мы свяжемся в течение дня.</h2>
+
+    <form id="contact-form" class="contact-form" novalidate>
+
+      <div class="form-field">
+        <label for="field-name" class="form-label">ФИО</label>
+        <input type="text" id="field-name" name="name" placeholder="Как к вам обращаться" autocomplete="name">
+        <span class="form-error" id="err-name" aria-live="polite"></span>
+      </div>
+
+      <div class="form-field">
+        <label for="field-company" class="form-label">Компания</label>
+        <input type="text" id="field-company" name="company" placeholder="Название организации" autocomplete="organization">
+        <span class="form-error" id="err-company" aria-live="polite"></span>
+      </div>
+
+      <div class="form-field">
+        <div class="form-label">Как связаться</div>
+        <div class="contact-toggle" role="group" aria-label="Способ связи">
+          <label class="toggle-option">
+            <input type="radio" name="contact_type" value="phone" checked>
+            <span>Телефон</span>
+          </label>
+          <label class="toggle-option">
+            <input type="radio" name="contact_type" value="telegram">
+            <span>Telegram</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label for="field-contact" class="form-label">Контакт</label>
+        <input type="tel" id="field-contact" name="contact" placeholder="+7 ...">
+        <span class="form-error" id="err-contact" aria-live="polite"></span>
+      </div>
+
+      <div class="form-field form-field--check">
+        <label class="checkbox-label">
+          <input type="checkbox" id="field-privacy" name="privacy">
+          <span>Согласен(а) на <a href="/privacy" target="_blank" rel="noopener">обработку персональных данных</a></span>
+        </label>
+        <span class="form-error" id="err-privacy" aria-live="polite"></span>
+      </div>
+
+      <button type="submit" class="btn btn--primary btn--wide">Отправить</button>
+
+    </form>
+
+    <div class="modal-success" id="modal-success" hidden>
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="20" cy="20" r="19" stroke="#5c1c14" stroke-width="1.5"/>
+        <path d="M12 20l6 6 10-12" stroke="#5c1c14" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <p class="modal-success__text">Спасибо, мы получили запрос.<br>Свяжемся в течение дня.</p>
+      <button class="btn btn--secondary" type="button" id="modal-success-close">Закрыть</button>
+    </div>
+
+  </div>
+</dialog>
+
+<script>
+(function () {
+  var dialog = document.getElementById('contact-modal');
+  var form = document.getElementById('contact-form');
+  var successBlock = document.getElementById('modal-success');
+  var successCloseBtn = document.getElementById('modal-success-close');
+  var contactInput = document.getElementById('field-contact');
+  var contactRadios = document.querySelectorAll('input[name="contact_type"]');
+  var autoCloseTimer = null;
+
+  function openModal() {
+    if (autoCloseTimer) { clearTimeout(autoCloseTimer); autoCloseTimer = null; }
+    dialog.showModal();
+    document.body.classList.add('modal-open');
+    requestAnimationFrame(function () {
+      dialog.classList.add('is-open');
+    });
+  }
+
+  function closeModal() {
+    if (autoCloseTimer) { clearTimeout(autoCloseTimer); autoCloseTimer = null; }
+    dialog.classList.remove('is-open');
+    dialog.addEventListener('transitionend', function onEnd() {
+      dialog.removeEventListener('transitionend', onEnd);
+      dialog.close();
+      document.body.classList.remove('modal-open');
+      resetForm();
+    });
+  }
+
+  function resetForm() {
+    form.reset();
+    successBlock.hidden = true;
+    form.hidden = false;
+    clearErrors();
+    contactInput.type = 'tel';
+    contactInput.placeholder = '+7 ...';
+  }
+
+  /* Trigger buttons */
+  document.querySelectorAll('[data-open-modal="contact"]').forEach(function (btn) {
+    btn.addEventListener('click', openModal);
+  });
+
+  /* Close (X) button */
+  document.querySelector('.modal-close').addEventListener('click', closeModal);
+
+  /* Success state close */
+  successCloseBtn.addEventListener('click', closeModal);
+
+  /* Backdrop click */
+  dialog.addEventListener('click', function (e) {
+    if (e.target === dialog) closeModal();
+  });
+
+  /* Esc — intercept native cancel to apply animation */
+  dialog.addEventListener('cancel', function (e) {
+    e.preventDefault();
+    closeModal();
+  });
+
+  /* Contact type switch */
+  contactRadios.forEach(function (radio) {
+    radio.addEventListener('change', function () {
+      if (radio.value === 'phone') {
+        contactInput.type = 'tel';
+        contactInput.placeholder = '+7 ...';
+      } else {
+        contactInput.type = 'text';
+        contactInput.placeholder = '@username';
+      }
+      contactInput.value = '';
+      clearFieldError('field-contact', 'err-contact');
+    });
+  });
+
+  /* Validation */
+  function clearErrors() {
+    document.querySelectorAll('.form-error').forEach(function (el) { el.textContent = ''; });
+    document.querySelectorAll('.is-error').forEach(function (el) { el.classList.remove('is-error'); });
+  }
+
+  function clearFieldError(fieldId, errId) {
+    var f = document.getElementById(fieldId);
+    var e = document.getElementById(errId);
+    if (f) f.classList.remove('is-error');
+    if (e) e.textContent = '';
+  }
+
+  function setError(fieldId, errId, msg) {
+    var f = document.getElementById(fieldId);
+    var e = document.getElementById(errId);
+    if (f) f.classList.add('is-error');
+    if (e) e.textContent = msg;
+  }
+
+  function validateForm() {
+    clearErrors();
+    var valid = true;
+
+    if (!document.getElementById('field-name').value.trim()) {
+      setError('field-name', 'err-name', 'Пожалуйста, укажите ваше имя');
+      valid = false;
+    }
+    if (!document.getElementById('field-company').value.trim()) {
+      setError('field-company', 'err-company', 'Пожалуйста, укажите компанию');
+      valid = false;
+    }
+    if (!contactInput.value.trim()) {
+      setError('field-contact', 'err-contact', 'Пожалуйста, укажите контакт для связи');
+      valid = false;
+    }
+    if (!document.getElementById('field-privacy').checked) {
+      document.querySelector('.checkbox-label').classList.add('is-error');
+      document.getElementById('err-privacy').textContent = 'Необходимо согласие на обработку данных';
+      valid = false;
+    }
+
+    return valid;
+  }
+
+  /* Submit */
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!validateForm()) return;
+
+    var checked = document.querySelector('input[name="contact_type"]:checked');
+    var data = {
+      name:         document.getElementById('field-name').value.trim(),
+      company:      document.getElementById('field-company').value.trim(),
+      contact_type: checked ? checked.value : 'phone',
+      contact:      contactInput.value.trim()
+    };
+
+    console.log('[ContactForm] Данные формы:', data);
+
+    form.hidden = true;
+    successBlock.hidden = false;
+
+    autoCloseTimer = setTimeout(closeModal, 3000);
+  });
+})();
+</script>
 
 </body>
 </html>
