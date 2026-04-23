@@ -581,6 +581,70 @@ body {
 }
 
 /* ═══════════════════════════════════════════════════════════
+   БЛОК 12 · FAQ
+═══════════════════════════════════════════════════════════ */
+.faq { max-width: var(--max-text); }
+.faq__title { margin-bottom: 32px; }
+.faq-item { border-top: 1px solid var(--border); }
+.faq-item:last-child { border-bottom: 1px solid var(--border); }
+.faq-item > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 0;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--text-1);
+  list-style: none;
+  transition: color 200ms ease;
+}
+.faq-item > summary::-webkit-details-marker { display: none; }
+.faq-item > summary::marker { content: ""; }
+.faq-item > summary:hover { color: var(--accent); }
+.faq-icon {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-3);
+  transition: border-color 200ms ease, color 200ms ease;
+}
+.faq-icon svg { transition: transform 200ms ease; }
+.faq-item > summary:hover .faq-icon { border-color: var(--accent); color: var(--accent); }
+.faq-item[open] > summary .faq-icon { border-color: var(--accent); color: var(--accent); }
+.faq-item[open] > summary .faq-icon svg { transform: rotate(180deg); }
+.faq-item__body {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--text-2);
+  padding-bottom: 20px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   БЛОК 13 · Следующий шаг
+═══════════════════════════════════════════════════════════ */
+.cta-final { padding-block: 64px; text-align: center; }
+.cta-final__inner {
+  max-width: 560px;
+  margin-inline: auto;
+}
+.cta-final__inner .kicker { justify-content: center; }
+.cta-final__body {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-2);
+  margin-top: 20px;
+  margin-bottom: 32px;
+}
+
+/* ═══════════════════════════════════════════════════════════
    FOOTER
 ═══════════════════════════════════════════════════════════ */
 .site-footer {
@@ -651,6 +715,10 @@ body {
 
   .process-item { grid-template-columns: 1fr; gap: 8px; }
   .team-card { flex-direction: column; gap: 16px; }
+
+  .faq-item > summary { font-size: 15px; padding: 14px 0; }
+  .cta-final { padding-block: 48px; }
+  .cta-final .btn { width: 100%; text-align: center; }
 }
 
 @media (min-width: 641px) and (max-width: 1024px) {
@@ -1066,8 +1134,127 @@ body {
     </div>
   </div>
 </section>
-<!-- TODO: блок 12 · FAQ -->
-<!-- TODO: блок 13 · Следующий шаг -->
+<!-- ═══════════════════════════════════════════════════════
+     БЛОК 12 · FAQ
+════════════════════════════════════════════════════════ -->
+<section class="section" id="block-12">
+  <div class="container">
+    <div class="faq">
+      <div class="kicker">
+        <svg class="leaf leaf--sm" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M 18 62 C 18 34, 38 14, 62 18 C 62 46, 42 66, 18 62 Z" fill="#5c1c14"/>
+        </svg>
+        FAQ
+      </div>
+      <h2 class="display-l faq__title">Что спрашивают до того как начать работу.</h2>
+      <div class="faq-list">
+
+        <details class="faq-item" open>
+          <summary>
+            <span>Где хранятся данные оргструктуры? Нужна ли отдельная среда?</span>
+            <span class="faq-icon" aria-hidden="true">
+              <svg viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg" width="10" height="6">
+                <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </summary>
+          <div class="faq-item__body">
+            <p>Все данные остаются в контуре заказчика. Микросервис разворачивается на инфраструктуре компании или в выделенной среде, согласованной с её службой ИБ. Лаборатория не хранит штатные расписания, не копирует данные сотрудников, не использует их вне проекта. Состав прав доступа, способ синхронизации с 1С:ЗУП и контур развёртывания согласовываются на этапе проектирования.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span>У нас не 1С:ЗУП. Это проблема?</span>
+            <span class="faq-icon" aria-hidden="true">
+              <svg viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg" width="10" height="6">
+                <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </summary>
+          <div class="faq-item__body">
+            <p>Нет. 1С:ЗУП — самая частая система кадрового учёта в крупных российских компаниях, поэтому интеграция с ней предусмотрена по умолчанию. Для SAP HCM, БОСС-Кадровик, Босс-Референт или собственных систем учёта интеграция собирается на этапе проектирования — это не меняет логику Микросервиса, меняет только модуль импорта. Уточнить применимость к вашей системе можно на диагностической встрече.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span>Сколько стоит проект?</span>
+            <span class="faq-icon" aria-hidden="true">
+              <svg viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg" width="10" height="6">
+                <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </summary>
+          <div class="faq-item__body">
+            <p>Стоимость определяется масштабом компании, сложностью расчётной модели и объёмом интеграционной работы. Расчёт готовится после диагностической встречи, когда сформулированы задача, контур систем и требования к составу инструмента.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span>Сколько времени потребуется от нашей команды?</span>
+            <span class="faq-icon" aria-hidden="true">
+              <svg viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg" width="10" height="6">
+                <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </summary>
+          <div class="faq-item__body">
+            <p>Больше, чем обычно предполагается на старте. Проект требует регулярных рабочих сессий с ключевыми стейкхолдерами — не для формального согласования, а для совместной проработки задачи и методики расчёта. На этапе проектирования — одна-две встречи в неделю, на этапе разработки — участие в тестировании промежуточных версий, на внедрении — обучение команды трансформации. Точный объём определяется на диагностической встрече.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span>Насколько можно доверять расчётам, если их делает языковая модель?</span>
+            <span class="faq-icon" aria-hidden="true">
+              <svg viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg" width="10" height="6">
+                <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </summary>
+          <div class="faq-item__body">
+            <p>Языковая модель в Микросервисе не считает деньги — деньги считают формулы по правилам, согласованным на проектировании и проверяемым в ручном пересчёте. Языковая модель отвечает за задачи, где формула невозможна: оценка контекста роли, признаки критичности позиции, классификация дублирующих функций. Каждое такое решение модели сопровождается обоснованием и доступно для проверки экспертом.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span>Что мы получаем после завершения проекта?</span>
+            <span class="faq-icon" aria-hidden="true">
+              <svg viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg" width="10" height="6">
+                <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </summary>
+          <div class="faq-item__body">
+            <p>Заказчику передаётся неисключительное право использования Микросервиса. Развитие инструмента в дальнейшем может вестись командой Лаборатории, силами заказчика или сторонним подрядчиком. Зависимости от единственного исполнителя не возникает.</p>
+          </div>
+        </details>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     БЛОК 13 · Следующий шаг
+════════════════════════════════════════════════════════ -->
+<section class="section section--alt cta-final" id="block-13">
+  <div class="container">
+    <div class="cta-final__inner">
+      <div class="kicker">
+        <svg class="leaf leaf--sm" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M 18 62 C 18 34, 38 14, 62 18 C 62 46, 42 66, 18 62 Z" fill="#5c1c14"/>
+        </svg>
+        Следующий шаг
+      </div>
+      <p class="cta-final__body">Первая встреча — диагностическая, 45 минут. Разбираем вашу задачу, контекст и действующие процессы. На выходе — общее понимание, нужен ли вам отдельный инструмент и какого типа.</p>
+      <button class="btn btn--primary" type="button" data-open-modal="contact">Обсудить задачу</button>
+    </div>
+  </div>
+</section>
 
 <!-- ═══════════════════════════════════════════════════════
      ФУТЕР
