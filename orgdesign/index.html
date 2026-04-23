@@ -353,6 +353,136 @@ body {
 }
 
 /* ═══════════════════════════════════════════════════════════
+   БЛОК 6 · Для кого
+═══════════════════════════════════════════════════════════ */
+.block-6__title { margin-bottom: 48px; }
+.audience-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.audience-card {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 32px 24px;
+}
+.audience-card__num {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--text-3);
+  margin-bottom: 8px;
+}
+.audience-card__category {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+.audience-card__title {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--text-1);
+  margin-bottom: 12px;
+}
+.audience-card__body {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text-2);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   БЛОК 7 · Как мы работаем
+═══════════════════════════════════════════════════════════ */
+.block-7__title { margin-bottom: 16px; }
+.work-subtitle {
+  max-width: var(--max-text);
+  margin-bottom: 48px;
+}
+.work-cols {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+.work-col__title {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--text-1);
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+.work-col__body {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text-2);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   БЛОК 8 · Демо (заглушка)
+═══════════════════════════════════════════════════════════ */
+.demos-intro {
+  max-width: var(--max-text);
+  margin-bottom: 48px;
+}
+.demos-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+.demo-card {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+}
+.demo-card__label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 16px;
+}
+.demo-card__title {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--text-1);
+  margin-bottom: 16px;
+}
+.demo-card__desc {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text-2);
+  flex-grow: 1;
+  margin-bottom: 24px;
+}
+.demo-card__footer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.demo-card__status {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-3);
+}
+.btn--disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════════════════════
    FOOTER
 ═══════════════════════════════════════════════════════════ */
 .site-footer {
@@ -416,6 +546,10 @@ body {
   .stats-grid { grid-template-columns: 1fr; }
   .features-grid { grid-template-columns: 1fr; }
   .problem-item { grid-template-columns: 36px 1fr; gap: 16px; }
+
+  .audience-grid { grid-template-columns: 1fr; }
+  .work-cols { grid-template-columns: 1fr; gap: 24px; }
+  .demos-grid { grid-template-columns: 1fr; }
 }
 
 @media (min-width: 641px) and (max-width: 1024px) {
@@ -635,9 +769,105 @@ body {
     </div>
   </div>
 </section>
-<!-- TODO: блок 6 · Для кого -->
-<!-- TODO: блок 7 · Как мы работаем -->
-<!-- TODO: блок 8 · Демо (тизеры, спецификация в block-8-demos-spec.md) -->
+<!-- ═══════════════════════════════════════════════════════
+     БЛОК 6 · Для кого
+════════════════════════════════════════════════════════ -->
+<section class="section" id="block-6">
+  <div class="container">
+    <div class="kicker">
+      <svg class="leaf leaf--sm" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M 18 62 C 18 34, 38 14, 62 18 C 62 46, 42 66, 18 62 Z" fill="#5c1c14"/>
+      </svg>
+      Для кого
+    </div>
+    <h2 class="display-l block-6__title">Три типа задач, с которыми приходят к нам.</h2>
+    <div class="audience-grid">
+      <div class="audience-card">
+        <div class="audience-card__num">01</div>
+        <div class="audience-card__category">Стратегия</div>
+        <div class="audience-card__title">Компании на пороге структурного решения</div>
+        <p class="audience-card__body">Стратегическое решение принято — надо выбрать операционную модель под него. Объединять функции или разнести по бизнес-юнитам. Централизовать или оставить региональную автономию. Каждая альтернатива — на десятки миллионов, решение надо принять в ближайшие недели. Нужен способ сравнить варианты не на словах, а в цифрах — и зафиксировать основание для выбора.</p>
+      </div>
+      <div class="audience-card">
+        <div class="audience-card__num">02</div>
+        <div class="audience-card__category">Оптимизация</div>
+        <div class="audience-card__title">Компании в режиме сокращения расходов</div>
+        <p class="audience-card__body">Цель — сократить ФОТ и операционные расходы, цифра утверждена. Вопрос в том, откуда именно резать, чтобы через квартал структура не развалилась и не пришлось добирать людей обратно. Чтобы сокращение держалось, оно должно быть точечным: видно, какой управленческий слой избыточен, какие функции дублируются, где объединение не ломает процесс.</p>
+      </div>
+      <div class="audience-card">
+        <div class="audience-card__num">03</div>
+        <div class="audience-card__category">Масштаб</div>
+        <div class="audience-card__title">Компании в фазе роста</div>
+        <p class="audience-card__body">Приобретённая компания, новое бизнес-направление, вышли в другой регион — структура расширяется. Главный вопрос расширения — не где разместить новый блок, а как он встанет рядом с действующим без конфликтов зон ответственности. Стык проявится в работе, а не в схеме.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     БЛОК 7 · Как мы работаем
+════════════════════════════════════════════════════════ -->
+<section class="section section--alt" id="block-7">
+  <div class="container">
+    <div class="kicker">
+      <svg class="leaf leaf--sm" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M 18 62 C 18 34, 38 14, 62 18 C 62 46, 42 66, 18 62 Z" fill="#5c1c14"/>
+      </svg>
+      Как мы работаем
+    </div>
+    <h2 class="display-l block-7__title">Инструмент собирается из трёх частей.</h2>
+    <p class="body-l work-subtitle">Каждая компания приносит свою структуру, своё штатное расписание и свой контур систем. Под этот контур мы собираем Микросервис из трёх компонентов — методики, расчётной модели и интеграции.</p>
+    <div class="work-cols">
+      <div class="work-col">
+        <div class="work-col__title">Методика</div>
+        <p class="work-col__body">Что и как считается. Нормы управляемости, правила декомпозиции функций, признаки дублирования, критерии критичности роли — собираются в начале проекта, в опоре на отраслевую практику и внутренние регламенты заказчика. Методика — не «лучшая практика вообще», а та логика, по которой будет приниматься решение в этой компании.</p>
+      </div>
+      <div class="work-col">
+        <div class="work-col__title">Расчётная модель</div>
+        <p class="work-col__body">Что меняется, когда меняется структура. Изменение ФОТ, страховых взносов, накладных и налоговой нагрузки рассчитывается для каждой версии оргструктуры в моменте. Часть расчётов закрыта формулами, часть — задачи на интерпретацию (компетенции, преемственность, контекст роли) — берёт на себя языковая модель.</p>
+      </div>
+      <div class="work-col">
+        <div class="work-col__title">Сборка под задачу</div>
+        <p class="work-col__body">Состав инструмента — от объёма импорта из 1С:ЗУП до глубины сценарного дерева и формата выгрузки — определяется задачей и масштабом компании. Формат интеграции обсуждается на старте проекта.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     БЛОК 8 · Демо (заглушка — содержимое тизеров в следующих запусках)
+════════════════════════════════════════════════════════ -->
+<section class="section" id="block-8">
+  <div class="container">
+    <div class="kicker">
+      <svg class="leaf leaf--sm" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M 18 62 C 18 34, 38 14, 62 18 C 62 46, 42 66, 18 62 Z" fill="#5c1c14"/>
+      </svg>
+      Демо
+    </div>
+    <p class="body-l demos-intro">Чтобы показать логику Микросервиса в работе, мы собрали две короткие демонстрации. В первой — выбор между сценариями реорганизации с расчётом последствий. Во второй — диагностика готовой структуры по четырём типам рисков. В обеих — упрощённый фрагмент логики, по которой Микросервис собирается под реальный проект.</p>
+    <div class="demos-grid">
+      <div class="demo-card">
+        <div class="demo-card__label">Демонстрация 1 · 5 минут</div>
+        <div class="demo-card__title">Три сценария реорганизации. Какой вы выберете?</div>
+        <p class="demo-card__desc">Производственный холдинг, 4&nbsp;200 человек. Задача — сократить ФОТ на 15%. Финансовый директор предложил три варианта. Ваше решение — за тридцать секунд на каждый.</p>
+        <div class="demo-card__footer">
+          <button class="btn btn--primary btn--disabled" disabled aria-disabled="true">Запустить демо</button>
+          <span class="demo-card__status">Демо в разработке</span>
+        </div>
+      </div>
+      <div class="demo-card">
+        <div class="demo-card__label">Демонстрация 2 · 4 минуты</div>
+        <div class="demo-card__title">Посмотрите на оргструктуру глазами Микросервиса.</div>
+        <p class="demo-card__desc">Реальная анонимизированная схема. На первый взгляд — нормальная иерархия. Микросервис нашёл четыре структурных дефекта, три из которых проявятся в первые шесть месяцев работы.</p>
+        <div class="demo-card__footer">
+          <button class="btn btn--primary btn--disabled" disabled aria-disabled="true">Открыть схему</button>
+          <span class="demo-card__status">Демо в разработке</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 <!-- TODO: блок 9 · Процесс работы -->
 <!-- TODO: блок 10 · Про нас -->
 <!-- TODO: блок 11 · Кто за этим стоит -->
