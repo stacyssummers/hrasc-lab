@@ -507,39 +507,60 @@ body {
    БЛОК 9 · Процесс работы
 ═══════════════════════════════════════════════════════════ */
 .block-9__title { margin-bottom: 40px; }
-.process-timeline { max-width: var(--max-text); }
-.process-item {
-  display: grid;
-  grid-template-columns: 140px 1fr;
-  gap: 24px;
-  padding: 14px 0;
-  border-top: 1px solid var(--border);
+.process-list {
+  position: relative;
+  padding-left: 32px;
+  max-width: 680px;
 }
-.process-item:last-child { border-bottom: 1px solid var(--border); }
-.process-item__num {
+.process-list::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  left: 4px;
+  width: 1px;
+  background: var(--border);
+}
+.process-step {
+  position: relative;
+  padding-bottom: 20px;
+}
+.process-step:last-child { padding-bottom: 0; }
+.process-step::before {
+  content: "";
+  position: absolute;
+  left: -32px;
+  top: 4px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.process-step__meta {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 4px;
+  flex-wrap: wrap;
+}
+.process-step__num {
   font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  color: var(--text-3);
-  margin-bottom: 4px;
-}
-.process-item__name {
-  font-size: 15px;
-  font-weight: 500;
-  line-height: 1.35;
-  color: var(--text-1);
-  margin-bottom: 4px;
-}
-.process-item__period {
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--accent);
-}
-.process-item__desc {
-  font-size: 15px;
-  line-height: 1.6;
   color: var(--text-2);
-  padding-top: 2px;
+}
+.process-step__title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-1);
+}
+.process-step__duration {
+  font-size: 11px;
+  color: var(--accent);
+  font-weight: 500;
+}
+.process-step__body {
+  font-size: 13px;
+  color: var(--text-2);
+  line-height: 1.5;
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -734,7 +755,6 @@ body {
   .work-cols { grid-template-columns: 1fr; gap: 24px; }
   .demos-grid { grid-template-columns: 1fr; }
 
-  .process-item { grid-template-columns: 1fr; gap: 8px; }
   .team-card { flex-direction: column; gap: 16px; }
 
   .faq-item > summary { font-size: 15px; padding: 14px 0; }
@@ -1282,45 +1302,46 @@ body.modal-open { overflow: hidden; }
       Процесс работы
     </div>
     <h2 class="display-l block-9__title">Как устроена работа с нами.</h2>
-    <div class="process-timeline">
-      <div class="process-item">
-        <div>
-          <div class="process-item__num">01</div>
-          <div class="process-item__name">Диагностическая встреча</div>
-          <div class="process-item__period">45 минут</div>
+    <div class="process-list">
+      <div class="process-step">
+        <div class="process-step__meta">
+          <span class="process-step__num">01</span>
+          <span class="process-step__title">Диагностическая встреча</span>
+          <span class="process-step__duration">· 45 минут</span>
         </div>
-        <p class="process-item__desc">Разбираем задачу реорганизации, текущую структуру, контур систем учёта, ожидания от инструмента. По итогу — понимание того, нужен ли вам Микросервис в принципе, и если да — в какой конфигурации.</p>
+        <p class="process-step__body">Разбираем задачу, структуру, ожидания. Решаем, нужен ли Микросервис и в какой конфигурации.</p>
       </div>
-      <div class="process-item">
-        <div>
-          <div class="process-item__num">02</div>
-          <div class="process-item__name">Коммерческое предложение</div>
-          <div class="process-item__period">1 неделя</div>
+      <div class="process-step">
+        <div class="process-step__meta">
+          <span class="process-step__num">02</span>
+          <span class="process-step__title">Коммерческое предложение</span>
+          <span class="process-step__duration">· 1 неделя</span>
         </div>
-        <p class="process-item__desc">После диагностики — подготовка КП с объёмом работы, сроками и стоимостью. При подтверждении объёма — подписываем договор и переходим к проектированию.</p>
+        <p class="process-step__body">Готовим КП с объёмом, сроками, стоимостью. При подтверждении подписываем договор.</p>
       </div>
-      <div class="process-item">
-        <div>
-          <div class="process-item__num">03</div>
-          <div class="process-item__name">Проектирование</div>
-          <div class="process-item__period">2–3 недели</div>
+      <div class="process-step">
+        <div class="process-step__meta">
+          <span class="process-step__num">03</span>
+          <span class="process-step__title">Проектирование</span>
+          <span class="process-step__duration">· 2–3 недели</span>
         </div>
-        <p class="process-item__desc">Согласовываем состав инструмента: какие данные подгружаются из 1С:ЗУП, по каким правилам считается финансовый результат, какие риски проверяет диагностика, какие сценарии моделируются в первой версии. На выходе — спецификация и план разработки.</p>
+        <p class="process-step__body">Согласовываем состав инструмента, правила расчёта, сценарии. На выходе — спецификация.</p>
       </div>
-      <div class="process-item">
-        <div>
-          <div class="process-item__num">04</div>
-          <div class="process-item__name">Разработка</div>
-          <div class="process-item__period">6–14 недель</div>
+      <div class="process-step">
+        <div class="process-step__meta">
+          <span class="process-step__num">04</span>
+          <span class="process-step__title">Разработка</span>
+          <span class="process-step__duration">· 6–14 недель</span>
         </div>
-        <p class="process-item__desc">Собираем Микросервис, настраиваем интеграцию с 1С:ЗУП, калибруем расчётную модель на исторических данных компании. Вы видите промежуточные версии и формируете итоговый результат вместе с нами.</p>
+        <p class="process-step__body">Собираем, интегрируем с 1С:ЗУП, калибруем модель. Показываем промежуточные версии.</p>
       </div>
-      <div class="process-item">
-        <div>
-          <div class="process-item__num">05</div>
-          <div class="process-item__name">Внедрение и сопровождение</div>
+      <div class="process-step">
+        <div class="process-step__meta">
+          <span class="process-step__num">05</span>
+          <span class="process-step__title">Внедрение и сопровождение</span>
+          <span class="process-step__duration">· далее</span>
         </div>
-        <p class="process-item__desc">Запуск Микросервиса в работу, обучение команды трансформации, сопровождение первого проекта реорганизации в инструменте. Дальше — техническое сопровождение и обновления по договорённости.</p>
+        <p class="process-step__body">Запускаем, обучаем команду, сопровождаем первый проект реорганизации в инструменте.</p>
       </div>
     </div>
   </div>
