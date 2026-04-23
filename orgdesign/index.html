@@ -284,16 +284,16 @@ body {
 .block-4__title { margin-bottom: 24px; }
 .problem-intro {
   max-width: var(--max-text);
-  margin-bottom: 40px;
+  margin-bottom: 24px;
 }
 .problem-list {
   max-width: var(--max-text);
 }
 .problem-item {
   display: grid;
-  grid-template-columns: 48px 1fr;
-  gap: 24px;
-  padding: 32px 0;
+  grid-template-columns: 40px 1fr;
+  gap: 16px;
+  padding: 20px 0;
   border-top: 1px solid var(--border);
 }
 .problem-item:last-child {
@@ -302,7 +302,7 @@ body {
 .problem-num {
   font-size: 13px;
   font-weight: 500;
-  color: var(--text-3);
+  color: var(--text-2);
   padding-top: 3px;
 }
 .problem-title {
@@ -334,14 +334,24 @@ body {
 .feature-card {
   background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 32px;
+  border-left: 3px solid var(--accent);
+  border-radius: 0 4px 4px 0;
+  padding: 24px;
+  transition: border-color 200ms ease;
+}
+.feature-card:hover {
+  border-top-color: var(--accent);
+  border-right-color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+.feature-card:hover .feature-title {
+  color: var(--accent);
 }
 .feature-num {
   font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.1em;
-  color: var(--text-3);
+  color: var(--text-2);
   margin-bottom: 12px;
 }
 .feature-title {
@@ -409,6 +419,7 @@ body {
 ═══════════════════════════════════════════════════════════ */
 .block-7__title { margin-bottom: 16px; }
 .work-subtitle {
+  max-width: var(--max-text);
   margin-bottom: 0;
 }
 .work-cols {
@@ -418,7 +429,7 @@ body {
   margin-top: 40px;
 }
 .work-col__title {
-  font-size: 20px;
+  font-size: 15px;
   font-weight: 500;
   line-height: 1.3;
   color: var(--text-1);
@@ -427,7 +438,7 @@ body {
   border-bottom: 1px solid var(--border);
 }
 .work-col__body {
-  font-size: 15px;
+  font-size: 14px;
   line-height: 1.6;
   color: var(--text-2);
 }
@@ -435,6 +446,7 @@ body {
 /* ═══════════════════════════════════════════════════════════
    БЛОК 8 · Демо (заглушка)
 ═══════════════════════════════════════════════════════════ */
+.block-8__title { margin-bottom: 24px; }
 .demos-intro {
   max-width: var(--max-text);
   margin-bottom: 48px;
@@ -448,7 +460,7 @@ body {
   background: var(--bg-alt);
   border: 1px solid var(--border);
   border-radius: 8px;
-  padding: 32px;
+  padding: 24px;
   display: flex;
   flex-direction: column;
 }
@@ -641,6 +653,7 @@ body {
   margin-inline: auto;
 }
 .cta-final__inner .kicker { justify-content: center; }
+.cta-final__title { margin-bottom: 16px; }
 .cta-final__body {
   font-size: 16px;
   line-height: 1.6;
@@ -1233,6 +1246,7 @@ body.modal-open { overflow: hidden; }
 ════════════════════════════════════════════════════════ -->
 <section class="section" id="block-8">
   <div class="container">
+    <h2 class="display-l block-8__title">Посмотрите, как это работает.</h2>
     <p class="body-l demos-intro">Чтобы показать логику Микросервиса в работе, мы собрали две короткие демонстрации. В первой — выбор между сценариями реорганизации с расчётом последствий. Во второй — диагностика готовой структуры по четырём типам рисков. В обеих — упрощённый фрагмент логики, по которой Микросервис собирается под реальный проект.</p>
     <div class="demos-grid">
       <div class="demo-card">
@@ -1459,6 +1473,7 @@ body.modal-open { overflow: hidden; }
         </svg>
         Следующий шаг
       </div>
+      <h2 class="display-l cta-final__title">Обсудим вашу задачу.</h2>
       <p class="cta-final__body">Первая встреча — диагностическая, 45 минут. Разбираем вашу задачу, контекст и действующие процессы. На выходе — общее понимание, нужен ли вам отдельный инструмент и какого типа.</p>
       <button class="btn btn--primary" type="button" data-open-modal="contact">Обсудить задачу</button>
     </div>
@@ -1706,8 +1721,6 @@ body.modal-open { overflow: hidden; }
 
     form.hidden = true;
     successBlock.hidden = false;
-
-    autoCloseTimer = setTimeout(closeModal, 3000);
   });
 })();
 </script>
