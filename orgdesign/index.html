@@ -211,28 +211,12 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  transform: translateY(-5%); /* чуть выше центра по вертикали */
 }
-.hero__image {
-  max-width: 480px;
+.hero__visual-img {
+  max-width: 500px;
   width: 100%;
-  /* TODO: уточнить — иллюстрацию под тему оргструктуры/моделирования подбирают отдельно;
-     пока ставим placeholder с листком-фирменным знаком */
-}
-.hero__image-placeholder {
-  width: 100%;
-  max-width: 480px;
-  aspect-ratio: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--bg-alt);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  color: var(--text-3);
-  font-size: 13px;
-}
-.hero__image-placeholder svg {
-  opacity: 0.25;
+  display: block;
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -244,6 +228,129 @@ body {
 }
 .block-2__title { margin-bottom: 24px; }
 .block-2__body p + p { margin-top: 16px; }
+
+/* ═══════════════════════════════════════════════════════════
+   БЛОК 3 · Масштаб потерь
+═══════════════════════════════════════════════════════════ */
+.block-3__title { margin-bottom: 48px; }
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.stat-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 32px 24px;
+}
+.stat-num {
+  font-size: clamp(40px, 5vw, 56px);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  font-optical-sizing: auto;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+.stat-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 16px;
+}
+.stat-desc {
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--text-2);
+  margin-bottom: 16px;
+}
+.stat-source {
+  font-size: 10px;
+  color: var(--text-3);
+  line-height: 1.4;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   БЛОК 4 · Почему стандартные инструменты больше не справляются
+═══════════════════════════════════════════════════════════ */
+.block-4__title { margin-bottom: 24px; }
+.problem-intro {
+  max-width: var(--max-text);
+  margin-bottom: 40px;
+}
+.problem-list {
+  max-width: var(--max-text);
+}
+.problem-item {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 24px;
+  padding: 32px 0;
+  border-top: 1px solid var(--border);
+}
+.problem-item:last-child {
+  border-bottom: 1px solid var(--border);
+}
+.problem-num {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-3);
+  padding-top: 3px;
+}
+.problem-title {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--text-1);
+  margin-bottom: 12px;
+}
+.problem-body {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-2);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   БЛОК 5 · Что делает Микросервис
+═══════════════════════════════════════════════════════════ */
+.block-5__title { margin-bottom: 16px; }
+.features-subtitle {
+  max-width: var(--max-text);
+  margin-bottom: 48px;
+}
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+.feature-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 32px;
+}
+.feature-num {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--text-3);
+  margin-bottom: 12px;
+}
+.feature-title {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--text-1);
+  margin-bottom: 12px;
+}
+.feature-body {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text-2);
+}
 
 /* ═══════════════════════════════════════════════════════════
    FOOTER
@@ -299,12 +406,16 @@ body {
     gap: 40px;
   }
   .hero__text { max-width: 100%; }
-  .hero__visual { order: -1; }
-  .hero__image-placeholder { max-width: 280px; aspect-ratio: 1; }
+  .hero__visual { transform: none; }
+  .hero__visual-img { max-width: 240px; margin-inline: auto; }
   .hero__ctas { flex-direction: column; }
   .hero__ctas .btn { width: 100%; text-align: center; }
 
   .site-header__inner { height: 56px; }
+
+  .stats-grid { grid-template-columns: 1fr; }
+  .features-grid { grid-template-columns: 1fr; }
+  .problem-item { grid-template-columns: 36px 1fr; gap: 16px; }
 }
 
 @media (min-width: 641px) and (max-width: 1024px) {
@@ -358,12 +469,13 @@ body {
       </div>
 
       <div class="hero__visual">
-        <!-- TODO: уточнить — иллюстрацию 500×500 под тему оргструктуры/моделирования подбирают отдельно -->
-        <div class="hero__image-placeholder" role="img" aria-label="Иллюстрация Микросервиса">
-          <svg width="96" height="96" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M 18 62 C 18 34, 38 14, 62 18 C 62 46, 42 66, 18 62 Z" fill="#5c1c14"/>
-          </svg>
-        </div>
+        <img
+          class="hero__visual-img"
+          src="../files/pictures/hero-laboratory-Photoroom.png"
+          alt="Иллюстрация Микросервиса организационного дизайна"
+          width="500"
+          height="500"
+        >
       </div>
     </div>
   </div>
@@ -402,9 +514,127 @@ body {
 </section>
 
 <!-- ─── TODO-заглушки для блоков 3–13 ─────────────────────── -->
-<!-- TODO: блок 3 · Масштаб потерь -->
-<!-- TODO: блок 4 · Почему стандартные инструменты больше не справляются -->
-<!-- TODO: блок 5 · Что делает Микросервис -->
+<!-- ═══════════════════════════════════════════════════════
+     БЛОК 3 · Масштаб потерь
+════════════════════════════════════════════════════════ -->
+<section class="section section--alt" id="block-3">
+  <div class="container">
+    <div class="kicker">
+      <svg class="leaf leaf--sm" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M 18 62 C 18 34, 38 14, 62 18 C 62 46, 42 66, 18 62 Z" fill="#5c1c14"/>
+      </svg>
+      Масштаб потерь
+    </div>
+    <h2 class="display-l block-3__title">
+      Реорганизации проваливаются чаще, чем срабатывают.
+    </h2>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-num">5</div>
+        <div class="stat-label">Крупных изменений за 3 года</div>
+        <p class="stat-desc">Столько структурных изменений в среднем проходит одна компания. Реорганизация — не разовый проект, а постоянная работа, которая идёт волнами.</p>
+        <div class="stat-source">CEB Corporate Leadership Council</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">44%</div>
+        <div class="stat-label">Бросают на полпути</div>
+        <p class="stat-desc">Доля реорганизаций, которые начинают, но не доводят до конца. Проект останавливается уже в исполнении — ресурсы потрачены, результата нет.</p>
+        <div class="stat-source">McKinsey</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">менее&nbsp;25%</div>
+        <div class="stat-label">Достигают целей</div>
+        <p class="stat-desc">Доля реорганизаций, которые завершаются и приносят компании то, что планировалось. Из пяти запущенных проектов четыре либо буксуют, либо не дают заявленного результата.</p>
+        <div class="stat-source">McKinsey</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     БЛОК 4 · Почему стандартные инструменты больше не справляются
+════════════════════════════════════════════════════════ -->
+<section class="section" id="block-4">
+  <div class="container">
+    <div class="kicker">
+      <svg class="leaf leaf--sm" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M 18 62 C 18 34, 38 14, 62 18 C 62 46, 42 66, 18 62 Z" fill="#5c1c14"/>
+      </svg>
+      Почему стандартные инструменты больше не справляются
+    </div>
+    <h2 class="display-l block-4__title">
+      Структуру видно. Решение — нет.
+    </h2>
+    <p class="body-l problem-intro">
+      Привычные инструменты отвечают на один вопрос: «как это выглядит». У реорганизации вопросов больше.
+    </p>
+    <div class="problem-list">
+      <div class="problem-item">
+        <div class="problem-num">01</div>
+        <div>
+          <div class="problem-title">Сколько это будет стоить</div>
+          <p class="problem-body">Стоимость варианта структуры складывается из ФОТ, страховых взносов, накладных расходов и налоговой нагрузки — и меняется при каждом переводе функции, объединении отделов, сокращении уровня управления. Посчитать это вручную для одного сценария занимает дни, для пяти — не делается вовсе. Решение принимают по интуиции, цифры подгоняют после.</p>
+        </div>
+      </div>
+      <div class="problem-item">
+        <div class="problem-num">02</div>
+        <div>
+          <div class="problem-title">Какой из вариантов лучше</div>
+          <p class="problem-body">Альтернативы обсуждают на словах или переключают слайды в презентации. В переговорной одновременно держать три структуры с их финансовыми последствиями невозможно — внимание возвращается к последнему показанному. Выбирают тот вариант, который защищали громче.</p>
+        </div>
+      </div>
+      <div class="problem-item">
+        <div class="problem-num">03</div>
+        <div>
+          <div class="problem-title">Что сломается после внедрения</div>
+          <p class="problem-body">Превышение нормы управляемости, критические роли без замены, дублирование функций между подразделениями — всё это проявляется после внедрения, в первые месяцы работы новой структуры. На этапе схемы этих проблем не видно: схема показывает, кто кому подчиняется, а не как система будет работать под нагрузкой.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     БЛОК 5 · Что делает Микросервис
+════════════════════════════════════════════════════════ -->
+<section class="section section--alt" id="block-5">
+  <div class="container">
+    <div class="kicker">
+      <svg class="leaf leaf--sm" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M 18 62 C 18 34, 38 14, 62 18 C 62 46, 42 66, 18 62 Z" fill="#5c1c14"/>
+      </svg>
+      Что делает Микросервис
+    </div>
+    <h2 class="display-l block-5__title">
+      Инструмент, в котором структуру можно считать.
+    </h2>
+    <p class="body-l features-subtitle">
+      Оргструктура подгружается из 1С:ЗУП и превращается в рабочую модель: сценарии, расчёт последствий, проверка на риски — в одном интерфейсе, собранном под задачу заказчика.
+    </p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-num">01</div>
+        <div class="feature-title">Визуализация структуры из 1С:ЗУП</div>
+        <p class="feature-body">Живая схема оргструктуры, построенная из данных 1С:ЗУП. Видно все подразделения, должности, подчинение, численность — в одной интерактивной карте. Актуальность не нужно отдельно поддерживать — схема синхронизирована с 1С.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">02</div>
+        <div class="feature-title">AI-расчёт финансового результата</div>
+        <p class="feature-body">Изменение ФОТ, страховых взносов, накладных расходов и налоговой нагрузки — для каждой конфигурации структуры, в моменте. Цифры пересчитываются при любом действии: переводе функции, объединении отделов, сокращении уровня управления. Решение опирается на расчёт, а не на интуицию.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">03</div>
+        <div class="feature-title">Сценарное моделирование</div>
+        <p class="feature-body">Режим «что если»: переносите подразделения, объединяете функции, убираете уровни управления — и видите, как меняется структура и её финансовый результат. Три-пять сценариев существуют параллельно, на одном экране. Можно сравнивать их, откатывать изменения, собирать гибриды из лучших частей разных вариантов.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">04</div>
+        <div class="feature-title">Флаги структурных рисков</div>
+        <p class="feature-body">Каждый вариант структуры автоматически проверяется против типовых структурных дефектов — тех самых, которые в схеме не видны, а в работе проявляются через три-шесть месяцев. Проблемные зоны помечаются прямо на схеме, на этапе моделирования. Риск становится видимым тогда, когда структуру ещё можно изменить.</p>
+      </div>
+    </div>
+  </div>
+</section>
 <!-- TODO: блок 6 · Для кого -->
 <!-- TODO: блок 7 · Как мы работаем -->
 <!-- TODO: блок 8 · Демо (тизеры, спецификация в block-8-demos-spec.md) -->
