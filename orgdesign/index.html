@@ -1538,9 +1538,6 @@ body.modal-open { overflow: hidden; }
     </button>
 
     <div class="modal-kicker">
-      <svg class="leaf leaf--xs" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M 18 62 C 18 34, 38 14, 62 18 C 62 46, 42 66, 18 62 Z" fill="#5c1c14"/>
-      </svg>
       Обсудить задачу
     </div>
 
@@ -1612,10 +1609,7 @@ body.modal-open { overflow: hidden; }
   var successCloseBtn = document.getElementById('modal-success-close');
   var contactInput = document.getElementById('field-contact');
   var contactRadios = document.querySelectorAll('input[name="contact_type"]');
-  var autoCloseTimer = null;
-
   function openModal() {
-    if (autoCloseTimer) { clearTimeout(autoCloseTimer); autoCloseTimer = null; }
     dialog.showModal();
     document.body.classList.add('modal-open');
     requestAnimationFrame(function () {
@@ -1624,7 +1618,6 @@ body.modal-open { overflow: hidden; }
   }
 
   function closeModal() {
-    if (autoCloseTimer) { clearTimeout(autoCloseTimer); autoCloseTimer = null; }
     dialog.classList.remove('is-open');
     dialog.addEventListener('transitionend', function onEnd() {
       dialog.removeEventListener('transitionend', onEnd);
