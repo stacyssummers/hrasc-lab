@@ -367,12 +367,17 @@ body {
   border-radius: 8px;
   padding: 32px 24px;
 }
+.audience-card__header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 12px;
+}
 .audience-card__num {
   font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.1em;
   color: var(--text-3);
-  margin-bottom: 8px;
 }
 .audience-card__category {
   font-size: 12px;
@@ -380,7 +385,6 @@ body {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--accent);
-  margin-bottom: 12px;
 }
 .audience-card__title {
   font-size: 18px;
@@ -398,15 +402,21 @@ body {
 /* ═══════════════════════════════════════════════════════════
    БЛОК 7 · Как мы работаем
 ═══════════════════════════════════════════════════════════ */
+.block-7__layout {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: 64px;
+  align-items: start;
+}
+.block-7__left {}
 .block-7__title { margin-bottom: 16px; }
 .work-subtitle {
-  max-width: var(--max-text);
-  margin-bottom: 48px;
+  margin-bottom: 0;
 }
 .work-cols {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 40px;
+  grid-template-columns: 1fr;
+  gap: 24px;
 }
 .work-col__title {
   font-size: 20px;
@@ -555,6 +565,10 @@ body {
 @media (min-width: 641px) and (max-width: 1024px) {
   :root { --px-desk: var(--px-tab); }
   .hero__inner { gap: 40px; }
+}
+
+@media (max-width: 768px) {
+  .block-7__layout { grid-template-columns: 1fr; gap: 32px; }
 }
 </style>
 </head>
@@ -783,20 +797,26 @@ body {
     <h2 class="display-l block-6__title">Три типа задач, с которыми приходят к нам.</h2>
     <div class="audience-grid">
       <div class="audience-card">
-        <div class="audience-card__num">01</div>
-        <div class="audience-card__category">Стратегия</div>
+        <div class="audience-card__header">
+          <div class="audience-card__num">01</div>
+          <div class="audience-card__category">Стратегия</div>
+        </div>
         <div class="audience-card__title">Компании на пороге структурного решения</div>
         <p class="audience-card__body">Стратегическое решение принято — надо выбрать операционную модель под него. Объединять функции или разнести по бизнес-юнитам. Централизовать или оставить региональную автономию. Каждая альтернатива — на десятки миллионов, решение надо принять в ближайшие недели. Нужен способ сравнить варианты не на словах, а в цифрах — и зафиксировать основание для выбора.</p>
       </div>
       <div class="audience-card">
-        <div class="audience-card__num">02</div>
-        <div class="audience-card__category">Оптимизация</div>
+        <div class="audience-card__header">
+          <div class="audience-card__num">02</div>
+          <div class="audience-card__category">Оптимизация</div>
+        </div>
         <div class="audience-card__title">Компании в режиме сокращения расходов</div>
         <p class="audience-card__body">Цель — сократить ФОТ и операционные расходы, цифра утверждена. Вопрос в том, откуда именно резать, чтобы через квартал структура не развалилась и не пришлось добирать людей обратно. Чтобы сокращение держалось, оно должно быть точечным: видно, какой управленческий слой избыточен, какие функции дублируются, где объединение не ломает процесс.</p>
       </div>
       <div class="audience-card">
-        <div class="audience-card__num">03</div>
-        <div class="audience-card__category">Масштаб</div>
+        <div class="audience-card__header">
+          <div class="audience-card__num">03</div>
+          <div class="audience-card__category">Масштаб</div>
+        </div>
         <div class="audience-card__title">Компании в фазе роста</div>
         <p class="audience-card__body">Приобретённая компания, новое бизнес-направление, вышли в другой регион — структура расширяется. Главный вопрос расширения — не где разместить новый блок, а как он встанет рядом с действующим без конфликтов зон ответственности. Стык проявится в работе, а не в схеме.</p>
       </div>
@@ -809,15 +829,18 @@ body {
 ════════════════════════════════════════════════════════ -->
 <section class="section section--alt" id="block-7">
   <div class="container">
-    <div class="kicker">
-      <svg class="leaf leaf--sm" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M 18 62 C 18 34, 38 14, 62 18 C 62 46, 42 66, 18 62 Z" fill="#5c1c14"/>
-      </svg>
-      Как мы работаем
-    </div>
-    <h2 class="display-l block-7__title">Инструмент собирается из трёх частей.</h2>
-    <p class="body-l work-subtitle">Каждая компания приносит свою структуру, своё штатное расписание и свой контур систем. Под этот контур мы собираем Микросервис из трёх компонентов — методики, расчётной модели и интеграции.</p>
-    <div class="work-cols">
+    <div class="block-7__layout">
+      <div class="block-7__left">
+        <div class="kicker">
+          <svg class="leaf leaf--sm" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M 18 62 C 18 34, 38 14, 62 18 C 62 46, 42 66, 18 62 Z" fill="#5c1c14"/>
+          </svg>
+          Как мы работаем
+        </div>
+        <h2 class="display-l block-7__title">Инструмент собирается из трёх частей.</h2>
+        <p class="body-l work-subtitle">Каждая компания приносит свою структуру, своё штатное расписание и свой контур систем. Под этот контур мы собираем Микросервис из трёх компонентов — методики, расчётной модели и интеграции.</p>
+      </div>
+      <div class="work-cols">
       <div class="work-col">
         <div class="work-col__title">Методика</div>
         <p class="work-col__body">Что и как считается. Нормы управляемости, правила декомпозиции функций, признаки дублирования, критерии критичности роли — собираются в начале проекта, в опоре на отраслевую практику и внутренние регламенты заказчика. Методика — не «лучшая практика вообще», а та логика, по которой будет приниматься решение в этой компании.</p>
@@ -830,8 +853,9 @@ body {
         <div class="work-col__title">Сборка под задачу</div>
         <p class="work-col__body">Состав инструмента — от объёма импорта из 1С:ЗУП до глубины сценарного дерева и формата выгрузки — определяется задачей и масштабом компании. Формат интеграции обсуждается на старте проекта.</p>
       </div>
-    </div>
-  </div>
+    </div><!-- /work-cols -->
+    </div><!-- /block-7__layout -->
+  </div><!-- /container -->
 </section>
 
 <!-- ═══════════════════════════════════════════════════════
