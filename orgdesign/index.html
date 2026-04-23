@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Микросервис организационного дизайна · Исследовательская лаборатория</title>
+<meta name="description" content="Оргструктура перестала быть схемой. Инструмент, в котором её можно считать: сценарии реорганизации, AI-расчёт финансовых последствий, флаги структурных рисков.">
+
+<!-- TODO: уточнить — в репозитории нет отдельного favicon.ico и apple-touch-icon.png,
+     используем hero-laboratory-Photoroom.png как временный placeholder -->
+<link rel="icon" type="image/png" href="../files/pictures/hero-laboratory-Photoroom.png">
+<link rel="apple-touch-icon" href="../files/pictures/hero-laboratory-Photoroom.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ─── Reset ─────────────────────────────────────────────── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+/* ─── Tokens ─────────────────────────────────────────────── */
+:root {
+  --accent:      #5c1c14;
+  --accent-dark: #4a1810;
+  --bg:          #fafaf8;
+  --bg-alt:      #f7f5f1;
+  --text-1:      #1a1a1a;
+  --text-2:      #4a4a4a;
+  --text-3:      #8a8680;
+  --border:      #e8e4dc;
+
+  --font: 'Inter', system-ui, Arial, sans-serif;
+
+  --max-text:  680px;
+  --max-wide:  1080px;
+
+  --px-desk:   48px;
+  --px-tab:    32px;
+  --px-mob:    20px;
+}
+
+/* ─── Base ───────────────────────────────────────────────── */
+body {
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-1);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Layout helpers ─────────────────────────────────────── */
+.container {
+  width: 100%;
+  max-width: var(--max-wide);
+  margin-inline: auto;
+  padding-inline: var(--px-desk);
+}
+.container--narrow {
+  max-width: var(--max-text);
+}
+
+/* ─── Leaf SVG (used inline, not as img) ─────────────────── */
+.leaf {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+.leaf--sm  { width: 12px; height: 12px; }
+.leaf--md  { width: 22px; height: 22px; }
+.leaf--lg  { width: 64px; height: 64px; }
+
+/* ─── Kicker ─────────────────────────────────────────────── */
+.kicker {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  line-height: 1.3;
+  margin-bottom: 10px;
+}
+.kicker--neutral { color: var(--text-3); }
+
+/* ─── Typography ─────────────────────────────────────────── */
+.display-xl {
+  font-size: clamp(40px, 6vw, 72px);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  font-optical-sizing: auto;
+}
+.display-l {
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  font-optical-sizing: auto;
+}
+.body-l {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--text-2);
+}
+.body {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+/* ─── Buttons ────────────────────────────────────────────── */
+.btn {
+  display: inline-block;
+  font-family: var(--font);
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 6px;
+  padding: 14px 28px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  text-decoration: none;
+  transition: background 200ms ease, border-color 200ms ease, color 200ms ease;
+  white-space: nowrap;
+}
+.btn--primary {
+  background: var(--accent);
+  color: #fafaf8;
+  border-color: var(--accent);
+}
+.btn--primary:hover { background: var(--accent-dark); border-color: var(--accent-dark); }
+
+.btn--secondary {
+  background: transparent;
+  color: var(--text-1);
+  border-color: var(--border);
+}
+.btn--secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ─── Section spacing ────────────────────────────────────── */
+.section {
+  padding-block: 88px;
+}
+.section--alt { background: var(--bg-alt); }
+
+/* ─── Divider ────────────────────────────────────────────── */
+.divider { border: none; border-top: 1px solid var(--border); }
+
+/* ═══════════════════════════════════════════════════════════
+   HEADER
+═══════════════════════════════════════════════════════════ */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+.site-header__logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: var(--text-1);
+}
+.site-header__logo-text {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   HERO (Блок 1)
+═══════════════════════════════════════════════════════════ */
+.hero {
+  padding-block: 96px 88px;
+}
+.hero__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+.hero__text { max-width: 560px; }
+.hero__title {
+  margin-top: 16px;
+  margin-bottom: 24px;
+}
+.hero__subtitle {
+  margin-bottom: 40px;
+}
+.hero__ctas {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.hero__visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.hero__image {
+  max-width: 480px;
+  width: 100%;
+  /* TODO: уточнить — иллюстрацию под тему оргструктуры/моделирования подбирают отдельно;
+     пока ставим placeholder с листком-фирменным знаком */
+}
+.hero__image-placeholder {
+  width: 100%;
+  max-width: 480px;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-3);
+  font-size: 13px;
+}
+.hero__image-placeholder svg {
+  opacity: 0.25;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   БЛОК 2 · Что происходит с реорганизациями
+═══════════════════════════════════════════════════════════ */
+.block-2 {}
+.block-2__text {
+  max-width: var(--max-text);
+}
+.block-2__title { margin-bottom: 24px; }
+.block-2__body p + p { margin-top: 16px; }
+
+/* ═══════════════════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════════════════ */
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding-block: 40px;
+}
+.site-footer__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.site-footer__brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-1);
+}
+.site-footer__legal {
+  font-size: 12px;
+  color: var(--text-3);
+  line-height: 1.6;
+}
+.site-footer__links {
+  display: flex;
+  gap: 20px;
+  font-size: 13px;
+}
+.site-footer__links a {
+  color: var(--text-2);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 200ms ease;
+}
+.site-footer__links a:hover { color: var(--accent); }
+
+/* ═══════════════════════════════════════════════════════════
+   MOBILE
+═══════════════════════════════════════════════════════════ */
+@media (max-width: 640px) {
+  :root {
+    --px-desk: var(--px-mob);
+  }
+
+  .section { padding-block: 56px; }
+
+  .hero { padding-block: 56px 48px; }
+  .hero__inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .hero__text { max-width: 100%; }
+  .hero__visual { order: -1; }
+  .hero__image-placeholder { max-width: 280px; aspect-ratio: 1; }
+  .hero__ctas { flex-direction: column; }
+  .hero__ctas .btn { width: 100%; text-align: center; }
+
+  .site-header__inner { height: 56px; }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  :root { --px-desk: var(--px-tab); }
+  .hero__inner { gap: 40px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════
+     ШАПКА
+════════════════════════════════════════════════════════ -->
+<header class="site-header">
+  <div class="container">
+    <div class="site-header__inner">
+      <a href="/orgdesign/" class="site-header__logo" aria-label="Исследовательская лаборатория">
+        <svg class="leaf leaf--md" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M 18 62 C 18 34, 38 14, 62 18 C 62 46, 42 66, 18 62 Z" fill="#5c1c14"/>
+        </svg>
+        <span class="site-header__logo-text">Исследовательская лаборатория</span>
+      </a>
+      <button class="btn btn--primary" data-open-modal="contact">Обсудить задачу</button>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════════════
+     БЛОК 1 · Hero
+════════════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="container">
+    <div class="hero__inner">
+      <div class="hero__text">
+        <div class="kicker">
+          <svg class="leaf leaf--sm" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M 18 62 C 18 34, 38 14, 62 18 C 62 46, 42 66, 18 62 Z" fill="#5c1c14"/>
+          </svg>
+          Микросервис организационного дизайна · Исследовательская лаборатория
+        </div>
+        <h1 class="display-xl hero__title">
+          Оргструктура перестала быть схемой. Мы строим инструмент, в котором её можно считать.
+        </h1>
+        <p class="body-l hero__subtitle">
+          Структура, которую можно тестировать сценариями реорганизации и оценивать в деньгах до принятия решения. Импорт из 1С:ЗУП, параллельные варианты, AI-расчёт финансовых последствий, флаги структурных рисков.
+        </p>
+        <div class="hero__ctas">
+          <button class="btn btn--primary" data-open-modal="contact">Обсудить задачу</button>
+          <a href="#block-5" class="btn btn--secondary">Посмотреть, как работает</a>
+        </div>
+      </div>
+
+      <div class="hero__visual">
+        <!-- TODO: уточнить — иллюстрацию 500×500 под тему оргструктуры/моделирования подбирают отдельно -->
+        <div class="hero__image-placeholder" role="img" aria-label="Иллюстрация Микросервиса">
+          <svg width="96" height="96" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M 18 62 C 18 34, 38 14, 62 18 C 62 46, 42 66, 18 62 Z" fill="#5c1c14"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════════════
+     БЛОК 2 · Что происходит с реорганизациями
+════════════════════════════════════════════════════════ -->
+<section class="section block-2" id="block-2">
+  <div class="container">
+    <div class="block-2__text">
+      <div class="kicker">
+        <svg class="leaf leaf--sm" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M 18 62 C 18 34, 38 14, 62 18 C 62 46, 42 66, 18 62 Z" fill="#5c1c14"/>
+        </svg>
+        Что происходит с реорганизациями
+      </div>
+      <h2 class="display-l block-2__title">
+        Инструменты планирования отстали от масштаба задачи.
+      </h2>
+      <div class="block-2__body body">
+        <p>
+          Реорганизация — одна из самых дорогих операций в жизни компании. Стоимость ошибки измеряется в десятках миллионов: переплата по ФОТ, потери производительности, уходы ключевых людей, откат изменений через полгода.
+        </p>
+        <p>
+          При этом сам процесс планирования остаётся ручным. Структуру рисуют в PowerPoint, ФОТ считают в Excel, сценарии сравнивают на словах в переговорных. Ни один из этих способов не показывает, что будет с компанией после принятия решения.
+        </p>
+        <p>
+          Разрыв между ценой решения и инструментом, которым оно принимается, — это и есть та проблема, с которой мы работаем.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TODO-заглушки для блоков 3–13 ─────────────────────── -->
+<!-- TODO: блок 3 · Масштаб потерь -->
+<!-- TODO: блок 4 · Почему стандартные инструменты больше не справляются -->
+<!-- TODO: блок 5 · Что делает Микросервис -->
+<!-- TODO: блок 6 · Для кого -->
+<!-- TODO: блок 7 · Как мы работаем -->
+<!-- TODO: блок 8 · Демо (тизеры, спецификация в block-8-demos-spec.md) -->
+<!-- TODO: блок 9 · Процесс работы -->
+<!-- TODO: блок 10 · Про нас -->
+<!-- TODO: блок 11 · Кто за этим стоит -->
+<!-- TODO: блок 12 · FAQ -->
+<!-- TODO: блок 13 · Следующий шаг -->
+
+<!-- ═══════════════════════════════════════════════════════
+     ФУТЕР
+════════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__inner">
+      <div class="site-footer__brand">
+        <svg class="leaf leaf--sm" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M 18 62 C 18 34, 38 14, 62 18 C 62 46, 42 66, 18 62 Z" fill="#5c1c14"/>
+        </svg>
+        Исследовательская лаборатория · НКО «Люди. Бизнес. Будущее.»
+      </div>
+      <p class="site-footer__legal">
+        Ассоциация экспертов кадрового развития «ЛЮДИ. БИЗНЕС. БУДУЩЕЕ.»<br>
+        ИНН 9715490977 · ОГРН 1247700557774
+      </p>
+      <nav class="site-footer__links" aria-label="Ссылки футера">
+        <a href="/privacy">Политика конфиденциальности</a>
+        <a href="https://hrasc.ru" target="_blank" rel="noopener noreferrer">Сайт НКО</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<!-- TODO: модалка с формой — следующий запуск -->
+
+</body>
+</html>
