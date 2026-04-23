@@ -191,7 +191,10 @@ body {
    HERO (Блок 1)
 ═══════════════════════════════════════════════════════════ */
 .hero {
-  padding-block: 40px 32px;
+  min-height: calc(100dvh - 64px);
+  display: flex;
+  align-items: center;
+  padding-block: 40px;
 }
 .hero__inner {
   display: grid;
@@ -734,7 +737,7 @@ body {
 
   .section { padding-block: 40px; }
 
-  .hero { padding-block: 56px 48px; }
+  .hero { min-height: auto; padding-block: 40px 24px; }
   .hero__inner {
     grid-template-columns: 1fr;
     gap: 40px;
