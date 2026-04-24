@@ -608,6 +608,92 @@ body {
     gap: 10px;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   ЭКРАН 5 · ФИНАЛЬНЫЙ
+═══════════════════════════════════════════════════════════ */
+.final-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+  margin-block: 24px 0;
+}
+.final-summary__title,
+.final-analysis h3 {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-1);
+  margin-bottom: 16px;
+}
+.final-summary__body {
+  font-size: 14px;
+  color: var(--text-2);
+  line-height: 1.6;
+}
+.final-summary__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.final-summary__list li {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-1);
+  font-size: 14px;
+}
+.final-summary__list li:last-child { border-bottom: none; }
+.final-summary__none {
+  color: var(--text-2);
+  font-size: 14px;
+  line-height: 1.6;
+}
+.final-analysis p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-2);
+  margin-bottom: 12px;
+}
+.final-analysis p:last-child { margin-bottom: 0; }
+.final-analysis__lead {
+  font-size: 15px !important;
+  font-weight: 500 !important;
+  color: var(--text-1) !important;
+}
+.final-analysis__note {
+  font-style: italic;
+}
+
+.final-cta {
+  text-align: center;
+  max-width: var(--max-text);
+  margin-inline: auto;
+}
+.final-cta__btn {
+  margin-top: 8px;
+}
+.restart-link {
+  display: block;
+  font-size: 13px;
+  color: var(--text-3);
+  margin-top: 24px;
+  text-decoration: none;
+}
+.restart-link:hover { color: var(--accent); }
+
+hr.divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin-block: 48px;
+}
+
+@media (max-width: 640px) {
+  .final-cols {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .final-cta__btn { width: 100%; }
+}
 </style>
 </head>
 <body>
@@ -970,12 +1056,44 @@ body {
     <section class="screen" data-screen="5" hidden aria-label="Итог">
       <h1 class="display-l">Что вы выбрали — и что показал расчёт</h1>
 
-      <!-- TODO: финальный экран в промпте 3 -->
+      <!-- [2] Двухколоночный блок -->
+      <div class="final-cols">
 
-      <div class="screen-nav screen-nav--stub">
-        <a href="/orgdesign/#contact" class="btn btn--primary">Обсудить задачу</a>
-        <button class="screen-nav__back" id="btn-back-5">← Назад</button>
+        <!-- Левая колонка: персонализированный итог -->
+        <div class="final-summary">
+          <h3 class="final-summary__title">Ваш выбор</h3>
+          <div class="final-summary__body" id="final-summary-body">
+            <!-- сюда JS вставляет контент -->
+          </div>
+        </div>
+
+        <!-- Правая колонка: анализ Микросервиса -->
+        <div class="final-analysis">
+          <h3>Что показал бы Микросервис на правлении</h3>
+          <p class="final-analysis__lead">Ни один из трёх сценариев не закрывает задачу полностью.</p>
+          <p>Сценарий А — даёт деньги, но создаёт структурный долг, который вернётся откатами через полгода.</p>
+          <p>Сценарий Б — структурно чистый, но цель по деньгам не достигает.</p>
+          <p>Сценарий В — лучший по виду, худший по полной стоимости после учёта подрядчиков и оставленных контролёров.</p>
+          <p>Оптимум — гибрид: объединение бэк-офиса (Б) + точечный аутсорс непроизводственных функций (часть В), без сокращения управленческого слоя. Расчётная экономия — 740 млн ₽/год при структурно сохранной модели.</p>
+          <p class="final-analysis__note">В реальном проекте таких сценариев — не три, а двадцать. Микросервис позволяет держать их параллельно, считать в моменте и сравнивать по сопоставимым метрикам.</p>
+        </div>
+
       </div>
+
+      <!-- [3] Разделитель -->
+      <hr class="divider">
+
+      <!-- [4] Финальный блок по центру -->
+      <div class="final-cta">
+        <div class="kicker">ИТОГ ДЕМОНСТРАЦИИ</div>
+        <h2 class="display-l" style="margin-block: 12px 16px;">Это был фрагмент логики</h2>
+        <p class="body-l" style="margin-bottom: 32px;">В реальном Микросервисе сценарии собираются под структуру вашей компании, цифры подгружаются из 1С:ЗУП, расчёт идёт в моменте.</p>
+        <a href="/orgdesign/#contact" class="btn btn--primary final-cta__btn">
+          Обсудить задачу
+        </a>
+        <a href="#" class="restart-link">↻ Пройти демо ещё раз</a>
+      </div>
+
     </section>
 
   </div>
@@ -1054,6 +1172,7 @@ body {
     updateProgress();
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (n === 5) renderFinalSummary();
   }
 
   /* Progress dot clicks */
@@ -1136,6 +1255,52 @@ body {
     if (choices[sc] !== null) return;
     onChoiceClick(sc, ch);
   });
+
+  function renderFinalSummary() {
+    var body = document.getElementById('final-summary-body');
+    if (!body) return;
+    var supported = [];
+    if (window.demoChoices.A === 'support') supported.push('Сценарий А');
+    if (window.demoChoices.B === 'support') supported.push('Сценарий Б');
+    if (window.demoChoices.C === 'support') supported.push('Сценарий В');
+
+    if (supported.length === 0) {
+      body.innerHTML = '<p class="final-summary__none">Вы не поддержали ни одного из вариантов — это тоже валидное решение. На правлении такая позиция означает: «Ни один из трёх не оправдывает рисков, нужен четвёртый сценарий».</p>';
+    } else {
+      var items = supported.map(function(s) {
+        return '<li>' + s + '</li>';
+      }).join('');
+      body.innerHTML = '<ul class="final-summary__list">' + items + '</ul>';
+    }
+  }
+
+  /* Restart link */
+  var restartLink = document.querySelector('.restart-link');
+  if (restartLink) {
+    restartLink.addEventListener('click', function(e) {
+      e.preventDefault();
+      window.demoChoices.A = null;
+      window.demoChoices.B = null;
+      window.demoChoices.C = null;
+      document.querySelectorAll('.choice-btn').forEach(function(btn) {
+        btn.classList.remove('is-selected', 'is-disabled');
+        btn.disabled = false;
+      });
+      document.querySelectorAll('.calc-block').forEach(function(cb) {
+        cb.classList.remove('is-revealed');
+        cb.hidden = true;
+      });
+      document.querySelectorAll('.nav-next').forEach(function(btn) {
+        btn.classList.remove('is-enabled');
+        btn.disabled = true;
+      });
+      if (typeof visitedSteps !== 'undefined') {
+        visitedSteps.length = 0;
+        visitedSteps.push(1);
+      }
+      goToStep(1);
+    });
+  }
 })();
 </script>
 

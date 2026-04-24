@@ -1277,8 +1277,9 @@ body.modal-open { overflow: hidden; }
         <div class="demo-card__title">Три сценария реорганизации. Какой вы выберете?</div>
         <p class="demo-card__desc">Производственный холдинг, 4&nbsp;200 человек. Задача — сократить ФОТ на 15%. Финансовый директор предложил три варианта. Ваше решение — за тридцать секунд на каждый.</p>
         <div class="demo-card__footer">
-          <button class="btn btn--primary btn--disabled" disabled aria-disabled="true">Запустить демо</button>
-          <span class="demo-card__status">Демо в разработке</span>
+          <a href="/orgdesign/demo-scenarios/" class="btn btn--primary">
+            Запустить демо
+          </a>
         </div>
       </div>
       <div class="demo-card">
@@ -1660,6 +1661,14 @@ body.modal-open { overflow: hidden; }
     e.preventDefault();
     closeModal();
   });
+
+  /* Auto-open modal if URL hash is #contact */
+  if (window.location.hash === '#contact') {
+    requestAnimationFrame(function() {
+      openModal();
+      history.replaceState(null, '', window.location.pathname);
+    });
+  }
 
   /* Contact type switch */
   contactRadios.forEach(function (radio) {
