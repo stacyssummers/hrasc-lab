@@ -430,6 +430,184 @@ body {
 @media (min-width: 641px) and (max-width: 1024px) {
   :root { --px-desk: var(--px-tab); }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   SCENARIO SCREENS — SHARED STYLES
+═══════════════════════════════════════════════════════════ */
+
+/* ─── Scenario description ───────────────────────────────── */
+.scenario-desc {
+  max-width: var(--max-text);
+  margin-top: 24px;
+}
+.scenario-desc__lead {
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--text-2);
+  margin-bottom: 10px;
+}
+.scenario-desc__note {
+  font-size: 14px;
+  color: var(--text-2);
+  line-height: 1.55;
+}
+
+/* ─── Choice block ───────────────────────────────────────── */
+.choice-block {
+  margin-top: 36px;
+  text-align: center;
+}
+.choice-block__question {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-1);
+  margin-bottom: 16px;
+}
+.choice-block__btns {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+.choice-btn {
+  padding: 16px 32px;
+  font-size: 15px;
+  transition: all 200ms ease;
+}
+.choice-btn.is-selected {
+  background: var(--accent);
+  color: #fafaf8;
+  border-color: var(--accent);
+}
+.choice-btn.is-disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ─── Calc block ─────────────────────────────────────────── */
+.calc-block {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 400ms ease, opacity 300ms ease;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 32px;
+  margin-top: 32px;
+}
+.calc-block.is-revealed {
+  max-height: 3000px;
+  opacity: 1;
+}
+.calc-block__heading {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text-1);
+  margin-bottom: 24px;
+}
+
+/* ─── Calc params ────────────────────────────────────────── */
+.calc-params__row {
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+.calc-params__row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+.calc-params__label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 6px;
+}
+.calc-params__value {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-1);
+  line-height: 1.5;
+}
+
+/* ─── Structural risks ───────────────────────────────────── */
+.risks-section {
+  margin-top: 32px;
+}
+.risks-section__kicker {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 16px;
+}
+.risk-item {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.risk-item:last-child { margin-bottom: 0; }
+.risk-flag {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 7px;
+}
+.risk-flag--red   { background: var(--accent); }
+.risk-flag--amber { background: #c08a00; }
+.risk-flag--green { background: #2d7d4f; }
+.risk-content { flex: 1; }
+.risk-title {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-1);
+  margin-bottom: 4px;
+}
+.risk-text {
+  font-size: 14px;
+  color: var(--text-2);
+  line-height: 1.5;
+}
+
+/* ─── Calc conclusion ────────────────────────────────────── */
+.calc-conclusion {
+  border-left: 3px solid var(--accent);
+  padding-left: 16px;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--text-1);
+  font-style: italic;
+  margin-top: 32px;
+}
+
+/* ─── Nav next: disabled until choice made ───────────────── */
+.nav-next:not(.is-enabled) {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* ─── Mobile: scenario screens ───────────────────────────── */
+@media (max-width: 640px) {
+  .choice-block__btns {
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+  .choice-block__btns .choice-btn {
+    width: 100%;
+    text-align: center;
+  }
+  .calc-block {
+    padding: 20px;
+  }
+  .risk-item {
+    gap: 10px;
+  }
+}
 </style>
 </head>
 <body>
@@ -539,10 +717,83 @@ body {
     <section class="screen" data-screen="2" hidden aria-label="Сценарий А">
       <h1 class="display-l">Сценарий А · Сократить средний управленческий уровень</h1>
 
-      <!-- TODO: содержимое экрана будет в промпте 2 -->
+      <!-- [2] Описание сценария -->
+      <div class="scenario-desc">
+        <p class="scenario-desc__lead">Между топ-менеджментом и линейными руководителями — три уровня среднего управления. Предложение: убрать средний слой целиком, перевести его задачи частью наверх, частью вниз.</p>
+        <p class="scenario-desc__note">Сокращение затрагивает 168 управленческих позиций.</p>
+      </div>
 
+      <!-- [3] Блок выбора -->
+      <div class="choice-block">
+        <p class="choice-block__question">Поддержать сценарий А?</p>
+        <div class="choice-block__btns">
+          <button data-scenario="A" data-choice="support" class="btn btn--secondary choice-btn">Да, поддержать</button>
+          <button data-scenario="A" data-choice="reject" class="btn btn--secondary choice-btn">Нет, не поддержать</button>
+        </div>
+      </div>
+
+      <!-- [4] Расчёт микросервиса (скрыт до выбора) -->
+      <div class="calc-block" data-calc-for="A" hidden>
+
+        <h2 class="calc-block__heading">Что показал бы Микросервис</h2>
+
+        <!-- 4.2 Финансовый блок -->
+        <div class="calc-params">
+          <div class="calc-params__row">
+            <div class="calc-params__label">Изменение ФОТ</div>
+            <div class="calc-params__value"><strong>−820 млн ₽ / год</strong> (−15,8%)</div>
+          </div>
+          <div class="calc-params__row">
+            <div class="calc-params__label">Цель по сокращению</div>
+            <div class="calc-params__value"><strong>достигнута и превышена</strong></div>
+          </div>
+          <div class="calc-params__row">
+            <div class="calc-params__label">Единовременные затраты на сокращение</div>
+            <div class="calc-params__value">≈ 340 млн ₽</div>
+          </div>
+          <div class="calc-params__row">
+            <div class="calc-params__label">Срок окупаемости решения</div>
+            <div class="calc-params__value"><strong>5 месяцев</strong></div>
+          </div>
+        </div>
+
+        <!-- 4.3 Структурные риски -->
+        <div class="risks-section">
+          <div class="risks-section__kicker">Структурные риски</div>
+
+          <div class="risk-item">
+            <span class="risk-flag risk-flag--red"></span>
+            <div class="risk-content">
+              <div class="risk-title">Превышение нормы управляемости в 7 дирекциях</div>
+              <p class="risk-text">После сокращения среднего слоя у руководителей верхнего уровня в подчинении окажется по 18–24 человека вместо рекомендуемых 7–9. Качество управления падает уже в первый квартал.</p>
+            </div>
+          </div>
+
+          <div class="risk-item">
+            <span class="risk-flag risk-flag--red"></span>
+            <div class="risk-content">
+              <div class="risk-title">Критические роли без замены — 12 позиций</div>
+              <p class="risk-text">Среди сокращаемых — носители уникальной экспертизы (главные технологи участков, ведущие инженеры по качеству). На рынке такие специалисты не закрываются за 2–3 месяца.</p>
+            </div>
+          </div>
+
+          <div class="risk-item">
+            <span class="risk-flag risk-flag--red"></span>
+            <div class="risk-content">
+              <div class="risk-title">Риск каскадных уходов</div>
+              <p class="risk-text">Линейные руководители, лишившиеся прямого начальника-эксперта, традиционно начинают искать работу в течение 6–9 месяцев после реорганизации. Прогноз дополнительных уходов: 8–12% линейного руководящего состава.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4.4 Вывод -->
+        <p class="calc-conclusion">Цель по деньгам достигнута. Через 6 месяцев структура потребует достройки — частично откатывая экономию.</p>
+
+      </div>
+
+      <!-- [5] Навигация -->
       <div class="screen-nav screen-nav--stub">
-        <button class="btn btn--primary" id="btn-to-3">Перейти к сценарию Б →</button>
+        <button class="btn btn--primary nav-next" id="btn-to-3" disabled>Перейти к сценарию Б →</button>
         <button class="screen-nav__back" id="btn-back-2">← Назад</button>
       </div>
     </section>
@@ -686,6 +937,61 @@ body {
 
   /* Init */
   updateProgress();
+
+  /* ─── Scenario choices state ─────────────────────────────── */
+  var choices = { A: null, B: null, C: null };
+  window.demoChoices = choices;
+
+  function onChoiceClick(scenario, choice) {
+    choices[scenario] = choice;
+
+    /* Mark buttons */
+    var btns = document.querySelectorAll('.choice-btn[data-scenario="' + scenario + '"]');
+    btns.forEach(function (btn) {
+      btn.disabled = true;
+      if (btn.dataset.choice === choice) {
+        btn.classList.add('is-selected');
+      } else {
+        btn.classList.add('is-disabled');
+      }
+    });
+
+    /* Reveal calc block with CSS transition */
+    var calcBlock = document.querySelector('.calc-block[data-calc-for="' + scenario + '"]');
+    if (calcBlock) {
+      calcBlock.removeAttribute('hidden');
+      requestAnimationFrame(function () {
+        calcBlock.classList.add('is-revealed');
+      });
+      setTimeout(function () {
+        calcBlock.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 400);
+    }
+
+    /* Enable the nav-next button in the parent screen */
+    var anyChoiceBtn = document.querySelector('.choice-btn[data-scenario="' + scenario + '"]');
+    if (anyChoiceBtn) {
+      var parentScreen = anyChoiceBtn.closest('.screen');
+      if (parentScreen) {
+        var navNext = parentScreen.querySelector('.nav-next');
+        if (navNext) {
+          navNext.disabled = false;
+          navNext.classList.add('is-enabled');
+        }
+      }
+    }
+  }
+
+  /* Delegated choice click handler */
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.choice-btn');
+    if (!btn) return;
+    if (btn.disabled) return;
+    var sc = btn.dataset.scenario;
+    var ch = btn.dataset.choice;
+    if (choices[sc] !== null) return;
+    onChoiceClick(sc, ch);
+  });
 })();
 </script>
 
