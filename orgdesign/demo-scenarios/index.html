@@ -802,10 +802,80 @@ body {
     <section class="screen" data-screen="3" hidden aria-label="Сценарий Б">
       <h1 class="display-l">Сценарий Б · Объединить региональные подразделения</h1>
 
-      <!-- TODO: содержимое экрана будет в промпте 2 -->
+      <!-- [2] Описание сценария -->
+      <div class="scenario-desc">
+        <p class="scenario-desc__lead">Два региональных дивизиона работают как зеркальные структуры — у каждого свой бэк-офис, своя финансовая служба, свой HR. Предложение: объединить дублирующие функции в единый сервисный центр.</p>
+        <p class="scenario-desc__note">Сокращение затрагивает 96 позиций бэк-офиса.</p>
+      </div>
 
+      <!-- [3] Блок выбора -->
+      <div class="choice-block">
+        <p class="choice-block__question">Поддержать сценарий Б?</p>
+        <div class="choice-block__btns">
+          <button data-scenario="B" data-choice="support" class="btn btn--secondary choice-btn">Да, поддержать</button>
+          <button data-scenario="B" data-choice="reject" class="btn btn--secondary choice-btn">Нет, не поддержать</button>
+        </div>
+      </div>
+
+      <!-- [4] Расчёт микросервиса (скрыт до выбора) -->
+      <div class="calc-block" data-calc-for="B" hidden>
+
+        <h2 class="calc-block__heading">Что показал бы Микросервис</h2>
+
+        <div class="calc-params">
+          <div class="calc-params__row">
+            <div class="calc-params__label">Изменение ФОТ</div>
+            <div class="calc-params__value"><strong>−520 млн ₽ / год</strong> (−10,0%)</div>
+          </div>
+          <div class="calc-params__row">
+            <div class="calc-params__label">Цель по сокращению</div>
+            <div class="calc-params__value">не достигнута (нужно ещё <strong>−260 млн ₽</strong>)</div>
+          </div>
+          <div class="calc-params__row">
+            <div class="calc-params__label">Единовременные затраты на сокращение</div>
+            <div class="calc-params__value">≈ 195 млн ₽</div>
+          </div>
+          <div class="calc-params__row">
+            <div class="calc-params__label">Срок окупаемости решения</div>
+            <div class="calc-params__value"><strong>4,5 месяца</strong></div>
+          </div>
+        </div>
+
+        <div class="risks-section">
+          <div class="risks-section__kicker">Структурные риски</div>
+
+          <div class="risk-item">
+            <span class="risk-flag risk-flag--green"></span>
+            <div class="risk-content">
+              <div class="risk-title">Норма управляемости — в пределах нормы</div>
+              <p class="risk-text">Объединение не нарушает управленческую вертикаль. Все руководители сохраняют разумное число подчинённых.</p>
+            </div>
+          </div>
+
+          <div class="risk-item">
+            <span class="risk-flag risk-flag--amber"></span>
+            <div class="risk-content">
+              <div class="risk-title">Региональная автономия в принятии решений снижается</div>
+              <p class="risk-text">Скорость реакции на запросы производства из регионов вырастет с 1–2 дней до 3–5 рабочих дней в первые полгода — пока сервисный центр выстраивает процессы.</p>
+            </div>
+          </div>
+
+          <div class="risk-item">
+            <span class="risk-flag risk-flag--green"></span>
+            <div class="risk-content">
+              <div class="risk-title">Критических ролей без замены — нет</div>
+              <p class="risk-text">Сокращаемые функции дублированы между регионами, экспертиза сохраняется на стороне объединённого центра.</p>
+            </div>
+          </div>
+        </div>
+
+        <p class="calc-conclusion">Структурно решение чистое. По деньгам — закрывает только две трети цели. Нужен либо второй шаг, либо комбинация с другим сценарием.</p>
+
+      </div>
+
+      <!-- [5] Навигация -->
       <div class="screen-nav screen-nav--stub">
-        <button class="btn btn--primary" id="btn-to-4">Перейти к сценарию В →</button>
+        <button class="btn btn--primary nav-next" id="btn-to-4" disabled>Перейти к сценарию В →</button>
         <button class="screen-nav__back" id="btn-back-3">← Назад</button>
       </div>
     </section>
@@ -814,10 +884,84 @@ body {
     <section class="screen" data-screen="4" hidden aria-label="Сценарий В">
       <h1 class="display-l">Сценарий В · Вывести сервисные функции на аутсорс</h1>
 
-      <!-- TODO: содержимое экрана будет в промпте 2 -->
+      <!-- [2] Описание сценария -->
+      <div class="scenario-desc">
+        <p class="scenario-desc__lead">IT-поддержка, клининг, охрана, часть бухгалтерии — функции, в которых рынок предлагает зрелые внешние сервисы. Предложение: передать эти функции подрядчикам.</p>
+        <p class="scenario-desc__note">Сокращение затрагивает 187 позиций.</p>
+      </div>
 
+      <!-- [3] Блок выбора -->
+      <div class="choice-block">
+        <p class="choice-block__question">Поддержать сценарий В?</p>
+        <div class="choice-block__btns">
+          <button data-scenario="C" data-choice="support" class="btn btn--secondary choice-btn">Да, поддержать</button>
+          <button data-scenario="C" data-choice="reject" class="btn btn--secondary choice-btn">Нет, не поддержать</button>
+        </div>
+      </div>
+
+      <!-- [4] Расчёт микросервиса (скрыт до выбора) -->
+      <div class="calc-block" data-calc-for="C" hidden>
+
+        <h2 class="calc-block__heading">Что показал бы Микросервис</h2>
+
+        <div class="calc-params">
+          <div class="calc-params__row">
+            <div class="calc-params__label">Изменение ФОТ</div>
+            <div class="calc-params__value"><strong>−890 млн ₽ / год</strong> (−17,1%)</div>
+          </div>
+          <div class="calc-params__row">
+            <div class="calc-params__label">Цель по сокращению</div>
+            <div class="calc-params__value"><strong>достигнута с запасом</strong></div>
+          </div>
+          <div class="calc-params__row">
+            <div class="calc-params__label">Единовременные затраты на сокращение</div>
+            <div class="calc-params__value">≈ 280 млн ₽</div>
+          </div>
+          <div class="calc-params__row">
+            <div class="calc-params__label">Контракты с подрядчиками (новые расходы, не в ФОТ)</div>
+            <div class="calc-params__value"><strong>+410 млн ₽ / год</strong></div>
+          </div>
+          <div class="calc-params__row">
+            <div class="calc-params__label">Чистый эффект на полные затраты</div>
+            <div class="calc-params__value"><strong>−480 млн ₽ / год</strong></div>
+          </div>
+        </div>
+
+        <div class="risks-section">
+          <div class="risks-section__kicker">Структурные риски</div>
+
+          <div class="risk-item">
+            <span class="risk-flag risk-flag--red"></span>
+            <div class="risk-content">
+              <div class="risk-title">Дублирование функций между внутренней и внешней структурой</div>
+              <p class="risk-text">Полностью передать ИТ и бухгалтерию подрядчику нельзя — остаются позиции «контролёров контракта», «владельцев процесса», «приёмки работ». Прогноз: 35–50 позиций придётся вернуть в течение года.</p>
+            </div>
+          </div>
+
+          <div class="risk-item">
+            <span class="risk-flag risk-flag--red"></span>
+            <div class="risk-content">
+              <div class="risk-title">Зависимость от подрядчика по критическим процессам</div>
+              <p class="risk-text">ИТ-поддержка производственных систем — точка отказа. Замена подрядчика занимает 4–6 месяцев. На этот срок производство становится заложником качества внешнего сервиса.</p>
+            </div>
+          </div>
+
+          <div class="risk-item">
+            <span class="risk-flag risk-flag--amber"></span>
+            <div class="risk-content">
+              <div class="risk-title">Скрытый рост накладных</div>
+              <p class="risk-text">В первый год расходы на управление подрядчиками, юридическое сопровождение и контроль качества прибавляют ещё 80–120 млн ₽ к стоимости решения.</p>
+            </div>
+          </div>
+        </div>
+
+        <p class="calc-conclusion">На бумаге — лучшая экономия. По полной стоимости решения — близко ко второму сценарию. Главный риск — потеря управляемости критическими процессами.</p>
+
+      </div>
+
+      <!-- [5] Навигация -->
       <div class="screen-nav screen-nav--stub">
-        <button class="btn btn--primary" id="btn-to-5">Посмотреть итог →</button>
+        <button class="btn btn--primary nav-next" id="btn-to-5" disabled>Посмотреть итог →</button>
         <button class="screen-nav__back" id="btn-back-4">← Назад</button>
       </div>
     </section>
