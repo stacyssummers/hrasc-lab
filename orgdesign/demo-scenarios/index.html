@@ -272,6 +272,7 @@ body {
   grid-template-columns: 1fr 1fr;
   gap: 48px;
   margin-top: 32px;
+  align-items: start;
 }
 
 /* ─── Company card ───────────────────────────────────────── */
@@ -282,39 +283,38 @@ body {
   padding: 24px;
 }
 .company-card__row {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 12px;
-  padding-block: 10px;
+  padding-bottom: 16px;
+  margin-bottom: 16px;
   border-bottom: 1px solid var(--border);
 }
-.company-card__row:first-child { padding-top: 0; }
-.company-card__row:last-child { border-bottom: none; padding-bottom: 0; }
+.company-card__row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
 .company-card__label {
-  font-size: 13px;
-  color: var(--text-2);
-  flex-shrink: 0;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 6px;
 }
 .company-card__value {
   font-size: 14px;
+  font-weight: 400;
   color: var(--text-1);
-  text-align: right;
+  line-height: 1.5;
 }
-.company-card__value--block {
-  display: block;
-  width: 100%;
-  text-align: left;
-  font-size: 14px;
-  color: var(--text-1);
-}
-.company-card__row--stacked {
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 4px;
-}
-.company-card__value strong {
+.company-card__value--accent {
+  font-size: 18px;
   font-weight: 600;
+  color: var(--text-1);
+  line-height: 1.5;
+}
+.company-card__note {
+  font-size: 12px;
+  color: var(--text-3);
 }
 
 /* ─── Task column ────────────────────────────────────────── */
@@ -495,29 +495,29 @@ body {
 
         <!-- Левая колонка: карточка компании -->
         <div class="company-card">
-          <div class="company-card__row company-card__row--stacked">
-            <span class="company-card__label">Отрасль</span>
-            <span class="company-card__value--block">производственный холдинг (металлообработка, два региональных дивизиона)</span>
+          <div class="company-card__row">
+            <div class="company-card__label">Отрасль</div>
+            <div class="company-card__value">Производственный холдинг, металлообработка, два региональных дивизиона</div>
           </div>
           <div class="company-card__row">
-            <span class="company-card__label">Численность</span>
-            <span class="company-card__value">4&nbsp;200 человек</span>
+            <div class="company-card__label">Численность</div>
+            <div class="company-card__value">4&nbsp;200 человек</div>
           </div>
           <div class="company-card__row">
-            <span class="company-card__label">Управленческий персонал</span>
-            <span class="company-card__value">504 человека (12%)</span>
+            <div class="company-card__label">Управленческий персонал</div>
+            <div class="company-card__value">504 человека (12%)</div>
           </div>
           <div class="company-card__row">
-            <span class="company-card__label">Линейный персонал</span>
-            <span class="company-card__value">3&nbsp;696 человек (88%)</span>
+            <div class="company-card__label">Линейный персонал</div>
+            <div class="company-card__value">3&nbsp;696 человек (88%)</div>
           </div>
           <div class="company-card__row">
-            <span class="company-card__label">Годовой ФОТ</span>
-            <span class="company-card__value"><strong>5,2 млрд ₽</strong></span>
+            <div class="company-card__label">Годовой ФОТ</div>
+            <div class="company-card__value company-card__value--accent">5,2 млрд&nbsp;₽</div>
           </div>
           <div class="company-card__row">
-            <span class="company-card__label">Полные затраты на персонал (с учётом страховых взносов 30,2%)</span>
-            <span class="company-card__value"><strong>6,8 млрд ₽</strong></span>
+            <div class="company-card__label">Полные затраты на персонал</div>
+            <div class="company-card__value">6,8 млрд&nbsp;₽<br><span class="company-card__note">с учётом страховых взносов 30,2%</span></div>
           </div>
         </div>
 
