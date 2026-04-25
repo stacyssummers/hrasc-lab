@@ -312,6 +312,101 @@ body {
   .screen-1__cols { grid-template-columns: 1fr; gap: 24px; }
   .progress__label { display: none; }
   .screen-nav .btn--primary { width: 100%; }
+
+  /* ─── Экран 2: лейаут в одну колонку ─── */
+  .diag-screen__layout {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .diag-side {
+    position: static;
+    max-height: none;
+    margin-top: 8px;
+  }
+
+  /* ─── Кнопки-фильтры на мобильном ─── */
+  .diag-filters {
+    gap: 8px;
+  }
+
+  .filter-btn {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+
+  /* ─── Схема: вертикальный список вместо дерева ─── */
+  .org-chart {
+    overflow-x: visible;
+    overflow-y: visible;
+    padding: 0;
+  }
+
+  .org-chart__inner {
+    min-width: 0;
+    width: 100%;
+    gap: 16px;
+  }
+
+  /* Скрываем SVG с линиями (они не нужны в списке) */
+  .org-chart__svg {
+    display: none;
+  }
+
+  /* Уровни — в столбец, без переносов и центрирования */
+  .org-level {
+    flex-direction: column;
+    gap: 8px;
+    align-items: stretch;
+    flex-wrap: nowrap;
+  }
+
+  /* Карточки — на всю ширину контейнера */
+  .org-node,
+  .org-level--3 .org-node,
+  .org-level--4 .org-node {
+    min-width: 0;
+    max-width: none;
+    width: 100%;
+    text-align: left;
+    padding: 12px 14px;
+    font-size: 14px;
+  }
+
+  .org-node--root,
+  .org-node--top {
+    padding: 14px 16px;
+  }
+
+  /* На уровне 3 — чуть меньший шрифт для компактности */
+  .org-level--3 .org-node {
+    font-size: 13px;
+    padding: 10px 12px;
+  }
+
+  /* Уровень 4 (замы) — отступ слева, чтобы выглядели вложенно */
+  .org-level--4 .org-node {
+    margin-left: 16px;
+    width: calc(100% - 16px);
+    font-size: 12px;
+    padding: 8px 12px;
+    color: var(--text-2);
+  }
+
+  /* Кастомный tooltip — отключаем на мобильном (нет hover) */
+  .org-node[data-tooltip]:hover::after,
+  .org-node[data-tooltip]:hover::before {
+    display: none;
+  }
+
+  /* Финальный экран: уменьшаем заголовок */
+  .final-screen h1 {
+    font-size: 24px;
+  }
+
+  .final-block {
+    padding: 24px;
+  }
 }
 @media (min-width: 641px) and (max-width: 1024px) {
   :root { --px-desk: var(--px-tab); }
