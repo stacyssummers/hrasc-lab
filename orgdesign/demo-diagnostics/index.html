@@ -57,6 +57,8 @@ body {
 }
 .btn--secondary { background: transparent; color: var(--text-1); border-color: var(--border); }
 .btn--secondary:hover { border-color: var(--accent); color: var(--accent); }
+.btn--primary { background: var(--accent); color: #fafaf8; border-color: var(--accent); }
+.btn--primary:hover { background: var(--accent-dark); border-color: var(--accent-dark); }
 .btn--sm { padding: 9px 18px; font-size: 13px; border-radius: 4px; }
 
 /* HEADER */
@@ -76,10 +78,106 @@ body {
 .site-footer__links a { color: var(--text-2); text-decoration: underline; text-underline-offset: 3px; transition: color 200ms ease; }
 .site-footer__links a:hover { color: var(--accent); }
 
+/* PROGRESS */
+.progress {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+  padding-block: 20px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 40px;
+}
+.progress__dot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  cursor: default;
+  font-family: var(--font);
+  padding: 0;
+}
+.progress__num {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-3);
+  background: transparent;
+  transition: background 200ms ease, border-color 200ms ease, color 200ms ease;
+}
+.progress__label {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-3);
+  text-align: center;
+}
+.progress__line {
+  flex: 1;
+  max-width: 72px;
+  height: 1px;
+  background: var(--border);
+  margin-top: 14px;
+  flex-shrink: 0;
+}
+.progress__dot.is-active .progress__num { background: var(--accent); border-color: var(--accent); color: #fafaf8; }
+.progress__dot.is-active .progress__label { color: var(--text-1); }
+.progress__dot.is-visited:not(.is-active) .progress__num { border-color: var(--accent); color: var(--accent); }
+.progress__dot.is-visited:not(.is-active) .progress__label { color: var(--text-2); }
+.progress__dot.is-visited:not(.is-active) { cursor: pointer; }
+
+/* SCREENS */
+.screen { display: none; }
+.screen.is-visible { display: block; }
+.screen h1 { font-size: 22px; font-weight: 500; line-height: 1.2; letter-spacing: -0.01em; margin-bottom: 8px; }
+
+/* SCREEN 1 */
+.screen-1__cols {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 40px;
+  margin-top: 24px;
+  align-items: start;
+}
+.context-card {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 24px;
+}
+.context-card__row { margin-bottom: 16px; }
+.context-card__row:last-child { margin-bottom: 0; }
+.context-card__label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 4px;
+}
+.context-card__value { font-size: 16px; font-weight: 500; color: var(--text-1); }
+.intro-text { font-size: 16px; line-height: 1.6; color: var(--text-2); }
+.intro-text p { margin-bottom: 16px; }
+.intro-text p:last-child { margin-bottom: 0; }
+.intro-text strong { color: var(--text-1); font-weight: 500; }
+.screen-nav { margin-top: 40px; display: flex; justify-content: flex-end; }
+
 @media (max-width: 640px) {
   :root { --px-desk: var(--px-mob); }
   .site-header__inner { height: 56px; }
   .demo-main { padding-block: 32px; }
+  .screen-1__cols { grid-template-columns: 1fr; gap: 24px; }
+  .progress__label { display: none; }
+  .screen-nav .btn--primary { width: 100%; }
 }
 @media (min-width: 641px) and (max-width: 1024px) {
   :root { --px-desk: var(--px-tab); }
@@ -106,6 +204,76 @@ body {
 <!-- ОСНОВНОЙ КОНТЕНТ -->
 <main class="demo-main">
   <div class="container">
+
+<nav class="progress" aria-label="Прогресс демо">
+  <button class="progress__dot is-active" data-step="1"
+          aria-label="Знакомство" disabled>
+    <span class="progress__num">1</span>
+    <span class="progress__label">Знакомство</span>
+  </button>
+  <span class="progress__line"></span>
+  <button class="progress__dot" data-step="2"
+          aria-label="Схема" disabled>
+    <span class="progress__num">2</span>
+    <span class="progress__label">Схема</span>
+  </button>
+  <span class="progress__line"></span>
+  <button class="progress__dot" data-step="3"
+          aria-label="Итог" disabled>
+    <span class="progress__num">3</span>
+    <span class="progress__label">Итог</span>
+  </button>
+</nav>
+
+<section class="screen is-visible" data-screen="1"
+         aria-label="Знакомство со схемой">
+  <h1>Дистрибуторская компания · 1&nbsp;240 человек</h1>
+  <div class="screen-1__cols">
+    <aside class="context-card">
+      <div class="context-card__row">
+        <div class="context-card__label">Отрасль</div>
+        <div class="context-card__value">оптовая дистрибуция FMCG</div>
+      </div>
+      <div class="context-card__row">
+        <div class="context-card__label">Численность</div>
+        <div class="context-card__value">1&nbsp;240 человек</div>
+      </div>
+      <div class="context-card__row">
+        <div class="context-card__label">Регионы присутствия</div>
+        <div class="context-card__value">6</div>
+      </div>
+      <div class="context-card__row">
+        <div class="context-card__label">Сегмент</div>
+        <div class="context-card__value">средний бизнес</div>
+      </div>
+    </aside>
+    <div class="intro-text">
+      <p>Перед вами — упрощённая (до 60 ключевых позиций) оргсхема
+      компании. Структура была одобрена советом директоров
+      полгода назад как «оптимизированная» после слияния двух
+      дистрибуторских домов.</p>
+      <p>Прокрутите схему, оцените её на глаз. Затем включите
+      фильтры — Микросервис покажет, что в этой структуре он
+      считает дефектами.</p>
+    </div>
+  </div>
+  <div class="screen-nav">
+    <button class="btn btn--primary" id="btn-to-screen-2">
+      Открыть схему →
+    </button>
+  </div>
+</section>
+
+<section class="screen" data-screen="2" hidden
+         aria-label="Интерактивная схема">
+  <!-- Заполняется в следующих промптах -->
+</section>
+
+<section class="screen" data-screen="3" hidden
+         aria-label="Итог">
+  <!-- Заполняется в следующих промптах -->
+</section>
+
   </div>
 </main>
 
@@ -130,6 +298,47 @@ body {
     </div>
   </div>
 </footer>
+
+<script>
+(function() {
+  var screens = document.querySelectorAll('.screen');
+  var dots = document.querySelectorAll('.progress__dot');
+  var visitedSteps = [1];
+
+  function goToStep(n) {
+    screens.forEach(function(s) {
+      var num = parseInt(s.dataset.screen, 10);
+      if (num === n) {
+        s.hidden = false;
+        s.classList.add('is-visible');
+      } else {
+        s.classList.remove('is-visible');
+        s.hidden = true;
+      }
+    });
+    if (visitedSteps.indexOf(n) === -1) visitedSteps.push(n);
+    dots.forEach(function(d) {
+      var num = parseInt(d.dataset.step, 10);
+      d.classList.toggle('is-active', num === n);
+      d.classList.toggle('is-visited', visitedSteps.indexOf(num) !== -1);
+      d.disabled = visitedSteps.indexOf(num) === -1;
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  var btnToScreen2 = document.getElementById('btn-to-screen-2');
+  if (btnToScreen2) {
+    btnToScreen2.addEventListener('click', function() { goToStep(2); });
+  }
+
+  dots.forEach(function(dot) {
+    dot.addEventListener('click', function() {
+      var n = parseInt(dot.dataset.step, 10);
+      if (visitedSteps.indexOf(n) !== -1) goToStep(n);
+    });
+  });
+})();
+</script>
 
 </body>
 </html>
