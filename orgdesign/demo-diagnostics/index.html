@@ -179,7 +179,7 @@ body {
   padding: 24px 0;
 }
 .org-chart__inner {
-  min-width: 1080px;
+  min-width: 1800px;
   display: flex;
   flex-direction: column;
   gap: 48px;
@@ -243,6 +243,16 @@ body {
   color: var(--text-3);
   margin-top: 2px;
 }
+/* Карточки уровня 3 — компактнее */
+.org-level--3 .org-node {
+  min-width: 100px;
+  max-width: 140px;
+  padding: 8px 10px;
+  font-size: 12px;
+}
+.org-level--3 .org-node__role { line-height: 1.3; }
+.org-level--3 .org-node__unit { font-size: 10px; margin-top: 1px; }
+
 .org-node__marker {
   position: absolute;
   top: 4px;
@@ -745,26 +755,49 @@ body {
         };
       });
 
-      var minChildTop = childCoords.reduce(function(m, c) {
-        return c.top < m ? c.top : m;
-      }, Infinity);
-      var yokeY = (parentBottom + minChildTop) / 2;
+      // Группируем детей по строкам (top отличается менее чем на 10px)
+      var rows = [];
+      childCoords.forEach(function(coord) {
+        var row = null;
+        for (var ri = 0; ri < rows.length; ri++) {
+          if (Math.abs(rows[ri].top - coord.top) < 10) {
+            row = rows[ri]; break;
+          }
+        }
+        if (!row) { row = { top: coord.top, items: [] }; rows.push(row); }
+        row.items.push(coord);
+      });
+      rows.sort(function(a, b) { return a.top - b.top; });
 
+      var firstRowTop = rows[0].top;
+      var yokeY = (parentBottom + firstRowTop) / 2;
+
+      // 1. Вертикаль от родителя до основного коромысла
       addLine(parentX, parentBottom, parentX, yokeY);
 
-      if (childCoords.length > 1) {
-        var minX = childCoords.reduce(function(m, c) {
-          return c.x < m ? c.x : m;
-        }, Infinity);
-        var maxX = childCoords.reduce(function(m, c) {
-          return c.x > m ? c.x : m;
-        }, -Infinity);
+      // 2. Горизонтальное коромысло по первой строке
+      if (rows[0].items.length > 1 || rows.length > 1) {
+        var allX = rows[0].items.map(function(c) { return c.x; });
+        var minX = allX.reduce(function(m, x) { return x < m ? x : m; },
+                               Math.min(parentX, allX[0]));
+        var maxX = allX.reduce(function(m, x) { return x > m ? x : m; },
+                               Math.max(parentX, allX[0]));
+        minX = Math.min(minX, parentX);
+        maxX = Math.max(maxX, parentX);
         addLine(minX, yokeY, maxX, yokeY);
       }
 
-      childCoords.forEach(function(c) {
+      // 3. Вертикали от коромысла к детям первой строки
+      rows[0].items.forEach(function(c) {
         addLine(c.x, yokeY, c.x, c.top);
       });
+
+      // 4. Дети последующих строк — прямая вертикаль от коромысла
+      for (var i = 1; i < rows.length; i++) {
+        rows[i].items.forEach(function(c) {
+          addLine(c.x, yokeY, c.x, c.top);
+        });
+      }
     });
   }
 
