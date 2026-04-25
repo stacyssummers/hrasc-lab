@@ -457,6 +457,11 @@ body {
   border-color: #b85a1f;
 }
 
+.filter-btn[data-filter="3"].is-active {
+  background: #c08a00;
+  border-color: #c08a00;
+}
+
 .filter-btn[data-filter="4"].is-active {
   background: #3a5f7a;
   border-color: #3a5f7a;
@@ -478,6 +483,12 @@ body {
   border-color: #b85a1f;
   border-width: 2px;
   background: rgba(184, 90, 31, 0.05);
+}
+
+.org-node.is-flagged-yellow {
+  border-color: #c08a00;
+  border-width: 2px;
+  background: rgba(192, 138, 0, 0.05);
 }
 
 .org-node.is-flagged-blue {
@@ -583,6 +594,9 @@ body {
         </button>
         <button class="filter-btn" data-filter="2" type="button">
           Критические роли
+        </button>
+        <button class="filter-btn" data-filter="3" type="button">
+          Дублирование функций
         </button>
         <button class="filter-btn" data-filter="4" type="button">
           Финансовые перекосы
@@ -987,17 +1001,68 @@ body {
     orgSvg.appendChild(line);
   }
 
+  function drawDuplicationLines() {
+    if (!orgChart || !orgSvg) return;
+    if (!activeFilters.has('3')) return;
+
+    const data = FILTER_DATA['3'];
+    if (!data || !data.pairs) return;
+
+    const chartRect = orgChart.getBoundingClientRect();
+
+    data.pairs.forEach(pair => {
+      const [idA, idB] = pair;
+      const nodeA = orgChart.querySelector(
+        '.org-node[data-node-id="' + idA + '"]');
+      const nodeB = orgChart.querySelector(
+        '.org-node[data-node-id="' + idB + '"]');
+      if (!nodeA || !nodeB) return;
+
+      const rectA = nodeA.getBoundingClientRect();
+      const rectB = nodeB.getBoundingClientRect();
+      const xA = rectA.left + rectA.width / 2 - chartRect.left;
+      const yA = rectA.bottom - chartRect.top;
+      const xB = rectB.left + rectB.width / 2 - chartRect.left;
+      const yB = rectB.bottom - chartRect.top;
+
+      const arcY = Math.max(yA, yB) + 30;
+
+      addDuplicationLine(xA, yA, xA, arcY);
+      addDuplicationLine(xA, arcY, xB, arcY);
+      addDuplicationLine(xB, arcY, xB, yB);
+    });
+  }
+
+  function addDuplicationLine(x1, y1, x2, y2) {
+    const line = document.createElementNS(svgNS, 'line');
+    line.setAttribute('x1', x1);
+    line.setAttribute('y1', y1);
+    line.setAttribute('x2', x2);
+    line.setAttribute('y2', y2);
+    line.setAttribute('stroke', '#c08a00');
+    line.setAttribute('stroke-width', '1.5');
+    line.setAttribute('stroke-dasharray', '5 4');
+    line.classList.add('duplication-line');
+    orgSvg.appendChild(line);
+  }
+
   var resizeTimer;
   window.addEventListener('resize', function() {
     clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(drawHierarchyLines, 150);
+    resizeTimer = setTimeout(function() {
+      drawHierarchyLines();
+      drawDuplicationLines();
+    }, 150);
   });
 
   var btnToScreen2_forLines = document.getElementById('btn-to-screen-2');
   if (btnToScreen2_forLines) {
     btnToScreen2_forLines.addEventListener('click', function() {
       requestAnimationFrame(function() {
-        requestAnimationFrame(drawHierarchyLines);
+        requestAnimationFrame(function() {
+          drawHierarchyLines();
+          drawDuplicationLines();
+        });
       });
     });
   }
@@ -1007,7 +1072,10 @@ body {
   progressDots_forLines.forEach(function(dot) {
     dot.addEventListener('click', function() {
       requestAnimationFrame(function() {
-        requestAnimationFrame(drawHierarchyLines);
+        requestAnimationFrame(function() {
+          drawHierarchyLines();
+          drawDuplicationLines();
+        });
       });
     });
   });
@@ -1030,6 +1098,16 @@ const FILTER_DATA = {
     title: 'Критические роли без преемника · 3 позиции',
     text: '<p>Эти три позиции держат на себе уникальную для компании экспертизу: технологические процессы складской обработки, систему вознаграждения и архитектуру ключевых ИТ-систем. Уход любого из этих сотрудников останавливает процесс или замедляет его на месяцы. На текущий момент в структуре нет позиций, где бы готовился преемник.</p><p><strong>Прогноз проявления:</strong> проблема не имеет «времени до проявления» — она проявится в момент ухода. Средний срок поиска замены для таких ролей на рынке — 4–7 месяцев. Внутренняя передача экспертизы при наличии преемника — 2–3 месяца.</p><p><strong>Решение в Микросервисе:</strong> в каждой из трёх ветвей завести позицию «заместитель / ведущий специалист» с явной функцией дублирования критической экспертизы.</p>'
   },
+  '3': {
+    color: 'yellow',
+    nodeIds: ['cat-management', 'market-research', 'planning', 'strategic-projects'],
+    pairs: [
+      ['cat-management', 'market-research'],
+      ['planning', 'strategic-projects']
+    ],
+    title: 'Дублирование функций · 2 пары',
+    text: '<p>Дирекция по развитию была создана после слияния — в её состав вошли подразделения, функции которых уже существовали у Коммерческого и Финансового директоров. Маркетинговые исследования параллельно ведут две команды, финансовое планирование стратегических проектов идёт независимо от общего планирования.</p><p><strong>Прогноз проявления:</strong> уже проявляется — конфликты по бюджетам, разные цифры в отчётах одному и тому же совету директоров, дублирование подрядных контрактов. Стоимость дублирования — около 35 млн ₽/год по фонду оплаты труда плюс расходы на дублирующиеся подрядные работы.</p><p><strong>Решение в Микросервисе:</strong> перевести дублирующие функции в одну из дирекций (Коммерческую или Финансовую) с переподчинением сотрудников. Дирекция по развитию остаётся с уникальной функцией продуктового развития.</p>'
+  },
   '4': {
     color: 'blue',
     nodeIds: ['commercial', 'logistics', 'finance', 'hr', 'it', 'dev', 'market-research', 'strategic-projects', 'product-dev'],
@@ -1041,6 +1119,7 @@ const FILTER_DATA = {
 const FILTER_COLOR_DOTS = {
   'red': '#5c1c14',
   'orange': '#b85a1f',
+  'yellow': '#c08a00',
   'blue': '#3a5f7a'
 };
 
@@ -1059,7 +1138,7 @@ function applyFilters() {
   // Сброс всех подсветок
   document.querySelectorAll('.org-node').forEach(node => {
     node.classList.remove('is-flagged-red', 'is-flagged-orange',
-                          'is-flagged-blue');
+                          'is-flagged-yellow', 'is-flagged-blue');
   });
 
   // Применение активных фильтров
@@ -1082,6 +1161,10 @@ function applyFilters() {
 
   // Обновление боковой панели
   updateSidePanel();
+
+  // Перерисовка SVG: сначала иерархия, потом линии дублирования
+  drawHierarchyLines();
+  drawDuplicationLines();
 }
 
 function updateSidePanel() {
