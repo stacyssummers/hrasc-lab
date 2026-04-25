@@ -496,6 +496,99 @@ body {
   border-width: 2px;
   background: rgba(58, 95, 122, 0.05);
 }
+
+/* ─── Финальный экран (3) ─── */
+.final-screen {
+  max-width: var(--max-text);
+  margin: 0 auto;
+  padding-top: 24px;
+}
+
+.final-screen h1 {
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--text-1);
+  margin-bottom: 32px;
+  text-align: center;
+  letter-spacing: -0.01em;
+}
+
+.final-screen__intro {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--text-2);
+  margin-bottom: 48px;
+}
+
+.final-screen__intro p {
+  margin-bottom: 16px;
+}
+
+.final-screen__intro p:last-child {
+  margin-bottom: 0;
+}
+
+.final-screen__intro strong {
+  color: var(--text-1);
+  font-weight: 500;
+}
+
+.final-block {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 4px;
+  padding: 32px;
+  margin-bottom: 32px;
+}
+
+.final-block__kicker {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
+.final-block__title {
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--text-1);
+  margin-bottom: 12px;
+}
+
+.final-block__caption {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text-2);
+}
+
+.final-screen__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.final-screen__restart {
+  font-size: 13px;
+  color: var(--text-3);
+  text-decoration: none;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 4px 8px;
+  transition: color 200ms ease;
+}
+
+.final-screen__restart:hover {
+  color: var(--accent);
+}
 </style>
 </head>
 <body>
@@ -850,11 +943,39 @@ body {
       <div id="diag-side-content"></div>
     </aside>
   </div><!-- /.diag-screen__layout -->
+
+  <div class="screen-nav" style="margin-top: 32px;">
+    <button class="btn btn--primary" id="btn-to-screen-3" type="button">
+      Посмотреть итог →
+    </button>
+  </div>
 </section>
 
 <section class="screen" data-screen="3" hidden
          aria-label="Итог">
-  <!-- Заполняется в следующих промптах -->
+  <div class="final-screen">
+    <h1>Эту структуру никто не считал плохой. Её просто никто не считал.</h1>
+
+    <div class="final-screen__intro">
+      <p>Полгода назад этот вариант структуры был утверждён как итог оптимизации после слияния. Он прошёл согласование на уровне директоров и совета. Все четыре дефекта, которые вы только что увидели, в этой структуре уже были — но в формате схемы их не видно.</p>
+      <p>Микросервис проверяет каждый вариант структуры против такой же логики на этапе моделирования. <strong>До того, как решение принято.</strong></p>
+    </div>
+
+    <div class="final-block">
+      <div class="final-block__kicker">Это был фрагмент логики</div>
+      <div class="final-block__title">В реальном Микросервисе диагностика идёт по полному штату из 1С:ЗУП</div>
+      <div class="final-block__caption">Набор правил настраивается под отрасль и стандарты компании, а каждый риск сопровождается расчётом стоимости и предложением по реструктуризации.</div>
+    </div>
+
+    <div class="final-screen__actions">
+      <a class="btn btn--primary" href="/orgdesign/#contact">
+        Обсудить задачу
+      </a>
+      <button class="final-screen__restart" id="btn-restart-diag" type="button">
+        ↻ Пройти диагностику ещё раз
+      </button>
+    </div>
+  </div>
 </section>
 
   </div>
@@ -1207,6 +1328,26 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
     toggleFilter(btn.dataset.filter);
   });
 });
+
+// Кнопка "Посмотреть итог →" на Экране 2
+const btnToScreen3 = document.getElementById('btn-to-screen-3');
+if (btnToScreen3) {
+  btnToScreen3.addEventListener('click', () => goToStep(3));
+}
+
+// Кнопка "Пройти диагностику ещё раз"
+const btnRestartDiag = document.getElementById('btn-restart-diag');
+if (btnRestartDiag) {
+  btnRestartDiag.addEventListener('click', () => {
+    // Сбросить активные фильтры
+    activeFilters.clear();
+    applyFilters();
+    // Сбросить visited steps до начального состояния
+    visitedSteps = [1];
+    // Вернуться на Экран 1
+    goToStep(1);
+  });
+}
 
 })();
 </script>
