@@ -316,6 +316,175 @@ body {
 @media (min-width: 641px) and (max-width: 1024px) {
   :root { --px-desk: var(--px-tab); }
 }
+
+/* ─── Лейаут Экрана 2 с боковой панелью ─── */
+.diag-screen__layout {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 32px;
+  align-items: start;
+  margin-top: 24px;
+}
+
+.diag-chart-col {
+  min-width: 0;
+}
+
+.diag-side {
+  position: sticky;
+  top: 24px;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text-2);
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+}
+
+.diag-side__placeholder {
+  color: var(--text-3);
+  font-size: 13px;
+  font-style: italic;
+}
+
+.diag-side__item {
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.diag-side__item:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.diag-side__item-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-1);
+}
+
+.diag-side__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.diag-side__title {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-1);
+  margin-bottom: 8px;
+  margin-top: 4px;
+}
+
+.diag-side__text {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--text-2);
+}
+
+.diag-side__text p {
+  margin-bottom: 8px;
+}
+
+.diag-side__text p:last-child {
+  margin-bottom: 0;
+}
+
+.diag-side__text strong {
+  color: var(--text-1);
+  font-weight: 500;
+}
+
+/* ─── Кнопки-фильтры ─── */
+.diag-filters {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.filter-btn {
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 14px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-1);
+  cursor: pointer;
+  transition: all 200ms ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filter-btn::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.5;
+}
+
+.filter-btn:hover {
+  border-color: var(--text-2);
+}
+
+.filter-btn.is-active {
+  color: var(--bg);
+}
+
+.filter-btn[data-filter="1"].is-active {
+  background: #5c1c14;
+  border-color: #5c1c14;
+}
+
+.filter-btn[data-filter="2"].is-active {
+  background: #b85a1f;
+  border-color: #b85a1f;
+}
+
+.filter-btn[data-filter="4"].is-active {
+  background: #3a5f7a;
+  border-color: #3a5f7a;
+}
+
+.filter-btn.is-active::before {
+  opacity: 1;
+  background: var(--bg);
+}
+
+/* ─── Подсветка карточек ─── */
+.org-node.is-flagged-red {
+  border-color: #5c1c14;
+  border-width: 2px;
+  background: rgba(92, 28, 20, 0.05);
+}
+
+.org-node.is-flagged-orange {
+  border-color: #b85a1f;
+  border-width: 2px;
+  background: rgba(184, 90, 31, 0.05);
+}
+
+.org-node.is-flagged-blue {
+  border-color: #3a5f7a;
+  border-width: 2px;
+  background: rgba(58, 95, 122, 0.05);
+}
 </style>
 </head>
 <body>
@@ -401,12 +570,26 @@ body {
 <section class="screen" data-screen="2" hidden
          aria-label="Интерактивная схема">
   <h1 style="text-align:center; margin-bottom: 8px;">Оргсхема компании</h1>
-  <p style="text-align:center; color: var(--text-2); margin-bottom: 32px;
+  <p style="text-align:center; color: var(--text-2); margin-bottom: 8px;
             font-size: 14px;">
     Включите фильтры — Микросервис подсветит структурные дефекты.
   </p>
 
-  <div class="org-chart">
+  <div class="diag-screen__layout">
+    <div class="diag-chart-col">
+      <div class="diag-filters" role="group" aria-label="Фильтры диагностики">
+        <button class="filter-btn" data-filter="1" type="button">
+          Норма управляемости
+        </button>
+        <button class="filter-btn" data-filter="2" type="button">
+          Критические роли
+        </button>
+        <button class="filter-btn" data-filter="4" type="button">
+          Финансовые перекосы
+        </button>
+      </div>
+
+      <div class="org-chart">
     <div class="org-chart__inner">
       <svg class="org-chart__svg" id="org-chart-lines"
            aria-hidden="true"></svg>
@@ -644,6 +827,15 @@ body {
 
     </div>
   </div>
+    </div><!-- /.diag-chart-col -->
+
+    <aside class="diag-side" id="diag-side">
+      <div class="diag-side__placeholder" id="diag-side-placeholder">
+        Включите фильтр, чтобы увидеть пояснение.
+      </div>
+      <div id="diag-side-content"></div>
+    </aside>
+  </div><!-- /.diag-screen__layout -->
 </section>
 
 <section class="screen" data-screen="3" hidden
@@ -819,6 +1011,119 @@ body {
       });
     });
   });
+
+// ──────────────────────────────────────────────
+// Логика фильтров (1, 2, 4)
+// Фильтр 3 будет добавлен отдельным промптом.
+// ──────────────────────────────────────────────
+
+const FILTER_DATA = {
+  '1': {
+    color: 'red',
+    nodeIds: ['commercial'],
+    title: 'Превышение нормы управляемости · 1 узел',
+    text: '<p>У Коммерческого директора в прямом подчинении — 10 руководителей. Рекомендуемая норма для управленческой позиции этого уровня — 7–9. На практике это означает, что Коммерческий не успевает работать с каждым региональным руководителем индивидуально: встречи 1:1 проводятся раз в 3–4 недели вместо еженедельных, обратная связь по показателям приходит с задержкой.</p><p><strong>Прогноз проявления:</strong> в течение 4–6 месяцев — расхождение коммерческих стратегий между регионами, дублирование инициатив, замедление реакции на изменения спроса.</p><p><strong>Решение в Микросервисе:</strong> ввести промежуточный уровень — двух руководителей региональных кластеров (например, «Запад» и «Восток»), каждый с 5 регионами в подчинении.</p>'
+  },
+  '2': {
+    color: 'orange',
+    nodeIds: ['warehouse-tech', 'cnb', 'chief-architect'],
+    title: 'Критические роли без преемника · 3 позиции',
+    text: '<p>Эти три позиции держат на себе уникальную для компании экспертизу: технологические процессы складской обработки, систему вознаграждения и архитектуру ключевых ИТ-систем. Уход любого из этих сотрудников останавливает процесс или замедляет его на месяцы. На текущий момент в структуре нет позиций, где бы готовился преемник.</p><p><strong>Прогноз проявления:</strong> проблема не имеет «времени до проявления» — она проявится в момент ухода. Средний срок поиска замены для таких ролей на рынке — 4–7 месяцев. Внутренняя передача экспертизы при наличии преемника — 2–3 месяца.</p><p><strong>Решение в Микросервисе:</strong> в каждой из трёх ветвей завести позицию «заместитель / ведущий специалист» с явной функцией дублирования критической экспертизы.</p>'
+  },
+  '4': {
+    color: 'blue',
+    nodeIds: ['commercial', 'logistics', 'finance', 'hr', 'it', 'dev', 'market-research', 'strategic-projects', 'product-dev'],
+    title: 'Перекос ФОТ по уровню · 2 зоны',
+    text: '<p>Доля ФОТ управленческого слоя в этой структуре — 28%. Среднеотраслевое значение для дистрибуторских компаний сопоставимого размера — 18–22%. Основной вклад в перекос дают:</p><p>— Топ-команда из 6 директоров (после слияния — расширилась с 4, две позиции функционально пересекаются с дирекциями второго уровня).<br>— Дирекция по развитию с тремя руководителями отделов, два из которых дублируют функции (см. фильтр «Дублирование»).</p><p><strong>Прогноз проявления:</strong> не «проявится в будущем» — это текущая утечка средств. Потенциал высвобождения — 90–110 млн ₽/год без потери качества управления.</p><p><strong>Решение в Микросервисе:</strong> объединение Дирекции по развитию с Коммерческой (с упразднением должности Директора по развитию или переводом её в проектную роль). Сокращение топ-команды до 5 позиций.</p>'
+  }
+};
+
+const FILTER_COLOR_DOTS = {
+  'red': '#5c1c14',
+  'orange': '#b85a1f',
+  'blue': '#3a5f7a'
+};
+
+const activeFilters = new Set();
+
+function toggleFilter(filterId) {
+  if (activeFilters.has(filterId)) {
+    activeFilters.delete(filterId);
+  } else {
+    activeFilters.add(filterId);
+  }
+  applyFilters();
+}
+
+function applyFilters() {
+  // Сброс всех подсветок
+  document.querySelectorAll('.org-node').forEach(node => {
+    node.classList.remove('is-flagged-red', 'is-flagged-orange',
+                          'is-flagged-blue');
+  });
+
+  // Применение активных фильтров
+  activeFilters.forEach(filterId => {
+    const data = FILTER_DATA[filterId];
+    if (!data) return;
+    const cssClass = 'is-flagged-' + data.color;
+    data.nodeIds.forEach(nodeId => {
+      const node = document.querySelector(
+        '.org-node[data-node-id="' + nodeId + '"]');
+      if (node) node.classList.add(cssClass);
+    });
+  });
+
+  // Обновление кнопок
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    const fid = btn.dataset.filter;
+    btn.classList.toggle('is-active', activeFilters.has(fid));
+  });
+
+  // Обновление боковой панели
+  updateSidePanel();
+}
+
+function updateSidePanel() {
+  const placeholder = document.getElementById('diag-side-placeholder');
+  const content = document.getElementById('diag-side-content');
+  if (!placeholder || !content) return;
+
+  if (activeFilters.size === 0) {
+    placeholder.style.display = '';
+    content.innerHTML = '';
+    return;
+  }
+
+  placeholder.style.display = 'none';
+
+  // Сортируем по filterId для стабильного порядка
+  const sortedFilters = Array.from(activeFilters).sort();
+
+  let html = '';
+  sortedFilters.forEach(filterId => {
+    const data = FILTER_DATA[filterId];
+    if (!data) return;
+    const dotColor = FILTER_COLOR_DOTS[data.color];
+    html += '<div class="diag-side__item">' +
+      '<div class="diag-side__item-header">' +
+      '<span class="diag-side__dot" style="background: ' + dotColor + ';"></span>' +
+      '<span>Фильтр</span>' +
+      '</div>' +
+      '<div class="diag-side__title">' + data.title + '</div>' +
+      '<div class="diag-side__text">' + data.text + '</div>' +
+      '</div>';
+  });
+
+  content.innerHTML = html;
+}
+
+// Подключаем кнопки
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    toggleFilter(btn.dataset.filter);
+  });
+});
 
 })();
 </script>
