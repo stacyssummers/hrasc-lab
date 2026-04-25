@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Микросервис · Демо-диагностика оргструктуры</title>
+<meta name="description" content="Интерактивная диагностика оргструктуры по четырём типам рисков. Демонстрационный фрагмент логики Микросервиса оргдизайна.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --accent:      #5c1c14;
+  --accent-dark: #4a1810;
+  --bg:          #fafaf8;
+  --bg-alt:      #f7f5f1;
+  --text-1:      #1a1a1a;
+  --text-2:      #4a4a4a;
+  --text-3:      #8a8680;
+  --border:      #e8e4dc;
+  --font: 'Inter', system-ui, Arial, sans-serif;
+  --max-text: 680px;
+  --max-wide: 1080px;
+  --px-desk: 40px;
+  --px-tab:  32px;
+  --px-mob:  20px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text-1);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+.container {
+  width: 100%;
+  max-width: var(--max-wide);
+  margin-inline: auto;
+  padding-inline: var(--px-desk);
+}
+.leaf { display: inline-block; vertical-align: middle; flex-shrink: 0; }
+.leaf--sm { width: 12px; height: 12px; }
+.leaf--md { width: 22px; height: 22px; }
+.btn {
+  display: inline-block;
+  font-family: var(--font);
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 6px;
+  padding: 14px 28px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  text-decoration: none;
+  transition: background 200ms ease, border-color 200ms ease, color 200ms ease;
+  white-space: nowrap;
+}
+.btn--secondary { background: transparent; color: var(--text-1); border-color: var(--border); }
+.btn--secondary:hover { border-color: var(--accent); color: var(--accent); }
+.btn--sm { padding: 9px 18px; font-size: 13px; border-radius: 4px; }
+
+/* HEADER */
+.site-header { position: sticky; top: 0; z-index: 100; background: var(--bg); border-bottom: 1px solid var(--border); }
+.site-header__inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+.site-header__logo { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text-1); }
+.site-header__logo-text { font-size: 14px; font-weight: 500; letter-spacing: 0.01em; }
+
+.demo-main { padding-block: 48px; min-height: calc(100dvh - 64px - 120px); }
+
+/* FOOTER */
+.site-footer { border-top: 1px solid var(--border); padding-block: 40px; }
+.site-footer__inner { display: flex; flex-direction: column; gap: 16px; }
+.site-footer__brand { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 500; color: var(--text-1); }
+.site-footer__legal { font-size: 12px; color: var(--text-3); line-height: 1.6; }
+.site-footer__links { display: flex; gap: 20px; font-size: 13px; }
+.site-footer__links a { color: var(--text-2); text-decoration: underline; text-underline-offset: 3px; transition: color 200ms ease; }
+.site-footer__links a:hover { color: var(--accent); }
+
+@media (max-width: 640px) {
+  :root { --px-desk: var(--px-mob); }
+  .site-header__inner { height: 56px; }
+  .demo-main { padding-block: 32px; }
+}
+@media (min-width: 641px) and (max-width: 1024px) {
+  :root { --px-desk: var(--px-tab); }
+}
+</style>
+</head>
+<body>
+
+<!-- ШАПКА -->
+<header class="site-header">
+  <div class="container">
+    <div class="site-header__inner">
+      <a href="/orgdesign/" class="site-header__logo" aria-label="Исследовательская лаборатория">
+        <svg class="leaf leaf--md" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M 18 62 C 18 34, 38 14, 62 18 C 62 46, 42 66, 18 62 Z" fill="#5c1c14"/>
+        </svg>
+        <span class="site-header__logo-text">Исследовательская лаборатория</span>
+      </a>
+      <a href="/orgdesign/" class="btn btn--secondary btn--sm">← К Микросервису</a>
+    </div>
+  </div>
+</header>
+
+<!-- ОСНОВНОЙ КОНТЕНТ -->
+<main class="demo-main">
+  <div class="container">
+  </div>
+</main>
+
+<!-- ФУТЕР -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__inner">
+      <div class="site-footer__brand">
+        <svg class="leaf leaf--sm" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M 18 62 C 18 34, 38 14, 62 18 C 62 46, 42 66, 18 62 Z" fill="#5c1c14"/>
+        </svg>
+        Исследовательская лаборатория · НКО «Люди. Бизнес. Будущее.»
+      </div>
+      <p class="site-footer__legal">
+        Ассоциация экспертов кадрового развития «ЛЮДИ. БИЗНЕС. БУДУЩЕЕ.»<br>
+        ИНН 9715490977 · ОГРН 1247700557774
+      </p>
+      <nav class="site-footer__links" aria-label="Ссылки футера">
+        <a href="/privacy">Политика конфиденциальности</a>
+        <a href="https://hrasc.ru" target="_blank" rel="noopener noreferrer">Сайт НКО</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
