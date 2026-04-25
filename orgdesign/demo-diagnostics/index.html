@@ -241,6 +241,36 @@ body {
   border-radius: 50%;
   background: var(--text-3);
 }
+.org-node[data-tooltip]:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--text-1);
+  color: var(--bg);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.4;
+  padding: 8px 12px;
+  border-radius: 4px;
+  white-space: nowrap;
+  max-width: 280px;
+  z-index: 100;
+  pointer-events: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+.org-node[data-tooltip]:hover::before {
+  content: '';
+  position: absolute;
+  bottom: calc(100% + 2px);
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: var(--text-1);
+  z-index: 100;
+  pointer-events: none;
+}
 
 @media (max-width: 640px) {
   :root { --px-desk: var(--px-mob); }
@@ -349,7 +379,7 @@ body {
       <!-- Уровень 1 -->
       <div class="org-level org-level--1">
         <div class="org-node org-node--root" data-node-id="ceo"
-             title="Высшая руководящая позиция компании">
+             data-tooltip="Высшая руководящая позиция компании">
           <span class="org-node__role">Генеральный директор</span>
         </div>
       </div>
@@ -357,27 +387,27 @@ body {
       <!-- Уровень 2 — топ-команда -->
       <div class="org-level org-level--2">
         <div class="org-node org-node--top" data-node-id="commercial"
-             title="Коммерческий директор">
+             data-tooltip="Коммерческий директор">
           <span class="org-node__role">Коммерческий директор</span>
         </div>
         <div class="org-node org-node--top" data-node-id="logistics"
-             title="Директор по логистике">
+             data-tooltip="Директор по логистике">
           <span class="org-node__role">Директор по логистике</span>
         </div>
         <div class="org-node org-node--top" data-node-id="finance"
-             title="Финансовый директор">
+             data-tooltip="Финансовый директор">
           <span class="org-node__role">Финансовый директор</span>
         </div>
         <div class="org-node org-node--top" data-node-id="hr"
-             title="HR-директор">
+             data-tooltip="HR-директор">
           <span class="org-node__role">HR-директор</span>
         </div>
         <div class="org-node org-node--top" data-node-id="it"
-             title="ИТ-директор">
+             data-tooltip="ИТ-директор">
           <span class="org-node__role">ИТ-директор</span>
         </div>
         <div class="org-node org-node--top" data-node-id="dev"
-             title="Директор по развитию (новая позиция после слияния)">
+             data-tooltip="Директор по развитию (новая позиция после слияния)">
           <span class="org-node__role">Директор по развитию</span>
         </div>
       </div>
@@ -386,137 +416,137 @@ body {
       <div class="org-level org-level--3">
         <!-- Под Коммерческим (10) -->
         <div class="org-node" data-node-id="sales-center" data-parent="commercial"
-             title="Руководитель отдела продаж · Регион Центр">
+             data-tooltip="Руководитель отдела продаж · Регион Центр">
           <span class="org-node__role">Руководитель отдела продаж</span>
           <span class="org-node__unit">Регион Центр</span>
         </div>
         <div class="org-node" data-node-id="sales-nw" data-parent="commercial"
-             title="Руководитель отдела продаж · Регион Северо-Запад">
+             data-tooltip="Руководитель отдела продаж · Регион Северо-Запад">
           <span class="org-node__role">Руководитель отдела продаж</span>
           <span class="org-node__unit">Регион Северо-Запад</span>
         </div>
         <div class="org-node" data-node-id="sales-south" data-parent="commercial"
-             title="Руководитель отдела продаж · Регион Юг">
+             data-tooltip="Руководитель отдела продаж · Регион Юг">
           <span class="org-node__role">Руководитель отдела продаж</span>
           <span class="org-node__unit">Регион Юг</span>
         </div>
         <div class="org-node" data-node-id="sales-ural" data-parent="commercial"
-             title="Руководитель отдела продаж · Регион Урал">
+             data-tooltip="Руководитель отдела продаж · Регион Урал">
           <span class="org-node__role">Руководитель отдела продаж</span>
           <span class="org-node__unit">Регион Урал</span>
         </div>
         <div class="org-node" data-node-id="sales-siberia" data-parent="commercial"
-             title="Руководитель отдела продаж · Регион Сибирь">
+             data-tooltip="Руководитель отдела продаж · Регион Сибирь">
           <span class="org-node__role">Руководитель отдела продаж</span>
           <span class="org-node__unit">Регион Сибирь</span>
         </div>
         <div class="org-node" data-node-id="sales-fareast" data-parent="commercial"
-             title="Руководитель отдела продаж · Регион Дальний Восток">
+             data-tooltip="Руководитель отдела продаж · Регион Дальний Восток">
           <span class="org-node__role">Руководитель отдела продаж</span>
           <span class="org-node__unit">Регион Дальний Восток</span>
         </div>
         <div class="org-node" data-node-id="key-accounts" data-parent="commercial"
-             title="Руководитель отдела ключевых клиентов">
+             data-tooltip="Руководитель отдела ключевых клиентов">
           <span class="org-node__role">Отдел ключевых клиентов</span>
         </div>
         <div class="org-node" data-node-id="trade-mkt" data-parent="commercial"
-             title="Руководитель отдела торгового маркетинга">
+             data-tooltip="Руководитель отдела торгового маркетинга">
           <span class="org-node__role">Торговый маркетинг</span>
         </div>
         <div class="org-node" data-node-id="cat-management" data-parent="commercial"
              data-duplicates-with="market-research"
-             title="Руководитель отдела категорийного менеджмента">
+             data-tooltip="Руководитель отдела категорийного менеджмента">
           <span class="org-node__role">Категорийный менеджмент</span>
         </div>
         <div class="org-node" data-node-id="customer-service" data-parent="commercial"
-             title="Руководитель отдела клиентского сервиса">
+             data-tooltip="Руководитель отдела клиентского сервиса">
           <span class="org-node__role">Клиентский сервис</span>
         </div>
         <!-- Под Директором по логистике (5) -->
         <div class="org-node" data-node-id="warehouse" data-parent="logistics"
-             title="Руководитель складского хозяйства">
+             data-tooltip="Руководитель складского хозяйства">
           <span class="org-node__role">Складское хозяйство</span>
         </div>
         <div class="org-node" data-node-id="transport" data-parent="logistics"
-             title="Руководитель транспортного отдела">
+             data-tooltip="Руководитель транспортного отдела">
           <span class="org-node__role">Транспортный отдел</span>
         </div>
         <div class="org-node" data-node-id="procurement" data-parent="logistics"
-             title="Руководитель отдела закупок">
+             data-tooltip="Руководитель отдела закупок">
           <span class="org-node__role">Отдел закупок</span>
         </div>
         <div class="org-node" data-node-id="ved" data-parent="logistics"
-             title="Руководитель отдела ВЭД">
+             data-tooltip="Руководитель отдела ВЭД">
           <span class="org-node__role">Отдел ВЭД</span>
         </div>
         <div class="org-node" data-node-id="warehouse-tech" data-parent="logistics"
              data-critical="true"
-             title="Главный технолог склада — критическая роль без преемника">
+             data-tooltip="Главный технолог склада — критическая роль без преемника">
           <span class="org-node__role">Главный технолог склада</span>
         </div>
         <!-- Под Финансовым директором (4) -->
         <div class="org-node" data-node-id="chief-accountant" data-parent="finance"
-             title="Главный бухгалтер">
+             data-tooltip="Главный бухгалтер">
           <span class="org-node__role">Главный бухгалтер</span>
         </div>
         <div class="org-node" data-node-id="planning" data-parent="finance"
              data-duplicates-with="strategic-projects"
-             title="Руководитель планово-экономического отдела">
+             data-tooltip="Руководитель планово-экономического отдела">
           <span class="org-node__role">Планово-экономический отдел</span>
         </div>
         <div class="org-node" data-node-id="treasury" data-parent="finance"
-             title="Руководитель казначейства">
+             data-tooltip="Руководитель казначейства">
           <span class="org-node__role">Казначейство</span>
         </div>
         <div class="org-node" data-node-id="internal-control" data-parent="finance"
-             title="Руководитель отдела внутреннего контроля">
+             data-tooltip="Руководитель отдела внутреннего контроля">
           <span class="org-node__role">Внутренний контроль</span>
         </div>
         <!-- Под HR-директором (3) -->
         <div class="org-node" data-node-id="recruitment" data-parent="hr"
-             title="Руководитель отдела подбора">
+             data-tooltip="Руководитель отдела подбора">
           <span class="org-node__role">Отдел подбора</span>
         </div>
         <div class="org-node" data-node-id="cnb" data-parent="hr"
              data-critical="true"
-             title="Руководитель отдела C&amp;B — критическая роль без преемника">
+             data-tooltip="Руководитель отдела C&amp;B — критическая роль без преемника">
           <span class="org-node__role">Отдел C&amp;B</span>
         </div>
         <div class="org-node" data-node-id="learning" data-parent="hr"
-             title="Руководитель отдела обучения">
+             data-tooltip="Руководитель отдела обучения">
           <span class="org-node__role">Отдел обучения</span>
         </div>
         <!-- Под ИТ-директором (4) -->
         <div class="org-node" data-node-id="dev-team" data-parent="it"
-             title="Руководитель отдела разработки">
+             data-tooltip="Руководитель отдела разработки">
           <span class="org-node__role">Отдел разработки</span>
         </div>
         <div class="org-node" data-node-id="it-support" data-parent="it"
-             title="Руководитель отдела поддержки">
+             data-tooltip="Руководитель отдела поддержки">
           <span class="org-node__role">Отдел поддержки</span>
         </div>
         <div class="org-node" data-node-id="infra" data-parent="it"
-             title="Руководитель отдела ИТ-инфраструктуры">
+             data-tooltip="Руководитель отдела ИТ-инфраструктуры">
           <span class="org-node__role">ИТ-инфраструктура</span>
         </div>
         <div class="org-node" data-node-id="chief-architect" data-parent="it"
              data-critical="true"
-             title="Главный архитектор систем — критическая роль без преемника">
+             data-tooltip="Главный архитектор систем — критическая роль без преемника">
           <span class="org-node__role">Главный архитектор систем</span>
         </div>
         <!-- Под Директором по развитию (3) -->
         <div class="org-node" data-node-id="market-research" data-parent="dev"
              data-duplicates-with="cat-management"
-             title="Руководитель отдела маркетинговых исследований">
+             data-tooltip="Руководитель отдела маркетинговых исследований">
           <span class="org-node__role">Маркетинговые исследования</span>
         </div>
         <div class="org-node" data-node-id="strategic-projects" data-parent="dev"
              data-duplicates-with="planning"
-             title="Руководитель отдела стратегических проектов">
+             data-tooltip="Руководитель отдела стратегических проектов">
           <span class="org-node__role">Стратегические проекты</span>
         </div>
         <div class="org-node" data-node-id="product-dev" data-parent="dev"
-             title="Руководитель отдела продуктового развития">
+             data-tooltip="Руководитель отдела продуктового развития">
           <span class="org-node__role">Продуктовое развитие</span>
         </div>
       </div>
@@ -524,55 +554,55 @@ body {
       <!-- Уровень 4 — заместители -->
       <div class="org-level org-level--4">
         <div class="org-node" data-node-id="dep-sales-center" data-parent="sales-center"
-             title="Заместитель руководителя · продажи Центр">
+             data-tooltip="Заместитель руководителя · продажи Центр">
           <span class="org-node__role">Зам · продажи Центр</span>
         </div>
         <div class="org-node" data-node-id="dep-sales-nw" data-parent="sales-nw"
-             title="Заместитель руководителя · продажи Северо-Запад">
+             data-tooltip="Заместитель руководителя · продажи Северо-Запад">
           <span class="org-node__role">Зам · продажи СЗ</span>
         </div>
         <div class="org-node" data-node-id="dep-key-accounts" data-parent="key-accounts"
-             title="Заместитель · ключевые клиенты">
+             data-tooltip="Заместитель · ключевые клиенты">
           <span class="org-node__role">Зам · ключевые клиенты</span>
         </div>
         <div class="org-node" data-node-id="dep-cat-mgmt" data-parent="cat-management"
-             title="Заместитель · категорийный менеджмент">
+             data-tooltip="Заместитель · категорийный менеджмент">
           <span class="org-node__role">Зам · категории</span>
         </div>
         <div class="org-node" data-node-id="dep-warehouse" data-parent="warehouse"
-             title="Заместитель · склад">
+             data-tooltip="Заместитель · склад">
           <span class="org-node__role">Зам · склад</span>
         </div>
         <div class="org-node" data-node-id="dep-transport" data-parent="transport"
-             title="Заместитель · транспорт">
+             data-tooltip="Заместитель · транспорт">
           <span class="org-node__role">Зам · транспорт</span>
         </div>
         <div class="org-node" data-node-id="dep-accountant" data-parent="chief-accountant"
-             title="Заместитель главного бухгалтера">
+             data-tooltip="Заместитель главного бухгалтера">
           <span class="org-node__role">Зам гл. бухгалтера</span>
         </div>
         <div class="org-node" data-node-id="dep-planning" data-parent="planning"
-             title="Заместитель · ПЭО">
+             data-tooltip="Заместитель · ПЭО">
           <span class="org-node__role">Зам · ПЭО</span>
         </div>
         <div class="org-node" data-node-id="dep-treasury" data-parent="treasury"
-             title="Заместитель · казначейство">
+             data-tooltip="Заместитель · казначейство">
           <span class="org-node__role">Зам · казначейство</span>
         </div>
         <div class="org-node" data-node-id="dep-recruitment" data-parent="recruitment"
-             title="Заместитель · подбор">
+             data-tooltip="Заместитель · подбор">
           <span class="org-node__role">Зам · подбор</span>
         </div>
         <div class="org-node" data-node-id="dep-learning" data-parent="learning"
-             title="Заместитель · обучение">
+             data-tooltip="Заместитель · обучение">
           <span class="org-node__role">Зам · обучение</span>
         </div>
         <div class="org-node" data-node-id="dep-dev-team" data-parent="dev-team"
-             title="Заместитель · разработка">
+             data-tooltip="Заместитель · разработка">
           <span class="org-node__role">Зам · разработка</span>
         </div>
         <div class="org-node" data-node-id="dep-it-support" data-parent="it-support"
-             title="Заместитель · ИТ-поддержка">
+             data-tooltip="Заместитель · ИТ-поддержка">
           <span class="org-node__role">Зам · ИТ-поддержка</span>
         </div>
       </div>
