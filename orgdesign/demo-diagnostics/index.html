@@ -185,12 +185,23 @@ body {
   gap: 48px;
   position: relative;
 }
+.org-chart__svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
 .org-level {
   display: flex;
   justify-content: center;
   align-items: flex-start;
   gap: 12px;
   flex-wrap: nowrap;
+  position: relative;
+  z-index: 2;
 }
 .org-level--3,
 .org-level--4 {
@@ -388,6 +399,8 @@ body {
 
   <div class="org-chart">
     <div class="org-chart__inner">
+      <svg class="org-chart__svg" id="org-chart-lines"
+           aria-hidden="true"></svg>
 
       <!-- Уровень 1 -->
       <div class="org-level org-level--1">
@@ -692,6 +705,105 @@ body {
       if (visitedSteps.indexOf(n) !== -1) goToStep(n);
     });
   });
+  // ── Отрисовка линий иерархии ──────────────────────────────
+  var svgNS = 'http://www.w3.org/2000/svg';
+  var orgChart = document.querySelector('.org-chart__inner');
+  var orgSvg = document.getElementById('org-chart-lines');
+
+  function drawHierarchyLines() {
+    if (!orgChart || !orgSvg) return;
+    orgSvg.innerHTML = '';
+    var chartRect = orgChart.getBoundingClientRect();
+    orgSvg.setAttribute('viewBox',
+      '0 0 ' + chartRect.width + ' ' + chartRect.height);
+    orgSvg.setAttribute('width', chartRect.width);
+    orgSvg.setAttribute('height', chartRect.height);
+
+    var nodes = orgChart.querySelectorAll('.org-node[data-node-id]');
+    var childrenByParent = {};
+    nodes.forEach(function(node) {
+      var parentId = node.dataset.parent;
+      if (!parentId) return;
+      if (!childrenByParent[parentId]) childrenByParent[parentId] = [];
+      childrenByParent[parentId].push(node);
+    });
+
+    Object.keys(childrenByParent).forEach(function(parentId) {
+      var parent = orgChart.querySelector(
+        '.org-node[data-node-id="' + parentId + '"]');
+      if (!parent) return;
+      var children = childrenByParent[parentId];
+      var parentRect = parent.getBoundingClientRect();
+      var parentX = parentRect.left + parentRect.width / 2 - chartRect.left;
+      var parentBottom = parentRect.bottom - chartRect.top;
+
+      var childCoords = children.map(function(child) {
+        var r = child.getBoundingClientRect();
+        return {
+          x: r.left + r.width / 2 - chartRect.left,
+          top: r.top - chartRect.top
+        };
+      });
+
+      var minChildTop = childCoords.reduce(function(m, c) {
+        return c.top < m ? c.top : m;
+      }, Infinity);
+      var yokeY = (parentBottom + minChildTop) / 2;
+
+      addLine(parentX, parentBottom, parentX, yokeY);
+
+      if (childCoords.length > 1) {
+        var minX = childCoords.reduce(function(m, c) {
+          return c.x < m ? c.x : m;
+        }, Infinity);
+        var maxX = childCoords.reduce(function(m, c) {
+          return c.x > m ? c.x : m;
+        }, -Infinity);
+        addLine(minX, yokeY, maxX, yokeY);
+      }
+
+      childCoords.forEach(function(c) {
+        addLine(c.x, yokeY, c.x, c.top);
+      });
+    });
+  }
+
+  function addLine(x1, y1, x2, y2) {
+    var line = document.createElementNS(svgNS, 'line');
+    line.setAttribute('x1', x1);
+    line.setAttribute('y1', y1);
+    line.setAttribute('x2', x2);
+    line.setAttribute('y2', y2);
+    line.setAttribute('stroke', '#888780');
+    line.setAttribute('stroke-width', '1');
+    orgSvg.appendChild(line);
+  }
+
+  var resizeTimer;
+  window.addEventListener('resize', function() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(drawHierarchyLines, 150);
+  });
+
+  var btnToScreen2_forLines = document.getElementById('btn-to-screen-2');
+  if (btnToScreen2_forLines) {
+    btnToScreen2_forLines.addEventListener('click', function() {
+      requestAnimationFrame(function() {
+        requestAnimationFrame(drawHierarchyLines);
+      });
+    });
+  }
+
+  var progressDots_forLines = document.querySelectorAll(
+    '.progress__dot[data-step="2"]');
+  progressDots_forLines.forEach(function(dot) {
+    dot.addEventListener('click', function() {
+      requestAnimationFrame(function() {
+        requestAnimationFrame(drawHierarchyLines);
+      });
+    });
+  });
+
 })();
 </script>
 
