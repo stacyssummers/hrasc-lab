@@ -407,6 +407,94 @@ body {
   .final-block {
     padding: 24px;
   }
+
+  /* ─── Аккордеоны по дирекциям (мобильная раскладка) ─── */
+
+  body.is-mobile-grouped .org-level--2,
+  body.is-mobile-grouped .org-level--3,
+  body.is-mobile-grouped .org-level--4 {
+    display: none;
+  }
+
+  .mobile-groups {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  body:not(.is-mobile-grouped) .mobile-groups {
+    display: none;
+  }
+
+  .mobile-group {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: #fafaf8;
+    overflow: hidden;
+  }
+
+  .mobile-group__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 12px 14px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-1);
+    text-align: left;
+    transition: background 200ms ease;
+  }
+
+  .mobile-group__header:hover {
+    background: var(--bg-alt);
+  }
+
+  .mobile-group__chevron {
+    flex-shrink: 0;
+    width: 12px;
+    height: 12px;
+    transition: transform 200ms ease;
+    color: var(--text-3);
+  }
+
+  .mobile-group.is-open .mobile-group__chevron {
+    transform: rotate(90deg);
+  }
+
+  .mobile-group__content {
+    display: none;
+    padding: 0 12px 12px 12px;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .mobile-group.is-open .mobile-group__content {
+    display: flex;
+  }
+
+  .mobile-group .org-node {
+    width: 100%;
+    margin: 0;
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+
+  .mobile-group .org-node[data-parent]:not([data-parent="commercial"]):not([data-parent="logistics"]):not([data-parent="finance"]):not([data-parent="hr"]):not([data-parent="it"]):not([data-parent="dev"]) {
+    margin-left: 16px;
+    width: calc(100% - 16px);
+    font-size: 12px;
+    color: var(--text-2);
+  }
+
+  body.is-mobile-grouped .org-level--1 {
+    margin-bottom: 8px;
+  }
 }
 @media (min-width: 641px) and (max-width: 1024px) {
   :root { --px-desk: var(--px-tab); }
@@ -1363,9 +1451,9 @@ function applyFilters() {
     if (!data) return;
     const cssClass = 'is-flagged-' + data.color;
     data.nodeIds.forEach(nodeId => {
-      const node = document.querySelector(
+      const allMatches = document.querySelectorAll(
         '.org-node[data-node-id="' + nodeId + '"]');
-      if (node) node.classList.add(cssClass);
+      allMatches.forEach(n => n.classList.add(cssClass));
     });
   });
 
@@ -1381,6 +1469,9 @@ function applyFilters() {
   // Перерисовка SVG: сначала иерархия, потом линии дублирования
   drawHierarchyLines();
   drawDuplicationLines();
+
+  // На мобильной — раскрываем группы с подсвеченными карточками
+  expandGroupsWithFlagged();
 }
 
 function updateSidePanel() {
@@ -1441,6 +1532,108 @@ if (btnRestartDiag) {
     visitedSteps = [1];
     // Вернуться на Экран 1
     goToStep(1);
+  });
+}
+
+// ──────────────────────────────────────────────
+// Мобильная группировка по дирекциям (аккордеоны)
+// ──────────────────────────────────────────────
+
+const TOP_DIRECTOR_IDS = ['commercial', 'logistics', 'finance',
+                          'hr', 'it', 'dev'];
+const TOP_DIRECTOR_LABELS = {
+  'commercial': 'Коммерческий директор',
+  'logistics': 'Директор по логистике',
+  'finance': 'Финансовый директор',
+  'hr': 'HR-директор',
+  'it': 'ИТ-директор',
+  'dev': 'Директор по развитию'
+};
+
+const MOBILE_BREAKPOINT = 640;
+let mobileGroupsBuilt = false;
+
+function buildMobileGroups() {
+  if (mobileGroupsBuilt) return;
+  const orgChartInner = document.querySelector('.org-chart__inner');
+  if (!orgChartInner) return;
+
+  const container = document.createElement('div');
+  container.className = 'mobile-groups';
+
+  TOP_DIRECTOR_IDS.forEach(directorId => {
+    const directorNode = document.querySelector(
+      '.org-node[data-node-id="' + directorId + '"]');
+    if (!directorNode) return;
+
+    const level3Children = Array.from(document.querySelectorAll(
+      '.org-node[data-parent="' + directorId + '"]'));
+
+    const group = document.createElement('div');
+    group.className = 'mobile-group';
+    group.dataset.directorId = directorId;
+
+    const header = document.createElement('button');
+    header.className = 'mobile-group__header';
+    header.type = 'button';
+    header.innerHTML =
+      '<span>' + TOP_DIRECTOR_LABELS[directorId] + '</span>' +
+      '<svg class="mobile-group__chevron" viewBox="0 0 12 12" fill="none">' +
+      '<path d="M4 2 L8 6 L4 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>' +
+      '</svg>';
+    header.addEventListener('click', () => {
+      group.classList.toggle('is-open');
+    });
+    group.appendChild(header);
+
+    const content = document.createElement('div');
+    content.className = 'mobile-group__content';
+
+    level3Children.forEach(child3 => {
+      const childId = child3.dataset.nodeId;
+      const clone3 = child3.cloneNode(true);
+      content.appendChild(clone3);
+      const level4Children = document.querySelectorAll(
+        '.org-node[data-parent="' + childId + '"]');
+      level4Children.forEach(child4 => {
+        const clone4 = child4.cloneNode(true);
+        content.appendChild(clone4);
+      });
+    });
+
+    group.appendChild(content);
+    container.appendChild(group);
+  });
+
+  orgChartInner.appendChild(container);
+  mobileGroupsBuilt = true;
+}
+
+function applyMobileGroupingMode() {
+  const isMobile = window.innerWidth <= MOBILE_BREAKPOINT;
+  if (isMobile) {
+    buildMobileGroups();
+    document.body.classList.add('is-mobile-grouped');
+  } else {
+    document.body.classList.remove('is-mobile-grouped');
+  }
+}
+
+applyMobileGroupingMode();
+let mobileResizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(mobileResizeTimer);
+  mobileResizeTimer = setTimeout(applyMobileGroupingMode, 150);
+});
+
+function expandGroupsWithFlagged() {
+  if (!document.body.classList.contains('is-mobile-grouped')) return;
+  document.querySelectorAll('.mobile-group').forEach(group => {
+    const hasFlagged = group.querySelector(
+      '.is-flagged-red, .is-flagged-orange, .is-flagged-yellow, .is-flagged-blue');
+    if (hasFlagged) {
+      group.classList.add('is-open');
+    }
   });
 }
 
