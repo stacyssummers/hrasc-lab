@@ -179,10 +179,10 @@ body {
   padding: 24px 0;
 }
 .org-chart__inner {
-  min-width: 1800px;
+  min-width: 3900px;
   display: flex;
   flex-direction: column;
-  gap: 80px;
+  gap: 48px;
   position: relative;
 }
 .org-chart__svg {
@@ -205,9 +205,8 @@ body {
 }
 .org-level--3,
 .org-level--4 {
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 8px 12px;
-  row-gap: 64px;
 }
 .org-node {
   background: #fafaf8;
@@ -722,88 +721,66 @@ body {
 
   function drawHierarchyLines() {
     if (!orgChart || !orgSvg) return;
+
+    // Очищаем
     orgSvg.innerHTML = '';
-    var chartRect = orgChart.getBoundingClientRect();
+
+    // viewBox
+    const chartRect = orgChart.getBoundingClientRect();
     orgSvg.setAttribute('viewBox',
       '0 0 ' + chartRect.width + ' ' + chartRect.height);
     orgSvg.setAttribute('width', chartRect.width);
     orgSvg.setAttribute('height', chartRect.height);
 
-    var nodes = orgChart.querySelectorAll('.org-node[data-node-id]');
-    var childrenByParent = {};
-    nodes.forEach(function(node) {
-      var parentId = node.dataset.parent;
+    // Группируем детей по родителям
+    const nodes = orgChart.querySelectorAll('.org-node[data-node-id]');
+    const childrenByParent = {};
+    nodes.forEach(node => {
+      const parentId = node.dataset.parent;
       if (!parentId) return;
       if (!childrenByParent[parentId]) childrenByParent[parentId] = [];
       childrenByParent[parentId].push(node);
     });
 
-    Object.keys(childrenByParent).forEach(function(parentId) {
-      var parent = orgChart.querySelector(
+    // Для каждого родителя
+    Object.keys(childrenByParent).forEach(parentId => {
+      const parent = orgChart.querySelector(
         '.org-node[data-node-id="' + parentId + '"]');
       if (!parent) return;
-      var children = childrenByParent[parentId];
-      var parentRect = parent.getBoundingClientRect();
-      var parentX = parentRect.left + parentRect.width / 2 - chartRect.left;
-      var parentBottom = parentRect.bottom - chartRect.top;
+      const children = childrenByParent[parentId];
 
-      var childData = children.map(function(child) {
-        var r = child.getBoundingClientRect();
+      const parentRect = parent.getBoundingClientRect();
+      const parentX = parentRect.left + parentRect.width / 2 - chartRect.left;
+      const parentBottom = parentRect.bottom - chartRect.top;
+
+      // Координаты детей
+      const childCoords = children.map(child => {
+        const r = child.getBoundingClientRect();
         return {
           x: r.left + r.width / 2 - chartRect.left,
-          top: r.top - chartRect.top,
-          bottom: r.bottom - chartRect.top
+          top: r.top - chartRect.top
         };
       });
 
-      // Группировка по строкам (top отличается менее чем на 15px)
-      var rows = [];
-      childData.forEach(function(coord) {
-        var row = null;
-        for (var ri = 0; ri < rows.length; ri++) {
-          if (Math.abs(rows[ri].top - coord.top) < 15) { row = rows[ri]; break; }
-        }
-        if (!row) { row = { top: coord.top, bottom: coord.top, items: [] }; rows.push(row); }
-        row.items.push(coord);
-        if (coord.bottom > row.bottom) row.bottom = coord.bottom;
-      });
-      rows.sort(function(a, b) { return a.top - b.top; });
+      // Y коромысла
+      const minChildTop = Math.min(...childCoords.map(c => c.top));
+      const yokeY = (parentBottom + minChildTop) / 2;
 
-      var firstRow = rows[0];
-      var firstYokeY = (parentBottom + firstRow.top) / 2;
+      // 1. Вертикаль от родителя к коромыслу
+      addLine(parentX, parentBottom, parentX, yokeY);
 
-      // 1. Вертикаль от родителя до первого коромысла
-      addLine(parentX, parentBottom, parentX, firstYokeY);
-
-      // 2. Горизонтальное коромысло первой строки
-      if (firstRow.items.length > 1) {
-        var allX = firstRow.items.map(function(c) { return c.x; });
-        var minX = Math.min.apply(null, allX.concat([parentX]));
-        var maxX = Math.max.apply(null, allX.concat([parentX]));
-        addLine(minX, firstYokeY, maxX, firstYokeY);
+      // 2. Если детей > 1 — горизонтальное коромысло
+      if (childCoords.length > 1) {
+        const allX = childCoords.map(c => c.x).concat([parentX]);
+        const minX = Math.min(...allX);
+        const maxX = Math.max(...allX);
+        addLine(minX, yokeY, maxX, yokeY);
       }
 
-      // 3. Вертикали к детям первой строки
-      firstRow.items.forEach(function(c) {
-        addLine(c.x, firstYokeY, c.x, c.top);
+      // 3. Вертикали от коромысла к каждому ребёнку
+      childCoords.forEach(c => {
+        addLine(c.x, yokeY, c.x, c.top);
       });
-
-      // 4. Последующие строки — L-образный байпас через X родителя
-      for (var i = 1; i < rows.length; i++) {
-        var row = rows[i];
-        var prevRow = rows[i - 1];
-        // Промежуточное коромысло между низом предыдущей строки и верхом текущей
-        var subYokeY = (prevRow.bottom + row.top) / 2;
-
-        row.items.forEach(function(c) {
-          // Вниз по X родителя от firstYokeY до subYokeY
-          addLine(parentX, firstYokeY, parentX, subYokeY);
-          // Горизонталь от parentX до c.x по subYokeY
-          addLine(parentX, subYokeY, c.x, subYokeY);
-          // Вертикаль от subYokeY до карточки
-          addLine(c.x, subYokeY, c.x, c.top);
-        });
-      }
     });
   }
 
