@@ -254,8 +254,10 @@ body {
   line-height: 1.4;
   padding: 8px 12px;
   border-radius: 4px;
-  white-space: nowrap;
-  max-width: 280px;
+  width: max-content;
+  max-width: 240px;
+  white-space: normal;
+  text-align: center;
   z-index: 100;
   pointer-events: none;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
@@ -270,6 +272,17 @@ body {
   border-top-color: var(--text-1);
   z-index: 100;
   pointer-events: none;
+}
+/* Tooltip снизу для верхней карточки (Гендир) */
+.org-node--root[data-tooltip]:hover::after {
+  bottom: auto;
+  top: calc(100% + 8px);
+}
+.org-node--root[data-tooltip]:hover::before {
+  bottom: auto;
+  top: calc(100% + 2px);
+  border-top-color: transparent;
+  border-bottom-color: var(--text-1);
 }
 
 @media (max-width: 640px) {
