@@ -171,6 +171,77 @@ body {
 .intro-text strong { color: var(--text-1); font-weight: 500; }
 .screen-nav { margin-top: 40px; display: flex; justify-content: flex-end; }
 
+/* ORG CHART */
+.org-chart {
+  position: relative;
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 24px 0;
+}
+.org-chart__inner {
+  min-width: 1080px;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  position: relative;
+}
+.org-level {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 12px;
+  flex-wrap: nowrap;
+}
+.org-level--3,
+.org-level--4 {
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  row-gap: 16px;
+}
+.org-node {
+  background: #fafaf8;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 10px 14px;
+  min-width: 120px;
+  max-width: 180px;
+  text-align: center;
+  font-size: 13px;
+  line-height: 1.35;
+  color: var(--text-1);
+  position: relative;
+  transition: border-color 200ms ease, background 200ms ease;
+  cursor: default;
+}
+.org-node--top {
+  min-width: 140px;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: 500;
+}
+.org-node--root {
+  min-width: 160px;
+  padding: 14px 18px;
+  font-size: 14px;
+  font-weight: 500;
+}
+.org-node__role { display: block; }
+.org-node__unit {
+  display: block;
+  font-size: 11px;
+  color: var(--text-3);
+  margin-top: 2px;
+}
+.org-node__marker {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-3);
+}
+
 @media (max-width: 640px) {
   :root { --px-desk: var(--px-mob); }
   .site-header__inner { height: 56px; }
@@ -266,7 +337,248 @@ body {
 
 <section class="screen" data-screen="2" hidden
          aria-label="Интерактивная схема">
-  <!-- Заполняется в следующих промптах -->
+  <h1 style="text-align:center; margin-bottom: 8px;">Оргсхема компании</h1>
+  <p style="text-align:center; color: var(--text-2); margin-bottom: 32px;
+            font-size: 14px;">
+    Включите фильтры — Микросервис подсветит структурные дефекты.
+  </p>
+
+  <div class="org-chart">
+    <div class="org-chart__inner">
+
+      <!-- Уровень 1 -->
+      <div class="org-level org-level--1">
+        <div class="org-node org-node--root" data-node-id="ceo"
+             title="Высшая руководящая позиция компании">
+          <span class="org-node__role">Генеральный директор</span>
+        </div>
+      </div>
+
+      <!-- Уровень 2 — топ-команда -->
+      <div class="org-level org-level--2">
+        <div class="org-node org-node--top" data-node-id="commercial"
+             title="Коммерческий директор">
+          <span class="org-node__role">Коммерческий директор</span>
+        </div>
+        <div class="org-node org-node--top" data-node-id="logistics"
+             title="Директор по логистике">
+          <span class="org-node__role">Директор по логистике</span>
+        </div>
+        <div class="org-node org-node--top" data-node-id="finance"
+             title="Финансовый директор">
+          <span class="org-node__role">Финансовый директор</span>
+        </div>
+        <div class="org-node org-node--top" data-node-id="hr"
+             title="HR-директор">
+          <span class="org-node__role">HR-директор</span>
+        </div>
+        <div class="org-node org-node--top" data-node-id="it"
+             title="ИТ-директор">
+          <span class="org-node__role">ИТ-директор</span>
+        </div>
+        <div class="org-node org-node--top" data-node-id="dev"
+             title="Директор по развитию (новая позиция после слияния)">
+          <span class="org-node__role">Директор по развитию</span>
+        </div>
+      </div>
+
+      <!-- Уровень 3 — средний менеджмент -->
+      <div class="org-level org-level--3">
+        <!-- Под Коммерческим (10) -->
+        <div class="org-node" data-node-id="sales-center" data-parent="commercial"
+             title="Руководитель отдела продаж · Регион Центр">
+          <span class="org-node__role">Руководитель отдела продаж</span>
+          <span class="org-node__unit">Регион Центр</span>
+        </div>
+        <div class="org-node" data-node-id="sales-nw" data-parent="commercial"
+             title="Руководитель отдела продаж · Регион Северо-Запад">
+          <span class="org-node__role">Руководитель отдела продаж</span>
+          <span class="org-node__unit">Регион Северо-Запад</span>
+        </div>
+        <div class="org-node" data-node-id="sales-south" data-parent="commercial"
+             title="Руководитель отдела продаж · Регион Юг">
+          <span class="org-node__role">Руководитель отдела продаж</span>
+          <span class="org-node__unit">Регион Юг</span>
+        </div>
+        <div class="org-node" data-node-id="sales-ural" data-parent="commercial"
+             title="Руководитель отдела продаж · Регион Урал">
+          <span class="org-node__role">Руководитель отдела продаж</span>
+          <span class="org-node__unit">Регион Урал</span>
+        </div>
+        <div class="org-node" data-node-id="sales-siberia" data-parent="commercial"
+             title="Руководитель отдела продаж · Регион Сибирь">
+          <span class="org-node__role">Руководитель отдела продаж</span>
+          <span class="org-node__unit">Регион Сибирь</span>
+        </div>
+        <div class="org-node" data-node-id="sales-fareast" data-parent="commercial"
+             title="Руководитель отдела продаж · Регион Дальний Восток">
+          <span class="org-node__role">Руководитель отдела продаж</span>
+          <span class="org-node__unit">Регион Дальний Восток</span>
+        </div>
+        <div class="org-node" data-node-id="key-accounts" data-parent="commercial"
+             title="Руководитель отдела ключевых клиентов">
+          <span class="org-node__role">Отдел ключевых клиентов</span>
+        </div>
+        <div class="org-node" data-node-id="trade-mkt" data-parent="commercial"
+             title="Руководитель отдела торгового маркетинга">
+          <span class="org-node__role">Торговый маркетинг</span>
+        </div>
+        <div class="org-node" data-node-id="cat-management" data-parent="commercial"
+             data-duplicates-with="market-research"
+             title="Руководитель отдела категорийного менеджмента">
+          <span class="org-node__role">Категорийный менеджмент</span>
+        </div>
+        <div class="org-node" data-node-id="customer-service" data-parent="commercial"
+             title="Руководитель отдела клиентского сервиса">
+          <span class="org-node__role">Клиентский сервис</span>
+        </div>
+        <!-- Под Директором по логистике (5) -->
+        <div class="org-node" data-node-id="warehouse" data-parent="logistics"
+             title="Руководитель складского хозяйства">
+          <span class="org-node__role">Складское хозяйство</span>
+        </div>
+        <div class="org-node" data-node-id="transport" data-parent="logistics"
+             title="Руководитель транспортного отдела">
+          <span class="org-node__role">Транспортный отдел</span>
+        </div>
+        <div class="org-node" data-node-id="procurement" data-parent="logistics"
+             title="Руководитель отдела закупок">
+          <span class="org-node__role">Отдел закупок</span>
+        </div>
+        <div class="org-node" data-node-id="ved" data-parent="logistics"
+             title="Руководитель отдела ВЭД">
+          <span class="org-node__role">Отдел ВЭД</span>
+        </div>
+        <div class="org-node" data-node-id="warehouse-tech" data-parent="logistics"
+             data-critical="true"
+             title="Главный технолог склада — критическая роль без преемника">
+          <span class="org-node__role">Главный технолог склада</span>
+        </div>
+        <!-- Под Финансовым директором (4) -->
+        <div class="org-node" data-node-id="chief-accountant" data-parent="finance"
+             title="Главный бухгалтер">
+          <span class="org-node__role">Главный бухгалтер</span>
+        </div>
+        <div class="org-node" data-node-id="planning" data-parent="finance"
+             data-duplicates-with="strategic-projects"
+             title="Руководитель планово-экономического отдела">
+          <span class="org-node__role">Планово-экономический отдел</span>
+        </div>
+        <div class="org-node" data-node-id="treasury" data-parent="finance"
+             title="Руководитель казначейства">
+          <span class="org-node__role">Казначейство</span>
+        </div>
+        <div class="org-node" data-node-id="internal-control" data-parent="finance"
+             title="Руководитель отдела внутреннего контроля">
+          <span class="org-node__role">Внутренний контроль</span>
+        </div>
+        <!-- Под HR-директором (3) -->
+        <div class="org-node" data-node-id="recruitment" data-parent="hr"
+             title="Руководитель отдела подбора">
+          <span class="org-node__role">Отдел подбора</span>
+        </div>
+        <div class="org-node" data-node-id="cnb" data-parent="hr"
+             data-critical="true"
+             title="Руководитель отдела C&amp;B — критическая роль без преемника">
+          <span class="org-node__role">Отдел C&amp;B</span>
+        </div>
+        <div class="org-node" data-node-id="learning" data-parent="hr"
+             title="Руководитель отдела обучения">
+          <span class="org-node__role">Отдел обучения</span>
+        </div>
+        <!-- Под ИТ-директором (4) -->
+        <div class="org-node" data-node-id="dev-team" data-parent="it"
+             title="Руководитель отдела разработки">
+          <span class="org-node__role">Отдел разработки</span>
+        </div>
+        <div class="org-node" data-node-id="it-support" data-parent="it"
+             title="Руководитель отдела поддержки">
+          <span class="org-node__role">Отдел поддержки</span>
+        </div>
+        <div class="org-node" data-node-id="infra" data-parent="it"
+             title="Руководитель отдела ИТ-инфраструктуры">
+          <span class="org-node__role">ИТ-инфраструктура</span>
+        </div>
+        <div class="org-node" data-node-id="chief-architect" data-parent="it"
+             data-critical="true"
+             title="Главный архитектор систем — критическая роль без преемника">
+          <span class="org-node__role">Главный архитектор систем</span>
+        </div>
+        <!-- Под Директором по развитию (3) -->
+        <div class="org-node" data-node-id="market-research" data-parent="dev"
+             data-duplicates-with="cat-management"
+             title="Руководитель отдела маркетинговых исследований">
+          <span class="org-node__role">Маркетинговые исследования</span>
+        </div>
+        <div class="org-node" data-node-id="strategic-projects" data-parent="dev"
+             data-duplicates-with="planning"
+             title="Руководитель отдела стратегических проектов">
+          <span class="org-node__role">Стратегические проекты</span>
+        </div>
+        <div class="org-node" data-node-id="product-dev" data-parent="dev"
+             title="Руководитель отдела продуктового развития">
+          <span class="org-node__role">Продуктовое развитие</span>
+        </div>
+      </div>
+
+      <!-- Уровень 4 — заместители -->
+      <div class="org-level org-level--4">
+        <div class="org-node" data-node-id="dep-sales-center" data-parent="sales-center"
+             title="Заместитель руководителя · продажи Центр">
+          <span class="org-node__role">Зам · продажи Центр</span>
+        </div>
+        <div class="org-node" data-node-id="dep-sales-nw" data-parent="sales-nw"
+             title="Заместитель руководителя · продажи Северо-Запад">
+          <span class="org-node__role">Зам · продажи СЗ</span>
+        </div>
+        <div class="org-node" data-node-id="dep-key-accounts" data-parent="key-accounts"
+             title="Заместитель · ключевые клиенты">
+          <span class="org-node__role">Зам · ключевые клиенты</span>
+        </div>
+        <div class="org-node" data-node-id="dep-cat-mgmt" data-parent="cat-management"
+             title="Заместитель · категорийный менеджмент">
+          <span class="org-node__role">Зам · категории</span>
+        </div>
+        <div class="org-node" data-node-id="dep-warehouse" data-parent="warehouse"
+             title="Заместитель · склад">
+          <span class="org-node__role">Зам · склад</span>
+        </div>
+        <div class="org-node" data-node-id="dep-transport" data-parent="transport"
+             title="Заместитель · транспорт">
+          <span class="org-node__role">Зам · транспорт</span>
+        </div>
+        <div class="org-node" data-node-id="dep-accountant" data-parent="chief-accountant"
+             title="Заместитель главного бухгалтера">
+          <span class="org-node__role">Зам гл. бухгалтера</span>
+        </div>
+        <div class="org-node" data-node-id="dep-planning" data-parent="planning"
+             title="Заместитель · ПЭО">
+          <span class="org-node__role">Зам · ПЭО</span>
+        </div>
+        <div class="org-node" data-node-id="dep-treasury" data-parent="treasury"
+             title="Заместитель · казначейство">
+          <span class="org-node__role">Зам · казначейство</span>
+        </div>
+        <div class="org-node" data-node-id="dep-recruitment" data-parent="recruitment"
+             title="Заместитель · подбор">
+          <span class="org-node__role">Зам · подбор</span>
+        </div>
+        <div class="org-node" data-node-id="dep-learning" data-parent="learning"
+             title="Заместитель · обучение">
+          <span class="org-node__role">Зам · обучение</span>
+        </div>
+        <div class="org-node" data-node-id="dep-dev-team" data-parent="dev-team"
+             title="Заместитель · разработка">
+          <span class="org-node__role">Зам · разработка</span>
+        </div>
+        <div class="org-node" data-node-id="dep-it-support" data-parent="it-support"
+             title="Заместитель · ИТ-поддержка">
+          <span class="org-node__role">Зам · ИТ-поддержка</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </section>
 
 <section class="screen" data-screen="3" hidden
