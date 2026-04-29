@@ -290,6 +290,72 @@ p{font-size:14px;line-height:1.55;}
 /* Блок 4 — таймлайн */
 .block-4 .kicker{display:block;}
 .block-4 h2{margin-top:8px;}
+.era-visual{margin-top:48px;margin-bottom:64px;}
+.era-grid{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:24px;
+}
+.era-cell{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+.era-img{
+  width:180px;
+  height:auto;
+  display:block;
+  margin:0 auto 12px;
+}
+.era-caption{
+  font-size:10px;
+  font-weight:500;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:var(--color-accent);
+  text-align:center;
+}
+.era-cell--now .era-caption{
+  font-weight:600;
+  color:#3d1310;
+}
+.era-axis{
+  position:relative;
+  margin-top:32px;
+  margin-bottom:32px;
+  height:16px;
+}
+.era-axis::before{
+  content:'';
+  position:absolute;
+  top:50%;
+  left:0;
+  right:0;
+  height:1px;
+  background:#e8e4dc;
+  transform:translateY(-50%);
+}
+.era-axis-dots{
+  position:relative;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:24px;
+  height:100%;
+  align-items:center;
+}
+.era-dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#5c1c14;
+  margin:0 auto;
+}
+.era-dot--now{
+  width:12px;
+  height:12px;
+  border:2px solid #fafaf8;
+  box-sizing:content-box;
+}
 .timeline{max-width:820px;}
 .timeline-row{
   display:grid;
@@ -669,6 +735,14 @@ p{font-size:14px;line-height:1.55;}
   }
   .block-2-chart{order:-1;}
   .block-2-chart svg{max-height:220px;}
+  .era-visual{margin-top:32px;margin-bottom:40px;}
+  .era-grid{
+    grid-template-columns:repeat(2,1fr);
+    gap:16px;
+  }
+  .era-img{width:100px;}
+  .era-caption{font-size:9px;}
+  .era-axis{display:none;}
   .stats-grid{
     grid-template-columns:1fr;
     gap:10px;
@@ -917,6 +991,39 @@ p{font-size:14px;line-height:1.55;}
       <span class="kicker">История вопроса</span>
       <h2>Смена стандартов — это закономерность.</h2>
       <p class="section-lead">Каждые 15–20 лет набор инструментов найма обновляется. Привычные сегодня инструменты когда-то были вызовом.</p>
+      <div class="era-visual">
+        <div class="era-grid">
+          <figure class="era-cell">
+            <img class="era-img" src="files/pictures/era-1.png" alt="" width="180" height="180">
+            <figcaption class="era-caption">До 1950-х</figcaption>
+          </figure>
+          <figure class="era-cell">
+            <img class="era-img" src="files/pictures/era-2.png" alt="" width="180" height="180">
+            <figcaption class="era-caption">1960–1990-е</figcaption>
+          </figure>
+          <figure class="era-cell">
+            <img class="era-img" src="files/pictures/era-3.png" alt="" width="180" height="180">
+            <figcaption class="era-caption">2000-е</figcaption>
+          </figure>
+          <figure class="era-cell">
+            <img class="era-img" src="files/pictures/era-4.png" alt="" width="180" height="180">
+            <figcaption class="era-caption">2020-е</figcaption>
+          </figure>
+          <figure class="era-cell era-cell--now">
+            <img class="era-img" src="files/pictures/era-5.png" alt="" width="180" height="180">
+            <figcaption class="era-caption">2025–2026 и далее</figcaption>
+          </figure>
+        </div>
+        <div class="era-axis">
+          <div class="era-axis-dots">
+            <span class="era-dot"></span>
+            <span class="era-dot"></span>
+            <span class="era-dot"></span>
+            <span class="era-dot"></span>
+            <span class="era-dot era-dot--now"></span>
+          </div>
+        </div>
+      </div>
       <div class="timeline">
         <div class="timeline-row">
           <div class="timeline-era">До 1950-х</div>
