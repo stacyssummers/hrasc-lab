@@ -482,20 +482,20 @@ p{font-size:14px;line-height:1.55;}
 
 /* Секция 10 — «Кто за этим стоит» (продолжение секции 9, без kicker) */
 .block-10{padding:48px 40px;}
-.block-10 .who-title{margin-bottom:20px;}
-.who-grid{
+.author-bio-grid{
   display:grid;
-  grid-template-columns:200px 1fr;
-  gap:32px;
+  grid-template-columns:1fr 320px;
+  gap:48px;
   align-items:start;
 }
-.who-photo{
-  width:180px;
-  height:180px;
-  border-radius:50%;
+.author-bio-text .who-title{margin-bottom:24px;}
+.author-bio-photo{
+  width:320px;
+  height:auto;
+  display:block;
   object-fit:cover;
   object-position:center top;
-  display:block;
+  border-radius:4px;
 }
 .who-body{
   font-size:14px;
@@ -655,16 +655,16 @@ p{font-size:14px;line-height:1.55;}
     grid-template-columns:1fr;
   }
   .block-8{padding-top:48px;}
-  .who-grid{
+  .author-bio-grid{
     grid-template-columns:1fr;
-    gap:20px;
-    justify-items:center;
+    gap:0;
   }
-  .who-photo{
-    width:140px;
-    height:140px;
+  .author-bio-photo{
+    width:100%;
+    max-width:280px;
+    justify-self:center;
+    margin-top:24px;
   }
-  .who-text{width:100%;}
 }
 
 /* Модалка с контактной формой */
@@ -1045,13 +1045,13 @@ p{font-size:14px;line-height:1.55;}
 
   <section id="block-10" class="block-10">
     <div class="section-inner">
-      <h2 class="who-title">Кто за этим стоит.</h2>
-      <div class="who-grid">
-        <img class="who-photo" src="files/pictures/anastasia-yurlova.jpg" alt="Анастасия Юрлова" width="180" height="180">
-        <div class="who-text">
+      <div class="author-bio-grid">
+        <div class="author-bio-text">
+          <h2 class="who-title">Кто за этим стоит.</h2>
           <p class="who-body"><strong>Анастасия Юрлова</strong> — основатель и директор НКО «Люди. Бизнес. Будущее.», руководитель Исследовательской лаборатории.</p>
           <p class="who-body">15 лет в HR крупного бизнеса. В Сбербанке (300 000+ сотрудников, 52 000 наймов в год) перевела функцию подбора на agile, собрала 14 продуктовых команд, подняла удовлетворённость внутренних клиентов с 37% до 77%. Возглавляла подбор, развитие и удержание в ПИК (25 000+ сотрудников). С 2024 — HR-директор группы HR-компаний, руководит проектами трансформации. В executive search с 2011 года, начинала в Kontakt InterSearch.</p>
         </div>
+        <img class="author-bio-photo" src="files/pictures/anastasia-yurlova.jpg" alt="Анастасия Юрлова">
       </div>
     </div>
   </section>
