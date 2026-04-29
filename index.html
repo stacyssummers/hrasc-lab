@@ -463,13 +463,23 @@ p{font-size:14px;line-height:1.55;}
 .block-8 .kicker{display:block;}
 .block-8 h2{margin-top:8px;margin-bottom:32px;}
 
-/* Секция 9 — «Про нас» */
-.block-9{padding:48px 40px 0;}
-.block-9 .kicker{display:block;}
-.block-9 .about-title{
+/* Секция 9–10 — «Про нас» + «Кто за этим стоит» (объединённая) */
+.block-about-team{padding:48px 40px;}
+.block-about-team .kicker{display:block;}
+.about-team-grid{
+  display:grid;
+  grid-template-columns:1fr 320px;
+  gap:48px;
+  align-items:start;
+}
+.about-team-text .about-title{
   margin-top:8px;
   margin-bottom:24px;
   max-width:680px;
+}
+.about-team-text .who-title{
+  margin-top:40px;
+  margin-bottom:24px;
 }
 .about-body{
   font-size:14px;
@@ -478,17 +488,9 @@ p{font-size:14px;line-height:1.55;}
   max-width:680px;
 }
 .about-body + .about-body{margin-top:16px;}
-
-/* Секция 10 — «Кто за этим стоит» (продолжение секции 9, без kicker) */
-.block-10{padding:48px 40px;}
-.author-bio-grid{
-  display:grid;
-  grid-template-columns:1fr 320px;
-  gap:48px;
-  align-items:start;
-}
-.author-bio-text .who-title{margin-bottom:24px;}
-.author-bio-photo{
+.about-body strong{font-weight:600;}
+.about-team-photo-wrapper{align-self:start;}
+.about-team-photo{
   width:320px;
   height:auto;
   display:block;
@@ -496,7 +498,7 @@ p{font-size:14px;line-height:1.55;}
   object-position:center top;
   border-radius:4px;
 }
-.author-bio-caption{
+.about-team-caption{
   margin-top:16px;
   text-align:center;
 }
@@ -513,14 +515,6 @@ p{font-size:14px;line-height:1.55;}
   line-height:1.4;
   letter-spacing:0.01em;
 }
-.who-body{
-  font-size:14px;
-  line-height:1.55;
-  color:var(--color-text);
-  max-width:680px;
-}
-.who-body + .who-body{margin-top:16px;}
-.who-body strong{font-weight:600;}
 
 /* Секция 11 — «Частые вопросы»: открытый список без аккордеона */
 .block-11 .kicker{display:block;}
@@ -671,20 +665,21 @@ p{font-size:14px;line-height:1.55;}
     grid-template-columns:1fr;
   }
   .block-8{padding-top:48px;}
-  .author-bio-grid{
+  .about-team-grid{
     grid-template-columns:1fr;
     gap:0;
   }
-  .author-bio-photo-wrapper{
+  .about-team-photo-wrapper{
     margin-top:24px;
     justify-self:center;
     width:100%;
     max-width:280px;
   }
-  .author-bio-photo{
+  .about-team-photo{
     width:100%;
     max-width:none;
   }
+  .about-team-text .who-title{margin-top:32px;}
   .caption-name{font-size:14px;}
   .caption-role{font-size:11px;}
 }
@@ -1056,26 +1051,21 @@ p{font-size:14px;line-height:1.55;}
     </div>
   </section>
 
-  <section id="block-9" class="block-9">
+  <section id="block-9-10" class="block-about-team">
     <div class="section-inner">
-      <span class="kicker">Про нас</span>
-      <h2 class="about-title">Исследовательская лаборатория — прикладное направление профессиональной ассоциации.</h2>
-      <p class="about-body">НКО «Люди. Бизнес. Будущее.» объединяет HR-директоров и экспертов рынка труда, которые работают с задачами работодателей: исследование рынка, формирование отраслевых стандартов, продвижение HR-повестки в СМИ.</p>
-      <p class="about-body">Исследовательская лаборатория — направление, которое превращает исследования рынка труда в прикладные инструменты для конкретных компаний.</p>
-    </div>
-  </section>
-
-  <section id="block-10" class="block-10">
-    <div class="section-inner">
-      <div class="author-bio-grid">
-        <div class="author-bio-text">
+      <div class="about-team-grid">
+        <div class="about-team-text">
+          <span class="kicker">Про нас</span>
+          <h2 class="about-title">Исследовательская лаборатория — прикладное направление профессиональной ассоциации.</h2>
+          <p class="about-body">НКО «Люди. Бизнес. Будущее.» объединяет HR-директоров и экспертов рынка труда, которые работают с задачами работодателей: исследование рынка, формирование отраслевых стандартов, продвижение HR-повестки в СМИ.</p>
+          <p class="about-body">Исследовательская лаборатория — направление, которое превращает исследования рынка труда в прикладные инструменты для конкретных компаний.</p>
           <h2 class="who-title">Кто за этим стоит.</h2>
-          <p class="who-body"><strong>Анастасия Юрлова</strong> — основатель и директор НКО «Люди. Бизнес. Будущее.», руководитель Исследовательской лаборатории.</p>
-          <p class="who-body">15 лет в HR крупного бизнеса. В Сбербанке (300 000+ сотрудников, 52 000 наймов в год) перевела функцию подбора на agile, собрала 14 продуктовых команд, подняла удовлетворённость внутренних клиентов с 37% до 77%. Возглавляла подбор, развитие и удержание в ПИК (25 000+ сотрудников). С 2024 — HR-директор группы HR-компаний, руководит проектами трансформации. В executive search с 2011 года, начинала в Kontakt InterSearch.</p>
+          <p class="about-body"><strong>Анастасия Юрлова</strong> — основатель и директор НКО «Люди. Бизнес. Будущее.», руководитель Исследовательской лаборатории.</p>
+          <p class="about-body">15 лет в HR крупного бизнеса. В Сбербанке (300 000+ сотрудников, 52 000 наймов в год) перевела функцию подбора на agile, собрала 14 продуктовых команд, подняла удовлетворённость внутренних клиентов с 37% до 77%. Возглавляла подбор, развитие и удержание в ПИК (25 000+ сотрудников). С 2024 — HR-директор группы HR-компаний, руководит проектами трансформации. В executive search с 2011 года, начинала в Kontakt InterSearch.</p>
         </div>
-        <div class="author-bio-photo-wrapper">
-          <img class="author-bio-photo" src="files/pictures/anastasia-yurlova.jpg" alt="Анастасия Юрлова">
-          <div class="author-bio-caption">
+        <div class="about-team-photo-wrapper">
+          <img class="about-team-photo" src="files/pictures/anastasia-yurlova.jpg" alt="Анастасия Юрлова">
+          <div class="about-team-caption">
             <div class="caption-name">Анастасия Юрлова</div>
             <div class="caption-role">Основатель и руководитель проекта</div>
           </div>
