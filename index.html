@@ -202,7 +202,14 @@ p{font-size:14px;line-height:1.55;}
 }
 .section-inner.section-inner--narrow{max-width:680px;}
 
-/* Блок 2 — узкая текстовая колонка, центрирована */
+/* Блок 2 — двухколоночный: график слева, текст справа */
+.block-2-grid{
+  display:grid;
+  grid-template-columns:38% 62%;
+  gap:48px;
+  align-items:center;
+}
+.block-2-chart svg{display:block;width:100%;height:auto;}
 .block-2 .kicker{display:block;}
 .block-2 h2{margin-top:8px;}
 .block-2 .body-block{margin-top:24px;}
@@ -642,6 +649,12 @@ p{font-size:14px;line-height:1.55;}
     gap:32px;
   }
   .hero-image{max-width:240px;}
+  .block-2-grid{
+    grid-template-columns:1fr;
+    gap:24px;
+  }
+  .block-2-chart{order:-1;}
+  .block-2-chart svg{max-height:220px;}
   .stats-grid{
     grid-template-columns:1fr;
     gap:10px;
@@ -821,13 +834,34 @@ p{font-size:14px;line-height:1.55;}
   </section>
 
   <section id="block-2" class="section block-2">
-    <div class="section-inner section-inner--narrow">
-      <span class="kicker">Что происходит на рынке</span>
-      <h2>Рынок не предупреждает. Он просто меняет правила.</h2>
-      <div class="body-block">
-        <p>Каждые несколько лет рынок труда проходит точку перелома. Не постепенное изменение, а качественный сдвиг, после которого старые инструменты перестают работать.</p>
-        <p>Мы находимся именно в такой точке. Рынок кандидата сменился рынком работодателя. Резюме и вакансии идеализируют стороны, а вопросы и ответы на собеседованиях пишут языковые модели с обеих сторон. Инструменты рекрутинга перестали отличать одного кандидата от другого — и сам процесс отбора потерял структуру.</p>
-        <p>Новые стандарты оценки формируются прямо сейчас — в практике команд, которые работают с этой задачей. Мы из их числа.</p>
+    <div class="section-inner">
+      <div class="block-2-grid">
+        <div class="block-2-chart">
+          <svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="График hh-индекса по кварталам с Q1 2024 (3.1) до марта 2026 (11.4)" font-family="Inter, sans-serif">
+            <text x="0" y="14" font-size="11" font-weight="500" letter-spacing="1.32" fill="#5c1c14" text-transform="uppercase">HH-ИНДЕКС ПО КВАРТАЛАМ, 2024–2026</text>
+            <line x1="0" y1="210" x2="400" y2="210" stroke="#e8e4dc" stroke-width="1"/>
+            <path d="M 30,192.4 L 51.25,190 Q 72.5,187.6 93.75,178 Q 115,168.4 136.25,155.6 Q 157.5,142.8 178.75,130 Q 200,117.2 221.25,111.6 Q 242.5,106 263.75,96.4 Q 285,86.8 306.25,79.6 Q 327.5,72.4 348.75,66 L 370,59.6" fill="none" stroke="#5c1c14" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="30" cy="192.4" r="3" fill="#5c1c14"/>
+            <circle cx="200" cy="117.2" r="3" fill="#5c1c14"/>
+            <circle cx="370" cy="59.6" r="3" fill="#5c1c14"/>
+            <text x="30" y="180" font-size="13" font-weight="600" fill="#1a1a1a" text-anchor="start">3.1</text>
+            <text x="200" y="105" font-size="13" font-weight="600" fill="#1a1a1a" text-anchor="middle">7.8</text>
+            <text x="370" y="47" font-size="13" font-weight="600" fill="#1a1a1a" text-anchor="end">11.4</text>
+            <text x="30" y="230" font-size="11" letter-spacing="0.55" fill="#8a8680" text-anchor="start">Q1 2024</text>
+            <text x="200" y="230" font-size="11" letter-spacing="0.55" fill="#8a8680" text-anchor="middle">Q1 2025</text>
+            <text x="370" y="230" font-size="11" letter-spacing="0.55" fill="#8a8680" text-anchor="end">Март 2026</text>
+            <text x="0" y="262" font-size="10" fill="#8a8680">Источник: hh.ru Research</text>
+          </svg>
+        </div>
+        <div class="block-2-text">
+          <span class="kicker">Что происходит на рынке</span>
+          <h2>Рынок не предупреждает. Он просто меняет правила.</h2>
+          <div class="body-block">
+            <p>Каждые несколько лет рынок труда проходит точку перелома. Не постепенное изменение, а качественный сдвиг, после которого старые инструменты перестают работать.</p>
+            <p>Мы находимся именно в такой точке. Рынок кандидата сменился рынком работодателя. Резюме и вакансии идеализируют стороны, а вопросы и ответы на собеседованиях пишут языковые модели с обеих сторон. Инструменты рекрутинга перестали отличать одного кандидата от другого — и сам процесс отбора потерял структуру.</p>
+            <p>Новые стандарты оценки формируются прямо сейчас — в практике команд, которые работают с этой задачей. Мы из их числа.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
