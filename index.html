@@ -496,6 +496,23 @@ p{font-size:14px;line-height:1.55;}
   object-position:center top;
   border-radius:4px;
 }
+.author-bio-caption{
+  margin-top:16px;
+  text-align:center;
+}
+.caption-name{
+  font-size:15px;
+  font-weight:500;
+  color:#1a1a1a;
+  letter-spacing:-0.005em;
+  margin-bottom:4px;
+}
+.caption-role{
+  font-size:12px;
+  color:#4a4a4a;
+  line-height:1.4;
+  letter-spacing:0.01em;
+}
 .who-body{
   font-size:14px;
   line-height:1.55;
@@ -658,12 +675,18 @@ p{font-size:14px;line-height:1.55;}
     grid-template-columns:1fr;
     gap:0;
   }
-  .author-bio-photo{
+  .author-bio-photo-wrapper{
+    margin-top:24px;
+    justify-self:center;
     width:100%;
     max-width:280px;
-    justify-self:center;
-    margin-top:24px;
   }
+  .author-bio-photo{
+    width:100%;
+    max-width:none;
+  }
+  .caption-name{font-size:14px;}
+  .caption-role{font-size:11px;}
 }
 
 /* Модалка с контактной формой */
@@ -1050,7 +1073,13 @@ p{font-size:14px;line-height:1.55;}
           <p class="who-body"><strong>Анастасия Юрлова</strong> — основатель и директор НКО «Люди. Бизнес. Будущее.», руководитель Исследовательской лаборатории.</p>
           <p class="who-body">15 лет в HR крупного бизнеса. В Сбербанке (300 000+ сотрудников, 52 000 наймов в год) перевела функцию подбора на agile, собрала 14 продуктовых команд, подняла удовлетворённость внутренних клиентов с 37% до 77%. Возглавляла подбор, развитие и удержание в ПИК (25 000+ сотрудников). С 2024 — HR-директор группы HR-компаний, руководит проектами трансформации. В executive search с 2011 года, начинала в Kontakt InterSearch.</p>
         </div>
-        <img class="author-bio-photo" src="files/pictures/anastasia-yurlova.jpg" alt="Анастасия Юрлова">
+        <div class="author-bio-photo-wrapper">
+          <img class="author-bio-photo" src="files/pictures/anastasia-yurlova.jpg" alt="Анастасия Юрлова">
+          <div class="author-bio-caption">
+            <div class="caption-name">Анастасия Юрлова</div>
+            <div class="caption-role">Основатель и руководитель проекта</div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
