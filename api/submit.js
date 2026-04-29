@@ -23,27 +23,23 @@ export default async function handler(req, res) {
   }
   body = body || {};
 
-  const fio = String(body.fio || '').trim();
+  const name = String(body.name || '').trim();
   const company = String(body.company || '').trim();
-  const email = String(body.email || '').trim();
-  const consent = body.consent === true;
+  const contactType = body.contact_type === 'telegram' ? 'telegram' : 'phone';
+  const contact = String(body.contact || '').trim();
 
-  if (!fio || !company || !email) {
+  if (!name || !company || !contact) {
     return res.status(400).json({ error: 'Обязательные поля не заполнены' });
   }
-  if (!email.includes('@')) {
-    return res.status(400).json({ error: 'Некорректный email' });
-  }
-  if (!consent) {
-    return res.status(400).json({ error: 'Нет согласия на обработку персональных данных' });
-  }
+
+  const contactLabel = contactType === 'telegram' ? 'Telegram' : 'Телефон';
 
   const text = [
-    '🔔 <b>Новая заявка с hrasc-lab.ru</b>',
+    '📝 <b>Новая заявка с hrasc-lab.ru</b>',
     '',
-    `<b>ФИО:</b> ${escapeHtml(fio)}`,
+    `<b>ФИО:</b> ${escapeHtml(name)}`,
     `<b>Компания:</b> ${escapeHtml(company)}`,
-    `<b>Email:</b> ${escapeHtml(email)}`,
+    `<b>Контакт (${contactLabel}):</b> ${escapeHtml(contact)}`,
   ].join('\n');
 
   try {
@@ -58,8 +54,8 @@ export default async function handler(req, res) {
       }),
     });
     if (!tgRes.ok) {
-      const body = await tgRes.text().catch(() => '');
-      console.error('Telegram API error', tgRes.status, body);
+      const upstream = await tgRes.text().catch(() => '');
+      console.error('Telegram API error', tgRes.status, upstream);
       return res.status(500).json({ error: 'Telegram API error' });
     }
     return res.status(200).json({ ok: true });
