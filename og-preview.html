@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1200">
+<title>OG Preview — Исследовательская лаборатория</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: #fafaf8;
+    color: #1a1a1a;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  .og {
+    width: 1200px;
+    height: 630px;
+    padding: 80px;
+    display: flex;
+    align-items: stretch;
+    gap: 40px;
+  }
+  .og__text {
+    flex: 0 0 720px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .og__kicker {
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #5c1c14;
+    margin-bottom: 32px;
+  }
+  .og__title {
+    font-size: 72px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    color: #1a1a1a;
+    margin-bottom: 28px;
+  }
+  .og__desc {
+    font-size: 28px;
+    font-weight: 400;
+    letter-spacing: -0.005em;
+    line-height: 1.4;
+    color: #4a4a4a;
+  }
+  .og__media {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .og__media img {
+    width: 400px;
+    height: auto;
+    display: block;
+  }
+</style>
+</head>
+<body>
+  <div class="og">
+    <div class="og__text">
+      <div class="og__kicker">НКО «ЛЮДИ. БИЗНЕС. БУДУЩЕЕ.»</div>
+      <h1 class="og__title">Исследовательская лаборатория</h1>
+      <p class="og__desc">Инструменты найма и оценки под задачу.</p>
+    </div>
+    <div class="og__media">
+      <img src="files/pictures/hero-ginkgo-tech.png" alt="">
+    </div>
+  </div>
+</body>
+</html>
