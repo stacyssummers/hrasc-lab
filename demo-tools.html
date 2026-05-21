@@ -238,6 +238,219 @@ body{
 
 .back-link:hover{color:var(--accent-hover);}
 
+/* ============ SCREEN 3 — TOOL 02 ============ */
+
+.s3{
+  max-width:1080px;
+  margin:0 auto;
+  padding:24px;
+}
+
+.s3-title{
+  font-size:15px;
+  font-weight:500;
+  color:var(--text);
+  letter-spacing:-0.01em;
+  margin-bottom:12px;
+}
+
+.s3-context{
+  background:var(--bg-secondary);
+  border-left:3px solid var(--accent);
+  padding:12px 16px;
+  margin-bottom:20px;
+  font-size:13px;
+  line-height:1.55;
+}
+
+.s3-context-time{
+  font-weight:500;
+  color:var(--text);
+  margin-bottom:6px;
+}
+
+.s3-context-body{
+  color:var(--text-secondary);
+  margin-bottom:6px;
+}
+
+.s3-context-instruction{
+  color:var(--text);
+}
+
+.unsorted-title{
+  font-size:11px;
+  font-weight:500;
+  letter-spacing:0.05em;
+  text-transform:uppercase;
+  color:var(--text-tertiary);
+  margin-bottom:8px;
+}
+
+.unsorted-title.completed{color:var(--text-tertiary);}
+
+.unsorted-zone{
+  border:1px dashed var(--border);
+  border-radius:2px;
+  padding:12px;
+  min-height:80px;
+  margin-bottom:20px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  transition:border-color 150ms ease, background 150ms ease;
+}
+
+.unsorted-zone.drag-over{
+  border:2px dashed var(--accent);
+  background:#f0ece3;
+}
+
+.containers{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:16px;
+}
+
+.container-box{
+  background:var(--bg-secondary);
+  border-radius:2px;
+  padding:16px;
+  min-height:200px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  border:1px solid transparent;
+  transition:border-color 150ms ease, background 150ms ease;
+}
+
+.container-box.drag-over{
+  border:2px dashed var(--accent);
+  background:#f0ece3;
+  padding:15px;
+}
+
+.container-head{margin-bottom:4px;}
+
+.container-title{
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:0.05em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:4px;
+}
+
+.container-subtitle{
+  font-size:10px;
+  color:var(--text-tertiary);
+  margin-bottom:8px;
+  text-transform:none;
+  letter-spacing:0;
+}
+
+.task-card{
+  background:var(--bg);
+  border:1px solid var(--border);
+  border-radius:2px;
+  padding:10px 12px;
+  cursor:grab;
+  transition:border-color 150ms ease, background 150ms ease, opacity 150ms ease;
+  max-width:280px;
+  width:100%;
+  display:flex;
+  align-items:flex-start;
+  gap:8px;
+}
+
+.task-card:hover{border-color:var(--accent);}
+
+.task-card.dragging{
+  opacity:0.5;
+  cursor:grabbing;
+}
+
+.task-card-content{flex:1;min-width:0;}
+
+.task-marker{
+  font-size:10px;
+  font-weight:500;
+  color:var(--accent);
+  margin-bottom:4px;
+}
+
+.task-name{
+  font-size:13px;
+  font-weight:500;
+  color:var(--text);
+  margin-bottom:4px;
+  line-height:1.4;
+}
+
+.task-context{
+  font-size:11px;
+  color:var(--text-tertiary);
+  line-height:1.4;
+}
+
+.task-reorder{
+  display:none;
+  flex-direction:column;
+  gap:4px;
+}
+
+.task-reorder button{
+  background:none;
+  border:none;
+  width:16px;
+  height:16px;
+  padding:0;
+  color:var(--accent);
+  cursor:pointer;
+  font-size:12px;
+  line-height:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.task-reorder button:disabled{
+  color:var(--text-tertiary);
+  opacity:0.4;
+  cursor:not-allowed;
+}
+
+.s3-footer{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-top:24px;
+}
+
+.s3-footer .back-link{margin-top:0;}
+
+.btn-next{
+  background:var(--accent);
+  color:#fafaf8;
+  border:none;
+  padding:10px 20px;
+  height:36px;
+  font-family:inherit;
+  font-size:12px;
+  font-weight:500;
+  border-radius:2px;
+  cursor:pointer;
+  transition:background 200ms ease, opacity 200ms ease;
+}
+
+.btn-next:hover{background:var(--accent-hover);}
+
+.btn-next:disabled{
+  background:var(--text-tertiary);
+  opacity:0.4;
+  cursor:not-allowed;
+}
+
 /* ============ PLACEHOLDER SCREENS ============ */
 
 .placeholder{
@@ -304,6 +517,42 @@ body{
   }
 
   .back-link{margin-top:24px;}
+
+  .s3{padding:16px;}
+
+  .s3-context{font-size:12px;padding:10px 14px;margin-bottom:16px;}
+
+  .containers{
+    grid-template-columns:1fr;
+    gap:12px;
+  }
+
+  .container-box{min-height:auto;}
+
+  .task-card{
+    max-width:100%;
+    cursor:pointer;
+  }
+
+  .task-card.selected{
+    border:2px solid var(--accent);
+    background:#e8e3d6;
+    padding:9px 11px;
+  }
+
+  .container-box .task-reorder{display:flex;}
+
+  .task-name{font-size:12px;}
+
+  .s3-footer{
+    flex-direction:column-reverse;
+    gap:12px;
+    align-items:stretch;
+  }
+
+  .btn-next{width:100%;}
+
+  .s3-footer .back-link{margin-top:0;text-align:left;}
 }
 </style>
 </head>
@@ -405,11 +654,110 @@ body{
 </section>
 
 <section id="screen-3" class="screen">
-  <div class="container">
-    <div class="placeholder">
-      <h2>Инструмент 02 — Расстановка приоритетов</h2>
-      <p>В работе. Будет реализован на следующем этапе.</p>
-      <button class="btn-secondary" onclick="showScreen('screen-1')">← Вернуться</button>
+  <div class="s3">
+    <h1 class="s3-title">Расстановка приоритетов</h1>
+
+    <div class="s3-context">
+      <div class="s3-context-time">Вторник, 9:15. Вы работаете в роли около месяца.</div>
+      <div class="s3-context-body">Контекст: Открытие нового региона — через пять недель. Команда вас знает. Часть процессов уже выстроена, часть ещё в работе.</div>
+      <div class="s3-context-instruction">Разложите шесть задач по трём контейнерам. Порядок внутри каждого контейнера тоже имеет значение — расставьте задачи так, как будете к ним подходить по очереди.</div>
+    </div>
+
+    <div id="unsorted-title" class="unsorted-title">Несортированные задачи</div>
+
+    <div id="unsorted-zone" class="unsorted-zone drop-zone">
+      <div class="task-card" draggable="true" data-task="A">
+        <div class="task-card-content">
+          <div class="task-marker">09:15</div>
+          <div class="task-name">Ежедневная планёрка команды</div>
+          <div class="task-context">В календаре 45 минут. Команда ждёт.</div>
+        </div>
+        <div class="task-reorder">
+          <button class="reorder-up" onclick="moveTask(this,-1)">↑</button>
+          <button class="reorder-down" onclick="moveTask(this,1)">↓</button>
+        </div>
+      </div>
+      <div class="task-card" draggable="true" data-task="B">
+        <div class="task-card-content">
+          <div class="task-marker">до 12:00</div>
+          <div class="task-name">Отчёт для генерального директора</div>
+          <div class="task-context">Запрошен позавчера. Дедлайн сегодня. Данные у вас есть.</div>
+        </div>
+        <div class="task-reorder">
+          <button class="reorder-up" onclick="moveTask(this,-1)">↑</button>
+          <button class="reorder-down" onclick="moveTask(this,1)">↓</button>
+        </div>
+      </div>
+      <div class="task-card" draggable="true" data-task="C">
+        <div class="task-card-content">
+          <div class="task-marker">с утра</div>
+          <div class="task-name">Конфликт между двумя руководителями участков</div>
+          <div class="task-context">Оба написали вам. Каждый ждёт вашей позиции.</div>
+        </div>
+        <div class="task-reorder">
+          <button class="reorder-up" onclick="moveTask(this,-1)">↑</button>
+          <button class="reorder-down" onclick="moveTask(this,1)">↓</button>
+        </div>
+      </div>
+      <div class="task-card" draggable="true" data-task="D">
+        <div class="task-card-content">
+          <div class="task-marker">↑14% 3 дня</div>
+          <div class="task-name">Отклонение в показателях поставок</div>
+          <div class="task-context">Третий день подряд. Причина неизвестна. Данные у вас.</div>
+        </div>
+        <div class="task-reorder">
+          <button class="reorder-up" onclick="moveTask(this,-1)">↑</button>
+          <button class="reorder-down" onclick="moveTask(this,1)">↓</button>
+        </div>
+      </div>
+      <div class="task-card" draggable="true" data-task="E">
+        <div class="task-card-content">
+          <div class="task-marker">пятница</div>
+          <div class="task-name">Подготовка к стратегической сессии</div>
+          <div class="task-context">Через три дня. Нужно сформулировать операционные приоритеты на квартал.</div>
+        </div>
+        <div class="task-reorder">
+          <button class="reorder-up" onclick="moveTask(this,-1)">↑</button>
+          <button class="reorder-down" onclick="moveTask(this,1)">↓</button>
+        </div>
+      </div>
+      <div class="task-card" draggable="true" data-task="F">
+        <div class="task-card-content">
+          <div class="task-marker">17 сообщений</div>
+          <div class="task-name">Накопившиеся рабочие сообщения</div>
+          <div class="task-context">За вчера и утро. Часть от команды, часть от смежных отделов. Срочных нет.</div>
+        </div>
+        <div class="task-reorder">
+          <button class="reorder-up" onclick="moveTask(this,-1)">↑</button>
+          <button class="reorder-down" onclick="moveTask(this,1)">↓</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="containers">
+      <div id="container-1" class="container-box drop-zone">
+        <div class="container-head">
+          <div class="container-title">01 · Делаю сейчас</div>
+          <div class="container-subtitle">До того, как заниматься чем-то ещё</div>
+        </div>
+      </div>
+      <div id="container-2" class="container-box drop-zone">
+        <div class="container-head">
+          <div class="container-title">02 · Делаю сам — в очереди</div>
+          <div class="container-subtitle">После текущего, в указанном порядке</div>
+        </div>
+      </div>
+      <div id="container-3" class="container-box drop-zone">
+        <div class="container-head">
+          <div class="container-title">03 · Делегирую</div>
+          <div class="container-subtitle">Передаю кому-то из команды</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="s3-footer">
+      <button class="back-link" onclick="goBackToTool1()">← Назад</button>
+      <button id="tool2-next-btn" class="btn-next" disabled onclick="saveAndContinueTool2()">Далее →</button>
     </div>
   </div>
 </section>
@@ -481,6 +829,145 @@ function selectPair(pairNumber, choice, card){
     }
   }, 300);
 }
+
+/* ============ TOOL 02 — drag-drop + tap ============ */
+
+function isMobile(){return window.innerWidth <= 768;}
+
+let selectedTaskCard = null;
+
+function initTool2(){
+  document.querySelectorAll('#screen-3 .task-card').forEach(card => {
+    card.addEventListener('dragstart', e => {
+      if(isMobile()){e.preventDefault();return;}
+      e.dataTransfer.setData('text/plain', card.dataset.task);
+      e.dataTransfer.effectAllowed = 'move';
+      card.classList.add('dragging');
+    });
+    card.addEventListener('dragend', () => {
+      card.classList.remove('dragging');
+    });
+    card.addEventListener('click', e => {
+      if(!isMobile()) return;
+      if(e.target.closest('.task-reorder')) return;
+      if(selectedTaskCard === card){
+        card.classList.remove('selected');
+        selectedTaskCard = null;
+      } else {
+        if(selectedTaskCard) selectedTaskCard.classList.remove('selected');
+        card.classList.add('selected');
+        selectedTaskCard = card;
+      }
+    });
+  });
+
+  document.querySelectorAll('#screen-3 .drop-zone').forEach(zone => {
+    zone.addEventListener('dragover', e => {
+      if(isMobile()) return;
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      zone.classList.add('drag-over');
+    });
+    zone.addEventListener('dragleave', e => {
+      if(e.currentTarget.contains(e.relatedTarget)) return;
+      zone.classList.remove('drag-over');
+    });
+    zone.addEventListener('drop', e => {
+      if(isMobile()) return;
+      e.preventDefault();
+      zone.classList.remove('drag-over');
+      const taskId = e.dataTransfer.getData('text/plain');
+      const taskCard = document.querySelector(`#screen-3 .task-card[data-task="${taskId}"]`);
+      if(!taskCard) return;
+      const afterElement = getDragAfterElement(zone, e.clientY);
+      if(afterElement == null){
+        zone.appendChild(taskCard);
+      } else {
+        zone.insertBefore(taskCard, afterElement);
+      }
+      updateTool2State();
+    });
+    zone.addEventListener('click', e => {
+      if(!isMobile()) return;
+      if(!selectedTaskCard) return;
+      if(e.target.closest('.task-card')) return;
+      zone.appendChild(selectedTaskCard);
+      selectedTaskCard.classList.remove('selected');
+      selectedTaskCard = null;
+      updateTool2State();
+    });
+  });
+
+  updateTool2State();
+}
+
+function getDragAfterElement(container, y){
+  const els = [...container.querySelectorAll('.task-card:not(.dragging)')];
+  return els.reduce((closest, child) => {
+    const box = child.getBoundingClientRect();
+    const offset = y - box.top - box.height / 2;
+    if(offset < 0 && offset > closest.offset){
+      return {offset, element: child};
+    }
+    return closest;
+  }, {offset: Number.NEGATIVE_INFINITY}).element;
+}
+
+function moveTask(btn, dir){
+  const card = btn.closest('.task-card');
+  if(!card) return;
+  const sibling = dir < 0 ? card.previousElementSibling : card.nextElementSibling;
+  if(!sibling || !sibling.classList.contains('task-card')) return;
+  if(dir < 0){
+    card.parentNode.insertBefore(card, sibling);
+  } else {
+    card.parentNode.insertBefore(sibling, card);
+  }
+  updateTool2State();
+}
+
+function updateTool2State(){
+  const unsortedZone = document.getElementById('unsorted-zone');
+  const unsortedTitle = document.getElementById('unsorted-title');
+  const nextBtn = document.getElementById('tool2-next-btn');
+  const tasksInUnsorted = unsortedZone.querySelectorAll('.task-card').length;
+
+  if(tasksInUnsorted === 0){
+    nextBtn.disabled = false;
+    unsortedTitle.textContent = 'Все задачи разложены';
+    unsortedTitle.classList.add('completed');
+  } else {
+    nextBtn.disabled = true;
+    unsortedTitle.textContent = 'Несортированные задачи';
+    unsortedTitle.classList.remove('completed');
+  }
+
+  document.querySelectorAll('#screen-3 .container-box').forEach(box => {
+    const cards = [...box.querySelectorAll('.task-card')];
+    cards.forEach((card, idx) => {
+      const up = card.querySelector('.reorder-up');
+      const down = card.querySelector('.reorder-down');
+      if(up) up.disabled = idx === 0;
+      if(down) down.disabled = idx === cards.length - 1;
+    });
+  });
+}
+
+function saveAndContinueTool2(){
+  const layout = {container1:[], container2:[], container3:[]};
+  document.querySelectorAll('#container-1 .task-card').forEach(c => layout.container1.push(c.dataset.task));
+  document.querySelectorAll('#container-2 .task-card').forEach(c => layout.container2.push(c.dataset.task));
+  document.querySelectorAll('#container-3 .task-card').forEach(c => layout.container3.push(c.dataset.task));
+  userChoices.tool2 = layout;
+  showScreen('screen-4');
+}
+
+function goBackToTool1(){
+  showScreen('screen-2');
+  showPair(5);
+}
+
+initTool2();
 </script>
 
 </body>
