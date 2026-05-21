@@ -480,22 +480,24 @@ body{
   margin-bottom:24px;
 }
 
+.situation-card{
+  background:var(--bg-secondary);
+  padding:20px;
+  margin-bottom:32px;
+}
+
 .situation-title{
-  font-size:18px;
+  font-size:17px;
   font-weight:600;
   color:var(--text);
-  border-left:3px solid var(--accent);
-  padding-left:12px;
-  margin-bottom:20px;
+  margin:0 0 12px 0;
 }
 
 .situation-context{
-  background:var(--bg-secondary);
-  padding:12px 16px;
-  margin-bottom:20px;
-  font-size:12px;
+  font-size:13px;
   line-height:1.55;
-  color:var(--text-secondary);
+  color:var(--text);
+  margin:0;
 }
 
 .situation-options{
@@ -514,26 +516,6 @@ body{
   color:var(--text);
   cursor:pointer;
   transition:background 150ms ease, border-color 150ms ease;
-  display:flex;
-  align-items:flex-start;
-  gap:12px;
-}
-
-.situation-option::before{
-  content:'';
-  box-sizing:border-box;
-  flex-shrink:0;
-  width:14px;
-  height:14px;
-  margin-top:4px;
-  border-radius:50%;
-  border:2px solid var(--accent);
-  background:transparent;
-  transition:background 150ms ease;
-}
-
-.situation-option.selected::before{
-  background:radial-gradient(circle, #fff 0 2.5px, var(--accent) 2.5px);
 }
 
 .situation-option:hover{
@@ -730,10 +712,8 @@ body{
 .s6-choice{
   max-width:720px;
   margin:32px auto;
-  padding:32px 24px;
-  border-top:1px solid var(--border);
-  border-bottom:1px solid var(--border);
-  background:var(--bg);
+  padding:32px;
+  background:var(--bg-secondary);
 }
 
 .s6-choice-kicker{
@@ -742,31 +722,29 @@ body{
   letter-spacing:0.08em;
   text-transform:uppercase;
   color:var(--accent);
-  margin-bottom:16px;
+  margin-bottom:20px;
 }
 
 .s6-choice-context{
   font-size:13px;
   line-height:1.6;
   color:var(--text);
-  margin-bottom:24px;
+  margin:0 0 24px 0;
 }
 
 .s6-choice-thesis{
-  font-size:17px;
+  font-size:18px;
   font-weight:600;
-  line-height:1.3;
+  line-height:1.4;
   color:var(--text);
-  padding-left:12px;
-  border-left:3px solid var(--accent);
-  margin-bottom:24px;
+  margin:0 0 24px 0;
 }
 
 .s6-choice-block{
   font-size:13px;
   line-height:1.6;
   color:var(--text);
-  margin-bottom:16px;
+  margin:0 0 16px 0;
 }
 
 .s6-choice-block:last-child{margin-bottom:0;}
@@ -936,8 +914,9 @@ body{
 
   .situation-instrument-title{font-size:14px;}
   .situation-subtitle{font-size:12px;margin-bottom:20px;}
-  .situation-title{font-size:13px;}
-  .situation-context{font-size:12px;padding:10px 14px;}
+  .situation-title{font-size:15px;}
+  .situation-card{padding:16px;margin-bottom:24px;}
+  .situation-context{font-size:12px;}
   .situation-option{font-size:12px;padding:12px 14px;}
 
   .profile-container{padding:24px 16px;}
@@ -965,10 +944,8 @@ body{
 
   .s6-actions .btn-primary{width:100%;}
 
-  .s6-choice{padding:24px 16px;}
-  .s6-choice-thesis{font-size:15px;}
-  .s6-choice-context,
-  .s6-choice-block{font-size:12px;}
+  .s6-choice{padding:24px 20px;}
+  .s6-choice-thesis{font-size:16px;}
 }
 </style>
 </head>
@@ -1186,8 +1163,10 @@ body{
         <div class="progress-indicator">Ситуация 1 из 5</div>
         <h1 class="situation-instrument-title">Рабочие ситуации</h1>
         <p class="situation-subtitle">Пять ситуаций из вашей текущей роли — около месяца после выхода. По каждой выберите одно действие.</p>
-        <h2 class="situation-title">Давление сверху без данных</h2>
-        <div class="situation-context">Руководитель отдела продаж сообщает, что завтра закрывается крупная сделка — объём в три раза выше стандартного заказа. Мощности распределены под текущих клиентов. Окно для манёвра — сутки.</div>
+        <div class="situation-card">
+          <h2 class="situation-title">Давление сверху без данных</h2>
+          <div class="situation-context">Руководитель отдела продаж сообщает, что завтра закрывается крупная сделка — объём в три раза выше стандартного заказа. Мощности распределены под текущих клиентов. Окно для манёвра — сутки.</div>
+        </div>
         <div class="situation-options">
           <div class="situation-option" onclick="selectSituation(1,1,this)">Организую дополнительные мощности через подрядчиков — это дороже, но сделка закрывается в срок, хоть и с меньшей маржой.</div>
           <div class="situation-option" onclick="selectSituation(1,2,this)">Связываюсь с текущими клиентами с наименьшими объёмами: передоговариваюсь на сдвиг сроков, освобождаю окно, принимая риск их возможной потери в будущем.</div>
@@ -1201,8 +1180,10 @@ body{
         <div class="progress-indicator">Ситуация 2 из 5</div>
         <h1 class="situation-instrument-title">Рабочие ситуации</h1>
         <p class="situation-subtitle">Пять ситуаций из вашей текущей роли — около месяца после выхода. По каждой выберите одно действие.</p>
-        <h2 class="situation-title">Конфликт операционных и коммерческих интересов</h2>
-        <div class="situation-context">Крупный клиент систематически нарушает окна приёмки — приезжает на 2-3 часа позже согласованного. Платит вовремя, объёмы значительные. Каждый раз это блокирует рампу и срывает отгрузки следующим клиентам. Коммерческий директор просит не трогать — клиент стратегический.</div>
+        <div class="situation-card">
+          <h2 class="situation-title">Конфликт операционных и коммерческих интересов</h2>
+          <div class="situation-context">Крупный клиент систематически нарушает окна приёмки — приезжает на 2-3 часа позже согласованного. Платит вовремя, объёмы значительные. Каждый раз это блокирует рампу и срывает отгрузки следующим клиентам. Коммерческий директор просит не трогать — клиент стратегический.</div>
+        </div>
         <div class="situation-options">
           <div class="situation-option" onclick="selectSituation(2,1,this)">Фиксирую каждое нарушение официально и инициирую применение штрафных условий по договору — даже если коммерческий директор против.</div>
           <div class="situation-option" onclick="selectSituation(2,2,this)">Выделяю клиенту отдельное окно с буфером, перестраиваю расписание под него: операция адаптируется к реальности.</div>
@@ -1216,8 +1197,10 @@ body{
         <div class="progress-indicator">Ситуация 3 из 5</div>
         <h1 class="situation-instrument-title">Рабочие ситуации</h1>
         <p class="situation-subtitle">Пять ситуаций из вашей текущей роли — около месяца после выхода. По каждой выберите одно действие.</p>
-        <h2 class="situation-title">Системный сбой, который команда не признаёт</h2>
-        <div class="situation-context">Три недели подряд время обработки заказов растёт на 7–8%. Команда говорит «всё штатно». Ваши данные говорят иначе.</div>
+        <div class="situation-card">
+          <h2 class="situation-title">Системный сбой, который команда не признаёт</h2>
+          <div class="situation-context">Три недели подряд время обработки заказов растёт на 7–8%. Команда говорит «всё штатно». Ваши данные говорят иначе.</div>
+        </div>
         <div class="situation-options">
           <div class="situation-option" onclick="selectSituation(3,1,this)">Иду смотреть на процесс без предупреждения — просто наблюдаю.</div>
           <div class="situation-option" onclick="selectSituation(3,2,this)">Запрашиваю письменные объяснения от каждого руководителя участка.</div>
@@ -1231,8 +1214,10 @@ body{
         <div class="progress-indicator">Ситуация 4 из 5</div>
         <h1 class="situation-instrument-title">Рабочие ситуации</h1>
         <p class="situation-subtitle">Пять ситуаций из вашей текущей роли — около месяца после выхода. По каждой выберите одно действие.</p>
-        <h2 class="situation-title">Давление сверху на качество</h2>
-        <div class="situation-context">Генеральный директор говорит, что нужно ускорить открытие региона на две недели. Это означает запускаться без завершённой системы контроля качества.</div>
+        <div class="situation-card">
+          <h2 class="situation-title">Давление сверху на качество</h2>
+          <div class="situation-context">Генеральный директор говорит, что нужно ускорить открытие региона на две недели. Это означает запускаться без завершённой системы контроля качества.</div>
+        </div>
         <div class="situation-options">
           <div class="situation-option" onclick="selectSituation(4,1,this)">Соглашаюсь — бизнес-решение принимает он.</div>
           <div class="situation-option" onclick="selectSituation(4,2,this)">Соглашаюсь при условии, что снижаем ожидания по ряду показателей эффективности на старте — фиксируем это до запуска.</div>
@@ -1246,8 +1231,10 @@ body{
         <div class="progress-indicator">Ситуация 5 из 5</div>
         <h1 class="situation-instrument-title">Рабочие ситуации</h1>
         <p class="situation-subtitle">Пять ситуаций из вашей текущей роли — около месяца после выхода. По каждой выберите одно действие.</p>
-        <h2 class="situation-title">Конфликт приоритетов внутри команды</h2>
-        <div class="situation-context">Два руководителя участков не могут договориться о распределении складской площади под новую товарную категорию. Оба пришли к вам одновременно. У каждого своя логика, оба правы по-своему.</div>
+        <div class="situation-card">
+          <h2 class="situation-title">Конфликт приоритетов внутри команды</h2>
+          <div class="situation-context">Два руководителя участков не могут договориться о распределении складской площади под новую товарную категорию. Оба пришли к вам одновременно. У каждого своя логика, оба правы по-своему.</div>
+        </div>
         <div class="situation-options">
           <div class="situation-option" onclick="selectSituation(5,1,this)">Прошу каждого изложить логику — выслушиваю, принимаю решение сам на основе операционных данных.</div>
           <div class="situation-option" onclick="selectSituation(5,2,this)">Прошу их уйти и вернуться с совместным предложением — это их уровень ответственности.</div>
