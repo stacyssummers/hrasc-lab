@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Демо · Финалисты — Laboratory</title>
+<meta name="description" content="Демо: вы нанимаете руководителя операционного блока. Контекст задачи, финалисты, разбор.">
+<meta name="robots" content="noindex">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+:root{
+  --bg:#fafaf8;
+  --bg-secondary:#f7f5f1;
+  --accent:#5c1c14;
+  --accent-hover:#4a1810;
+  --text:#1a1a1a;
+  --text-secondary:#4a4a4a;
+  --text-tertiary:#8a8680;
+  --border:#e8e4dc;
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  font-size:16px;
+  line-height:1.55;
+  font-weight:400;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+.container{
+  max-width:1080px;
+  margin:0 auto;
+  padding:0 40px;
+}
+
+.screen{
+  display:none;
+}
+.screen.active{
+  display:block;
+}
+
+/* ============ SCREEN 1 ============ */
+
+.s1{
+  padding:80px 0;
+}
+
+.s1-inner{
+  max-width:720px;
+  margin:0 auto;
+}
+
+.s1-header{
+  margin-bottom:48px;
+}
+
+.kicker{
+  font-size:11px;
+  font-weight:500;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:12px;
+}
+
+.s1-subtitle{
+  font-size:14px;
+  color:var(--text-secondary);
+  margin-bottom:24px;
+}
+
+.s1-h1{
+  font-size:36px;
+  font-weight:500;
+  line-height:1.15;
+  letter-spacing:-0.02em;
+  color:var(--text);
+}
+
+.card{
+  background:var(--bg-secondary);
+  border:1px solid var(--border);
+  border-radius:4px;
+  padding:32px;
+  margin-bottom:48px;
+}
+
+.card:last-of-type{
+  margin-bottom:48px;
+}
+
+.card-title{
+  font-size:16px;
+  font-weight:600;
+  color:var(--text);
+  margin-bottom:16px;
+}
+
+.card-body{
+  font-size:16px;
+  line-height:1.55;
+  color:var(--text);
+}
+
+.criteria-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px 32px;
+}
+
+.criteria-item{
+  font-size:16px;
+  line-height:1.55;
+  color:var(--text);
+}
+
+.criteria-num{
+  color:var(--accent);
+  font-weight:500;
+  font-variant-numeric:tabular-nums;
+}
+
+.cta-wrap{
+  display:flex;
+  justify-content:center;
+  margin-top:8px;
+}
+
+.btn-primary{
+  background:var(--accent);
+  color:#fafaf8;
+  border:none;
+  padding:16px 32px;
+  font-family:inherit;
+  font-size:15px;
+  font-weight:500;
+  border-radius:4px;
+  cursor:pointer;
+  transition:background 200ms ease;
+}
+
+.btn-primary:hover{
+  background:var(--accent-hover);
+}
+
+/* ============ SCREEN 2 ============ */
+
+.s2{
+  padding:80px 0;
+}
+
+.s2-inner{
+  max-width:720px;
+  margin:0 auto;
+}
+
+.s2-intro{
+  font-size:16px;
+  line-height:1.55;
+  color:var(--text-secondary);
+  margin-bottom:48px;
+}
+
+.tabs{
+  display:flex;
+  gap:0;
+  border-bottom:1px solid var(--border);
+  margin-bottom:48px;
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+}
+
+.tabs::-webkit-scrollbar{display:none;}
+
+.tab{
+  background:transparent;
+  border:none;
+  border-bottom:2px solid transparent;
+  margin-bottom:-1px;
+  padding:12px 24px;
+  font-family:inherit;
+  font-size:15px;
+  font-weight:400;
+  color:var(--text-secondary);
+  cursor:pointer;
+  white-space:nowrap;
+  transition:color 200ms ease,border-color 200ms ease;
+}
+
+.tab:hover{
+  color:var(--text);
+}
+
+.tab.active{
+  color:var(--accent);
+  border-bottom-color:var(--accent);
+  font-weight:500;
+}
+
+.finalist{
+  display:none;
+}
+
+.finalist.active{
+  display:block;
+}
+
+.f-name{
+  font-size:32px;
+  font-weight:500;
+  line-height:1.15;
+  letter-spacing:-0.02em;
+  color:var(--text);
+  margin-bottom:8px;
+}
+
+.f-meta{
+  font-size:14px;
+  font-weight:500;
+  letter-spacing:0.05em;
+  text-transform:uppercase;
+  color:var(--accent);
+}
+
+.f-bio{
+  margin-top:24px;
+  font-size:16px;
+  line-height:1.55;
+  color:var(--text);
+}
+
+.f-tags{
+  margin-top:16px;
+  font-size:13px;
+  font-weight:500;
+  color:var(--accent);
+}
+
+.f-block{
+  margin-top:32px;
+}
+
+.f-block-title{
+  font-size:18px;
+  font-weight:600;
+  color:var(--text);
+}
+
+.f-block-divider{
+  width:40px;
+  height:1px;
+  background:var(--border);
+  border:none;
+  margin:8px 0;
+}
+
+.f-block-body{
+  font-size:16px;
+  line-height:1.55;
+  color:var(--text);
+  margin-top:12px;
+}
+
+.f-refs{
+  margin-top:32px;
+}
+
+.f-refs-title{
+  font-size:18px;
+  font-weight:600;
+  color:var(--text);
+  margin-bottom:20px;
+}
+
+.f-ref{
+  margin-top:20px;
+}
+
+.f-ref:first-child{
+  margin-top:0;
+}
+
+.f-ref-role{
+  font-size:13px;
+  font-weight:500;
+  letter-spacing:0.05em;
+  text-transform:uppercase;
+  color:var(--accent);
+}
+
+.f-ref-quote{
+  margin-top:4px;
+  font-size:15px;
+  font-style:italic;
+  line-height:1.55;
+  color:var(--text-secondary);
+}
+
+.f-cta{
+  display:flex;
+  justify-content:center;
+  margin-top:48px;
+}
+
+/* ============ SCREEN 3 ============ */
+
+.s3{
+  padding:80px 0;
+}
+
+.s3-inner{
+  max-width:720px;
+  margin:0 auto;
+}
+
+.s3-header{
+  margin-bottom:48px;
+}
+
+.s3-h1{
+  font-size:36px;
+  font-weight:500;
+  line-height:1.15;
+  letter-spacing:-0.02em;
+  color:var(--text);
+  margin-top:12px;
+}
+
+.s3-intro{
+  font-size:18px;
+  line-height:1.55;
+  color:var(--text);
+  font-style:italic;
+  margin-bottom:64px;
+}
+
+.s3-section-title{
+  font-size:20px;
+  font-weight:600;
+  color:var(--text);
+  margin-bottom:24px;
+}
+
+.tools-table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+.tools-table tr{
+  border-bottom:1px solid var(--border);
+}
+
+.tools-table tr:first-child{
+  border-top:1px solid var(--border);
+}
+
+.tools-table td{
+  padding:16px 0;
+  vertical-align:top;
+}
+
+.tools-table .col-tool{
+  width:35%;
+  padding-right:24px;
+}
+
+.tools-table .col-result{
+  width:65%;
+  font-size:15px;
+  line-height:1.55;
+  color:var(--text);
+}
+
+.tool-name{
+  font-size:15px;
+  font-weight:600;
+  color:var(--text);
+}
+
+.tool-desc{
+  display:block;
+  margin-top:4px;
+  font-size:13px;
+  color:var(--text-tertiary);
+}
+
+.accent-block{
+  background:var(--bg-secondary);
+  border-left:3px solid var(--accent);
+  padding:32px;
+  margin-top:48px;
+  margin-bottom:48px;
+  font-size:18px;
+  line-height:1.55;
+  font-weight:500;
+  color:var(--text);
+}
+
+.points{
+  margin-bottom:0;
+}
+
+.point{
+  margin-bottom:40px;
+}
+
+.point:last-child{
+  margin-bottom:0;
+}
+
+.point-num{
+  font-size:32px;
+  font-weight:500;
+  color:var(--accent);
+  line-height:1;
+  margin-bottom:12px;
+  font-variant-numeric:tabular-nums;
+}
+
+.point-text{
+  font-size:16px;
+  line-height:1.55;
+  color:var(--text);
+}
+
+.final-block{
+  margin-top:64px;
+}
+
+.final-title{
+  font-size:28px;
+  font-weight:500;
+  line-height:1.2;
+  color:var(--text);
+  margin-bottom:24px;
+  letter-spacing:-0.01em;
+}
+
+.final-text{
+  font-size:16px;
+  line-height:1.55;
+  color:var(--text);
+  margin-bottom:64px;
+}
+
+.s3-actions{
+  display:flex;
+  flex-direction:row;
+  gap:16px;
+  margin-top:48px;
+}
+
+.btn-outline{
+  background:transparent;
+  color:var(--accent);
+  border:1px solid var(--accent);
+  padding:16px 32px;
+  font-family:inherit;
+  font-size:15px;
+  font-weight:500;
+  border-radius:4px;
+  cursor:pointer;
+  transition:background 200ms ease,color 200ms ease;
+}
+
+.btn-outline:hover{
+  background:var(--accent);
+  color:#fafaf8;
+}
+
+/* ============ MOBILE ============ */
+
+@media (max-width:768px){
+  .container{
+    padding:0 20px;
+  }
+  .s1{
+    padding:48px 0;
+  }
+  .s1-h1{
+    font-size:28px;
+  }
+  .card{
+    padding:24px;
+    margin-bottom:32px;
+  }
+  .criteria-grid{
+    grid-template-columns:1fr;
+    gap:12px;
+  }
+  .btn-primary{
+    width:100%;
+    min-width:280px;
+    min-height:48px;
+  }
+  .s2{
+    padding:48px 0;
+  }
+  .s2-intro{
+    margin-bottom:32px;
+  }
+  .tabs{
+    margin-bottom:32px;
+  }
+  .tab{
+    padding:12px 16px;
+    font-size:14px;
+  }
+  .f-name{
+    font-size:24px;
+  }
+  .f-cta{
+    margin-top:40px;
+  }
+  .s3{
+    padding:48px 0;
+  }
+  .s3-h1{
+    font-size:28px;
+  }
+  .s3-intro{
+    font-size:16px;
+    margin-bottom:48px;
+  }
+  .accent-block{
+    padding:24px;
+    font-size:16px;
+  }
+  .point-num{
+    font-size:28px;
+  }
+  .final-title{
+    font-size:22px;
+  }
+  .tools-table,
+  .tools-table tbody,
+  .tools-table tr,
+  .tools-table td{
+    display:block;
+    width:100%;
+  }
+  .tools-table tr{
+    border-top:none;
+    border-bottom:1px solid var(--border);
+    padding:20px 0;
+  }
+  .tools-table tr:first-child{
+    border-top:1px solid var(--border);
+  }
+  .tools-table td{
+    padding:0;
+  }
+  .tools-table .col-tool{
+    padding-right:0;
+    margin-bottom:8px;
+  }
+  .tool-name{
+    font-size:16px;
+  }
+  .tools-table .col-result{
+    font-size:15px;
+  }
+  .s3-actions{
+    flex-direction:column;
+    gap:12px;
+  }
+  .btn-outline{
+    width:100%;
+    min-height:48px;
+  }
+}
+</style>
+</head>
+<body>
+
+<section id="screen-1" class="screen active">
+  <div class="container">
+    <div class="s1 s1-inner">
+      <header class="s1-header">
+        <div class="kicker">Контекст задачи</div>
+        <div class="s1-subtitle">Прочитайте ситуацию.</div>
+        <h1 class="s1-h1">Вы нанимаете руководителя операционного блока. Впереди — открытие двух регионов.</h1>
+      </header>
+
+      <div class="card">
+        <h2 class="card-title">Розничная сеть, 3-й год масштабирования</h2>
+        <p class="card-body">120 точек продаж, 4 региона. Впервые нанимаете выделенного операционного руководителя. Открытие двух новых регионов — в этом квартале. Задача первого года — построить операционную систему с нуля.</p>
+      </div>
+
+      <div class="card">
+        <h2 class="card-title">Пять этапов отбора</h2>
+        <p class="card-body">Скрининг резюме. Глубокая оценка потенциала по шести компетенциям. Структурированное интервью. Тестовое задание: план выхода в новый регион. Сбор рекомендаций. Четыре финалиста.</p>
+      </div>
+
+      <div class="card">
+        <h2 class="card-title">Что оценивалось</h2>
+        <div class="criteria-grid">
+          <div class="criteria-item"><span class="criteria-num">01 ·</span> Системность мышления</div>
+          <div class="criteria-item"><span class="criteria-num">02 ·</span> Операционная глубина</div>
+          <div class="criteria-item"><span class="criteria-num">03 ·</span> Работа с данными</div>
+          <div class="criteria-item"><span class="criteria-num">04 ·</span> Управление людьми</div>
+          <div class="criteria-item"><span class="criteria-num">05 ·</span> Опыт построения с нуля</div>
+          <div class="criteria-item"><span class="criteria-num">06 ·</span> Ценностный профиль</div>
+        </div>
+      </div>
+
+      <div class="cta-wrap">
+        <button type="button" class="btn-primary" onclick="showScreen('screen-2')">Изучить финалистов →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="screen-2" class="screen">
+  <div class="container">
+    <div class="s2 s2-inner">
+      <p class="s2-intro">Четыре финалиста. По каждому — биография, оценка потенциала, интервью, результаты тестового задания и рекомендации. Ваша задача — выбрать одного.</p>
+
+      <div class="tabs" role="tablist">
+        <button type="button" class="tab active" data-tab="viktor" role="tab">Виктор</button>
+        <button type="button" class="tab" data-tab="karina" role="tab">Карина</button>
+        <button type="button" class="tab" data-tab="artyom" role="tab">Артём</button>
+        <button type="button" class="tab" data-tab="svetlana" role="tab">Светлана</button>
+      </div>
+
+      <article class="finalist active" data-finalist="viktor">
+        <h2 class="f-name">Виктор Сомов</h2>
+        <div class="f-meta">9 лет · Екатеринбург · Логистика</div>
+        <p class="f-bio">Карьера в крупных логистических компаниях — последние 4 года заместителем директора по операциям в федеральной дистрибьюторской сети (оборот ~8 млрд руб.). Управлял тремя распределительными центрами, командой 35 человек. Участвовал в переводе двух объектов на новые системы управления складом, инициировал проект по оптимизации, сокративший время обработки заказов на 18%. Уходит в связи с реструктуризацией компании.</p>
+        <div class="f-tags">Крупный бизнес · 35 чел. в подчинении · Цифровизация склада · Оптимизация процессов</div>
+
+        <div class="f-block">
+          <h3 class="f-block-title">01 — Самое сложное управленческое решение в операционной функции</h3>
+          <hr class="f-block-divider">
+          <p class="f-block-body">В 2024 году в разгар пиковой нагрузки обнаружили критическую ошибку в учётных данных — расхождение с физическими остатками по 12% позиций. Два варианта: останавливать склад на инвентаризацию или работать с погрешностью. Принял решение работать, но ввёл ручной контроль по приоритетным категориям. Потери по точности — минимальные, клиентов не подвели.</p>
+        </div>
+
+        <div class="f-block">
+          <h3 class="f-block-title">02 — Как выстраивали операционную отчётность там, где её не было</h3>
+          <hr class="f-block-divider">
+          <p class="f-block-body">В 2025 пришёл на объект — отчётность велась в разных Excel-файлах у разных людей. Две недели собирал данные, не трогая процессы. Выявил три показателя, которые реально влияли на клиентский сервис. С них и начал — сначала ежедневный мониторинг вручную, потом автоматизация. Результат был виден через месяц.</p>
+        </div>
+
+        <div class="f-block">
+          <h3 class="f-block-title">03 — Как справлялись с сопротивлением команды при изменениях</h3>
+          <hr class="f-block-divider">
+          <p class="f-block-body">При внедрении новых стандартов часть бригадиров открыто саботировала — им казалось, что нормирование подрывает их авторитет. Не давил, но и не игнорировал. Попросил самых скептичных стать «пилотной группой» — дал им право вносить правки в стандарты. Через месяц они сами защищали новые нормы перед остальными.</p>
+        </div>
+
+        <div class="f-block">
+          <h3 class="f-block-title">Тестовое задание — план выхода в новый регион</h3>
+          <hr class="f-block-divider">
+          <p class="f-block-body">Сфокусировался на операционной инфраструктуре: склад, логистика последней мили, нормативы обработки заказов. Предложил трёхэтапный запуск с контрольными точками на 30-й, 60-й и 90-й день. Метрики успеха — скорость обработки заказа и процент соблюдения SLA. Ключевой операционный риск — качество регионального руководства; заложил в план механизм проверки и замены до старта, не после.</p>
+        </div>
+
+        <div class="f-refs">
+          <h3 class="f-refs-title">Рекомендации</h3>
+          <div class="f-ref">
+            <div class="f-ref-role">Директор по операциям, федеральная дистрибьюторская сеть</div>
+            <p class="f-ref-quote">«Виктор умеет держать операцию в стабильности под давлением. Когда всё горит — он тот, кто не паникует и принимает решение.»</p>
+          </div>
+          <div class="f-ref">
+            <div class="f-ref-role">Руководитель складского комплекса</div>
+            <p class="f-ref-quote">«Требовательный, но честный. Если сказал — сделает. Команда это чувствует.»</p>
+          </div>
+          <div class="f-ref">
+            <div class="f-ref-role">HR-директор, предыдущее место работы</div>
+            <p class="f-ref-quote">«Уходил в связи с реструктуризацией, не по своей инициативе. Расстались хорошо.»</p>
+          </div>
+        </div>
+
+        <div class="f-cta">
+          <button type="button" class="btn-primary" data-hire="viktor">Нанять Виктора →</button>
+        </div>
+      </article>
+
+      <article class="finalist" data-finalist="karina">
+        <h2 class="f-name">Карина Игнатьева</h2>
+        <div class="f-meta">7 лет · Москва · Операции и поставки</div>
+        <p class="f-bio">Строила операционные процессы в двух быстрорастущих компаниях интернет-торговли. В последней — за 2 года выстроила складскую логистику, систему поставок и метрики «с чистого листа», команда выросла с 4 до 11 человек под её руководством. До этого — аналитик цепочек поставок в производстве товаров повседневного спроса. Образование — прикладная математика. Уходит, так как компания переходит к модели внешнего операционного партнёра.</p>
+        <div class="f-tags">Быстрый рост · Строила с нуля · Команда до 11 чел. · Работа с данными</div>
+
+        <div class="f-block">
+          <h3 class="f-block-title">01 — Самое сложное управленческое решение в операционной функции</h3>
+          <hr class="f-block-divider">
+          <p class="f-block-body">Декабрь 2024, маркетплейс вводит новые требования к упаковке с 1 января. 180 SKU, три склада, партнёры на аутсорсе. Инвентаризация несоответствий за 48 часов — 67 позиций под риском. Разбила на три группы по критичности, ежедневные чекпоинты в 19:00. Январь прошли без штрафов. 4 позиции перевели в ручной режим.</p>
+        </div>
+
+        <div class="f-block">
+          <h3 class="f-block-title">02 — Как выстраивали операционную отчётность там, где её не было</h3>
+          <hr class="f-block-divider">
+          <p class="f-block-body">Первые две недели строила карту решений: какие вопросы возникают регулярно и на каких данных их сейчас принимают. Это дало список из девяти разрывов. Выбрала три с наибольшим влиянием на маржу — под них проектировала метрики. Dashboard появился только после того, как логика измерений была проверена вручную.</p>
+        </div>
+
+        <div class="f-block">
+          <h3 class="f-block-title">03 — Как справлялись с сопротивлением команды при изменениях</h3>
+          <hr class="f-block-divider">
+          <p class="f-block-body">Когда внедряли новую систему метрик, один из руководителей участков открыто говорил команде, что это лишняя работа. Не стала убеждать на словах. Попросила его за две недели зафиксировать все случаи, когда ему не хватало данных для решения. Он принёс список из семи пунктов — шесть из них закрывала именно та система, которую он критиковал. После этого разговора сопротивления не было.</p>
+        </div>
+
+        <div class="f-block">
+          <h3 class="f-block-title">Тестовое задание — план выхода в новый регион</h3>
+          <hr class="f-block-divider">
+          <p class="f-block-body">Начала с аналитики: демография, конкурентная среда, логистическое плечо. Предложила запуск в два этапа — сначала пилот на одной точке, потом масштабирование с учётом данных пилота. Метрики определила до старта: конверсия, средний чек, операционные издержки на единицу. Отдельно прописала систему отчётности — еженедельные срезы с триггерами для коррекции курса.</p>
+        </div>
+
+        <div class="f-refs">
+          <h3 class="f-refs-title">Рекомендации</h3>
+          <div class="f-ref">
+            <div class="f-ref-role">Генеральный директор, интернет-ритейл</div>
+            <p class="f-ref-quote">«Карина из тех, кто не успокоится, пока не разберётся в причине. Иногда это замедляет, но ошибок почти не даёт.»</p>
+          </div>
+          <div class="f-ref">
+            <div class="f-ref-role">Операционный директор, FMCG-производство</div>
+            <p class="f-ref-quote">«Сильный аналитик. Решения обоснованные, данные всегда под рукой. С командой работает ровно, без лишних эмоций.»</p>
+          </div>
+          <div class="f-ref">
+            <div class="f-ref-role">Руководитель проекта, предыдущее место работы</div>
+            <p class="f-ref-quote">«Компания переходила к модели внешнего операционного партнёра — внутренняя функция сокращалась. Карина это оценила раньше других и приняла решение первой.»</p>
+          </div>
+        </div>
+
+        <div class="f-cta">
+          <button type="button" class="btn-primary" data-hire="karina">Нанять Карину →</button>
+        </div>
+      </article>
+
+      <article class="finalist" data-finalist="artyom">
+        <h2 class="f-name">Артём Лебедев</h2>
+        <div class="f-meta">11 лет · Новосибирск · Операционное управление</div>
+        <p class="f-bio">Операционный директор регионального дистрибьютора (4 года) — 42 человека в прямом подчинении, три склада, оборот ~3,5 млрд руб. До этого — начальник склада и логистики в производственной компании. Провёл реструктуризацию двух объектов, участвовал в запуске одного нового склада. Уходит из-за смены собственника и нового вектора компании.</p>
+        <div class="f-tags">42 чел. в подчинении · Реструктуризация · Запуск склада · Производство + дистрибуция</div>
+
+        <div class="f-block">
+          <h3 class="f-block-title">01 — Самое сложное управленческое решение в операционной функции</h3>
+          <hr class="f-block-divider">
+          <p class="f-block-body">2025 год: за 72 часа перевели склад на новую адресную систему — 8 400 позиций, 4 смены, ни одного дня простоя. Ввёл почасовую отчётность, лично был на объекте первые 36 часов. Изначально говорили, что за три дня нереально — сделали.</p>
+        </div>
+
+        <div class="f-block">
+          <h3 class="f-block-title">02 — Как выстраивали операционную отчётность там, где её не было</h3>
+          <hr class="f-block-divider">
+          <p class="f-block-body">Пришёл, провёл два дня на объекте. Стало понятно, где узкие места. Назначил ответственных за пять ключевых показателей, ввёл ежедневную сводку в одну таблицу. Никаких систем на старте — только дисциплина и еженедельный разбор цифр. Когда люди привыкли смотреть на данные, подключили нормальный инструмент.</p>
+        </div>
+
+        <div class="f-block">
+          <h3 class="f-block-title">03 — Как справлялись с сопротивлением команды при изменениях</h3>
+          <hr class="f-block-divider">
+          <p class="f-block-body">Обычно помогает скорость — если люди видят первые результаты в течение двух-трёх недель, скептицизм уходит сам. Кто не принимает — разговариваю один на один, даю время. Если человек принципиально против системных изменений — это не всегда плохо, иногда он просто не на своём месте.</p>
+        </div>
+
+        <div class="f-block">
+          <h3 class="f-block-title">Тестовое задание — план выхода в новый регион</h3>
+          <hr class="f-block-divider">
+          <p class="f-block-body">Сфокусировался на людях и процессах: кто руководит на месте, какие полномочия, как выстроена вертикаль. Предложил жёсткий график запуска с еженедельными контрольными точками и личным присутствием на объекте в первые две недели. Метрики — выполнение плана поставок и соблюдение операционных нормативов. Ключевой операционный риск — качество регионального руководства; заложил в план механизм проверки и замены до старта, не после.</p>
+        </div>
+
+        <div class="f-refs">
+          <h3 class="f-refs-title">Рекомендации</h3>
+          <div class="f-ref">
+            <div class="f-ref-role">Собственник, региональный дистрибьютор</div>
+            <p class="f-ref-quote">«Артём берёт на себя ответственность и не перекладывает. Когда что-то идёт не так — узнаёшь от него, не от других.»</p>
+          </div>
+          <div class="f-ref">
+            <div class="f-ref-role">Коммерческий директор, предыдущее место работы</div>
+            <p class="f-ref-quote">«Жёсткий в требованиях, но последовательный. Команда знает чего ожидать — это ценно.»</p>
+          </div>
+          <div class="f-ref">
+            <div class="f-ref-role">Директор по логистике</div>
+            <p class="f-ref-quote">«Сменил работу в связи со сменой собственника. Новый вектор компании не совпал с его подходом к управлению.»</p>
+          </div>
+        </div>
+
+        <div class="f-cta">
+          <button type="button" class="btn-primary" data-hire="artyom">Нанять Артёма →</button>
+        </div>
+      </article>
+
+      <article class="finalist" data-finalist="svetlana">
+        <h2 class="f-name">Светлана Миронова</h2>
+        <div class="f-meta">7 лет · Москва · Операции и проекты</div>
+        <p class="f-bio">Совмещала проектный и операционный опыт: три года в консалтинге (операционные улучшения для ритейла), потом перешла в саму компанию — два года в операционном блоке сети строительных магазинов. Руководила командой до 8 человек, отвечала за внедрение единой системы отчётности в 4 регионах. Известна как человек, который умеет провести изменения без разрушения. Уходит в поисках роли с большей ответственностью и масштабом.</p>
+        <div class="f-tags">Консалтинг + операции · Управление изменениями · 4 региона · До 8 чел.</div>
+
+        <div class="f-block">
+          <h3 class="f-block-title">01 — Самое сложное управленческое решение в операционной функции</h3>
+          <hr class="f-block-divider">
+          <p class="f-block-body">Нужно было за месяц перевести отчётность пяти подразделений в единый формат — при том что у каждого были свои исторически сложившиеся данные и своя логика. Ключевым было не техническое решение, а то, что каждый руководитель должен был увидеть в новом формате пользу для себя. Перевели всех в срок.</p>
+        </div>
+
+        <div class="f-block">
+          <h3 class="f-block-title">02 — Как выстраивали операционную отчётность там, где её не было</h3>
+          <hr class="f-block-divider">
+          <p class="f-block-body">Начинала с разговоров — с каждым руководителем отдельно. Не про метрики, а про то, какие решения им сложно принимать и почему. Из этих разговоров складывалась структура отчётности. Люди охотнее используют данные, которые сами помогали формулировать.</p>
+        </div>
+
+        <div class="f-block">
+          <h3 class="f-block-title">03 — Как справлялись с сопротивлением команды при изменениях</h3>
+          <hr class="f-block-divider">
+          <p class="f-block-body">Мой опыт: сопротивление почти всегда — это либо страх потерять статус, либо непонимание зачем. Поэтому сначала разбираюсь, что именно стоит за сопротивлением конкретного человека. Дальше — разный подход: кому-то нужна роль в изменении, кому-то — просто понять, что его место не под угрозой.</p>
+        </div>
+
+        <div class="f-block">
+          <h3 class="f-block-title">Тестовое задание — план выхода в новый регион</h3>
+          <hr class="f-block-divider">
+          <p class="f-block-body">Начала с картирования стейкхолдеров: кто принимает решения на месте, чьи интересы затронуты запуском, где потенциальные точки сопротивления. Предложила запуск через проектную команду с чёткими ролями и еженедельными синхронизациями. Метрики — не только операционные, но и командные: скорость адаптации новых сотрудников, уровень вовлечённости на старте. Отдельно прописала план коммуникаций с регионом на первые 90 дней.</p>
+        </div>
+
+        <div class="f-refs">
+          <h3 class="f-refs-title">Рекомендации</h3>
+          <div class="f-ref">
+            <div class="f-ref-role">Партнёр консалтинговой компании</div>
+            <p class="f-ref-quote">«Светлана умеет провести изменения так, что люди потом считают их своими. Это редкое качество.»</p>
+          </div>
+          <div class="f-ref">
+            <div class="f-ref-role">Операционный директор, сеть строительных магазинов</div>
+            <p class="f-ref-quote">«Сильна там, где нужно выстроить процесс через людей, а не вопреки им. В сложных внедрениях — первый выбор.»</p>
+          </div>
+          <div class="f-ref">
+            <div class="f-ref-role">HR-директор, предыдущее место работы</div>
+            <p class="f-ref-quote">«Уходит осознанно — ищет роль с большей операционной ответственностью. Для нас потеря, для неё — правильный шаг.»</p>
+          </div>
+        </div>
+
+        <div class="f-cta">
+          <button type="button" class="btn-primary" data-hire="svetlana">Нанять Светлану →</button>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="screen-3" class="screen">
+  <div class="container">
+    <div class="s3 s3-inner">
+      <header class="s3-header">
+        <div class="kicker">Разбор</div>
+        <h1 class="s3-h1">Что показал процесс отбора</h1>
+      </header>
+
+      <p id="personalized-text" class="s3-intro">Кандидат прошёл все этапы отбора — возражений не нашлось. Что при этом осталось за пределами процесса — ниже.</p>
+
+      <h2 class="s3-section-title">Что дал стандартный процесс отбора</h2>
+      <table class="tools-table">
+        <tbody>
+          <tr>
+            <td class="col-tool">
+              <span class="tool-name">Резюме</span>
+              <span class="tool-desc">Опыт, масштаб, история</span>
+            </td>
+            <td class="col-result">Подтверждает наличие релевантного бэкграунда. Не показывает, как человек работает.</td>
+          </tr>
+          <tr>
+            <td class="col-tool">
+              <span class="tool-name">Глубокая оценка потенциала</span>
+              <span class="tool-desc">Компетенции и ценности по ключевым измерениям</span>
+            </td>
+            <td class="col-result">Отсекает явно несоответствующих. Подтверждает, что кандидат «в зоне». Не предсказывает успех.</td>
+          </tr>
+          <tr>
+            <td class="col-tool">
+              <span class="tool-name">Структурированное интервью</span>
+              <span class="tool-desc">Опыт, реакции, коммуникация</span>
+            </td>
+            <td class="col-result">Фиксирует, как человек рассказывает об опыте. Не показывает, как он действует в реальных условиях.</td>
+          </tr>
+          <tr>
+            <td class="col-tool">
+              <span class="tool-name">Оценка ценностей</span>
+              <span class="tool-desc">Ценностный профиль, мотивация</span>
+            </td>
+            <td class="col-result">Выявляет соответствие ценностей кандидата и компании. Не показывает, как ценности проявляются под давлением.</td>
+          </tr>
+          <tr>
+            <td class="col-tool">
+              <span class="tool-name">Тестовое задание</span>
+              <span class="tool-desc">План выхода в новый регион</span>
+            </td>
+            <td class="col-result">Показывает, как кандидат структурирует незнакомую задачу. Не показывает, как он действует, когда план столкнулся с реальностью.</td>
+          </tr>
+          <tr>
+            <td class="col-tool">
+              <span class="tool-name">Рекомендации</span>
+              <span class="tool-desc">Оценка от предыдущих работодателей</span>
+            </td>
+            <td class="col-result">Фиксируют репутацию и паттерн отношений. Не показывают поведение в ситуациях, которые рекомендатель не наблюдал.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="accent-block">Все четыре финалиста прошли все пять этапов. Процесс отбора завершён корректно. И вопрос о том, кого нанять, остался открытым.</div>
+
+      <h2 class="s3-section-title">Что стандартные инструменты не показывают</h2>
+      <div class="points">
+        <div class="point">
+          <div class="point-num">01</div>
+          <p class="point-text">Резюме описывает карьеру, которую кандидат выбрал показать; тестовое задание в 2026 году — совместная работа с ИИ. Оба инструмента фиксируют результат подготовки, не мышление.</p>
+        </div>
+        <div class="point">
+          <div class="point-num">02</div>
+          <p class="point-text">Структурированное интервью — управляемый нарратив: руководитель с опытом знает, какие истории работают, какие детали усиливают впечатление и где остановиться. На выходе — версия, которую он решил рассказать.</p>
+        </div>
+        <div class="point">
+          <div class="point-num">03</div>
+          <p class="point-text">Оценка потенциала измеряет то, что кандидат декларирует о себе в спокойных условиях. Как эти ценности проявляются под давлением, при конфликте интересов, в первые недели на новом месте — процесс отбора не фиксирует.</p>
+        </div>
+        <div class="point">
+          <div class="point-num">04</div>
+          <p class="point-text">Рекомендатели оценивают отношения, а не эффективность; плохую рекомендацию дают редко, поскольку социальное давление перевешивает точность. Список контактов и содержание разговора кандидат согласовывает заранее.</p>
+        </div>
+      </div>
+
+      <div class="final-block">
+        <h2 class="final-title">Пять этапов отбора не отвечают на ключевой вопрос — кого лучше нанять?</h2>
+        <p class="final-text">Резюме, оценка потенциала, интервью, тестовое, рекомендации — хорошие инструменты отсечения. Они убирают явно неподходящих кандидатов. Но у финального выбора другая задача: предсказать, кто создаст ценность в вашем конкретном контексте — при вашей культуре, вашем масштабе, вашей скорости изменений. Эти данные стандартный процесс не собирает.</p>
+      </div>
+
+      <div class="s3-actions">
+        <button type="button" class="btn-outline" id="restart-btn">← Пройти заново</button>
+        <button type="button" class="btn-outline" id="back-to-landing-btn">← Вернуться к лендингу</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+var SCREEN3_TEXTS = {
+  viktor: 'Виктор прошёл все пять этапов; биография убедительна, цифры сходятся, возражений нет. Вопрос, который процесс не закрыл, — ниже.',
+  karina: 'Системный профиль, сильная аналитика и опыт построения с нуля: процесс отбора возражений не нашёл. Что при этом осталось за его пределами — ниже.',
+  artyom: 'Директивный управленец с масштабом и опытом реструктуризации — всё это зафиксировано в материалах. Что за ними не видно — ниже.',
+  svetlana: 'Управление изменениями, четыре региона, консалтинговый бэкграунд — процесс отбора всё это зафиксировал. Что за его пределами — ниже.'
+};
+
+var SCREEN3_FALLBACK = 'Кандидат прошёл все этапы отбора — возражений не нашлось. Что при этом осталось за пределами процесса — ниже.';
+
+function loadScreen3Text(){
+  var choice = localStorage.getItem('demo1_choice');
+  var el = document.getElementById('personalized-text');
+  if (!el) return;
+  el.textContent = SCREEN3_TEXTS[choice] || SCREEN3_FALLBACK;
+}
+
+function showScreen(id){
+  var screens = document.querySelectorAll('.screen');
+  for (var i = 0; i < screens.length; i++){
+    screens[i].classList.remove('active');
+  }
+  var target = document.getElementById(id);
+  if (target){
+    target.classList.add('active');
+  }
+  if (id === 'screen-3'){
+    loadScreen3Text();
+  }
+  window.scrollTo({top:0, behavior:'instant'});
+}
+
+function showFinalist(name){
+  var tabs = document.querySelectorAll('.tab');
+  for (var i = 0; i < tabs.length; i++){
+    tabs[i].classList.toggle('active', tabs[i].dataset.tab === name);
+  }
+  var cards = document.querySelectorAll('.finalist');
+  for (var j = 0; j < cards.length; j++){
+    cards[j].classList.toggle('active', cards[j].dataset.finalist === name);
+  }
+}
+
+document.querySelectorAll('.tab').forEach(function(tab){
+  tab.addEventListener('click', function(){
+    showFinalist(tab.dataset.tab);
+  });
+});
+
+document.querySelectorAll('[data-hire]').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    localStorage.setItem('demo1_choice', btn.dataset.hire);
+    showScreen('screen-3');
+  });
+});
+
+var restartBtn = document.getElementById('restart-btn');
+if (restartBtn){
+  restartBtn.addEventListener('click', function(){
+    localStorage.removeItem('demo1_choice');
+    showScreen('screen-1');
+  });
+}
+
+var backBtn = document.getElementById('back-to-landing-btn');
+if (backBtn){
+  backBtn.addEventListener('click', function(){
+    window.location.href = '/';
+  });
+}
+</script>
+
+</body>
+</html>
