@@ -315,45 +315,170 @@ body{
   margin-top:48px;
 }
 
-/* ============ PLACEHOLDERS (Screen 3) ============ */
+/* ============ SCREEN 3 ============ */
 
-.placeholder{
+.s3{
+  padding:80px 0;
+}
+
+.s3-inner{
   max-width:720px;
   margin:0 auto;
-  padding:120px 40px;
-  text-align:center;
 }
 
-.placeholder h2{
-  font-size:28px;
+.s3-header{
+  margin-bottom:48px;
+}
+
+.s3-h1{
+  font-size:36px;
   font-weight:500;
+  line-height:1.15;
   letter-spacing:-0.02em;
   color:var(--text);
-  margin-bottom:16px;
+  margin-top:12px;
 }
 
-.placeholder p{
-  font-size:16px;
-  color:var(--text-secondary);
-  margin-bottom:32px;
-}
-
-.btn-secondary{
-  background:transparent;
+.s3-intro{
+  font-size:18px;
+  line-height:1.55;
   color:var(--text);
-  border:1px solid var(--border);
-  padding:14px 28px;
+  font-style:italic;
+  margin-bottom:64px;
+}
+
+.s3-section-title{
+  font-size:20px;
+  font-weight:600;
+  color:var(--text);
+  margin-bottom:24px;
+}
+
+.tools-table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+.tools-table tr{
+  border-bottom:1px solid var(--border);
+}
+
+.tools-table tr:first-child{
+  border-top:1px solid var(--border);
+}
+
+.tools-table td{
+  padding:16px 0;
+  vertical-align:top;
+}
+
+.tools-table .col-tool{
+  width:35%;
+  padding-right:24px;
+}
+
+.tools-table .col-result{
+  width:65%;
+  font-size:15px;
+  line-height:1.55;
+  color:var(--text);
+}
+
+.tool-name{
+  font-size:15px;
+  font-weight:600;
+  color:var(--text);
+}
+
+.tool-desc{
+  display:block;
+  margin-top:4px;
+  font-size:13px;
+  color:var(--text-tertiary);
+}
+
+.accent-block{
+  background:var(--bg-secondary);
+  border-left:3px solid var(--accent);
+  padding:32px;
+  margin-top:48px;
+  margin-bottom:48px;
+  font-size:18px;
+  line-height:1.55;
+  font-weight:500;
+  color:var(--text);
+}
+
+.points{
+  margin-bottom:0;
+}
+
+.point{
+  margin-bottom:40px;
+}
+
+.point:last-child{
+  margin-bottom:0;
+}
+
+.point-num{
+  font-size:32px;
+  font-weight:500;
+  color:var(--accent);
+  line-height:1;
+  margin-bottom:12px;
+  font-variant-numeric:tabular-nums;
+}
+
+.point-text{
+  font-size:16px;
+  line-height:1.55;
+  color:var(--text);
+}
+
+.final-block{
+  margin-top:64px;
+}
+
+.final-title{
+  font-size:28px;
+  font-weight:500;
+  line-height:1.2;
+  color:var(--text);
+  margin-bottom:24px;
+  letter-spacing:-0.01em;
+}
+
+.final-text{
+  font-size:16px;
+  line-height:1.55;
+  color:var(--text);
+  margin-bottom:64px;
+}
+
+.s3-actions{
+  display:flex;
+  flex-direction:row;
+  gap:16px;
+  margin-top:48px;
+}
+
+.btn-outline{
+  background:transparent;
+  color:var(--accent);
+  border:1px solid var(--accent);
+  padding:16px 32px;
   font-family:inherit;
   font-size:15px;
   font-weight:500;
   border-radius:4px;
   cursor:pointer;
-  transition:border-color 200ms ease,color 200ms ease;
+  transition:background 200ms ease,color 200ms ease;
 }
 
-.btn-secondary:hover{
-  border-color:var(--accent);
-  color:var(--accent);
+.btn-outline:hover{
+  background:var(--accent);
+  color:#fafaf8;
 }
 
 /* ============ MOBILE ============ */
@@ -400,11 +525,61 @@ body{
   .f-cta{
     margin-top:40px;
   }
-  .placeholder{
-    padding:80px 20px;
+  .s3{
+    padding:48px 0;
   }
-  .placeholder h2{
-    font-size:24px;
+  .s3-h1{
+    font-size:28px;
+  }
+  .s3-intro{
+    font-size:16px;
+    margin-bottom:48px;
+  }
+  .accent-block{
+    padding:24px;
+    font-size:16px;
+  }
+  .point-num{
+    font-size:28px;
+  }
+  .final-title{
+    font-size:22px;
+  }
+  .tools-table,
+  .tools-table tbody,
+  .tools-table tr,
+  .tools-table td{
+    display:block;
+    width:100%;
+  }
+  .tools-table tr{
+    border-top:none;
+    border-bottom:1px solid var(--border);
+    padding:20px 0;
+  }
+  .tools-table tr:first-child{
+    border-top:1px solid var(--border);
+  }
+  .tools-table td{
+    padding:0;
+  }
+  .tools-table .col-tool{
+    padding-right:0;
+    margin-bottom:8px;
+  }
+  .tool-name{
+    font-size:16px;
+  }
+  .tools-table .col-result{
+    font-size:15px;
+  }
+  .s3-actions{
+    flex-direction:column;
+    gap:12px;
+  }
+  .btn-outline{
+    width:100%;
+    min-height:48px;
   }
 }
 </style>
@@ -669,14 +844,115 @@ body{
 </section>
 
 <section id="screen-3" class="screen">
-  <div class="placeholder">
-    <h2>Экран 3 — Разбор</h2>
-    <p>В работе. Будет реализован на следующем этапе.</p>
-    <button type="button" class="btn-secondary" onclick="showScreen('screen-1')">← Вернуться</button>
+  <div class="container">
+    <div class="s3 s3-inner">
+      <header class="s3-header">
+        <div class="kicker">Разбор</div>
+        <h1 class="s3-h1">Что показал процесс отбора</h1>
+      </header>
+
+      <p id="personalized-text" class="s3-intro">Кандидат прошёл все этапы отбора — возражений не нашлось. Что при этом осталось за пределами процесса — ниже.</p>
+
+      <h2 class="s3-section-title">Что дал стандартный процесс отбора</h2>
+      <table class="tools-table">
+        <tbody>
+          <tr>
+            <td class="col-tool">
+              <span class="tool-name">Резюме</span>
+              <span class="tool-desc">Опыт, масштаб, история</span>
+            </td>
+            <td class="col-result">Подтверждает наличие релевантного бэкграунда. Не показывает, как человек работает.</td>
+          </tr>
+          <tr>
+            <td class="col-tool">
+              <span class="tool-name">Глубокая оценка потенциала</span>
+              <span class="tool-desc">Компетенции и ценности по ключевым измерениям</span>
+            </td>
+            <td class="col-result">Отсекает явно несоответствующих. Подтверждает, что кандидат «в зоне». Не предсказывает успех.</td>
+          </tr>
+          <tr>
+            <td class="col-tool">
+              <span class="tool-name">Структурированное интервью</span>
+              <span class="tool-desc">Опыт, реакции, коммуникация</span>
+            </td>
+            <td class="col-result">Фиксирует, как человек рассказывает об опыте. Не показывает, как он действует в реальных условиях.</td>
+          </tr>
+          <tr>
+            <td class="col-tool">
+              <span class="tool-name">Оценка ценностей</span>
+              <span class="tool-desc">Ценностный профиль, мотивация</span>
+            </td>
+            <td class="col-result">Выявляет соответствие ценностей кандидата и компании. Не показывает, как ценности проявляются под давлением.</td>
+          </tr>
+          <tr>
+            <td class="col-tool">
+              <span class="tool-name">Тестовое задание</span>
+              <span class="tool-desc">План выхода в новый регион</span>
+            </td>
+            <td class="col-result">Показывает, как кандидат структурирует незнакомую задачу. Не показывает, как он действует, когда план столкнулся с реальностью.</td>
+          </tr>
+          <tr>
+            <td class="col-tool">
+              <span class="tool-name">Рекомендации</span>
+              <span class="tool-desc">Оценка от предыдущих работодателей</span>
+            </td>
+            <td class="col-result">Фиксируют репутацию и паттерн отношений. Не показывают поведение в ситуациях, которые рекомендатель не наблюдал.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="accent-block">Все четыре финалиста прошли все пять этапов. Процесс отбора завершён корректно. И вопрос о том, кого нанять, остался открытым.</div>
+
+      <h2 class="s3-section-title">Что стандартные инструменты не показывают</h2>
+      <div class="points">
+        <div class="point">
+          <div class="point-num">01</div>
+          <p class="point-text">Резюме описывает карьеру, которую кандидат выбрал показать; тестовое задание в 2026 году — совместная работа с ИИ. Оба инструмента фиксируют результат подготовки, не мышление.</p>
+        </div>
+        <div class="point">
+          <div class="point-num">02</div>
+          <p class="point-text">Структурированное интервью — управляемый нарратив: руководитель с опытом знает, какие истории работают, какие детали усиливают впечатление и где остановиться. На выходе — версия, которую он решил рассказать.</p>
+        </div>
+        <div class="point">
+          <div class="point-num">03</div>
+          <p class="point-text">Оценка потенциала измеряет то, что кандидат декларирует о себе в спокойных условиях. Как эти ценности проявляются под давлением, при конфликте интересов, в первые недели на новом месте — процесс отбора не фиксирует.</p>
+        </div>
+        <div class="point">
+          <div class="point-num">04</div>
+          <p class="point-text">Рекомендатели оценивают отношения, а не эффективность; плохую рекомендацию дают редко, поскольку социальное давление перевешивает точность. Список контактов и содержание разговора кандидат согласовывает заранее.</p>
+        </div>
+      </div>
+
+      <div class="final-block">
+        <h2 class="final-title">Пять этапов отбора не отвечают на ключевой вопрос — кого лучше нанять?</h2>
+        <p class="final-text">Резюме, оценка потенциала, интервью, тестовое, рекомендации — хорошие инструменты отсечения. Они убирают явно неподходящих кандидатов. Но у финального выбора другая задача: предсказать, кто создаст ценность в вашем конкретном контексте — при вашей культуре, вашем масштабе, вашей скорости изменений. Эти данные стандартный процесс не собирает.</p>
+      </div>
+
+      <div class="s3-actions">
+        <button type="button" class="btn-outline" id="restart-btn">← Пройти заново</button>
+        <button type="button" class="btn-outline" id="back-to-landing-btn">← Вернуться к лендингу</button>
+      </div>
+    </div>
   </div>
 </section>
 
 <script>
+var SCREEN3_TEXTS = {
+  viktor: 'Виктор прошёл все пять этапов; биография убедительна, цифры сходятся, возражений нет. Вопрос, который процесс не закрыл, — ниже.',
+  karina: 'Системный профиль, сильная аналитика и опыт построения с нуля: процесс отбора возражений не нашёл. Что при этом осталось за его пределами — ниже.',
+  artyom: 'Директивный управленец с масштабом и опытом реструктуризации — всё это зафиксировано в материалах. Что за ними не видно — ниже.',
+  svetlana: 'Управление изменениями, четыре региона, консалтинговый бэкграунд — процесс отбора всё это зафиксировал. Что за его пределами — ниже.'
+};
+
+var SCREEN3_FALLBACK = 'Кандидат прошёл все этапы отбора — возражений не нашлось. Что при этом осталось за пределами процесса — ниже.';
+
+function loadScreen3Text(){
+  var choice = localStorage.getItem('demo1_choice');
+  var el = document.getElementById('personalized-text');
+  if (!el) return;
+  el.textContent = SCREEN3_TEXTS[choice] || SCREEN3_FALLBACK;
+}
+
 function showScreen(id){
   var screens = document.querySelectorAll('.screen');
   for (var i = 0; i < screens.length; i++){
@@ -685,6 +961,9 @@ function showScreen(id){
   var target = document.getElementById(id);
   if (target){
     target.classList.add('active');
+  }
+  if (id === 'screen-3'){
+    loadScreen3Text();
   }
   window.scrollTo({top:0, behavior:'instant'});
 }
@@ -712,6 +991,21 @@ document.querySelectorAll('[data-hire]').forEach(function(btn){
     showScreen('screen-3');
   });
 });
+
+var restartBtn = document.getElementById('restart-btn');
+if (restartBtn){
+  restartBtn.addEventListener('click', function(){
+    localStorage.removeItem('demo1_choice');
+    showScreen('screen-1');
+  });
+}
+
+var backBtn = document.getElementById('back-to-landing-btn');
+if (backBtn){
+  backBtn.addEventListener('click', function(){
+    window.location.href = '/';
+  });
+}
 </script>
 
 </body>
