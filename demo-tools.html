@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Демо · Инструменты — Laboratory</title>
+<meta name="description" content="Демо: три инструмента, которые дают данные там, где стандартный процесс останавливается.">
+<meta name="robots" content="noindex">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+:root{
+  --bg:#fafaf8;
+  --bg-secondary:#f7f5f1;
+  --accent:#5c1c14;
+  --accent-hover:#4a1810;
+  --text:#1a1a1a;
+  --text-secondary:#4a4a4a;
+  --text-tertiary:#8a8680;
+  --border:#e8e4dc;
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  font-size:13px;
+  line-height:1.55;
+  font-weight:400;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+.container{
+  max-width:1080px;
+  margin:0 auto;
+  padding:0 24px;
+}
+
+.screen{display:none;}
+.screen.active{display:block;}
+
+#screen-1.screen.active{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  min-height:100vh;
+}
+
+.kicker{
+  font-size:9px;
+  font-weight:500;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:6px;
+}
+
+.btn-primary{
+  background:var(--accent);
+  color:#fafaf8;
+  border:none;
+  padding:10px 20px;
+  height:36px;
+  font-family:inherit;
+  font-size:12px;
+  font-weight:500;
+  border-radius:2px;
+  cursor:pointer;
+  transition:background 200ms ease;
+}
+
+.btn-primary:hover{background:var(--accent-hover);}
+
+.btn-secondary{
+  background:transparent;
+  color:var(--text-secondary);
+  border:1px solid var(--border);
+  padding:8px 16px;
+  font-family:inherit;
+  font-size:12px;
+  font-weight:500;
+  border-radius:2px;
+  cursor:pointer;
+  transition:border-color 200ms ease, color 200ms ease;
+}
+
+.btn-secondary:hover{
+  border-color:var(--text-tertiary);
+  color:var(--text);
+}
+
+/* ============ SCREEN 1 ============ */
+
+.s1{padding:16px 0;}
+
+.s1-inner{
+  max-width:720px;
+  margin:0 auto;
+}
+
+.s1-header{margin-bottom:8px;}
+
+.s1-h1{
+  font-size:17px;
+  font-weight:500;
+  line-height:1.3;
+  letter-spacing:-0.01em;
+  color:var(--text);
+  margin-bottom:8px;
+}
+
+.s1-cards{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-bottom:12px;
+}
+
+.tool-card{
+  background:var(--bg-secondary);
+  border-radius:2px;
+  padding:12px;
+}
+
+.tool-card-title{
+  font-size:13px;
+  font-weight:600;
+  color:var(--text);
+  margin-bottom:8px;
+}
+
+.tool-card-body{
+  font-size:13px;
+  line-height:1.55;
+  color:var(--text);
+}
+
+.s1-promise{
+  font-size:13px;
+  line-height:1.55;
+  color:var(--text-secondary);
+  max-width:600px;
+  margin:16px auto 0;
+  text-align:center;
+}
+
+.s1-cta{
+  display:flex;
+  justify-content:center;
+  margin-top:20px;
+}
+
+/* ============ PLACEHOLDER SCREENS ============ */
+
+.placeholder{
+  max-width:720px;
+  margin:0 auto;
+  padding:48px 0;
+  text-align:center;
+}
+
+.placeholder h2{
+  font-size:15px;
+  font-weight:500;
+  color:var(--text);
+  margin-bottom:8px;
+  letter-spacing:-0.01em;
+}
+
+.placeholder p{
+  font-size:13px;
+  line-height:1.55;
+  color:var(--text-secondary);
+  margin-bottom:20px;
+}
+
+/* ============ MOBILE ============ */
+
+@media (max-width:768px){
+  .container{padding:0 16px;}
+
+  .s1{padding:12px 0;}
+
+  .s1-h1{font-size:15px;}
+
+  .s1-cards{
+    grid-template-columns:1fr;
+    gap:10px;
+  }
+
+  .tool-card-title{font-size:12px;}
+  .tool-card-body{font-size:12px;}
+
+  .s1-promise{font-size:12px;}
+
+  .btn-primary{min-width:200px;}
+
+  .placeholder{padding:32px 0;}
+  .placeholder h2{font-size:14px;}
+  .placeholder p{font-size:12px;}
+}
+</style>
+</head>
+<body>
+
+<section id="screen-1" class="screen active">
+  <div class="container s1">
+    <div class="s1-inner">
+      <div class="s1-header">
+        <div class="kicker">О механике</div>
+        <h1 class="s1-h1">Три инструмента, которые дают данные там, где стандартный процесс останавливается.</h1>
+      </div>
+
+      <div class="s1-cards">
+        <div class="tool-card">
+          <div class="tool-card-title">Форсированный выбор ценностей</div>
+          <div class="tool-card-body">Пять пар. Оба варианта в каждой паре профессионально обоснованы. Выбрать можно только один — выбор без правильного ответа показывает реальную иерархию ценностей.</div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-card-title">Расстановка приоритетов</div>
+          <div class="tool-card-body">Шесть задач. Три контейнера: что делаете прямо сейчас, что делаете сами и в каком порядке, что делегируете. Конфликты заложены намеренно.</div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-card-title">Рабочие ситуации</div>
+          <div class="tool-card-body">Пять управленческих ситуаций. Каждая воспроизводит реальный момент выбора в роли. Из пяти ответов складывается поведенческий профиль.</div>
+        </div>
+      </div>
+
+      <p class="s1-promise">После трёх инструментов — ваш профиль рядом с профилями четырёх финалистов из задачи найма. У всех четырёх резюме, оценка потенциала и интервью были хорошими.</p>
+
+      <div class="s1-cta">
+        <button class="btn-primary" onclick="showScreen('screen-2')">Начать →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="screen-2" class="screen">
+  <div class="container">
+    <div class="placeholder">
+      <h2>Инструмент 01 — Форсированный выбор ценностей</h2>
+      <p>В работе. Будет реализован на следующем этапе.</p>
+      <button class="btn-secondary" onclick="showScreen('screen-1')">← Вернуться</button>
+    </div>
+  </div>
+</section>
+
+<section id="screen-3" class="screen">
+  <div class="container">
+    <div class="placeholder">
+      <h2>Инструмент 02 — Расстановка приоритетов</h2>
+      <p>В работе. Будет реализован на следующем этапе.</p>
+      <button class="btn-secondary" onclick="showScreen('screen-1')">← Вернуться</button>
+    </div>
+  </div>
+</section>
+
+<section id="screen-4" class="screen">
+  <div class="container">
+    <div class="placeholder">
+      <h2>Инструмент 03 — Рабочие ситуации</h2>
+      <p>В работе. Будет реализован на следующем этапе.</p>
+      <button class="btn-secondary" onclick="showScreen('screen-1')">← Вернуться</button>
+    </div>
+  </div>
+</section>
+
+<section id="screen-5" class="screen">
+  <div class="container">
+    <div class="placeholder">
+      <h2>Ваш профиль</h2>
+      <p>В работе. Будет реализован на следующем этапе.</p>
+      <button class="btn-secondary" onclick="showScreen('screen-1')">← Вернуться</button>
+    </div>
+  </div>
+</section>
+
+<section id="screen-6" class="screen">
+  <div class="container">
+    <div class="placeholder">
+      <h2>Профили финалистов</h2>
+      <p>В работе. Будет реализован на следующем этапе.</p>
+      <button class="btn-secondary" onclick="showScreen('screen-1')">← Вернуться</button>
+    </div>
+  </div>
+</section>
+
+<script>
+const userChoiceFromDemo1 = localStorage.getItem('demo1_choice') || null;
+
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  const target = document.getElementById(id);
+  if(target) target.classList.add('active');
+  window.scrollTo({top:0, behavior:'instant'});
+}
+</script>
+
+</body>
+</html>
