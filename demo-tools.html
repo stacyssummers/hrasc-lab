@@ -525,6 +525,72 @@ body{
   background:#e8e3d6;
 }
 
+/* ============ SCREEN 5 — PROFILE ============ */
+
+.profile-container{
+  max-width:720px;
+  margin:0 auto;
+  padding:32px 20px;
+}
+
+.profile-kicker{
+  font-size:9px;
+  font-weight:500;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:12px;
+}
+
+.profile-title{
+  font-size:17px;
+  font-weight:500;
+  letter-spacing:-0.01em;
+  color:var(--text);
+  margin-bottom:24px;
+}
+
+.profile-thesis{
+  background:var(--bg-secondary);
+  border-left:3px solid var(--accent);
+  padding:16px 20px;
+  font-size:14px;
+  font-style:italic;
+  line-height:1.55;
+  color:var(--text);
+  margin-bottom:32px;
+}
+
+.profile-blocks{margin-bottom:0;}
+
+.profile-block{
+  font-size:13px;
+  line-height:1.7;
+  color:var(--text);
+  margin-bottom:20px;
+}
+
+.profile-block:last-child{margin-bottom:0;}
+
+.profile-closing{
+  font-size:12px;
+  font-style:italic;
+  line-height:1.55;
+  color:var(--text-tertiary);
+  margin-top:24px;
+  margin-bottom:32px;
+}
+
+.profile-cta{
+  display:flex;
+  justify-content:center;
+  margin-top:32px;
+}
+
+.profile-footer{
+  margin-top:24px;
+}
+
 /* ============ PLACEHOLDER SCREENS ============ */
 
 .placeholder{
@@ -637,6 +703,13 @@ body{
   .situation-title{font-size:13px;}
   .situation-context{font-size:12px;padding:10px 14px;}
   .situation-option{font-size:12px;padding:12px 14px;}
+
+  .profile-container{padding:24px 16px;}
+  .profile-title{font-size:15px;margin-bottom:20px;}
+  .profile-thesis{font-size:13px;padding:14px 16px;}
+  .profile-block{font-size:12px;line-height:1.65;}
+  .profile-closing{font-size:11px;}
+  .profile-cta .btn-primary{width:100%;}
 }
 </style>
 </head>
@@ -930,11 +1003,22 @@ body{
 </section>
 
 <section id="screen-5" class="screen">
-  <div class="container">
-    <div class="placeholder">
-      <h2>Ваш профиль</h2>
-      <p>В работе. Будет реализован на следующем этапе.</p>
-      <button class="btn-secondary" onclick="showScreen('screen-1')">← Вернуться</button>
+  <div class="profile-container">
+    <div class="profile-kicker">Ваш профиль</div>
+    <h1 class="profile-title">Что увидели инструменты</h1>
+
+    <div id="profile-thesis" class="profile-thesis"></div>
+
+    <div id="profile-blocks" class="profile-blocks"></div>
+
+    <div id="profile-closing" class="profile-closing"></div>
+
+    <div class="profile-cta">
+      <button class="btn-primary" onclick="showScreen('screen-6')">К профилям финалистов →</button>
+    </div>
+
+    <div class="profile-footer">
+      <button class="back-link" onclick="showScreen('screen-4'); showSituation(5);">← Назад</button>
     </div>
   </div>
 </section>
@@ -963,6 +1047,7 @@ function showScreen(id){
   const target = document.getElementById(id);
   if(target) target.classList.add('active');
   window.scrollTo({top:0, behavior:'instant'});
+  if(id === 'screen-5') renderProfileScreen();
 }
 
 function showPair(n){
@@ -1009,6 +1094,194 @@ function selectSituation(situationNumber, variantNumber, card){
       showScreen('screen-5');
     }
   }, 300);
+}
+
+/* ============ PROFILE — scoring + narrative ============ */
+
+function scoreDimension1(){
+  let score = 0;
+  if(userChoices.tool1.pair1 === 'A') score -= 1;
+  if(userChoices.tool1.pair1 === 'B') score += 1;
+  if(userChoices.tool1.pair4 === 'A') score -= 1;
+  if(userChoices.tool1.pair4 === 'B') score += 1;
+  return score;
+}
+
+function scoreDimension2(){
+  let score = 0;
+  if(userChoices.tool1.pair2 === 'B') score -= 1;
+  if(userChoices.tool1.pair3 === 'A') score += 1;
+  if(userChoices.tool1.pair3 === 'B') score -= 1;
+  return score;
+}
+
+function scoreDimension3(){
+  const taskValues = {D:-2, E:-1, C:0, A:1, F:1, B:2};
+  const mult = {container1:1, container2:0, container3:-1};
+  let raw = 0;
+  for(const [k, list] of Object.entries(userChoices.tool2 || {})){
+    const m = mult[k] ?? 0;
+    for(const id of list) raw += (taskValues[id] || 0) * m;
+  }
+  return Math.max(-3, Math.min(3, Math.round(raw / 2.5)));
+}
+
+function scoreDimension4(){
+  const taskValues = {D:-2, F:-1, B:0, E:0, A:1, C:2};
+  const mult = {container1:1, container2:0, container3:-1};
+  let raw = 0;
+  for(const [k, list] of Object.entries(userChoices.tool2 || {})){
+    const m = mult[k] ?? 0;
+    for(const id of list) raw += (taskValues[id] || 0) * m;
+  }
+  return Math.max(-3, Math.min(3, Math.round(raw / 2.5)));
+}
+
+function scoreDimension5(){
+  let score = 0;
+  if(userChoices.tool1.pair5 === 'A') score -= 1;
+  if(userChoices.tool1.pair5 === 'B') score += 1;
+  const sit1 = userChoices.tool3.situation1;
+  if(sit1 === 1 || sit1 === 2) score -= 1;
+  if(sit1 === 3) score += 1;
+  const sit3 = userChoices.tool3.situation3;
+  if(sit3 === 2) score -= 1;
+  if(sit3 === 4) score += 1;
+  return Math.max(-3, Math.min(3, score));
+}
+
+function scoreDimension6(){
+  let score = 0;
+  const sit1 = userChoices.tool3.situation1;
+  if(sit1 === 1) score -= 1;
+  if(sit1 === 3) score += 1;
+  const sit4 = userChoices.tool3.situation4;
+  if(sit4 === 1) score -= 2;
+  if(sit4 === 2) score -= 1;
+  if(sit4 === 3) score += 1;
+  return Math.max(-3, Math.min(3, score));
+}
+
+function calculateProfile(){
+  return {
+    d1: scoreDimension1(),
+    d2: scoreDimension2(),
+    d3: scoreDimension3(),
+    d4: scoreDimension4(),
+    d5: scoreDimension5(),
+    d6: scoreDimension6()
+  };
+}
+
+function getPolarity(score){
+  if(score <= -2) return 'left';
+  if(score >= 2) return 'right';
+  return 'middle';
+}
+
+const profileTexts = {
+  d1: {
+    left: "Между «решить сейчас» и «дождаться данных» вы выбираете первое. У такого выбора есть цена — допущенные ошибки в обстоятельствах, где материал ещё не сложился. И есть выигрыш: движение в задачах, где остановка обходится дороже самой ошибки. В ролях с коротким окном для действия этот баланс складывается в вашу пользу. В долгих проектах и в работе с критическими данными он чаще оказывается против.",
+    middle: "Между скоростью и тщательностью у вас нет устойчивого предпочтения, выбор зависит от обстановки. На большинстве задач такой подход даёт результат. Разрыв возникает в крайних точках: если ситуация требует решения в одну или другую сторону, а внутренних правил, по которым делать выбор, не сформулировано, основное время уходит на сам выбор подхода.",
+    right: "Между «решить сейчас» и «дождаться данных» вы выбираете второе. Цена этого выбора — упущенные окна и репутация осторожного руководителя. Выигрыш — решения, которые не приходится откатывать, и обоснование, защищаемое перед собственником. В реструктуризациях и кадровых решениях по ключевым позициям этот баланс складывается в вашу пользу. В кризисных режимах и при выходе на новые рынки он чаще оказывается против."
+  },
+  d2: {
+    left: "Когда команда не согласна с вашим решением, вы скорее доводите его до результата, чем переделываете под её возражения. В моменте это даёт ясность направления. На длинной дистанции формирует команду, привыкшую к режиму исполнения, не к режиму со-решения. На этапах, где скорость и определённость важнее вовлечённости, такой подход уместен. В проектах изменений он создаёт сложности: команда без собственного отношения к решению реализует его формально.",
+    middle: "В одних ситуациях вы настаиваете на своей позиции, в других даёте команде формировать решение. Команда получает контакт, в котором обе плоскости присутствуют, но не всегда понимает, в каком режиме идёт конкретный разговор: где решение уже принято и обсуждаются способы реализации, а где у неё есть пространство для влияния. Прояснение режима в начале каждого такого разговора снимает большую часть напряжения от этого паттерна.",
+    right: "Когда у вас есть решение, вы редко защищаете его без участия команды в его формировании. Решение, к которому команда пришла вместе с вами, реализуется иначе: с большей энергией и меньшим сопротивлением. Цена такого подхода — время на согласование, которое не всегда есть. В проектах изменений и в работе с новыми направлениями такой стиль уместен. В кризисных режимах он буксует."
+  },
+  d3: {
+    left: "В первый контур внимания у вас попало не самое срочное и не самое видимое. Этот выбор показывает чувствительность к сигналам, которые ещё не выходят на поверхность, и готовность работать с ними прежде, чем они станут срочными. В ролях, где результат меряется устойчивостью системы, такой подход даёт результат. В ролях с высокой видимостью отчётности руководство может считывать такую расстановку как недостаточную скорость реакции на видимые задачи.",
+    middle: "В первый контур внимания у вас попало и видимое срочное, и более глубокий сигнал. В большинстве задач этот баланс даёт результат. Сложность одна: сигналы разной природы требуют разного типа реакции, и одновременное удержание обоих в фокусе ограничивает глубину работы с каждым.",
+    right: "В первый контур внимания у вас попало то, что заметно сверху и срочно в моменте. Такой подход даёт краткосрочную управляемость и работает в ролях, где это критично для отношений с руководством. Сигналы более глубокого уровня при таком распределении остаются в очереди. В момент, когда они выходят на поверхность, их исправление обходится значительно дороже своевременной работы с ними."
+  },
+  d4: {
+    left: "Когда задача требует решения, ваш первый вопрос про процесс. Где идёт сбой, что замедляет, какую логику нужно перенастроить. Люди в этой картине занимают роли в системе, и сложности между ними часто решаются через перестройку этой системы. В задачах построения операционных моделей такой подход даёт результат. В проектах изменений, где команда сама проходит переход, оптимизация процесса вокруг людей не заменяет работу с ними самими.",
+    middle: "Внимание распределяется и на процессы, и на людей, без сведения одного к другому. В большинстве задач это устойчивая позиция. Сложность возникает в моменты, когда оба слоя требуют участия одновременно: без явного решения, что идёт первым, происходит распыление внимания и пропуск важных сигналов в обоих контурах.",
+    right: "Когда задача требует решения, ваш первый вопрос про людей. Что между ними происходит, как они реагируют, что им сейчас важно. Это даёт раннее считывание ситуаций, которые ещё не проявились в метриках. В проектах изменений такой подход даёт результат. В задачах построения операционной модели, где логика проблемы лежит в процессах, работа с людьми не заменяет работу с самим процессом."
+  },
+  d5: {
+    left: "В обычной работе этот паттерн не заметен — в стабильных задачах действие и есть работа. Сигнал становится виден в работе с системными сбоями: когда время обработки растёт три недели подряд, прямое действие закрепляет проблему. Симптомы и причины в таких случаях часто расходятся, и реакция без диагностики чаще усугубляет ситуацию. В кризисных режимах ваш подход в вашу пользу. В задачах с латентными сбоями он против.",
+    middle: "В большинстве ситуаций ваш выбор между действием и анализом адекватен обстановке. Сигнал проблемы становится виден в одной точке: когда призыв к действию приходит от давления, а не от понимания обстановки. Пауза в таких ситуациях полезнее, чем кажется в моменте, и её сложно взять под прямым внешним давлением.",
+    right: "В обычной работе этот паттерн читается как проработанность и осторожность. Сигнал становится виден в режимах с коротким окном для влияния: время на диагностику оказывается временем, за которое ситуация уходит из управляемого состояния. В задачах со сложной причинно-следственной картиной ваш подход в вашу пользу. В кризисных режимах он против."
+  },
+  d6: {
+    left: "Под давлением сверху вы скорее идёте навстречу, чем выстраиваете встречную позицию. В системах с высоким доверием к решениям руководства такой подход уместен: встречная позиция в них воспринимается как нарушение, и её цена выше, чем риск самого решения. В ролях, где руководству нужен носитель экспертной позиции, ваш подход создаёт сложности: согласие без обозначения рисков может означать, что дорогое решение прошло без необходимой проверки.",
+    middle: "Реакция на давление зависит от содержания: где-то вы соглашаетесь, где-то держите позицию с аргументами. Это даёт хорошие отношения с руководством без потери экспертной позиции. Сложность одна: важно, чтобы стороны решения были видны однозначно. Где вы действительно согласны, а где соглашаетесь из соображений отношений.",
+    right: "Под давлением вы держите позицию, если у неё есть профессиональное основание. В ролях, где руководству нужен носитель экспертной позиции, способный остановить дорогое решение, такой подход в вашу пользу. В системах с жёсткой вертикалью, где встречная позиция воспринимается как нарушение субординации, ваш подход обходится дороже самой возможной ошибки руководства."
+  }
+};
+
+const profileTheses = {
+  systemic_diagnostic: "Аналитический профиль с фокусом на природе происходящего. Уместен в задачах, где симптомы и причины часто расходятся. Менее уместен там, где время на разбор обходится дороже самой проблемы.",
+  reactive_executor: "Реактивный исполнительский профиль. Уместен в задачах с коротким окном для действия и в средах с высоким темпом. Менее уместен в работе со сложными системными задачами и в условиях, где требуется встречная позиция.",
+  team_people: "Командный профиль с фокусом на людях. Уместен в проектах изменений, где результат зависит от того, как команда проходит переход. Менее уместен в кризисных режимах и в задачах построения операционных моделей.",
+  professional_analytical: "Профессионально-аналитический профиль. Уместен в задачах с высокой ценой ошибки и в ролях, где руководству нужен носитель экспертной позиции. Менее уместен в режимах с коротким окном для действия.",
+  operational_directive: "Операционно-директивный профиль. Уместен в задачах построения и переналадки процессов. Менее уместен в проектах изменений, где успех зависит от готовности команды поддержать решение.",
+  methodological_operational: "Методологический операционный профиль. Уместен в проектах построения с нуля и в реструктуризациях. Менее уместен в задачах, требующих скорости и работы с людьми в моменте перехода.",
+  balanced: "Сбалансированный профиль без выраженной доминанты. Гибко адаптируется к разным задачам, но требует осознанного выбора подхода в каждой ситуации."
+};
+
+function selectThesis(profile){
+  const {d1, d2, d3, d4, d5, d6} = profile;
+
+  const maxAbs = Math.max(Math.abs(d1), Math.abs(d2), Math.abs(d3), Math.abs(d4), Math.abs(d5), Math.abs(d6));
+  if(maxAbs <= 1) return profileTheses.balanced;
+
+  if(d3 <= -2 && d5 >= 2) return profileTheses.systemic_diagnostic;
+  if(d1 <= -2 && d5 <= -2 && d6 <= -2) return profileTheses.reactive_executor;
+  if(d2 >= 1 && d4 >= 2) return profileTheses.team_people;
+  if(d1 >= 2 && d5 >= 2 && d6 >= 2) return profileTheses.professional_analytical;
+  if(d4 <= -2 && d5 <= -2 && d2 <= -2) return profileTheses.operational_directive;
+  if(d3 <= -2 && d4 <= -2 && d1 >= 2) return profileTheses.methodological_operational;
+
+  const dims = [
+    {val: d1, leftKey: 'reactive_executor', rightKey: 'professional_analytical'},
+    {val: d3, leftKey: 'systemic_diagnostic', rightKey: 'reactive_executor'},
+    {val: d4, leftKey: 'operational_directive', rightKey: 'team_people'}
+  ];
+  let strongest = dims[0];
+  for(const d of dims){
+    if(Math.abs(d.val) > Math.abs(strongest.val)) strongest = d;
+  }
+  const key = strongest.val < 0 ? strongest.leftKey : strongest.rightKey;
+  return profileTheses[key] || profileTheses.balanced;
+}
+
+const closingPhrase = "Профиль поведения, который вы только что прочитали, не оценка человека, а паттерн, который видят инструменты на материале конкретных выборов. Один и тот же человек в разных ролях разворачивает разные стороны этого паттерна.";
+
+function assembleProfileNarrative(){
+  const profile = calculateProfile();
+  return {
+    thesis: selectThesis(profile),
+    blocks: [
+      profileTexts.d1[getPolarity(profile.d1)],
+      profileTexts.d2[getPolarity(profile.d2)],
+      profileTexts.d3[getPolarity(profile.d3)],
+      profileTexts.d4[getPolarity(profile.d4)],
+      profileTexts.d5[getPolarity(profile.d5)],
+      profileTexts.d6[getPolarity(profile.d6)]
+    ],
+    closing: closingPhrase,
+    profile
+  };
+}
+
+function renderProfileScreen(){
+  const narrative = assembleProfileNarrative();
+  document.getElementById('profile-thesis').textContent = narrative.thesis;
+  const blocksContainer = document.getElementById('profile-blocks');
+  blocksContainer.innerHTML = '';
+  narrative.blocks.forEach(text => {
+    const p = document.createElement('p');
+    p.className = 'profile-block';
+    p.textContent = text;
+    blocksContainer.appendChild(p);
+  });
+  document.getElementById('profile-closing').textContent = narrative.closing;
+  try {
+    localStorage.setItem('demo2_profile', JSON.stringify(narrative.profile));
+  } catch(e) {}
 }
 
 /* ============ TOOL 02 — drag-drop + tap ============ */
