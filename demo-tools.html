@@ -591,6 +591,165 @@ body{
   margin-top:24px;
 }
 
+/* ============ SCREEN 6 — FINALISTS ============ */
+
+.s6{
+  max-width:1080px;
+  margin:0 auto;
+  padding:32px 20px;
+}
+
+.s6-kicker{
+  font-size:9px;
+  font-weight:500;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:12px;
+}
+
+.s6-title{
+  font-size:17px;
+  font-weight:500;
+  letter-spacing:-0.01em;
+  color:var(--text);
+  margin-bottom:12px;
+}
+
+.s6-subtitle{
+  font-size:13px;
+  line-height:1.55;
+  color:var(--text-secondary);
+  max-width:600px;
+  margin-bottom:32px;
+}
+
+.finalists-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+
+.finalist-card{
+  position:relative;
+  background:var(--bg-secondary);
+  border:1px solid transparent;
+  border-radius:2px;
+  padding:20px;
+  min-height:280px;
+}
+
+.finalist-card.selected-from-demo1{
+  border-color:var(--accent);
+  background:#e8e3d6;
+}
+
+.finalist-mark{
+  display:none;
+  position:absolute;
+  top:12px;
+  right:12px;
+  font-size:9px;
+  font-weight:600;
+  letter-spacing:0.05em;
+  text-transform:uppercase;
+  color:var(--accent);
+}
+
+.finalist-card.selected-from-demo1 .finalist-mark{display:block;}
+
+.finalist-name{
+  font-size:16px;
+  font-weight:600;
+  color:var(--text);
+  margin-bottom:2px;
+}
+
+.finalist-subtitle{
+  font-size:10px;
+  font-weight:500;
+  letter-spacing:0.05em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:16px;
+}
+
+.finalist-section-title{
+  font-size:9px;
+  font-weight:500;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--text-tertiary);
+  margin-top:12px;
+  margin-bottom:4px;
+}
+
+.finalist-section-body{
+  font-size:12px;
+  line-height:1.55;
+  color:var(--text);
+}
+
+.s6-back{
+  margin-top:24px;
+}
+
+.s6-final{
+  background:#e8e3d6;
+  padding:32px 24px;
+  margin-top:32px;
+  border-radius:2px;
+  text-align:center;
+}
+
+.s6-final-kicker{
+  font-size:9px;
+  font-weight:500;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:12px;
+}
+
+.s6-final-title{
+  font-size:18px;
+  font-weight:500;
+  letter-spacing:-0.01em;
+  color:var(--text);
+  margin-bottom:12px;
+  line-height:1.3;
+}
+
+.s6-final-body{
+  font-size:14px;
+  line-height:1.6;
+  color:var(--text);
+  max-width:600px;
+  margin:0 auto 24px;
+}
+
+.s6-actions{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:12px;
+}
+
+.s6-actions .btn-primary{padding:10px 24px;}
+
+.landing-link{
+  background:none;
+  border:none;
+  color:var(--accent);
+  font-family:inherit;
+  font-size:13px;
+  padding:4px 0;
+  cursor:pointer;
+  text-decoration:underline;
+}
+
+.landing-link:hover{color:var(--accent-hover);}
+
 /* ============ PLACEHOLDER SCREENS ============ */
 
 .placeholder{
@@ -710,6 +869,24 @@ body{
   .profile-block{font-size:12px;line-height:1.65;}
   .profile-closing{font-size:11px;}
   .profile-cta .btn-primary{width:100%;}
+
+  .s6{padding:24px 16px;}
+  .s6-title{font-size:15px;}
+  .s6-subtitle{font-size:12px;margin-bottom:24px;}
+
+  .finalists-grid{
+    grid-template-columns:1fr;
+    gap:12px;
+  }
+
+  .finalist-card{min-height:auto;padding:16px;}
+  .finalist-name{font-size:15px;}
+
+  .s6-final{padding:24px 20px;}
+  .s6-final-title{font-size:16px;}
+  .s6-final-body{font-size:13px;}
+
+  .s6-actions .btn-primary{width:100%;}
 }
 </style>
 </head>
@@ -1024,11 +1201,73 @@ body{
 </section>
 
 <section id="screen-6" class="screen">
-  <div class="container">
-    <div class="placeholder">
-      <h2>Профили финалистов</h2>
-      <p>В работе. Будет реализован на следующем этапе.</p>
-      <button class="btn-secondary" onclick="showScreen('screen-1')">← Вернуться</button>
+  <div class="s6">
+    <div class="s6-kicker">Финалисты</div>
+    <h1 class="s6-title">Профили четырёх кандидатов в задаче найма</h1>
+    <p class="s6-subtitle">У всех четырёх — одинаковые «галочки» в стандартном процессе отбора. Разные профили — в реальных управленческих ситуациях.</p>
+
+    <div class="finalists-grid">
+      <div class="finalist-card" data-finalist="viktor">
+        <div class="finalist-mark">Ваш выбор в задаче найма</div>
+        <div class="finalist-name">Виктор Сомов</div>
+        <div class="finalist-subtitle">Скорость · Признание · Система</div>
+        <div class="finalist-section-title">Ценности</div>
+        <div class="finalist-section-body">Ориентирован на видимый результат и внешнюю оценку. Предсказуемость процесса для него важнее адаптивности.</div>
+        <div class="finalist-section-title">Приоритеты</div>
+        <div class="finalist-section-body">Реактивный. В «сейчас» — отчёт для генерального и планёрка. Отклонение в поставках отложил на третье место в очереди, стратегическую сессию делегировал.</div>
+        <div class="finalist-section-title">Ситуации</div>
+        <div class="finalist-section-body">Принимает давление. В ситуациях с неполными данными действовал быстро, без уточнений. Под давлением сверху уступал, сохраняя процедурный вид, диагностику оставляя в стороне.</div>
+      </div>
+
+      <div class="finalist-card" data-finalist="karina">
+        <div class="finalist-mark">Ваш выбор в задаче найма</div>
+        <div class="finalist-name">Карина Игнатьева</div>
+        <div class="finalist-subtitle">Точность · Автономия · Основа</div>
+        <div class="finalist-section-title">Ценности</div>
+        <div class="finalist-section-body">Независимость суждений для неё важнее признания. Долгосрочная основа важнее быстрого результата.</div>
+        <div class="finalist-section-title">Приоритеты</div>
+        <div class="finalist-section-body">Системный. В «сейчас» — отклонение в поставках. Стратегическая сессия первой в очереди, отчёт делегирован, планёрка сокращена и перенесена.</div>
+        <div class="finalist-section-title">Ситуации</div>
+        <div class="finalist-section-body">Диагностирует. В каждой ситуации начинала с уточнения природы проблемы. Под давлением держала позицию с аргументами, не переходя к действию без достаточных данных.</div>
+      </div>
+
+      <div class="finalist-card" data-finalist="artyom">
+        <div class="finalist-mark">Ваш выбор в задаче найма</div>
+        <div class="finalist-name">Артём Лебедев</div>
+        <div class="finalist-subtitle">Результат · Измеримость · Исполнение</div>
+        <div class="finalist-section-title">Ценности</div>
+        <div class="finalist-section-body">Ориентирован на чёткие метрики и измеримый результат. Качество исполнения для него важнее стратегического влияния.</div>
+        <div class="finalist-section-title">Приоритеты</div>
+        <div class="finalist-section-body">Операционный. В «сейчас» — поставки и планёрка. Отчёт первым в очереди, конфликт сотрудников делегирован, стратегическая сессия последней в очереди.</div>
+        <div class="finalist-section-title">Ситуации</div>
+        <div class="finalist-section-body">Директивный. Принимал решения быстро, не объясняя логики. На давление отказывал без аргументации: команда видела решение, но не понимала причину.</div>
+      </div>
+
+      <div class="finalist-card" data-finalist="svetlana">
+        <div class="finalist-mark">Ваш выбор в задаче найма</div>
+        <div class="finalist-name">Светлана Миронова</div>
+        <div class="finalist-subtitle">Команда · Признание · Стратегия</div>
+        <div class="finalist-section-title">Ценности</div>
+        <div class="finalist-section-body">Принадлежность к команде — сильный мотиватор. Стратегическое влияние ценится выше совершенства в текущей роли.</div>
+        <div class="finalist-section-title">Приоритеты</div>
+        <div class="finalist-section-body">Человеческий фокус. В «сейчас» — конфликт сотрудников и планёрка. Отклонение в поставках делегировано, стратегическая сессия второй в очереди, отчёт первым.</div>
+        <div class="finalist-section-title">Ситуации</div>
+        <div class="finalist-section-body">Фасилитирует. В ситуациях с людьми действует уверенно. В операционных ищет консенсус там, где нужно решение, удерживая влияние через выстраивание отношений, а не через позицию.</div>
+      </div>
+    </div>
+
+    <div class="s6-back">
+      <button class="back-link" onclick="showScreen('screen-5')">← Назад к вашему профилю</button>
+    </div>
+
+    <div class="s6-final">
+      <div class="s6-final-kicker">Вывод</div>
+      <h2 class="s6-final-title">Эти различия не видны в резюме, оценке потенциала или интервью.</h2>
+      <p class="s6-final-body">Они проявляются только в инструментах, которые воспроизводят реальные ситуации — с конфликтующими приоритетами, неполными данными и давлением.</p>
+      <div class="s6-actions">
+        <button class="btn-primary" onclick="restartDemo2()">Пройти заново</button>
+        <button class="landing-link" onclick="window.location.href='/'">← Вернуться к лендингу</button>
+      </div>
     </div>
   </div>
 </section>
@@ -1048,6 +1287,46 @@ function showScreen(id){
   if(target) target.classList.add('active');
   window.scrollTo({top:0, behavior:'instant'});
   if(id === 'screen-5') renderProfileScreen();
+  if(id === 'screen-6') renderFinalistsScreen();
+}
+
+function renderFinalistsScreen(){
+  document.querySelectorAll('.finalist-card').forEach(c => c.classList.remove('selected-from-demo1'));
+  const demo1Choice = localStorage.getItem('demo1_choice');
+  if(!demo1Choice) return;
+  const card = document.querySelector(`.finalist-card[data-finalist="${demo1Choice}"]`);
+  if(card) card.classList.add('selected-from-demo1');
+}
+
+function restartDemo2(){
+  userChoices.tool1 = {};
+  userChoices.tool2 = {};
+  userChoices.tool3 = {};
+  try { localStorage.removeItem('demo2_profile'); } catch(e) {}
+
+  document.querySelectorAll('#screen-2 .option-card.selected').forEach(c => c.classList.remove('selected'));
+  document.querySelectorAll('#screen-4 .situation-option.selected').forEach(c => c.classList.remove('selected'));
+
+  resetTool2Layout();
+  showPair(1);
+  showSituation(1);
+
+  showScreen('screen-1');
+}
+
+function resetTool2Layout(){
+  const unsortedZone = document.getElementById('unsorted-zone');
+  if(!unsortedZone) return;
+  const order = ['A','B','C','D','E','F'];
+  order.forEach(id => {
+    const card = document.querySelector(`#screen-3 .task-card[data-task="${id}"]`);
+    if(card){
+      card.classList.remove('selected','dragging');
+      unsortedZone.appendChild(card);
+    }
+  });
+  selectedTaskCard = null;
+  updateTool2State();
 }
 
 function showPair(n){
