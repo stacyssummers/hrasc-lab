@@ -47,6 +47,13 @@ body{
 .screen{display:none;}
 .screen.active{display:block;}
 
+#screen-1.screen.active{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  min-height:100vh;
+}
+
 .kicker{
   font-size:9px;
   font-weight:500;
@@ -236,10 +243,14 @@ body{
   letter-spacing:0.06em;
   text-transform:uppercase;
   color:var(--accent);
+  margin-bottom:12px;
+  padding-bottom:12px;
+  border-bottom:1px solid var(--border);
 }
 
 .f-panel{
   background:var(--bg-secondary);
+  border:1px solid var(--border);
   border-radius:4px;
   padding:14px;
   position:sticky;
@@ -345,14 +356,26 @@ body{
 
 .f-tags + .f-block{margin-top:0;}
 
-.f-block{margin-top:14px;}
+.f-block{margin-top:20px;}
 
 .f-block-title{
-  font-size:11px;
+  font-size:13px;
   font-weight:600;
-  letter-spacing:0.06em;
-  text-transform:uppercase;
+  text-transform:none;
   color:var(--text);
+  position:relative;
+  padding-left:16px;
+}
+
+.f-block-title::before{
+  content:'';
+  position:absolute;
+  left:0;
+  top:0.5em;
+  width:6px;
+  height:6px;
+  background:var(--accent);
+  border-radius:50%;
 }
 
 .f-block-divider{
@@ -370,15 +393,18 @@ body{
   margin-top:8px;
 }
 
-.f-refs{margin-top:14px;}
+.f-refs{
+  margin-top:24px;
+  padding-top:20px;
+  border-top:1px solid var(--border);
+}
 
 .f-refs-title{
-  font-size:11px;
+  font-size:13px;
   font-weight:600;
-  letter-spacing:0.06em;
-  text-transform:uppercase;
+  text-transform:none;
   color:var(--text);
-  margin-bottom:10px;
+  margin-bottom:14px;
 }
 
 .f-ref{margin-top:8px;}
@@ -443,23 +469,33 @@ body{
 }
 
 .s3-intro{
-  font-size:13px;
-  line-height:1.55;
-  color:var(--text);
+  font-size:11px;
+  line-height:1.5;
+  color:var(--accent);
   font-style:italic;
-  margin-bottom:16px;
+  text-align:center;
+  max-width:600px;
+  margin:0 auto 8px;
 }
 
 .s3-section-title{
-  font-size:13px;
+  font-size:15px;
   font-weight:600;
   color:var(--text);
-  margin-bottom:8px;
+  margin-top:16px;
+  margin-bottom:12px;
+}
+
+.s3-section-sub{
+  font-size:12px;
+  color:var(--text-tertiary);
+  margin-top:4px;
+  margin-bottom:20px;
 }
 
 .table-wrap{
-  overflow-x:auto;
-  -webkit-overflow-scrolling:touch;
+  overflow-x:visible;
+  width:100%;
 }
 
 .tools-table{
@@ -470,7 +506,7 @@ body{
 
 .tools-table th,
 .tools-table td{
-  padding:12px 8px;
+  padding:12px 6px;
   vertical-align:top;
   text-align:left;
 }
@@ -486,7 +522,11 @@ body{
   border-bottom:1px solid var(--border);
 }
 
-.tools-table thead .col-cand{text-align:center;}
+.tools-table thead .col-cand{
+  font-size:8px;
+  letter-spacing:0.08em;
+  text-align:center;
+}
 
 .tools-table tbody tr{
   border-bottom:1px solid var(--border);
@@ -497,9 +537,9 @@ body{
 }
 
 .tools-table .col-tool{
-  width:180px;
+  width:160px;
   padding-left:0;
-  padding-right:8px;
+  padding-right:6px;
 }
 
 .tools-table .col-result{
@@ -509,9 +549,11 @@ body{
 }
 
 .tools-table .col-cand{
-  width:60px;
+  width:48px;
   text-align:center;
   vertical-align:middle;
+  padding-left:0;
+  padding-right:0;
 }
 
 .tool-name{
@@ -534,25 +576,13 @@ body{
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  width:16px;
-  height:16px;
+  width:14px;
+  height:14px;
   border-radius:50%;
   background:#4a7c3a;
   color:#fafaf8;
-  font-size:10px;
+  font-size:9px;
   line-height:1;
-}
-
-.accent-block{
-  background:var(--bg-secondary);
-  border-left:3px solid var(--accent);
-  padding:10px 14px;
-  margin-top:12px;
-  margin-bottom:12px;
-  font-size:13px;
-  line-height:1.55;
-  font-weight:500;
-  color:var(--text);
 }
 
 .points{margin-bottom:0;}
@@ -667,19 +697,20 @@ body{
 
   .s3{padding:12px 0 0;}
   .s3-h1{font-size:15px;}
-  .s3-intro{font-size:12px;margin-bottom:12px;}
-  .s3-section-title{font-size:12px;}
+  .s3-intro{font-size:11px;}
+  .s3-section-title{font-size:14px;margin-top:14px;margin-bottom:10px;}
+  .s3-section-sub{font-size:11px;margin-bottom:14px;}
 
-  .tools-table{min-width:480px;}
+  .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .tools-table{min-width:420px;}
   .tools-table th,
-  .tools-table td{padding:10px 6px;}
+  .tools-table td{padding:10px 4px;}
   .tools-table .col-tool{width:120px;}
   .tools-table .col-cand{width:36px;}
-  .tools-table thead th{font-size:9px;}
+  .tools-table thead .col-cand{font-size:8px;}
   .tool-name{font-size:11px;}
   .tool-desc{font-size:10px;}
   .tools-table .col-result{font-size:11px;}
-  .accent-block{padding:8px 12px;font-size:12px;}
   .point-num{font-size:18px;}
   .point-text{font-size:12px;}
 
@@ -1019,7 +1050,7 @@ body{
 
       <p id="personalized-text" class="s3-intro">Кандидат прошёл все этапы отбора — возражений не нашлось. Что при этом осталось за пределами процесса — ниже.</p>
 
-      <h2 class="s3-section-title">Что дал стандартный процесс отбора</h2>
+      <h2 class="s3-section-title">Все четверо прошли все этапы</h2>
       <div class="table-wrap">
         <table class="tools-table">
           <thead>
@@ -1103,9 +1134,8 @@ body{
         </table>
       </div>
 
-      <div class="accent-block">Все четыре финалиста прошли все пять этапов. Процесс отбора завершён корректно. И вопрос о том, кого нанять, остался открытым.</div>
-
       <h2 class="s3-section-title">Что стандартные инструменты не показывают</h2>
+      <p class="s3-section-sub">Четыре дефекта стандартного процесса отбора</p>
       <div class="points">
         <div class="point">
           <div class="point-num">01</div>
