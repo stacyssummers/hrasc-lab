@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Демо · Финалисты — Laboratory</title>
+<meta name="description" content="Демо: вы нанимаете руководителя операционного блока. Контекст задачи, финалисты, разбор.">
+<meta name="robots" content="noindex">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+:root{
+  --bg:#fafaf8;
+  --bg-secondary:#f7f5f1;
+  --accent:#5c1c14;
+  --accent-hover:#4a1810;
+  --text:#1a1a1a;
+  --text-secondary:#4a4a4a;
+  --text-tertiary:#8a8680;
+  --border:#e8e4dc;
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  font-size:16px;
+  line-height:1.55;
+  font-weight:400;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+.container{
+  max-width:1080px;
+  margin:0 auto;
+  padding:0 40px;
+}
+
+.screen{
+  display:none;
+}
+.screen.active{
+  display:block;
+}
+
+/* ============ SCREEN 1 ============ */
+
+.s1{
+  padding:80px 0;
+}
+
+.s1-inner{
+  max-width:720px;
+  margin:0 auto;
+}
+
+.s1-header{
+  margin-bottom:48px;
+}
+
+.kicker{
+  font-size:11px;
+  font-weight:500;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:12px;
+}
+
+.s1-subtitle{
+  font-size:14px;
+  color:var(--text-secondary);
+  margin-bottom:24px;
+}
+
+.s1-h1{
+  font-size:36px;
+  font-weight:500;
+  line-height:1.15;
+  letter-spacing:-0.02em;
+  color:var(--text);
+}
+
+.card{
+  background:var(--bg-secondary);
+  border:1px solid var(--border);
+  border-radius:4px;
+  padding:32px;
+  margin-bottom:48px;
+}
+
+.card:last-of-type{
+  margin-bottom:48px;
+}
+
+.card-title{
+  font-size:16px;
+  font-weight:600;
+  color:var(--text);
+  margin-bottom:16px;
+}
+
+.card-body{
+  font-size:16px;
+  line-height:1.55;
+  color:var(--text);
+}
+
+.criteria-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px 32px;
+}
+
+.criteria-item{
+  font-size:16px;
+  line-height:1.55;
+  color:var(--text);
+}
+
+.criteria-num{
+  color:var(--accent);
+  font-weight:500;
+  font-variant-numeric:tabular-nums;
+}
+
+.cta-wrap{
+  display:flex;
+  justify-content:center;
+  margin-top:8px;
+}
+
+.btn-primary{
+  background:var(--accent);
+  color:#fafaf8;
+  border:none;
+  padding:16px 32px;
+  font-family:inherit;
+  font-size:15px;
+  font-weight:500;
+  border-radius:4px;
+  cursor:pointer;
+  transition:background 200ms ease;
+}
+
+.btn-primary:hover{
+  background:var(--accent-hover);
+}
+
+/* ============ PLACEHOLDERS (Screens 2, 3) ============ */
+
+.placeholder{
+  max-width:720px;
+  margin:0 auto;
+  padding:120px 40px;
+  text-align:center;
+}
+
+.placeholder h2{
+  font-size:28px;
+  font-weight:500;
+  letter-spacing:-0.02em;
+  color:var(--text);
+  margin-bottom:16px;
+}
+
+.placeholder p{
+  font-size:16px;
+  color:var(--text-secondary);
+  margin-bottom:32px;
+}
+
+.btn-secondary{
+  background:transparent;
+  color:var(--text);
+  border:1px solid var(--border);
+  padding:14px 28px;
+  font-family:inherit;
+  font-size:15px;
+  font-weight:500;
+  border-radius:4px;
+  cursor:pointer;
+  transition:border-color 200ms ease,color 200ms ease;
+}
+
+.btn-secondary:hover{
+  border-color:var(--accent);
+  color:var(--accent);
+}
+
+/* ============ MOBILE ============ */
+
+@media (max-width:768px){
+  .container{
+    padding:0 20px;
+  }
+  .s1{
+    padding:48px 0;
+  }
+  .s1-h1{
+    font-size:28px;
+  }
+  .card{
+    padding:24px;
+    margin-bottom:32px;
+  }
+  .criteria-grid{
+    grid-template-columns:1fr;
+    gap:12px;
+  }
+  .btn-primary{
+    width:100%;
+    min-width:280px;
+  }
+  .placeholder{
+    padding:80px 20px;
+  }
+  .placeholder h2{
+    font-size:24px;
+  }
+}
+</style>
+</head>
+<body>
+
+<section id="screen-1" class="screen active">
+  <div class="container">
+    <div class="s1 s1-inner">
+      <header class="s1-header">
+        <div class="kicker">Контекст задачи</div>
+        <div class="s1-subtitle">Прочитайте ситуацию.</div>
+        <h1 class="s1-h1">Вы нанимаете руководителя операционного блока. Впереди — открытие двух регионов.</h1>
+      </header>
+
+      <div class="card">
+        <h2 class="card-title">Розничная сеть, 3-й год масштабирования</h2>
+        <p class="card-body">120 точек продаж, 4 региона. Впервые нанимаете выделенного операционного руководителя. Открытие двух новых регионов — в этом квартале. Задача первого года — построить операционную систему с нуля.</p>
+      </div>
+
+      <div class="card">
+        <h2 class="card-title">Пять этапов отбора</h2>
+        <p class="card-body">Скрининг резюме. Глубокая оценка потенциала по шести компетенциям. Структурированное интервью. Тестовое задание: план выхода в новый регион. Сбор рекомендаций. Четыре финалиста.</p>
+      </div>
+
+      <div class="card">
+        <h2 class="card-title">Что оценивалось</h2>
+        <div class="criteria-grid">
+          <div class="criteria-item"><span class="criteria-num">01 ·</span> Системность мышления</div>
+          <div class="criteria-item"><span class="criteria-num">02 ·</span> Операционная глубина</div>
+          <div class="criteria-item"><span class="criteria-num">03 ·</span> Работа с данными</div>
+          <div class="criteria-item"><span class="criteria-num">04 ·</span> Управление людьми</div>
+          <div class="criteria-item"><span class="criteria-num">05 ·</span> Опыт построения с нуля</div>
+          <div class="criteria-item"><span class="criteria-num">06 ·</span> Ценностный профиль</div>
+        </div>
+      </div>
+
+      <div class="cta-wrap">
+        <button type="button" class="btn-primary" onclick="showScreen('screen-2')">Изучить финалистов →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="screen-2" class="screen">
+  <div class="placeholder">
+    <h2>Экран 2 — Финалисты</h2>
+    <p>В работе. Будет реализован на следующем этапе.</p>
+    <button type="button" class="btn-secondary" onclick="showScreen('screen-1')">← Вернуться</button>
+  </div>
+</section>
+
+<section id="screen-3" class="screen">
+  <div class="placeholder">
+    <h2>Экран 3 — Разбор</h2>
+    <p>В работе. Будет реализован на следующем этапе.</p>
+    <button type="button" class="btn-secondary" onclick="showScreen('screen-1')">← Вернуться</button>
+  </div>
+</section>
+
+<script>
+function showScreen(id){
+  var screens = document.querySelectorAll('.screen');
+  for (var i = 0; i < screens.length; i++){
+    screens[i].classList.remove('active');
+  }
+  var target = document.getElementById(id);
+  if (target){
+    target.classList.add('active');
+  }
+  window.scrollTo({top:0, behavior:'instant'});
+}
+</script>
+
+</body>
+</html>
