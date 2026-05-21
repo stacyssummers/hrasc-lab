@@ -47,7 +47,8 @@ body{
 .screen{display:none;}
 .screen.active{display:block;}
 
-#screen-1.screen.active{
+#screen-1.screen.active,
+#screen-2.screen.active{
   display:flex;
   flex-direction:column;
   justify-content:center;
@@ -158,6 +159,85 @@ body{
   margin-top:20px;
 }
 
+/* ============ SCREEN 2 — TOOL 01 ============ */
+
+.s2{padding:16px 0;}
+
+.s2-inner{
+  max-width:720px;
+  margin:0 auto;
+  width:100%;
+}
+
+.pair{display:none;}
+.pair.active{display:block;}
+
+.progress-indicator{
+  font-size:11px;
+  color:var(--text-tertiary);
+  letter-spacing:0.05em;
+  margin-bottom:12px;
+}
+
+.pair-title{
+  font-size:15px;
+  font-weight:500;
+  color:var(--text);
+  letter-spacing:-0.01em;
+  margin-bottom:8px;
+}
+
+.pair-subtitle{
+  font-size:13px;
+  line-height:1.55;
+  color:var(--text-secondary);
+  margin-bottom:32px;
+}
+
+.pair-options{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+
+.option-card{
+  background:var(--bg-secondary);
+  border:1px solid transparent;
+  border-radius:2px;
+  padding:20px;
+  min-height:120px;
+  font-size:13px;
+  line-height:1.55;
+  color:var(--text);
+  cursor:pointer;
+  transition:background 150ms ease, border-color 150ms ease;
+}
+
+.option-card:hover{
+  border-color:var(--accent);
+  background:#f0ece3;
+}
+
+.option-card.selected{
+  border-color:var(--accent);
+  background:#e8e3d6;
+}
+
+.back-link{
+  display:inline-block;
+  background:none;
+  border:none;
+  color:var(--accent);
+  font-family:inherit;
+  font-size:12px;
+  padding:8px 0;
+  margin-top:32px;
+  cursor:pointer;
+  text-decoration:underline;
+}
+
+.back-link:hover{color:var(--accent-hover);}
+
 /* ============ PLACEHOLDER SCREENS ============ */
 
 .placeholder{
@@ -206,6 +286,24 @@ body{
   .placeholder{padding:32px 0;}
   .placeholder h2{font-size:14px;}
   .placeholder p{font-size:12px;}
+
+  .s2{padding:12px 0;}
+
+  .pair-title{font-size:14px;}
+  .pair-subtitle{font-size:12px;margin-bottom:24px;}
+
+  .pair-options{
+    grid-template-columns:1fr;
+    gap:12px;
+  }
+
+  .option-card{
+    padding:16px;
+    min-height:100px;
+    font-size:12px;
+  }
+
+  .back-link{margin-top:24px;}
 }
 </style>
 </head>
@@ -244,11 +342,64 @@ body{
 </section>
 
 <section id="screen-2" class="screen">
-  <div class="container">
-    <div class="placeholder">
-      <h2>Инструмент 01 — Форсированный выбор ценностей</h2>
-      <p>В работе. Будет реализован на следующем этапе.</p>
-      <button class="btn-secondary" onclick="showScreen('screen-1')">← Вернуться</button>
+  <div class="container s2">
+    <div class="s2-inner">
+
+      <div class="pair active" data-pair="1">
+        <div class="progress-indicator">Пара 1 из 5</div>
+        <h1 class="pair-title">Форсированный выбор ценностей</h1>
+        <p class="pair-subtitle">В каждой паре — два варианта. Выберите тот, что ближе вам в работе.</p>
+        <div class="pair-options">
+          <div class="option-card" onclick="selectPair(1,'A',this)">Принять решение с теми данными, что есть, и скорректировать по ходу</div>
+          <div class="option-card" onclick="selectPair(1,'B',this)">Зафиксировать решение после того, как данные достаточны для понимания риска</div>
+        </div>
+        <button class="back-link" onclick="showScreen('screen-1')">← Назад</button>
+      </div>
+
+      <div class="pair" data-pair="2">
+        <div class="progress-indicator">Пара 2 из 5</div>
+        <h1 class="pair-title">Форсированный выбор ценностей</h1>
+        <p class="pair-subtitle">В каждой паре — два варианта. Выберите тот, что ближе вам в работе.</p>
+        <div class="pair-options">
+          <div class="option-card" onclick="selectPair(2,'A',this)">Выстроить операционную систему, которая работает без вас</div>
+          <div class="option-card" onclick="selectPair(2,'B',this)">Сохранить прямое участие в решениях, где цена ошибки высока</div>
+        </div>
+        <button class="back-link" onclick="showPair(1)">← Назад</button>
+      </div>
+
+      <div class="pair" data-pair="3">
+        <div class="progress-indicator">Пара 3 из 5</div>
+        <h1 class="pair-title">Форсированный выбор ценностей</h1>
+        <p class="pair-subtitle">В каждой паре — два варианта. Выберите тот, что ближе вам в работе.</p>
+        <div class="pair-options">
+          <div class="option-card" onclick="selectPair(3,'A',this)">Услышать аргументы команды и найти компромисс, сохранив её включённость</div>
+          <div class="option-card" onclick="selectPair(3,'B',this)">Настоять на сложном и непопулярном решении, которое даст новые возможности бизнесу</div>
+        </div>
+        <button class="back-link" onclick="showPair(2)">← Назад</button>
+      </div>
+
+      <div class="pair" data-pair="4">
+        <div class="progress-indicator">Пара 4 из 5</div>
+        <h1 class="pair-title">Форсированный выбор ценностей</h1>
+        <p class="pair-subtitle">В каждой паре — два варианта. Выберите тот, что ближе вам в работе.</p>
+        <div class="pair-options">
+          <div class="option-card" onclick="selectPair(4,'A',this)">Использовать рыночные возможности, пока они есть</div>
+          <div class="option-card" onclick="selectPair(4,'B',this)">Строить процессы, которые работают вне зависимости от конъюнктуры</div>
+        </div>
+        <button class="back-link" onclick="showPair(3)">← Назад</button>
+      </div>
+
+      <div class="pair" data-pair="5">
+        <div class="progress-indicator">Пара 5 из 5</div>
+        <h1 class="pair-title">Форсированный выбор ценностей</h1>
+        <p class="pair-subtitle">В каждой паре — два варианта. Выберите тот, что ближе вам в работе.</p>
+        <div class="pair-options">
+          <div class="option-card" onclick="selectPair(5,'A',this)">Оперативно пересобрать западающий процесс</div>
+          <div class="option-card" onclick="selectPair(5,'B',this)">Сначала разобраться, зачем он устроен именно так</div>
+        </div>
+        <button class="back-link" onclick="showPair(4)">← Назад</button>
+      </div>
+
     </div>
   </div>
 </section>
@@ -296,11 +447,39 @@ body{
 <script>
 const userChoiceFromDemo1 = localStorage.getItem('demo1_choice') || null;
 
+const userChoices = {
+  tool1: {},
+  tool2: {},
+  tool3: {}
+};
+
 function showScreen(id){
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   const target = document.getElementById(id);
   if(target) target.classList.add('active');
   window.scrollTo({top:0, behavior:'instant'});
+}
+
+function showPair(n){
+  document.querySelectorAll('#screen-2 .pair').forEach(p => p.classList.remove('active'));
+  const target = document.querySelector(`#screen-2 .pair[data-pair="${n}"]`);
+  if(target){
+    target.classList.add('active');
+    target.querySelectorAll('.option-card.selected').forEach(c => c.classList.remove('selected'));
+  }
+  window.scrollTo({top:0, behavior:'instant'});
+}
+
+function selectPair(pairNumber, choice, card){
+  userChoices.tool1[`pair${pairNumber}`] = choice;
+  card.classList.add('selected');
+  setTimeout(() => {
+    if(pairNumber < 5){
+      showPair(pairNumber + 1);
+    } else {
+      showScreen('screen-3');
+    }
+  }, 300);
 }
 </script>
 
