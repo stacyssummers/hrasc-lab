@@ -141,28 +141,42 @@ p{font-size:14px;line-height:1.55;}
 .header-logo-short{display:none;}
 
 /* Hero */
-.hero{padding:72px 40px 56px;}
+.hero{padding:64px 40px 56px;}
 .hero-inner{
-  max-width:760px;
+  max-width:1080px;
   margin:0 auto;
+  display:grid;
+  grid-template-columns:minmax(0,55fr) minmax(0,45fr);
+  gap:48px;
+  align-items:center;
 }
 .hero-kicker{display:block;}
 .hero-h1{
   margin-top:16px;
-  max-width:680px;
+  max-width:560px;
 }
 .hero-body{
   margin-top:20px;
   font-size:15px;
   line-height:1.6;
   color:var(--color-text-secondary);
-  max-width:680px;
+  max-width:560px;
 }
 .hero-ctas{
   margin-top:28px;
   display:flex;
   gap:8px;
   flex-wrap:wrap;
+}
+.hero-image-wrap{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.hero-image{
+  width:100%;
+  height:auto;
+  display:block;
 }
 
 /* Секция направлений */
@@ -326,11 +340,17 @@ p{font-size:14px;line-height:1.55;}
   .footer-links{align-items:flex-start;}
   h1{font-size:28px;}
   h2{font-size:20px;}
-  .hero{padding:40px 20px 36px;}
+  .hero{padding:40px 20px 64px;}
+  .hero-inner{
+    grid-template-columns:1fr;
+    gap:32px;
+  }
   .hero-h1{font-size:32px;line-height:1.2;}
   .hero-ctas{flex-direction:column;align-items:stretch;}
   .hero-ctas .btn-primary,
   .hero-ctas .btn-secondary{width:100%;}
+  .hero-image-wrap{margin-top:0;}
+  .hero-image{max-width:420px;margin:0 auto;}
   .directions{padding:32px 20px 48px;}
   .directions-grid{
     grid-template-columns:1fr;
@@ -503,12 +523,17 @@ p{font-size:14px;line-height:1.55;}
 <main>
   <section id="hero" class="hero">
     <div class="hero-inner">
-      <span class="kicker hero-kicker">Исследовательская лаборатория · НКО «Люди. Бизнес. Будущее.»</span>
-      <h1 class="hero-h1">Задачи, для которых нет готовых решений.</h1>
-      <p class="hero-body">Крупный российский работодатель регулярно сталкивается с HR-задачами, для которых нет готового решения на рынке: новый процесс приходится проектировать с нуля, HR-стратегию&nbsp;— собирать под конкретный контекст бизнеса, технологию&nbsp;— встраивать в архитектуру, на которую она не рассчитана. Лаборатория берёт такие задачи в работу и доводит до результата, который заказчик использует самостоятельно. Каждое направление&nbsp;— это отдельная практика, в которой Лаборатория уже накопила опыт.</p>
-      <div class="hero-ctas">
-        <a href="#" class="btn-primary" data-open-modal="contact" data-contact-source="Главная Лаборатории">Связаться с нами</a>
-        <a href="#directions" class="btn-secondary">Посмотреть направления</a>
+      <div class="hero-text">
+        <span class="kicker hero-kicker">Исследовательская лаборатория · НКО «Люди. Бизнес. Будущее.»</span>
+        <h1 class="hero-h1">Задачи, для которых нет готовых решений.</h1>
+        <p class="hero-body">Крупный российский работодатель регулярно сталкивается с HR-задачами, для которых нет готового решения на рынке: новый процесс приходится проектировать с нуля, HR-стратегию&nbsp;— собирать под конкретный контекст бизнеса, технологию&nbsp;— встраивать в архитектуру, на которую она не рассчитана. Лаборатория берёт такие задачи в работу и доводит до результата, который заказчик использует самостоятельно. Каждое направление&nbsp;— это отдельная практика, в которой Лаборатория уже накопила опыт.</p>
+        <div class="hero-ctas">
+          <a href="#" class="btn-primary" data-open-modal="contact" data-contact-source="Главная Лаборатории · Hero">Связаться с нами</a>
+          <a href="#directions" class="btn-secondary">Посмотреть направления</a>
+        </div>
+      </div>
+      <div class="hero-image-wrap">
+        <img src="/files/pictures/hero-tree.png" alt="Гравюра узла ветвления дерева в стиле ботанического атласа" class="hero-image">
       </div>
     </div>
   </section>
