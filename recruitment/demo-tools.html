@@ -3,11 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Три инструмента оценки · Демо · Исследовательская лаборатория</title>
-<meta name="description" content="Демонстрация: три инструмента оценки — форсированный выбор, расстановка приоритетов, рабочие ситуации.">
-<link rel="canonical" href="https://hrasc-lab.ru/recruitment/demo-tools">
 <link rel="icon" type="image/png" sizes="32x32" href="/files/pictures/favicon.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/files/pictures/apple-touch-icon.png">
+<title>Три инструмента оценки · Демо · Исследовательская лаборатория</title>
+<meta name="description" content="Демонстрация: три инструмента оценки — форсированный выбор, расстановка приоритетов, рабочие ситуации.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://hrasc-lab.ru/recruitment/demo-tools">
 <meta property="og:title" content="Три инструмента оценки · Демо">
 <meta property="og:description" content="Демонстрация инструментов подбора Исследовательской лаборатории.">
 <meta property="og:image" content="https://hrasc-lab.ru/files/pictures/og-image.png">
@@ -19,1510 +20,1831 @@
 <meta name="twitter:title" content="Три инструмента оценки · Демо">
 <meta name="twitter:description" content="Демонстрация инструментов подбора Исследовательской лаборатории.">
 <meta name="twitter:image" content="https://hrasc-lab.ru/files/pictures/og-image.png">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
 <style>
-
 *{margin:0;padding:0;box-sizing:border-box;}
+
 :root{
-  --black:#0D0D0D;--white:#F5F4F0;--bg2:#F8F7F3;
-  --accent:#9E7E5A;--accent2:#C4A882;--mid:#6B6459;
-  --line:rgba(0,0,0,0.08);--red:#A51C30;
-  --green:#1a6640;--amber:#9a5c10;
-  --serif:'DM Serif Display',Georgia,serif;
-  --sans:'Manrope',Arial,sans-serif;
-  --ease:cubic-bezier(0.16,1,0.3,1);
+  --bg:#fafaf8;
+  --bg-secondary:#f7f5f1;
+  --accent:#5c1c14;
+  --accent-hover:#4a1810;
+  --text:#1a1a1a;
+  --text-secondary:#4a4a4a;
+  --text-tertiary:#8a8680;
+  --border:#e8e4dc;
 }
+
 html{scroll-behavior:smooth;}
+
 body{
-  background:var(--white);color:var(--black);
-  font-family:var(--sans);font-size:16px;
-  line-height:1.65;overflow-x:hidden;
-}
-.lp{max-width:1100px;margin:0 auto;padding:0 48px;}
-
-/* NAV */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:100;
-  padding:20px 48px;
-  display:flex;justify-content:space-between;align-items:center;
-  transition:padding .5s var(--ease),background .4s,border-color .4s;
-  border-bottom:1px solid transparent;
-}
-nav.scrolled{
-  padding:13px 48px;
-  background:rgba(245,244,240,.97);
-  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
-  border-bottom-color:var(--line);
-}
-.logo-wrap{display:flex;align-items:center;}
-.nav-cta{
-  font-family:var(--sans);font-size:11px;font-weight:600;
-  letter-spacing:.12em;text-transform:uppercase;
-  border:1px solid var(--black);padding:10px 24px;
-  background:transparent;cursor:pointer;
-  position:relative;overflow:hidden;transition:color .3s;
-}
-.nav-cta::before{ display:none; }
-.nav-cta span{position:relative;z-index:1;}
-
-.nav-cta:hover{ opacity:0.75; }
-
-/* HERO */
-.hero{
-  min-height:100vh;display:flex;flex-direction:column;
-  justify-content:flex-end;
-  padding-top:92px;padding-bottom:72px;
-  border-bottom:1px solid var(--line);
-  position:relative;overflow:hidden;
-}
-.hero-bg-word{
-  position:absolute;top:50%;right:-10px;
-  transform:translateY(-50%);
-  font-family:var(--serif);
-  font-size:clamp(130px,19vw,270px);
-  font-weight:400;color:rgba(0,0,0,.028);
-  line-height:1;white-space:nowrap;pointer-events:none;
-  animation:bgDrift 20s ease-in-out infinite alternate;
-  will-change:transform;
-}
-@keyframes bgDrift{
-  from{transform:translateY(-50%) translateX(0);}
-  to{transform:translateY(-50%) translateX(-24px);}
-}
-.hero-kicker{
-  font-size:7.5px;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--mid);margin-bottom:12px;
-  display:flex;align-items:center;gap:10px;
-  opacity:0;animation:fadeUp .9s .2s forwards;
-}
-.hero-kicker::before{
-  content:'';width:24px;height:1px;background:var(--accent);flex-shrink:0;
-}
-.hero-headline{
-  font-family:var(--serif);
-  font-size:clamp(32px,4.8vw,64px);
-  font-weight:400;line-height:1.05;
-  letter-spacing:-.01em;max-width:820px;
-  margin-bottom:36px;
-  opacity:0;animation:fadeUp .9s .45s forwards;
-}
-.hero-headline em{font-style:normal;color:var(--accent);}
-.hero-lead{
-  font-size:15px;color:var(--mid);
-  max-width:520px;line-height:1.8;margin-bottom:52px;
-  opacity:0;animation:fadeUp .9s .7s forwards;
-}
-.hero-ctas{
-  display:flex;align-items:center;gap:24px;
-  opacity:0;animation:fadeUp .9s .9s forwards;
-}
-.hero-two-col{
-  display:grid;grid-template-columns:1fr 1fr;gap:56px;
-  align-items:end;
-  opacity:0;animation:fadeUp .9s .7s forwards;
-}
-.hero-col-text{font-size:15px;color:var(--mid);line-height:1.8;}
-.hero-col-bordered{border-left:1px solid var(--line);padding-left:40px;}
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(16px);}
-  to{opacity:1;transform:none;}
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  font-size:13px;
+  line-height:1.55;
+  font-weight:400;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
 }
 
-/* BUTTONS */
+.container{
+  max-width:1080px;
+  margin:0 auto;
+  padding:0 24px;
+}
+
+.screen{display:none;}
+.screen.active{display:block;}
+
+#screen-1.screen.active,
+#screen-2.screen.active,
+#screen-4.screen.active{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  min-height:100vh;
+}
+
+.kicker{
+  font-size:9px;
+  font-weight:500;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:6px;
+}
+
 .btn-primary{
-  font-family:var(--sans);font-size:12px;font-weight:600;
-  letter-spacing:.1em;text-transform:uppercase;
-  background:var(--black);color:var(--white);
-  padding:14px 32px;border:none;cursor:pointer;
-  position:relative;overflow:hidden;
-  transition:transform .25s var(--ease);
+  background:var(--accent);
+  color:#fafaf8;
+  border:none;
+  padding:10px 20px;
+  height:36px;
+  font-family:inherit;
+  font-size:12px;
+  font-weight:500;
+  border-radius:2px;
+  cursor:pointer;
+  transition:background 200ms ease;
 }
-.btn-primary::after{ display:none; }
-.btn-primary>*,.btn-primary{position:relative;}
 
-.btn-primary:hover{ opacity:0.82; }
-.btn-text{
-  font-size:13px;color:var(--mid);
-  border-bottom:1px solid currentColor;padding-bottom:1px;
-  cursor:pointer;background:none;
-  border-top:none;border-left:none;border-right:none;
-  font-family:var(--sans);transition:color .25s;
-}
-.btn-text:hover{color:var(--black);}
-.btn-white{
-  font-family:var(--sans);font-size:12px;font-weight:600;
-  letter-spacing:.1em;text-transform:uppercase;
-  background:var(--white);color:var(--black);
-  padding:16px 44px;border:none;cursor:pointer;
-  position:relative;overflow:hidden;
-  transition:transform .25s var(--ease);
-}
-.btn-white::after{ display:none; }
-.btn-white>*{position:relative;z-index:1;}
+.btn-primary:hover{background:var(--accent-hover);}
 
-.btn-white:hover{ opacity:0.82; }
+.btn-secondary{
+  background:transparent;
+  color:var(--text-secondary);
+  border:1px solid var(--border);
+  padding:8px 16px;
+  font-family:inherit;
+  font-size:12px;
+  font-weight:500;
+  border-radius:2px;
+  cursor:pointer;
+  transition:border-color 200ms ease, color 200ms ease;
+}
 
-/* MARQUEE */
-.marquee-wrap{
-  padding:9px 0;background:var(--black);
-  overflow:hidden;white-space:nowrap;
+.btn-secondary:hover{
+  border-color:var(--text-tertiary);
+  color:var(--text);
 }
-.marquee-track{
-  display:inline-flex;
-  animation:marquee 30s linear infinite;
-}
-.mitem{
-  font-size:7px;letter-spacing:.18em;text-transform:uppercase;
-  padding:0 22px;color:rgba(255,255,255,.35);
-  transition:color .3s;
-}
-.mitem:hover{color:rgba(255,255,255,.6);}
-.msep{color:rgba(255,255,255,.12);}
-@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
 
-/* SHARED */
-section{padding:72px 0;border-bottom:1px solid var(--line);}
-.s-label{
-  font-size:7.5px;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--accent);margin-bottom:14px;
-  display:flex;align-items:center;gap:10px;
-}
-.s-label::before{
-  content:'';width:22px;height:1px;
-  background:var(--accent);flex-shrink:0;
-}
-.s-title{
-  font-family:var(--serif);
-  font-size:clamp(22px,2.7vw,38px);
-  font-weight:400;line-height:1.15;letter-spacing:-.01em;
-  max-width:780px;
-}
-.s-title em{font-style:normal;color:var(--accent);}
-.s-body{font-size:15px;color:var(--mid);line-height:1.85;max-width:640px;}
+/* ============ SCREEN 1 ============ */
 
-/* REVEAL */
-.rv{opacity:0;transform:translateY(32px);transition:opacity .9s var(--ease),transform .9s var(--ease);}
-.rv.on{opacity:1;transform:none;}
-.rl{opacity:0;transform:translateX(-40px);transition:opacity .9s var(--ease),transform .9s var(--ease);}
-.rl.on{opacity:1;transform:none;}
-.rr{opacity:0;transform:translateX(40px);transition:opacity .9s var(--ease),transform .9s var(--ease);}
-.rr.on{opacity:1;transform:none;}
-.rm{opacity:0;clip-path:inset(0 0 100% 0);transition:opacity .01s,clip-path .85s var(--ease);}
-.rm.on{opacity:1;clip-path:inset(0 0 0% 0);}
-.rs{opacity:0;transform:scale(.95) translateY(18px);transition:opacity .8s var(--ease),transform .8s var(--ease);}
-.rs.on{opacity:1;transform:none;}
-.stagger>*{opacity:0;transform:translateY(28px);transition:opacity .7s var(--ease),transform .7s var(--ease);}
-.stagger.on>*:nth-child(1){opacity:1;transform:none;transition-delay:0s;}
-.stagger.on>*:nth-child(2){opacity:1;transform:none;transition-delay:.1s;}
-.stagger.on>*:nth-child(3){opacity:1;transform:none;transition-delay:.2s;}
-.stagger.on>*:nth-child(4){opacity:1;transform:none;transition-delay:.3s;}
-.stagger.on>*:nth-child(5){opacity:1;transform:none;transition-delay:.4s;}
-.rl-line{opacity:0;transform:scaleX(0);transform-origin:left;transition:opacity .1s,transform 1.1s var(--ease);}
-.rl-line.on{opacity:1;transform:scaleX(1);}
+.s1{padding:16px 0;}
 
-/* OFFER */
-.offer-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;margin-top:40px;}
-.offer-visual{aspect-ratio:1/1;background:var(--black);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
-.offer-visual-text{font-family:var(--serif);font-size:120px;font-weight:400;color:rgba(255,255,255,.05);line-height:1;}
-.offer-quote{position:absolute;bottom:40px;left:40px;right:40px;font-family:var(--serif);font-size:22px;font-weight:400;color:rgba(255,255,255,.85);line-height:1.45;}
-.offer-quote span{color:var(--accent);}
-.offer-body p{font-size:15px;color:var(--mid);line-height:1.85;margin-bottom:20px;}
-.offer-body p:last-child{margin-bottom:0;}
+.s1-inner{
+  max-width:720px;
+  margin:0 auto;
+}
 
-/* EVOLUTION */
-.evo-timeline{margin-top:52px;position:relative;}
-.evo-timeline::before{
-  content:'';position:absolute;left:0;top:6px;bottom:6px;width:1px;
-  background:linear-gradient(to bottom,var(--accent) 0%,rgba(158,126,90,.15) 100%);
+.s1-header{margin-bottom:8px;}
+
+.s1-h1{
+  font-size:17px;
+  font-weight:500;
+  line-height:1.3;
+  letter-spacing:-0.01em;
+  color:var(--text);
+  margin-bottom:8px;
 }
-.evo-item{padding:0 0 44px 52px;position:relative;}
-.evo-item:last-child{padding-bottom:0;}
-.evo-dot{
-  position:absolute;left:-5.5px;top:7px;
-  width:12px;height:12px;border-radius:50%;
-  background:var(--white);border:2px solid var(--accent);
-  transition:background .3s var(--ease),transform .3s var(--ease);
+
+.s1-cards{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-bottom:12px;
 }
-.evo-item:hover .evo-dot{background:var(--accent);transform:scale(1.3);}
-.evo-era{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;}
-.evo-title{font-family:var(--serif);font-size:19px;font-weight:400;margin-bottom:8px;line-height:1.25;}
-.evo-body{font-size:14px;color:var(--mid);line-height:1.8;max-width:540px;}
-.evo-now{
-  background:var(--black);padding:38px 44px;
-  margin-top:36px;margin-left:52px;
+
+.tool-card{
+  background:var(--bg-secondary);
+  border-radius:2px;
+  padding:12px;
+}
+
+.tool-card-title{
+  font-size:13px;
+  font-weight:600;
+  color:var(--text);
+  margin-bottom:8px;
+}
+
+.tool-card-body{
+  font-size:13px;
+  line-height:1.55;
+  color:var(--text);
+}
+
+.s1-promise{
+  font-size:13px;
+  line-height:1.55;
+  color:var(--text-secondary);
+  max-width:600px;
+  margin:16px auto 0;
+  text-align:center;
+}
+
+.s1-cta{
+  display:flex;
+  justify-content:center;
+  margin-top:20px;
+}
+
+/* ============ SCREEN 2 — TOOL 01 ============ */
+
+.s2{padding:16px 0;}
+
+.s2-inner{
+  max-width:720px;
+  margin:0 auto;
+  width:100%;
+}
+
+.pair{display:none;}
+.pair.active{display:block;}
+
+.progress-indicator{
+  font-size:11px;
+  color:var(--text-tertiary);
+  letter-spacing:0.05em;
+  margin-bottom:12px;
+}
+
+.pair-title{
+  font-size:15px;
+  font-weight:500;
+  color:var(--text);
+  letter-spacing:-0.01em;
+  margin-bottom:8px;
+}
+
+.pair-subtitle{
+  font-size:13px;
+  line-height:1.55;
+  color:var(--text-secondary);
+  margin-bottom:32px;
+}
+
+.pair-options{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+
+.option-card{
+  background:var(--bg-secondary);
+  border:1px solid transparent;
+  border-radius:2px;
+  padding:20px;
+  min-height:120px;
+  font-size:13px;
+  line-height:1.55;
+  color:var(--text);
+  cursor:pointer;
+  transition:background 150ms ease, border-color 150ms ease;
+}
+
+.option-card:hover{
+  border-color:var(--accent);
+  background:#f0ece3;
+}
+
+.option-card.selected{
+  border-color:var(--accent);
+  background:#e8e3d6;
+}
+
+.back-link{
+  display:inline-block;
+  background:none;
+  border:none;
+  color:var(--accent);
+  font-family:inherit;
+  font-size:12px;
+  padding:8px 0;
+  margin-top:32px;
+  cursor:pointer;
+  text-decoration:underline;
+}
+
+.back-link:hover{color:var(--accent-hover);}
+
+/* ============ SCREEN 3 — TOOL 02 ============ */
+
+.s3{
+  max-width:1080px;
+  margin:0 auto;
+  padding:24px;
+}
+
+.s3-title{
+  font-size:15px;
+  font-weight:500;
+  color:var(--text);
+  letter-spacing:-0.01em;
+  margin-bottom:12px;
+}
+
+.s3-context{
+  background:var(--bg-secondary);
   border-left:3px solid var(--accent);
-  position:relative;overflow:hidden;
-}
-.evo-now::after{
-  content:'';position:absolute;top:-80px;right:-80px;
-  width:240px;height:240px;border-radius:50%;
-  background:radial-gradient(circle,rgba(158,126,90,.1) 0%,transparent 70%);
-  pointer-events:none;
-}
-.evo-now .evo-era{color:rgba(158,126,90,.75);}
-.evo-now .evo-title{color:#fff;font-size:clamp(22px,2.7vw,36px);line-height:1.15;margin-bottom:16px;}
-.evo-now .evo-body{color:rgba(255,255,255,.62);font-size:15px;line-height:1.85;}
-
-/* FOR WHOM */
-.whom-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);margin-top:44px;}
-.whom-card{
-  background:var(--white);padding:32px 26px 28px;
-  position:relative;overflow:hidden;cursor:default;
-  transition:transform .4s var(--ease),box-shadow .4s var(--ease);
-}
-.whom-card::before{
-  content:'';position:absolute;top:0;left:0;right:0;
-  height:2px;background:var(--line);
-  transition:background .4s var(--ease);
-}
-.whom-card::after{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(158,126,90,.04) 0%,transparent 60%);
-  opacity:0;transition:opacity .4s;pointer-events:none;
-}
-.whom-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,.07);}
-.whom-card:hover::before{background:var(--accent);}
-.whom-card:hover::after{opacity:1;}
-.whom-icon{font-family:var(--serif);font-size:11px;letter-spacing:.18em;color:var(--accent);margin-bottom:16px;text-transform:uppercase;opacity:.7;}
-.whom-title{font-size:16px;font-weight:500;margin-bottom:12px;line-height:1.3;}
-.whom-body{font-size:13px;color:var(--mid);line-height:1.8;}
-
-/* PAIN */
-.pain-list{margin-top:44px;display:flex;flex-direction:column;}
-.pain-item{
-  display:grid;grid-template-columns:180px 1fr;gap:36px;
-  padding:28px 0;border-top:1px solid var(--line);align-items:start;
-  transition:background .25s,padding-left .3s var(--ease);
-}
-.pain-item:last-child{border-bottom:1px solid var(--line);}
-.pain-item:hover{background:rgba(158,126,90,.028);padding-left:8px;}
-.pain-tag{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);padding-top:5px;font-weight:600;}
-.pain-title{font-size:16px;font-weight:500;margin-bottom:9px;line-height:1.35;}
-.pain-body{font-size:13.5px;color:var(--mid);line-height:1.8;}
-
-/* AMBASSADOR */
-.amb-wrap{display:grid;grid-template-columns:380px 1fr;gap:48px;align-items:start;margin-top:48px;}
-.amb-photo-col{position:relative;}
-.amb-img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:center top;display:block;}
-.amb-img-placeholder{
-  width:100%;aspect-ratio:3/4;
-  background:linear-gradient(155deg,#E8E2D8 0%,#C0AA8A 100%);
-  display:flex;align-items:flex-end;padding:28px;position:relative;
-}
-.amb-initials-big{font-family:var(--serif);font-size:80px;font-weight:400;color:rgba(255,255,255,.22);line-height:1;}
-.amb-badge{position:absolute;bottom:-1px;right:0;background:var(--red);padding:12px 16px;}
-.amb-badge span{color:#fff;font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;line-height:1.6;display:block;}
-.amb-name{font-family:var(--serif);font-size:32px;font-weight:400;margin-bottom:5px;letter-spacing:-.01em;}
-.amb-role{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--mid);margin-bottom:4px;}
-.amb-org{font-size:13px;color:var(--red);font-weight:500;margin-bottom:28px;}
-.creds{list-style:none;display:flex;flex-direction:column;gap:13px;margin-bottom:28px;}
-.creds li{font-size:13px;color:var(--mid);line-height:1.65;padding-left:14px;border-left:2px solid var(--accent);}
-.creds li b{color:var(--black);font-weight:500;}
-.nko-note{background:rgba(165,28,48,.05);border-left:2px solid var(--red);padding:18px 22px;}
-.nko-note p{font-size:13px;color:var(--mid);line-height:1.75;}
-.nko-note strong{color:var(--red);font-weight:500;}
-
-/* STEPS */
-.steps{margin-top:48px;}
-.step-row{
-  display:grid;grid-template-columns:56px 1fr;gap:22px;
-  padding:26px 0;border-top:1px solid var(--line);
-  opacity:0;transform:translateY(18px);
-  transition:opacity .6s var(--ease),transform .6s var(--ease),background .25s;
-}
-.step-row.on{opacity:1;transform:none;}
-.step-row:hover{background:rgba(158,126,90,.025);}
-.step-n{font-family:var(--serif);font-size:28px;font-weight:400;color:var(--accent);line-height:1;}
-.step-title{font-size:17px;font-weight:500;margin-bottom:8px;line-height:1.3;}
-.step-body{font-size:14px;color:var(--mid);line-height:1.8;}
-.step-tag{display:inline-block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;border:1px solid rgba(158,126,90,.35);color:var(--accent);padding:3px 10px;margin-top:10px;}
-
-/* TOOL WRAPPERS */
-.tool-wrap{margin-top:44px;border:1px solid var(--line);background:#fff;}
-.tool-bar{padding:16px 24px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;}
-.tool-dots{display:flex;gap:6px;}
-.tool-dot{width:10px;height:10px;border-radius:50%;background:var(--line);}
-.tool-dot:nth-child(1){background:#ff5f57;}
-.tool-dot:nth-child(2){background:#febc2e;}
-.tool-dot:nth-child(3){background:#28c840;}
-.tool-bar-title{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);}
-.tool-progress{height:1px;background:var(--line);}
-.tool-fill{height:100%;background:var(--accent);transition:width .45s var(--ease);width:0%;}
-.tool-body{padding:40px 36px;min-height:320px;display:flex;flex-direction:column;}
-.tool-qnum{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;}
-.tool-q{font-family:var(--serif);font-size:22px;font-weight:400;line-height:1.4;margin-bottom:28px;}
-.tool-opts{display:flex;flex-direction:column;gap:9px;flex:1;}
-.tool-opt{
-  padding:13px 18px;border:1px solid var(--line);font-size:14px;
-  cursor:pointer;text-align:left;background:transparent;
-  font-family:var(--sans);color:var(--black);
-  transition:border-color .2s,background .2s;position:relative;overflow:hidden;
-}
-.tool-opt::before{content:'';position:absolute;left:0;top:0;bottom:0;width:0;background:var(--black);transition:width .25s var(--ease);z-index:0;}
-.tool-opt-text{position:relative;z-index:1;transition:color .15s;}
-.tool-opt:hover{border-color:var(--black);}
-.tool-opt:hover::before{width:3px;}
-.tool-opt.sel{border-color:var(--black);background:var(--black);}
-.tool-opt.sel .tool-opt-text{color:var(--white);}
-.tool-opt.sel::before{width:100%;}
-.tool-footer{padding:16px 24px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;}
-.tool-counter{font-size:12px;color:var(--mid);}
-.tool-next{font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--black);padding:10px 22px;background:transparent;cursor:pointer;transition:background .25s,color .25s;}
-.tool-next:hover{background:var(--black);color:var(--white);}
-.tool-next:disabled{opacity:.25;cursor:not-allowed;}
-.tool-result{padding:40px 36px;display:none;flex-direction:column;}
-.tool-result.show{display:flex;}
-.res-tag{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;}
-.res-title{font-family:var(--serif);font-size:26px;font-weight:400;margin-bottom:16px;line-height:1.3;}
-.res-body{font-size:14px;color:var(--mid);line-height:1.8;max-width:560px;margin-bottom:22px;}
-.res-list{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:26px;}
-.res-list li{font-size:13px;color:var(--mid);padding-left:14px;border-left:2px solid var(--accent);line-height:1.6;}
-.res-list li b{color:var(--black);font-weight:500;}
-.res-restart{font-size:12px;color:var(--mid);border-bottom:1px solid currentColor;padding-bottom:1px;cursor:pointer;background:none;border-top:none;border-left:none;border-right:none;font-family:var(--sans);}
-.sched-wrap{margin-top:36px;border:1px solid var(--line);background:#fff;}
-.sched-inner{padding:40px 36px;}
-.sched-intro{font-size:15px;color:var(--mid);line-height:1.8;margin-bottom:32px;max-width:540px;}
-.skills-label{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--mid);margin-bottom:14px;}
-.skills-grid{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:28px;}
-.skill-btn{padding:8px 16px;border:1px solid var(--line);font-size:13px;cursor:pointer;background:transparent;font-family:var(--sans);color:var(--mid);transition:all .2s;}
-.skill-btn:hover{border-color:var(--accent);color:var(--black);}
-.skill-btn.active{border-color:var(--black);background:var(--black);color:var(--white);}
-.sched-generate{font-family:var(--sans);font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;background:var(--black);color:var(--white);padding:13px 28px;border:none;cursor:pointer;transition:opacity .2s;margin-bottom:28px;}
-.sched-generate:hover{opacity:.75;}
-.sched-result{display:none;}.sched-result.show{display:block;}
-.sched-grid-title{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);margin-bottom:14px;}
-.sched-table{width:100%;border-collapse:collapse;font-size:13px;}
-.sched-table th{padding:10px 12px;text-align:left;font-weight:500;font-size:10px;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid var(--line);color:var(--mid);}
-.sched-table td{padding:11px 12px;border-bottom:1px solid var(--line);color:var(--black);}
-.sched-table tr:last-child td{border-bottom:none;}
-.shift-day{display:inline-block;padding:2px 9px;font-size:11px;background:rgba(26,102,64,.1);color:#1a6640;}
-.shift-eve{display:inline-block;padding:2px 9px;font-size:11px;background:rgba(154,92,16,.1);color:#9a5c10;}
-.shift-night{display:inline-block;padding:2px 9px;font-size:11px;background:rgba(80,40,100,.1);color:#502864;}
-.shift-off{display:inline-block;padding:2px 9px;font-size:11px;background:rgba(0,0,0,.05);color:var(--mid);}
-.sched-note{font-size:12px;color:var(--mid);margin-top:14px;font-style:italic;}
-.amb-wrap{display:grid;grid-template-columns:380px 1fr;gap:56px;align-items:start;}
-
-/* FAQ */
-
-
-
-
-
-
-
-
-
-
-/* CTA */
-.cta-section{
-  padding:96px 0;background:var(--black);text-align:center;
-  position:relative;overflow:hidden;
-}
-.cta-section::before{
-  content:'';position:absolute;top:50%;left:50%;
-  transform:translate(-50%,-50%);
-  width:600px;height:600px;border-radius:50%;
-  background:radial-gradient(circle,rgba(158,126,90,.07) 0%,transparent 70%);
-  pointer-events:none;
-}
-.cta-section .s-label{color:rgba(255,255,255,.35);justify-content:center;}
-.cta-section .s-label::before{background:rgba(255,255,255,.2);}
-.cta-section .s-title{color:#fff;max-width:none;}
-.cta-section .s-title em{color:var(--accent2);}
-.cta-sub{font-size:14px;color:rgba(255,255,255,.42);margin:18px auto 36px;max-width:460px;line-height:1.8;}
-.cta-small{margin-top:20px;font-size:10px;color:rgba(255,255,255,.18);letter-spacing:.08em;}
-
-/* FOOTER */
-footer{padding:48px;border-top:1px solid var(--line);background:var(--white);}
-footer .foot-top{display:flex;justify-content:space-between;align-items:flex-start;gap:40px;margin-bottom:28px;flex-wrap:wrap;}
-footer .foot-logo img{height:36px;display:block;}
-footer .foot-legal{font-size:12px;line-height:1.8;color:var(--mid);max-width:640px;}
-footer .foot-legal .foot-org{color:var(--black);font-weight:500;margin-bottom:6px;}
-footer .foot-legal a{color:var(--mid);text-decoration:none;border-bottom:1px solid rgba(107,100,89,0.3);transition:color .25s,border-color .25s;}
-footer .foot-legal a:hover{color:var(--black);border-bottom-color:var(--black);}
-footer .foot-bottom{display:flex;justify-content:space-between;align-items:center;gap:24px;padding-top:24px;border-top:1px solid var(--line);flex-wrap:wrap;}
-footer .foot-copy{font-size:11px;color:var(--mid);letter-spacing:.04em;}
-footer .foot-links{display:flex;gap:20px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;}
-footer .foot-links a{color:var(--mid);text-decoration:none;transition:color .25s;}
-footer .foot-links a:hover{color:var(--black);}
-footer .foot-sep{color:var(--line);}
-
-@keyframes barGrow{from{width:0}to{}}
-.cycle-item{transition:opacity .6s var(--ease),transform .6s var(--ease);}
-
-@media(max-width:900px){
-  .lp{padding:0 24px;}
-  nav{padding:14px 24px;}
-  nav.scrolled{padding:12px 24px;}
-  section{padding:56px 0;}
-  .hero{padding-top:84px;padding-bottom:52px;}
-  .offer-grid,.whom-grid,.amb-wrap{grid-template-columns:1fr!important;}
-  .pain-item{grid-template-columns:1fr;gap:8px;}
-  .pain-tag{margin-bottom:0;}
-  .hero-two-col{grid-template-columns:1fr;gap:28px;}
-  .hero-col-bordered{border-left:none;padding-left:0;border-top:1px solid var(--line);padding-top:24px;}
-  .evo-now{margin-left:0;padding:36px 28px;}
-  footer{padding:36px 24px;}
-  footer .foot-top{flex-direction:column;gap:24px;}
-  footer .foot-bottom{flex-direction:column;align-items:flex-start;gap:14px;}
-}
-@media(max-width:800px){
-  .hero [style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr!important;}
-  .hero [style*="border-left"]{border-left:none!important;padding-left:0!important;border-top:1px solid var(--line);padding-top:24px!important;}
-  .cycle-item>div[style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr!important;}
+  padding:12px 16px;
+  margin-bottom:20px;
+  font-size:13px;
+  line-height:1.55;
 }
 
-
-/* ── FAQ IMPROVED ── */
-
-
-
-
-
-
-
-
-
-
-
-
-/* ══ FAQ ACCORDION ══ */
-.faq-list { margin-top: 56px; }
-
-.faq-item {
-  border-top: 1px solid var(--line);
-  transition: background .2s;
-}
-.faq-item:last-child { border-bottom: 1px solid var(--line); }
-.faq-item:hover { background: rgba(158,126,90,.025); }
-
-.faq-q {
-  padding: 26px 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  gap: 24px;
-  transition: color .25s;
-  user-select: none;
-}
-.faq-q:hover { color: var(--accent); }
-
-.faq-q-text {
-  font-size: 15px;
-  font-weight: 500;
-  line-height: 1.4;
-  flex: 1;
+.s3-context-time{
+  font-weight:500;
+  color:var(--text);
+  margin-bottom:6px;
 }
 
-.faq-toggle {
-  width: 32px;
-  height: 32px;
-  flex-shrink: 0;
-  border: 1px solid rgba(158,126,90,.3);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  font-weight: 300;
-  line-height: 1;
-  color: var(--accent);
-  transition: transform .4s var(--ease), background .3s, border-color .3s, color .3s;
-}
-.faq-item.open .faq-toggle {
-  transform: rotate(45deg);
-  background: var(--accent);
-  border-color: var(--accent);
-  color: #fff;
+.s3-context-body{
+  color:var(--text-secondary);
+  margin-bottom:6px;
 }
 
-.faq-a {
-  max-height: 0;
-  overflow: hidden;
-  font-size: 14px;
-  color: var(--mid);
-  line-height: 1.8;
-  transition: max-height .5s var(--ease), padding-bottom .35s var(--ease);
-  padding-bottom: 0;
+.s3-context-instruction{
+  color:var(--text);
 }
-.faq-item.open .faq-a {
-  max-height: 700px;
-  padding-bottom: 32px;
+
+.unsorted-title{
+  font-size:11px;
+  font-weight:500;
+  letter-spacing:0.05em;
+  text-transform:uppercase;
+  color:var(--text-tertiary);
+  margin-bottom:8px;
 }
-/* ══ END FAQ ══ */
-.layer-tab{display:flex;align-items:center;gap:10px;padding:14px 28px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:border-color 0.2s,opacity 0.2s;}
-.layer-tab.active{border-bottom-color:var(--black);}
-.ltab-num{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent);font-weight:600;}
-.ltab-label{font-size:13px;font-weight:500;color:var(--black);}
-.layer-tab:not(.active) .ltab-label{color:var(--mid);}
-.vp-row{display:flex;align-items:stretch;border:1px solid var(--line);background:#fff;transition:border-color 0.2s;}
-.vp-opt{flex:1;padding:14px 18px;font-size:14px;color:var(--mid);cursor:pointer;transition:background 0.15s,color 0.15s;text-align:center;line-height:1.4;display:flex;align-items:center;justify-content:center;}
-.vp-opt:first-child{border-right:1px solid var(--line);}
-.vp-opt:hover{background:#faf8f5;color:var(--black);}
-.vp-opt.chosen{background:var(--black);color:var(--white);font-weight:500;}
-.vp-vs{width:40px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:0.1em;color:var(--mid);border-left:1px solid var(--line);border-right:1px solid var(--line);}
-.asr-row{display:flex;gap:0;border:1px solid var(--line);background:#fff;}
-.asr-opt{flex:1;padding:12px 16px;font-size:13px;transition:background 0.15s;}
-.asr-opt:first-child{border-right:1px solid var(--line);}
-.asr-opt.chosen{background:var(--black);color:var(--white);}
-.asr-opt.not-chosen{opacity:0.38;}
-.asr-tag{font-size:10px;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:4px;opacity:0.6;}
-.asr-val{font-size:13px;font-weight:500;line-height:1.3;}
-.asr-signal{font-size:11px;margin-top:5px;opacity:0.75;line-height:1.4;}
-.meth-card{background:#fff;border:1px solid var(--line);padding:28px 24px;}
-.meth-card-num{font-family:var(--serif);font-size:28px;font-weight:400;color:var(--accent);line-height:1;margin-bottom:12px;}
-.meth-card-title{font-size:15px;font-weight:500;color:var(--black);line-height:1.35;margin-bottom:12px;}
-.meth-card-body{font-size:13px;color:var(--mid);line-height:1.75;}
 
-*{margin:0;padding:0;box-sizing:border-box;}
+.unsorted-title.completed{color:var(--text-tertiary);}
 
+.unsorted-zone{
+  border:1px dashed var(--border);
+  border-radius:2px;
+  padding:12px;
+  min-height:80px;
+  margin-bottom:20px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  transition:border-color 150ms ease, background 150ms ease;
+}
 
+.unsorted-zone.drag-over{
+  border:2px dashed var(--accent);
+  background:#f0ece3;
+}
 
+.containers{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:16px;
+}
 
+.container-box{
+  background:var(--bg-secondary);
+  border-radius:2px;
+  padding:16px;
+  min-height:200px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  border:1px solid transparent;
+  transition:border-color 150ms ease, background 150ms ease;
+}
 
+.container-box.drag-over{
+  border:2px dashed var(--accent);
+  background:#f0ece3;
+  padding:15px;
+}
 
+.container-head{margin-bottom:4px;}
 
+.container-title{
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:0.05em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:4px;
+}
 
-.mac-bar{background:#0D0D0D;height:44px;display:flex;align-items:center;padding:0 16px;gap:8px;}
-.mac-dot{width:12px;height:12px;border-radius:50%;cursor:pointer;}
-.step-bar{background:#fff;border-bottom:1px solid var(--line);padding:13px 32px;display:flex;align-items:center;justify-content:space-between;}
-.pips{display:flex;gap:6px;}
-.pip{width:22px;height:3px;border-radius:2px;background:var(--line);transition:background 0.3s;}
-.pip.done{background:var(--accent);}.pip.act{background:var(--black);}
-.screen{display:none;padding:36px 40px 44px;}.screen.on{display:block;}
+.container-subtitle{
+  font-size:10px;
+  color:var(--text-tertiary);
+  margin-bottom:8px;
+  text-transform:none;
+  letter-spacing:0;
+}
 
-/* INTRO */
-.intro-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);margin:24px 0 28px;}
-.ig{background:var(--white);padding:22px 24px;}
-.ig-num{font-family:var(--serif);font-size:30px;color:var(--accent);margin-bottom:10px;}
-.ig-title{font-size:13px;font-weight:600;color:var(--black);margin-bottom:6px;line-height:1.35;}
-.ig-
+.task-card{
+  background:var(--bg);
+  border:1px solid var(--border);
+  border-radius:2px;
+  padding:10px 12px;
+  cursor:grab;
+  transition:border-color 150ms ease, background 150ms ease, opacity 150ms ease;
+  max-width:280px;
+  width:100%;
+  display:flex;
+  align-items:flex-start;
+  gap:8px;
+}
 
-/* TASK TABS */
-.task-tabs{display:flex;gap:0;border-bottom:2px solid var(--line);margin-bottom:32px;}
-.ttab{padding:12px 22px;font-size:12px;font-weight:500;color:var(--mid);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;display:flex;align-items:center;gap:7px;transition:color 0.15s,border-color 0.15s;}
-.ttab:hover{color:var(--black);}.ttab.act{color:var(--black);border-bottom-color:var(--black);}
-.ttab-done{width:14px;height:14px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;opacity:0;flex-shrink:0;transition:opacity 0.2s;}
-.ttab.done-tab .ttab-done{opacity:1;}
-.tpanel{display:none;}.tpanel.on{display:block;}
+.task-card:hover{border-color:var(--accent);}
 
-/* SHARED */
-.task-label{font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;}
-.task-title{font-family:var(--serif);font-size:21px;font-weight:400;color:var(--black);line-height:1.3;margin-bottom:10px;}
-.task-desc{font-size:13px;color:var(--mid);line-height:1.75;margin-bottom:22px;max-width:600px;}
-.ctx-box{font-size:13px;background:var(--black);color:rgba(255,255,255,0.6);padding:14px 20px;margin-bottom:24px;border-left:3px solid var(--accent);line-height:1.7;}
-.ctx-box strong{color:rgba(255,255,255,0.85);}
+.task-card.dragging{
+  opacity:0.5;
+  cursor:grabbing;
+}
 
-/* T1: VALUES */
-.vp-list{display:flex;flex-direction:column;gap:10px;max-width:660px;}
-.vp-row{display:flex;align-items:stretch;border:1px solid var(--line);background:#fff;}
-.vp-opt{flex:1;padding:14px 18px;font-size:13.5px;color:var(--mid);cursor:pointer;transition:background 0.15s,color 0.15s;text-align:center;display:flex;align-items:center;justify-content:center;line-height:1.45;}
-.vp-opt:hover{background:#faf8f5;color:var(--black);}
-.vp-opt.chosen{background:var(--black);color:var(--white);font-weight:500;}
-.vp-vs{width:32px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--mid);border-left:1px solid var(--line);border-right:1px solid var(--line);background:#faf9f7;}
+.task-card-content{flex:1;min-width:0;}
 
-/* T2: CALENDAR — CONTAINERS */
-.cal-wrap{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--line);margin-bottom:24px;}
-.cal-zone{background:var(--white);padding:0;}
-.cz-head{padding:12px 16px;border-bottom:1px solid var(--line);background:#faf9f7;}
-.cz-num{font-family:var(--serif);font-size:20px;font-weight:400;color:var(--accent);line-height:1;}
-.cz-title{font-size:12px;font-weight:600;color:var(--black);margin-top:4px;line-height:1.3;}
-.cz-sub{font-size:10.5px;color:var(--mid);margin-top:2px;line-height:1.4;}
-.cz-
-.cz-empty{font-size:11px;color:rgba(0,0,0,0.2);font-style:italic;padding:6px 0;}
-.cz-item{background:#fff;border:1px solid var(--line);padding:9px 12px;cursor:pointer;transition:border-color 0.15s;position:relative;}
-.cz-item:hover{border-color:var(--accent);}
-.cz-item:hover::after{content:'×';position:absolute;top:6px;right:8px;font-size:13px;color:var(--accent);}
-.cz-item-num{font-size:10px;font-weight:700;color:var(--accent);margin-bottom:3px;letter-spacing:0.06em;}
-.cz-item-name{font-size:11.5px;font-weight:500;color:var(--black);line-height:1.35;}
-.cz-item-time{font-size:10px;color:var(--mid);margin-top:2px;}
+.task-marker{
+  font-size:10px;
+  font-weight:500;
+  color:var(--accent);
+  margin-bottom:4px;
+}
 
-/* Task cards */
-.cal-cards{display:flex;flex-direction:column;gap:6px;max-width:100%;}
-.cal-card{display:grid;grid-template-columns:76px 1fr auto;border:1px solid var(--line);background:#fff;align-items:stretch;transition:opacity 0.2s;}
-.cal-card.assigned{opacity:0.42;}
-.cal-card.assigned .cc-title{text-decoration:line-through;text-decoration-color:rgba(0,0,0,0.3);}
-.cc-time{padding:13px 12px;font-size:10.5px;font-weight:600;color:var(--accent);letter-spacing:0.05em;border-right:1px solid var(--line);display:flex;align-items:center;flex-shrink:0;}
-.cc-
-.cc-title{font-size:13px;font-weight:500;color:var(--black);margin-bottom:3px;}
-.cc-desc{font-size:11.5px;color:var(--mid);line-height:1.5;}
-.cc-btns{display:flex;flex-direction:column;border-left:1px solid var(--line);flex-shrink:0;}
-.ccb{padding:0 14px;font-size:10px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;border:none;background:transparent;color:var(--mid);transition:background 0.15s,color 0.15s;flex:1;min-width:96px;white-space:nowrap;}
-.ccb:not(:last-child){border-bottom:1px solid var(--line);}
-.ccb:hover{background:#faf8f5;color:var(--black);}
-.ccb.active-z0{background:var(--black);color:#fff;}
-.ccb.active-z1{background:#f0ece4;color:var(--accent);}
-.ccb.active-z2{background:#f5f0f0;color:var(--red);}
+.task-name{
+  font-size:13px;
+  font-weight:500;
+  color:var(--text);
+  margin-bottom:4px;
+  line-height:1.4;
+}
 
-/* T3: SITUATIONS */
-.sit-pips{display:flex;gap:6px;margin-bottom:22px;}
-.sp{width:28px;height:3px;border-radius:2px;background:var(--line);}
-.sp.done{background:var(--accent);}.sp.act{background:var(--black);}
-.sit-ctx{background:#fff;border:1px solid var(--line);padding:18px 22px;margin-bottom:18px;border-left:3px solid var(--black);}
-.sit-ctx-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid);margin-bottom:6px;}
-.sit-ctx-text{font-size:14px;color:var(--black);line-height:1.65;}
-.sit-opts{display:flex;flex-direction:column;gap:8px;max-width:660px;margin-bottom:18px;}
-.sit-opt{padding:13px 18px;border:1px solid var(--line);font-size:13px;cursor:pointer;background:#fff;font-family:var(--sans);color:var(--black);line-height:1.55;transition:border-color 0.15s,background 0.15s;}
-.sit-opt:hover{border-color:var(--accent);}
-.sit-opt.chosen{border-color:var(--black);background:var(--black);color:#fff;}
+.task-context{
+  font-size:11px;
+  color:var(--text-tertiary);
+  line-height:1.4;
+}
 
-/* MY RESULT */
-.my-result-box{background:#fff;border:1px solid var(--line);padding:28px 32px;margin-bottom:28px;}
-.mr-title{font-family:var(--serif);font-size:20px;font-weight:400;color:var(--black);margin-bottom:20px;}
-.mr-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px;}
-.mr-cell{padding:16px 18px;border:1px solid var(--line);}
-.mr-cell-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--mid);margin-bottom:8px;}
-.mr-cell-tag{display:inline-block;font-size:11px;font-weight:600;padding:3px 10px;border-radius:2px;margin-bottom:7px;}
-.mr-cell-
-.mr-note{font-size:12.5px;color:var(--mid);line-height:1.75;border-top:1px solid var(--line);padding-top:16px;}
+.task-reorder{
+  display:none;
+  flex-direction:column;
+  gap:4px;
+}
 
-/* REVEAL TABLE */
-.rtable{width:100%;border-collapse:collapse;border:1px solid var(--line);background:#fff;margin-bottom:4px;}
-.rtable th{padding:11px 13px;text-align:left;font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--mid);border-bottom:2px solid var(--line);background:#faf9f7;}
-.rtable th:first-child{width:140px;}
-.rtable th.ch{text-align:left;}
-.rtable td{padding:12px 13px;border-bottom:1px solid var(--line);vertical-align:top;}
-.rtable tr:last-child td{border-bottom:none;}
-.rtable td:not(:last-child){border-right:1px solid var(--line);}
-.rtable td:first-child{background:#faf9f7;}
-.dim-n{font-size:12px;font-weight:600;color:var(--black);margin-bottom:2px;}
-.dim-s{font-size:10px;color:var(--mid);}
-.chead{display:flex;align-items:center;gap:7px;margin-bottom:8px;}
-.cav-s{width:20px;height:20px;border-radius:50%;font-family:var(--serif);font-size:9px;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.cname{font-size:11px;font-weight:600;color:var(--black);}
-.ctags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:5px;}
-.ctag{font-size:10px;padding:2px 7px;border-radius:2px;font-weight:500;}
-.cdesc{font-size:11px;color:var(--mid);line-height:1.55;}
+.task-reorder button{
+  background:none;
+  border:none;
+  width:16px;
+  height:16px;
+  padding:0;
+  color:var(--accent);
+  cursor:pointer;
+  font-size:12px;
+  line-height:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
 
-/* INSIGHT */
-.insight{background:var(--black);padding:28px 32px;}
-.ins-label{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;}
-.ins-title{font-family:var(--serif);font-size:clamp(17px,2vw,23px);font-weight:400;color:#fff;line-height:1.3;margin-bottom:12px;}
-.ins-
-.ins-body strong{color:rgba(255,255,255,0.85);}
+.task-reorder button:disabled{
+  color:var(--text-tertiary);
+  opacity:0.4;
+  cursor:not-allowed;
+}
 
-.btn-p{font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;background:var(--black);color:#fff;padding:13px 30px;border:none;cursor:pointer;transition:opacity 0.2s;}
-.btn-p:hover{ opacity:0.78; }
-.btn-p:disabled{opacity:0.3;pointer-events:none;}
-.btn-s{font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;border:1px solid rgba(255,255,255,0.3);padding:11px 22px;background:transparent;cursor:pointer;color:rgba(255,255,255,0.5);transition:all 0.2s;}
-.btn-s:hover{border-color:#fff;color:#fff;}
-.brow{display:flex;align-items:center;gap:12px;margin-top:22px;flex-wrap:wrap;}
+.s3-footer{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-top:24px;
+}
 
+.s3-footer .back-link{margin-top:0;}
 
-/* standalone page overrides — demo originally sat on a dark overlay atop the landing;
-   on a standalone page we paint the body dark so the light demo window reads the same. */
-html,body{overflow:auto;}
-body{background:#0D0D0D;min-height:100vh;}
-.header{background:#fafaf8;border-bottom:1px solid #e8e4dc;}
-.header-inner{max-width:1080px;margin:0 auto;padding:16px 40px;display:flex;align-items:center;justify-content:space-between;gap:32px;}
-.header-logo{font-size:16px;font-weight:500;letter-spacing:-0.01em;color:#1a1a1a;white-space:nowrap;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;}
-.header-logo-link{color:inherit;text-decoration:none;transition:color 0.2s ease;}
-.header-logo-link:hover{color:#5c1c14;}
-.header-logo-sep{color:#8a8680;}
-.header-logo-short{display:none;}
-.header-btn{display:inline-flex;align-items:center;justify-content:center;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;font-size:13px;font-weight:500;letter-spacing:-0.005em;padding:9px 18px;border-radius:4px;background:#5c1c14;color:#fafaf8;border:1px solid #5c1c14;text-decoration:none;text-transform:none;transition:background 0.2s ease,border-color 0.2s ease;}
-.header-btn:hover{background:#4a1810;border-color:#4a1810;}
-.return-to-landing{display:inline-block;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;font-size:13px;font-weight:500;letter-spacing:-0.005em;text-transform:none;background:#5c1c14;color:#fafaf8;padding:11px 22px;border-radius:4px;text-decoration:none;margin-top:20px;transition:background 0.2s ease;}
+.btn-next{
+  background:var(--accent);
+  color:#fafaf8;
+  border:none;
+  padding:10px 20px;
+  height:36px;
+  font-family:inherit;
+  font-size:12px;
+  font-weight:500;
+  border-radius:2px;
+  cursor:pointer;
+  transition:background 200ms ease, opacity 200ms ease;
+}
+
+.btn-next:hover{background:var(--accent-hover);}
+
+.btn-next:disabled{
+  background:var(--text-tertiary);
+  opacity:0.4;
+  cursor:not-allowed;
+}
+
+/* ============ SCREEN 4 — TOOL 03 ============ */
+
+.s4{padding:16px 0;}
+
+.s4-inner{
+  max-width:720px;
+  margin:0 auto;
+  width:100%;
+}
+
+.situation{display:none;}
+.situation.active{display:block;}
+
+.situation-instrument-title{
+  font-size:15px;
+  font-weight:500;
+  color:var(--text);
+  letter-spacing:-0.01em;
+  margin-bottom:8px;
+}
+
+.situation-subtitle{
+  font-size:13px;
+  line-height:1.55;
+  color:var(--text-secondary);
+  margin-bottom:24px;
+}
+
+.situation-card{
+  background:#ebd9d4;
+  padding:20px;
+  margin-bottom:32px;
+}
+
+.situation-title{
+  font-size:17px;
+  font-weight:600;
+  color:var(--text);
+  margin:0 0 12px 0;
+}
+
+.situation-context{
+  font-size:13px;
+  line-height:1.55;
+  color:var(--text);
+  margin:0;
+}
+
+.situation-options{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+.situation-option{
+  background:var(--bg-secondary);
+  border:1px solid transparent;
+  border-radius:2px;
+  padding:14px 16px;
+  font-size:13px;
+  line-height:1.55;
+  color:var(--text);
+  cursor:pointer;
+  transition:background 150ms ease, border-color 150ms ease;
+}
+
+.situation-option:hover{
+  border-color:var(--accent);
+  background:#f0ece3;
+}
+
+.situation-option.selected{
+  border-color:var(--accent);
+  background:#e8e3d6;
+}
+
+/* ============ SCREEN 5 — PROFILE ============ */
+
+.profile-container{
+  max-width:720px;
+  margin:0 auto;
+  padding:32px 20px;
+}
+
+.profile-kicker{
+  font-size:9px;
+  font-weight:500;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:12px;
+}
+
+.profile-title{
+  font-size:17px;
+  font-weight:500;
+  letter-spacing:-0.01em;
+  color:var(--text);
+  margin-bottom:24px;
+}
+
+.profile-thesis{
+  background:var(--bg-secondary);
+  border-left:3px solid var(--accent);
+  padding:16px 20px;
+  font-size:14px;
+  font-style:italic;
+  line-height:1.55;
+  color:var(--text);
+  margin-bottom:32px;
+}
+
+.profile-blocks{margin-bottom:0;}
+
+.profile-block-kicker{
+  font-size:10px;
+  font-weight:500;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-top:28px;
+  margin-bottom:6px;
+}
+
+.profile-blocks > .profile-block-kicker:first-child{margin-top:0;}
+
+.profile-block{
+  font-size:13px;
+  line-height:1.7;
+  color:var(--text);
+  margin-bottom:20px;
+}
+
+.profile-block:last-child{margin-bottom:0;}
+
+.profile-closing{
+  font-size:12px;
+  font-style:italic;
+  line-height:1.55;
+  color:var(--text-tertiary);
+  margin-top:24px;
+  margin-bottom:32px;
+}
+
+.profile-cta{
+  display:flex;
+  justify-content:center;
+  margin-top:32px;
+}
+
+.profile-footer{
+  margin-top:24px;
+}
+
+/* ============ SCREEN 6 — FINALISTS ============ */
+
+.s6{
+  max-width:1080px;
+  margin:0 auto;
+  padding:32px 20px;
+}
+
+.s6-kicker{
+  font-size:9px;
+  font-weight:500;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:12px;
+}
+
+.s6-title{
+  font-size:17px;
+  font-weight:500;
+  letter-spacing:-0.01em;
+  color:var(--text);
+  margin-bottom:12px;
+}
+
+.s6-subtitle{
+  font-size:13px;
+  line-height:1.55;
+  color:var(--text-secondary);
+  max-width:600px;
+  margin-bottom:32px;
+}
+
+.finalists-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+
+.finalist-card{
+  position:relative;
+  background:var(--bg-secondary);
+  border:1px solid transparent;
+  border-radius:2px;
+  padding:20px;
+  min-height:280px;
+}
+
+.finalist-card.selected-from-demo1{
+  border-color:var(--accent);
+  background:#e8e3d6;
+}
+
+.finalist-mark{
+  display:none;
+  position:absolute;
+  top:12px;
+  right:12px;
+  font-size:9px;
+  font-weight:600;
+  letter-spacing:0.05em;
+  text-transform:uppercase;
+  color:var(--accent);
+}
+
+.finalist-card.selected-from-demo1 .finalist-mark{display:block;}
+
+.finalist-name{
+  font-size:16px;
+  font-weight:600;
+  color:var(--text);
+  margin-bottom:2px;
+}
+
+.finalist-subtitle{
+  font-size:10px;
+  font-weight:500;
+  letter-spacing:0.05em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:16px;
+}
+
+.finalist-section-title{
+  font-size:9px;
+  font-weight:500;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--text-tertiary);
+  margin-top:12px;
+  margin-bottom:4px;
+}
+
+.finalist-section-body{
+  font-size:12px;
+  line-height:1.55;
+  color:var(--text);
+}
+
+.s6-back{
+  margin-top:24px;
+}
+
+.s6-choice{
+  max-width:720px;
+  margin:32px auto;
+  padding:0;
+  background:transparent;
+}
+
+.s6-choice-header{
+  background:#e8e3d6;
+  padding:24px;
+  margin-bottom:32px;
+}
+
+.s6-choice-title{
+  font-size:17px;
+  font-weight:600;
+  color:var(--text);
+  margin:0 0 12px 0;
+}
+
+.s6-choice-context{
+  font-size:13px;
+  line-height:1.6;
+  color:var(--text);
+  margin:0;
+}
+
+.s6-choice-thesis{
+  font-size:18px;
+  font-weight:600;
+  line-height:1.4;
+  color:var(--text);
+  margin:0 0 24px 0;
+}
+
+.s6-choice-block{
+  font-size:13px;
+  line-height:1.6;
+  color:var(--text);
+  margin:0 0 16px 0;
+}
+
+.s6-choice-block:last-child{margin-bottom:0;}
+
+.s6-final{
+  background:#e8e3d6;
+  padding:32px 24px;
+  margin-top:32px;
+  border-radius:2px;
+  text-align:center;
+}
+
+.s6-final-kicker{
+  font-size:9px;
+  font-weight:500;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:12px;
+}
+
+.s6-final-title{
+  font-size:18px;
+  font-weight:500;
+  letter-spacing:-0.01em;
+  color:var(--text);
+  margin-bottom:12px;
+  line-height:1.3;
+}
+
+.s6-final-body{
+  font-size:14px;
+  line-height:1.6;
+  color:var(--text);
+  max-width:600px;
+  margin:0 auto 24px;
+}
+
+.s6-actions{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:12px;
+}
+
+.s6-actions .btn-primary{padding:10px 24px;}
+
+.landing-link{
+  background:none;
+  border:none;
+  color:var(--accent);
+  font-family:inherit;
+  font-size:13px;
+  padding:4px 0;
+  cursor:pointer;
+  text-decoration:underline;
+}
+
+.landing-link:hover{color:var(--accent-hover);}
+
+/* ============ PLACEHOLDER SCREENS ============ */
+
+.placeholder{
+  max-width:720px;
+  margin:0 auto;
+  padding:48px 0;
+  text-align:center;
+}
+
+.placeholder h2{
+  font-size:15px;
+  font-weight:500;
+  color:var(--text);
+  margin-bottom:8px;
+  letter-spacing:-0.01em;
+}
+
+.placeholder p{
+  font-size:13px;
+  line-height:1.55;
+  color:var(--text-secondary);
+  margin-bottom:20px;
+}
+
+/* ============ MOBILE ============ */
+
+@media (max-width:768px){
+  .container{padding:0 16px;}
+
+  .s1{padding:12px 0;}
+
+  .s1-h1{font-size:15px;}
+
+  .s1-cards{
+    grid-template-columns:1fr;
+    gap:10px;
+  }
+
+  .tool-card-title{font-size:12px;}
+  .tool-card-body{font-size:12px;}
+
+  .s1-promise{font-size:12px;}
+
+  .btn-primary{min-width:200px;}
+
+  .placeholder{padding:32px 0;}
+  .placeholder h2{font-size:14px;}
+  .placeholder p{font-size:12px;}
+
+  .s2{padding:12px 0;}
+
+  .pair-title{font-size:14px;}
+  .pair-subtitle{font-size:12px;margin-bottom:24px;}
+
+  .pair-options{
+    grid-template-columns:1fr;
+    gap:12px;
+  }
+
+  .option-card{
+    padding:16px;
+    min-height:100px;
+    font-size:12px;
+  }
+
+  .back-link{margin-top:24px;}
+
+  .s3{padding:16px;}
+
+  .s3-context{font-size:12px;padding:10px 14px;margin-bottom:16px;}
+
+  .containers{
+    grid-template-columns:1fr;
+    gap:12px;
+  }
+
+  .container-box{min-height:auto;}
+
+  .task-card{
+    max-width:100%;
+    cursor:pointer;
+  }
+
+  .task-card.selected{
+    border:2px solid var(--accent);
+    background:#e8e3d6;
+    padding:9px 11px;
+  }
+
+  .container-box .task-reorder{display:flex;}
+
+  .task-name{font-size:12px;}
+
+  .s3-footer{
+    flex-direction:column-reverse;
+    gap:12px;
+    align-items:stretch;
+  }
+
+  .btn-next{width:100%;}
+
+  .s3-footer .back-link{margin-top:0;text-align:left;}
+
+  #screen-4.screen.active{min-height:auto;}
+
+  .s4{padding:12px 0;}
+
+  .situation-instrument-title{font-size:14px;}
+  .situation-subtitle{font-size:12px;margin-bottom:20px;}
+  .situation-title{font-size:15px;}
+  .situation-card{padding:16px;margin-bottom:24px;}
+  .situation-context{font-size:12px;}
+  .situation-option{font-size:12px;padding:12px 14px;}
+
+  .profile-container{padding:24px 16px;}
+  .profile-title{font-size:15px;margin-bottom:20px;}
+  .profile-thesis{font-size:13px;padding:14px 16px;}
+  .profile-block{font-size:12px;line-height:1.65;}
+  .profile-closing{font-size:11px;}
+  .profile-cta .btn-primary{width:100%;}
+
+  .s6{padding:24px 16px;}
+  .s6-title{font-size:15px;}
+  .s6-subtitle{font-size:12px;margin-bottom:24px;}
+
+  .finalists-grid{
+    grid-template-columns:1fr;
+    gap:12px;
+  }
+
+  .finalist-card{min-height:auto;padding:16px;}
+  .finalist-name{font-size:15px;}
+
+  .s6-final{padding:24px 20px;}
+  .s6-final-title{font-size:16px;}
+  .s6-final-body{font-size:13px;}
+
+  .s6-actions .btn-primary{width:100%;}
+
+  .s6-choice-header{padding:20px;}
+  .s6-choice-title{font-size:16px;}
+  .s6-choice-thesis{font-size:16px;}
+  .s6-choice-context,
+  .s6-choice-block{font-size:12px;}
+}
+
+/* Site header — общая шапка лендинга/демо */
+.site-header{background:#fafaf8;border-bottom:1px solid #e8e4dc;}
+.site-header-inner{max-width:1080px;margin:0 auto;padding:16px 40px;display:flex;align-items:center;justify-content:space-between;gap:32px;}
+.site-header-logo{font-size:16px;font-weight:500;letter-spacing:-0.01em;color:#1a1a1a;white-space:nowrap;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;}
+.site-header-logo-link{color:inherit;text-decoration:none;transition:color 0.2s ease;}
+.site-header-logo-link:hover{color:#5c1c14;}
+.site-header-logo-sep{color:#8a8680;}
+.site-header-logo-short{display:none;}
+.site-header-btn{display:inline-flex;align-items:center;justify-content:center;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;font-size:13px;font-weight:500;letter-spacing:-0.005em;padding:9px 18px;border-radius:4px;background:#5c1c14;color:#fafaf8;border:1px solid #5c1c14;text-decoration:none;text-transform:none;transition:background 0.2s ease,border-color 0.2s ease;}
+.site-header-btn:hover{background:#4a1810;border-color:#4a1810;}
+.return-to-landing{display:inline-flex;align-items:center;justify-content:center;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;font-size:13px;font-weight:500;letter-spacing:-0.005em;text-transform:none;background:#5c1c14;color:#fafaf8;padding:11px 22px;border-radius:4px;text-decoration:none;margin-top:16px;transition:background 0.2s ease;}
 .return-to-landing:hover{background:#4a1810;}
 @media (max-width:768px){
-  .header-inner{padding:16px 20px;gap:12px;}
-  .header-logo{font-size:14px;}
-  .header-logo-full{display:none;}
-  .header-logo-short{display:inline;}
-  .header-btn{font-size:12px;padding:8px 12px;}
+  .site-header-inner{padding:16px 20px;gap:12px;}
+  .site-header-logo{font-size:14px;}
+  .site-header-logo-full{display:none;}
+  .site-header-logo-short{display:inline;}
+  .site-header-btn{font-size:12px;padding:8px 12px;}
 }
 </style>
 </head>
 <body data-contact-source="Подбор персонала — Демо 2 (инструменты)">
-<header class="header">
-  <div class="header-inner">
-    <div class="header-logo"><a href="/" class="header-logo-link"><span class="header-logo-full">Исследовательская лаборатория</span><span class="header-logo-short">Лаборатория</span></a><span class="header-logo-sep"> · </span><span class="header-logo-sub">Подбор персонала</span></div>
-    <a href="/recruitment" class="header-btn">← Назад к лендингу</a>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <div class="site-header-logo"><a href="/" class="site-header-logo-link"><span class="site-header-logo-full">Исследовательская лаборатория</span><span class="site-header-logo-short">Лаборатория</span></a><span class="site-header-logo-sep"> · </span><span class="site-header-logo-sub">Подбор персонала</span></div>
+    <a href="/recruitment" class="site-header-btn">← Назад к лендингу</a>
   </div>
 </header>
-<div id="toolsOverlay" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:1000;background:rgba(0,0,0,0.78);overflow-y:auto;-webkit-overflow-scrolling:touch;padding:24px 16px 60px;">
-<div id="toolsWin" style="width:min(1060px,98vw);margin:0 auto;background:#F5F4F0;box-shadow:0 56px 160px rgba(0,0,0,0.5);transform:translateY(40px) scale(0.97);opacity:0;transition:transform 0.42s cubic-bezier(0.16,1,0.3,1),opacity 0.42s;position:relative;">
-  <div class="mac-bar">
-    <div style="display:flex;gap:6px;">
-      <div class="mac-dot" style="background:#FF5F57;" onclick="closeToolsApp()"></div>
-      <div class="mac-dot" style="background:#FEBC2E;"></div>
-      <div class="mac-dot" style="background:#28C840;"></div>
-    </div>
-    <div style="flex:1;text-align:center;font-size:11px;color:rgba(255,255,255,0.35);letter-spacing:0.04em;">Инструменты оценки · Демонстрационный режим · ЛББ</div>
-  </div>
-  <div class="step-bar">
-    <div>
-      <div style="font-size:13px;font-weight:500;color:var(--black);" id="t_sTitle">О механике</div>
-      <div style="font-size:11px;color:var(--mid);margin-top:2px;" id="t_sSub">Что вы пройдёте</div>
-    </div>
-    <div class="pips">
-      <div class="pip act" id="t_p1"></div><div class="pip" id="t_p2"></div>
-      <div class="pip" id="t_p3"></div><div class="pip" id="t_p4"></div>
-    </div>
-  </div>
 
-  <!-- S1: INTRO -->
-  <div class="screen on" id="t_s1">
-    <div style="font-family:var(--serif);font-size:20px;font-weight:400;line-height:1.35;color:var(--black);max-width:580px;margin-bottom:22px;">Три инструмента, которые дают данные о кандидате там, где стандартный процесс уже не различает.</div>
-    <div class="intro-grid">
-      <div class="ig">
-        <div class="ig-num">01</div>
-        <div class="ig-title">Форсированный выбор ценностей</div>
-        <div class="ig-body">Пять пар. Оба варианта в каждой паре профессионально обоснованы. Выбрать можно только один — именно поэтому выбор честный.</div>
+<section id="screen-1" class="screen active">
+  <div class="container s1">
+    <div class="s1-inner">
+      <div class="s1-header">
+        <div class="kicker">О механике</div>
+        <h1 class="s1-h1">Три инструмента, которые дают данные там, где стандартный процесс останавливается.</h1>
       </div>
-      <div class="ig">
-        <div class="ig-num">02</div>
-        <div class="ig-title">Расстановка приоритетов</div>
-        <div class="ig-body">Шесть задач. Три контейнера: что делаете прямо сейчас, что делаете сами и в каком порядке, что делегируете. Конфликты заложены намеренно.</div>
-      </div>
-      <div class="ig">
-        <div class="ig-num">03</div>
-        <div class="ig-title">Рабочие ситуации</div>
-        <div class="ig-body">Пять управленческих ситуаций. Каждая воспроизводит реальный момент выбора в роли. Из пяти ответов складывается поведенческий профиль.</div>
-      </div>
-    </div>
-    <div style="font-size:13px;color:var(--mid);line-height:1.75;max-width:640px;background:#fff;border:1px solid var(--line);border-left:3px solid var(--accent);padding:15px 20px;margin-bottom:28px;">После трёх инструментов вы увидите свой профиль — и сможете сравнить его с профилями четырёх финалистов задачи найма. Тех самых, у которых все оценки были одинаково хорошими.</div>
-    <button class="btn-p" onclick="tGoTo(2)">Начать →</button>
-  </div>
 
-  <!-- S2: TASKS -->
-  <div class="screen" id="t_s2">
-    <div class="task-tabs">
-      <div class="ttab act" id="tt0" onclick="tShowTask(0)">
-        <div class="ttab-done"><svg width="8" height="6" viewBox="0 0 8 6" fill="none"><path d="M1 3l2 2 4-4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        01 · Ценности
-      </div>
-      <div class="ttab" id="tt1" onclick="tShowTask(1)">
-        <div class="ttab-done"><svg width="8" height="6" viewBox="0 0 8 6" fill="none"><path d="M1 3l2 2 4-4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        02 · Приоритеты
-      </div>
-      <div class="ttab" id="tt2" onclick="tShowTask(2)">
-        <div class="ttab-done"><svg width="8" height="6" viewBox="0 0 8 6" fill="none"><path d="M1 3l2 2 4-4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        03 · Ситуации
-      </div>
-    </div>
-
-    <!-- T1: VALUES -->
-    <div class="tpanel on" id="tp0">
-      <div class="task-label">Инструмент 01</div>
-      <div class="task-title">Форсированный выбор ценностей</div>
-      <div class="task-desc">В каждой паре — два варианта. Выберите тот, что ближе вам в работе.</div>
-      <div class="vp-list" id="vpList"></div>
-      <div style="margin-top:22px;display:flex;align-items:center;gap:14px;">
-        <button class="btn-p" id="v1Btn" onclick="tDoneTask(0)" disabled>Следующий инструмент →</button>
-        <span id="v1Prog" style="font-size:12px;color:var(--mid);">0 / 5</span>
-      </div>
-    </div>
-
-    <!-- T2: CALENDAR -->
-    <div class="tpanel" id="tp1">
-      <div class="task-label">Инструмент 02</div>
-      <div class="task-title">Расстановка приоритетов</div>
-      <div class="task-desc">Вторник, 9:15. Вы работаете в роли около месяца. Разложите шесть задач по трём контейнерам. Кликните по задаче в контейнере, чтобы убрать её.</div>
-      <div class="ctx-box"><strong>Контекст:</strong> Открытие нового региона — через пять недель. Команда вас знает. Часть процессов уже выстроена, часть ещё в работе.</div>
-
-      <!-- THREE CONTAINERS -->
-      <div class="cal-wrap" id="calZones">
-        <div class="cal-zone">
-          <div class="cz-head">
-            <div class="cz-num">01</div>
-            <div class="cz-title">Делаю сейчас</div>
-            <div class="cz-sub">До того, как заниматься чем-то ещё</div>
-          </div>
-          <div class="cz-body" id="zone0"><div class="cz-empty" id="z0empty">Перетащите задачи сюда</div></div>
+      <div class="s1-cards">
+        <div class="tool-card">
+          <div class="tool-card-title">Форсированный выбор ценностей</div>
+          <div class="tool-card-body">Пять пар. Оба варианта в каждой паре профессионально обоснованы. Выбрать можно только один — выбор без правильного ответа показывает реальную иерархию ценностей.</div>
         </div>
-        <div class="cal-zone">
-          <div class="cz-head">
-            <div class="cz-num">02</div>
-            <div class="cz-title">Делаю сам — в очереди</div>
-            <div class="cz-sub">После текущего, в указанном порядке</div>
-          </div>
-          <div class="cz-body" id="zone1"><div class="cz-empty" id="z1empty">Перетащите задачи сюда</div></div>
+        <div class="tool-card">
+          <div class="tool-card-title">Расстановка приоритетов</div>
+          <div class="tool-card-body">Шесть задач. Три контейнера: что делаете прямо сейчас, что делаете сами и в каком порядке, что делегируете. Конфликты заложены намеренно.</div>
         </div>
-        <div class="cal-zone">
-          <div class="cz-head">
-            <div class="cz-num">03</div>
-            <div class="cz-title">Делегирую</div>
-            <div class="cz-sub">Передаю кому-то из команды</div>
-          </div>
-          <div class="cz-body" id="zone2"><div class="cz-empty" id="z2empty">Перетащите задачи сюда</div></div>
+        <div class="tool-card">
+          <div class="tool-card-title">Рабочие ситуации</div>
+          <div class="tool-card-body">Пять управленческих ситуаций. Каждая воспроизводит реальный момент выбора в роли. Из пяти ответов складывается поведенческий профиль.</div>
         </div>
       </div>
 
-      <!-- TASK CARDS -->
-      <div class="cal-cards" id="calCards"></div>
+      <p class="s1-promise">После трёх инструментов — ваш профиль рядом с профилями четырёх финалистов из задачи найма. У всех четырёх резюме, оценка потенциала и интервью были хорошими.</p>
 
-      <div style="margin-top:22px;display:flex;align-items:center;gap:14px;">
-        <button class="btn-p" id="v2Btn" onclick="tDoneTask(1)" disabled>Следующий инструмент →</button>
-        <span id="v2Prog" style="font-size:12px;color:var(--mid);">0 / 6</span>
+      <div class="s1-cta">
+        <button class="btn-primary" onclick="showScreen('screen-2')">Начать →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="screen-2" class="screen">
+  <div class="container s2">
+    <div class="s2-inner">
+
+      <div class="pair active" data-pair="1">
+        <div class="progress-indicator">Пара 1 из 5</div>
+        <h1 class="pair-title">Форсированный выбор ценностей</h1>
+        <p class="pair-subtitle">В каждой паре — два варианта. Выберите тот, что ближе вам в работе.</p>
+        <div class="pair-options">
+          <div class="option-card" onclick="selectPair(1,'A',this)">Принять решение с теми данными, что есть, и скорректировать по ходу</div>
+          <div class="option-card" onclick="selectPair(1,'B',this)">Зафиксировать решение после того, как данные достаточны для понимания риска</div>
+        </div>
+        <button class="back-link" onclick="showScreen('screen-1')">← Назад</button>
+      </div>
+
+      <div class="pair" data-pair="2">
+        <div class="progress-indicator">Пара 2 из 5</div>
+        <h1 class="pair-title">Форсированный выбор ценностей</h1>
+        <p class="pair-subtitle">В каждой паре — два варианта. Выберите тот, что ближе вам в работе.</p>
+        <div class="pair-options">
+          <div class="option-card" onclick="selectPair(2,'A',this)">Выстроить операционную систему, которая работает без вас</div>
+          <div class="option-card" onclick="selectPair(2,'B',this)">Сохранить прямое участие в решениях, где цена ошибки высока</div>
+        </div>
+        <button class="back-link" onclick="showPair(1)">← Назад</button>
+      </div>
+
+      <div class="pair" data-pair="3">
+        <div class="progress-indicator">Пара 3 из 5</div>
+        <h1 class="pair-title">Форсированный выбор ценностей</h1>
+        <p class="pair-subtitle">В каждой паре — два варианта. Выберите тот, что ближе вам в работе.</p>
+        <div class="pair-options">
+          <div class="option-card" onclick="selectPair(3,'A',this)">Услышать аргументы команды и найти компромисс, сохранив её включённость</div>
+          <div class="option-card" onclick="selectPair(3,'B',this)">Настоять на сложном и непопулярном решении, которое даст новые возможности бизнесу</div>
+        </div>
+        <button class="back-link" onclick="showPair(2)">← Назад</button>
+      </div>
+
+      <div class="pair" data-pair="4">
+        <div class="progress-indicator">Пара 4 из 5</div>
+        <h1 class="pair-title">Форсированный выбор ценностей</h1>
+        <p class="pair-subtitle">В каждой паре — два варианта. Выберите тот, что ближе вам в работе.</p>
+        <div class="pair-options">
+          <div class="option-card" onclick="selectPair(4,'A',this)">Использовать рыночные возможности, пока они есть</div>
+          <div class="option-card" onclick="selectPair(4,'B',this)">Строить процессы, которые работают вне зависимости от конъюнктуры</div>
+        </div>
+        <button class="back-link" onclick="showPair(3)">← Назад</button>
+      </div>
+
+      <div class="pair" data-pair="5">
+        <div class="progress-indicator">Пара 5 из 5</div>
+        <h1 class="pair-title">Форсированный выбор ценностей</h1>
+        <p class="pair-subtitle">В каждой паре — два варианта. Выберите тот, что ближе вам в работе.</p>
+        <div class="pair-options">
+          <div class="option-card" onclick="selectPair(5,'A',this)">Оперативно пересобрать западающий процесс</div>
+          <div class="option-card" onclick="selectPair(5,'B',this)">Сначала разобраться, зачем он устроен именно так</div>
+        </div>
+        <button class="back-link" onclick="showPair(4)">← Назад</button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="screen-3" class="screen">
+  <div class="s3">
+    <h1 class="s3-title">Расстановка приоритетов</h1>
+
+    <div class="s3-context">
+      <div class="s3-context-time">Вторник, 9:15. Вы работаете в роли около месяца.</div>
+      <div class="s3-context-body">Контекст: Открытие нового региона — через пять недель. Команда вас знает. Часть процессов уже выстроена, часть ещё в работе.</div>
+      <div class="s3-context-instruction">Разложите шесть задач по трём контейнерам. Порядок внутри каждого контейнера тоже имеет значение — расставьте задачи так, как будете к ним подходить по очереди.</div>
+    </div>
+
+    <div id="unsorted-title" class="unsorted-title">Несортированные задачи</div>
+
+    <div id="unsorted-zone" class="unsorted-zone drop-zone">
+      <div class="task-card" draggable="true" data-task="A">
+        <div class="task-card-content">
+          <div class="task-marker">09:15</div>
+          <div class="task-name">Ежедневная планёрка команды</div>
+          <div class="task-context">В календаре 45 минут. Команда ждёт.</div>
+        </div>
+        <div class="task-reorder">
+          <button class="reorder-up" onclick="moveTask(this,-1)">↑</button>
+          <button class="reorder-down" onclick="moveTask(this,1)">↓</button>
+        </div>
+      </div>
+      <div class="task-card" draggable="true" data-task="B">
+        <div class="task-card-content">
+          <div class="task-marker">до 12:00</div>
+          <div class="task-name">Отчёт для генерального директора</div>
+          <div class="task-context">Запрошен позавчера. Дедлайн сегодня. Данные у вас есть.</div>
+        </div>
+        <div class="task-reorder">
+          <button class="reorder-up" onclick="moveTask(this,-1)">↑</button>
+          <button class="reorder-down" onclick="moveTask(this,1)">↓</button>
+        </div>
+      </div>
+      <div class="task-card" draggable="true" data-task="C">
+        <div class="task-card-content">
+          <div class="task-marker">с утра</div>
+          <div class="task-name">Конфликт между двумя руководителями участков</div>
+          <div class="task-context">Оба написали вам. Каждый ждёт вашей позиции.</div>
+        </div>
+        <div class="task-reorder">
+          <button class="reorder-up" onclick="moveTask(this,-1)">↑</button>
+          <button class="reorder-down" onclick="moveTask(this,1)">↓</button>
+        </div>
+      </div>
+      <div class="task-card" draggable="true" data-task="D">
+        <div class="task-card-content">
+          <div class="task-marker">↑14% 3 дня</div>
+          <div class="task-name">Отклонение в показателях поставок</div>
+          <div class="task-context">Третий день подряд. Причина неизвестна. Данные у вас.</div>
+        </div>
+        <div class="task-reorder">
+          <button class="reorder-up" onclick="moveTask(this,-1)">↑</button>
+          <button class="reorder-down" onclick="moveTask(this,1)">↓</button>
+        </div>
+      </div>
+      <div class="task-card" draggable="true" data-task="E">
+        <div class="task-card-content">
+          <div class="task-marker">пятница</div>
+          <div class="task-name">Подготовка к стратегической сессии</div>
+          <div class="task-context">Через три дня. Нужно сформулировать операционные приоритеты на квартал.</div>
+        </div>
+        <div class="task-reorder">
+          <button class="reorder-up" onclick="moveTask(this,-1)">↑</button>
+          <button class="reorder-down" onclick="moveTask(this,1)">↓</button>
+        </div>
+      </div>
+      <div class="task-card" draggable="true" data-task="F">
+        <div class="task-card-content">
+          <div class="task-marker">17 сообщений</div>
+          <div class="task-name">Накопившиеся рабочие сообщения</div>
+          <div class="task-context">За вчера и утро. Часть от команды, часть от смежных отделов. Срочных нет.</div>
+        </div>
+        <div class="task-reorder">
+          <button class="reorder-up" onclick="moveTask(this,-1)">↑</button>
+          <button class="reorder-down" onclick="moveTask(this,1)">↓</button>
+        </div>
       </div>
     </div>
 
-    <!-- T3: SITUATIONS -->
-    <div class="tpanel" id="tp2">
-      <div class="task-label">Инструмент 03</div>
-      <div class="task-title">Рабочие ситуации</div>
-      <div class="task-desc">Пять ситуаций из вашей текущей роли — около месяца после выхода. По каждой выберите одно действие.</div>
-      <div class="sit-pips" id="sitPips"></div>
-      <div id="sitContent"></div>
+    <div class="containers">
+      <div id="container-1" class="container-box drop-zone">
+        <div class="container-head">
+          <div class="container-title">01 · Делаю сейчас</div>
+          <div class="container-subtitle">До того, как заниматься чем-то ещё</div>
+        </div>
+      </div>
+      <div id="container-2" class="container-box drop-zone">
+        <div class="container-head">
+          <div class="container-title">02 · Делаю сам — в очереди</div>
+          <div class="container-subtitle">После текущего, в указанном порядке</div>
+        </div>
+      </div>
+      <div id="container-3" class="container-box drop-zone">
+        <div class="container-head">
+          <div class="container-title">03 · Делегирую</div>
+          <div class="container-subtitle">Передаю кому-то из команды</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="s3-footer">
+      <button class="back-link" onclick="goBackToTool1()">← Назад</button>
+      <button id="tool2-next-btn" class="btn-next" disabled onclick="saveAndContinueTool2()">Далее →</button>
     </div>
   </div>
+</section>
 
-  <!-- S3: MY RESULT -->
-  <div class="screen" id="t_s3">
-    <div class="my-result-box">
-      <div class="mr-title">Ваш профиль по трём инструментам</div>
-      <div class="mr-grid" id="mrGrid"></div>
-      <div class="mr-note" id="mrNote"></div>
-    </div>
-    <div style="font-size:13px;color:var(--mid);line-height:1.75;max-width:640px;margin-bottom:24px;">Ниже — профили четырёх финалистов задачи найма по тем же трём инструментам. У всех четырёх резюме, оценка потенциала и интервью были одинаково хорошими.</div>
-    <button class="btn-p" onclick="tGoTo(4)">Профили финалистов →</button>
-  </div>
+<section id="screen-4" class="screen">
+  <div class="container s4">
+    <div class="s4-inner">
 
-  <!-- S4: REVEAL -->
-  <div class="screen" id="t_s4">
-    <div style="font-family:var(--serif);font-size:20px;font-weight:400;color:var(--black);line-height:1.3;margin-bottom:8px;">Виктор, Карина, Артём, Светлана.</div>
-    <div style="font-size:13px;color:var(--mid);line-height:1.75;max-width:640px;margin-bottom:28px;">Четыре финалиста из задачи найма. Те же три инструмента.</div>
+      <div class="situation active" data-situation="1">
+        <div class="progress-indicator">Ситуация 1 из 5</div>
+        <h1 class="situation-instrument-title">Рабочие ситуации</h1>
+        <p class="situation-subtitle">Пять ситуаций из вашей текущей роли — около месяца после выхода. По каждой выберите одно действие.</p>
+        <div class="situation-card">
+          <h2 class="situation-title">Давление сверху без данных</h2>
+          <div class="situation-context">Руководитель отдела продаж сообщает, что завтра закрывается крупная сделка — объём в три раза выше стандартного заказа. Мощности распределены под текущих клиентов. Окно для манёвра — сутки.</div>
+        </div>
+        <div class="situation-options">
+          <div class="situation-option" onclick="selectSituation(1,1,this)">Организую дополнительные мощности через подрядчиков — это дороже, но сделка закрывается в срок, хоть и с меньшей маржой.</div>
+          <div class="situation-option" onclick="selectSituation(1,2,this)">Связываюсь с текущими клиентами с наименьшими объёмами: передоговариваюсь на сдвиг сроков, освобождаю окно, принимая риск их возможной потери в будущем.</div>
+          <div class="situation-option" onclick="selectSituation(1,3,this)">Возвращаюсь к продажам с реалистичными сроками: предлагаю крупному клиенту сдвиг на несколько дней как условие сделки, принимая риск не закрыть её в изначальные сроки.</div>
+          <div class="situation-option" onclick="selectSituation(1,4,this)">Предлагаю частичную отгрузку завтра, остаток — в течение недели по мере высвобождения мощностей, с риском повреждения части заказа из-за перезатарки.</div>
+        </div>
+        <button class="back-link" onclick="showScreen('screen-3')">← Назад</button>
+      </div>
 
-    <table class="rtable">
-      <thead>
-        <tr>
-          <th>Инструмент</th>
-          <th class="ch"><div class="chead"><div class="cav-s" style="background:linear-gradient(135deg,#c8b49a,#9a7855);">В</div><div class="cname">Виктор Сомов</div></div></th>
-          <th class="ch"><div class="chead"><div class="cav-s" style="background:linear-gradient(135deg,#2a2a2a,#0d0d0d);">К</div><div class="cname">Карина Игнатьева</div></div></th>
-          <th class="ch"><div class="chead"><div class="cav-s" style="background:linear-gradient(135deg,#3a5a7a,#1a3a5a);">А</div><div class="cname">Артём Лебедев</div></div></th>
-          <th class="ch"><div class="chead"><div class="cav-s" style="background:linear-gradient(135deg,#5a3a6a,#3a1a4a);">С</div><div class="cname">Светлана Миронова</div></div></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><div class="dim-n">Ценности</div><div class="dim-s">Форсированный выбор</div></td>
-          <td>
-            <div class="ctags"><span class="ctag" style="background:rgba(154,92,16,0.1);color:var(--amber);">Скорость</span><span class="ctag" style="background:rgba(154,92,16,0.1);color:var(--amber);">Признание</span><span class="ctag" style="background:rgba(154,92,16,0.1);color:var(--amber);">Система</span></div>
-            <div class="cdesc">Ориентирован на видимый результат и внешнюю оценку. Предсказуемость процесса важнее адаптивности.</div>
-          </td>
-          <td>
-            <div class="ctags"><span class="ctag" style="background:rgba(26,102,64,0.1);color:var(--green);">Точность</span><span class="ctag" style="background:rgba(26,102,64,0.1);color:var(--green);">Автономия</span><span class="ctag" style="background:rgba(26,102,64,0.1);color:var(--green);">Основа</span></div>
-            <div class="cdesc">Независимость суждений важнее признания. Долгосрочная основа важнее быстрого результата.</div>
-          </td>
-          <td>
-            <div class="ctags"><span class="ctag" style="background:rgba(26,102,64,0.1);color:var(--green);">Результат</span><span class="ctag" style="background:rgba(26,102,64,0.1);color:var(--green);">Измеримость</span><span class="ctag" style="background:rgba(154,92,16,0.1);color:var(--amber);">Исполнение</span></div>
-            <div class="cdesc">Чёткие метрики и измеримый результат. Качество исполнения важнее стратегического влияния.</div>
-          </td>
-          <td>
-            <div class="ctags"><span class="ctag" style="background:rgba(26,102,64,0.1);color:var(--green);">Команда</span><span class="ctag" style="background:rgba(26,102,64,0.1);color:var(--green);">Признание</span><span class="ctag" style="background:rgba(154,92,16,0.1);color:var(--amber);">Стратегия</span></div>
-            <div class="cdesc">Принадлежность к команде — сильный мотиватор. Стратегическое влияние ценится выше совершенства в текущей роли.</div>
-          </td>
-        </tr>
-        <tr>
-          <td><div class="dim-n">Приоритеты</div><div class="dim-s">Рабочий календарь</div></td>
-          <td>
-            <div class="ctags"><span class="ctag" style="background:rgba(160,32,46,0.08);color:var(--red);">Реактивный</span></div>
-            <div class="cdesc">В «сейчас» — отчёт для генерального и планёрка. Отклонение в поставках отложил в очередь на третье место. Стратегическую сессию делегировал.</div>
-          </td>
-          <td>
-            <div class="ctags"><span class="ctag" style="background:rgba(26,102,64,0.1);color:var(--green);">Системный</span></div>
-            <div class="cdesc">В «сейчас» — отклонение в поставках. Стратегическая сессия — первой в очереди. Отчёт делегировала. Планёрку сократила и перенесла.</div>
-          </td>
-          <td>
-            <div class="ctags"><span class="ctag" style="background:rgba(26,102,64,0.1);color:var(--green);">Операционный</span></div>
-            <div class="cdesc">В «сейчас» — поставки и планёрка. Отчёт — первым в очереди. Конфликт сотрудников делегировал. Стратегическую сессию — последней в очереди.</div>
-          </td>
-          <td>
-            <div class="ctags"><span class="ctag" style="background:rgba(154,92,16,0.1);color:var(--amber);">Человеческий фокус</span></div>
-            <div class="cdesc">В «сейчас» — конфликт сотрудников и планёрка. Отклонение в поставках делегировала. Стратегическую сессию — второй в очереди, отчёт — первым.</div>
-          </td>
-        </tr>
-        <tr>
-          <td><div class="dim-n">Ситуации</div><div class="dim-s">Поведенческий паттерн</div></td>
-          <td>
-            <div class="ctags"><span class="ctag" style="background:rgba(160,32,46,0.08);color:var(--red);">Принимает давление</span></div>
-            <div class="cdesc">В ситуациях с неполными данными действовал быстро без уточнений. На давление сверху уступал, сохраняя процедурный вид. Диагностику пропускал.</div>
-          </td>
-          <td>
-            <div class="ctags"><span class="ctag" style="background:rgba(26,102,64,0.1);color:var(--green);">Диагностирует</span></div>
-            <div class="cdesc">В каждой ситуации сначала уточняла природу проблемы. На давление держала позицию с аргументами. Не действовала без достаточных данных.</div>
-          </td>
-          <td>
-            <div class="ctags"><span class="ctag" style="background:rgba(154,92,16,0.1);color:var(--amber);">Директивный</span></div>
-            <div class="cdesc">Принимал решения быстро и чётко, своей логики не объяснял. На давление отказывал без аргументации. Команда видит решение, но не понимает причину.</div>
-          </td>
-          <td>
-            <div class="ctags"><span class="ctag" style="background:rgba(26,102,64,0.1);color:var(--green);">Фасилитирует</span></div>
-            <div class="cdesc">В ситуациях с людьми — сильна. В операционных ищет консенсус там, где нужно решение. Давление держит через выстраивание отношений, а не через позицию.</div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+      <div class="situation" data-situation="2">
+        <div class="progress-indicator">Ситуация 2 из 5</div>
+        <h1 class="situation-instrument-title">Рабочие ситуации</h1>
+        <p class="situation-subtitle">Пять ситуаций из вашей текущей роли — около месяца после выхода. По каждой выберите одно действие.</p>
+        <div class="situation-card">
+          <h2 class="situation-title">Конфликт операционных и коммерческих интересов</h2>
+          <div class="situation-context">Крупный клиент систематически нарушает окна приёмки — приезжает на 2-3 часа позже согласованного. Платит вовремя, объёмы значительные. Каждый раз это блокирует рампу и срывает отгрузки следующим клиентам. Коммерческий директор просит не трогать — клиент стратегический.</div>
+        </div>
+        <div class="situation-options">
+          <div class="situation-option" onclick="selectSituation(2,1,this)">Фиксирую каждое нарушение официально и инициирую применение штрафных условий по договору — даже если коммерческий директор против.</div>
+          <div class="situation-option" onclick="selectSituation(2,2,this)">Выделяю клиенту отдельное окно с буфером, перестраиваю расписание под него: операция адаптируется к реальности.</div>
+          <div class="situation-option" onclick="selectSituation(2,3,this)">Выношу на уровень генерального: операционные потери от клиента должны быть видны наравне с его выручкой.</div>
+          <div class="situation-option" onclick="selectSituation(2,4,this)">Перестраиваю операционный цикл так, чтобы его опоздания не блокировали остальных — решаю проблему внутри, не трогая отношения с клиентом.</div>
+        </div>
+        <button class="back-link" onclick="showSituation(1)">← Назад</button>
+      </div>
 
-    <div class="insight" style="margin-top:4px;">
-      <div class="ins-label">Вывод</div>
-      <div class="ins-title">У всех четырёх — одинаковые галочки в стандартном процессе. Разные профили в реальных ситуациях.</div>
-      <div class="ins-body" style="font-size:13px;color:rgba(255,255,255,0.6);line-height:1.8;">Виктор убедительно рассказывает на интервью, потому что умеет выбирать правильную историю. Светлана — сильный управленец людьми, но операционные приоритеты расставляет через человеческую логику, а не системную. Артём принимает решения, не объясняя логику — риск при построении культуры с нуля. Карина ставит системные задачи первыми даже под давлением.<br><br><strong>Эти данные не появляются в резюме, в оценке потенциала или в интервью. Они появляются только в инструментах, которые воспроизводят реальные рабочие ситуации — с конфликтующими приоритетами, неполными данными и управленческим давлением.</strong></div>
-      <div class="brow"><a href="/recruitment" class="return-to-landing">Вернуться к лендингу</a></div>
+      <div class="situation" data-situation="3">
+        <div class="progress-indicator">Ситуация 3 из 5</div>
+        <h1 class="situation-instrument-title">Рабочие ситуации</h1>
+        <p class="situation-subtitle">Пять ситуаций из вашей текущей роли — около месяца после выхода. По каждой выберите одно действие.</p>
+        <div class="situation-card">
+          <h2 class="situation-title">Системный сбой, который команда не признаёт</h2>
+          <div class="situation-context">Три недели подряд время обработки заказов растёт на 7–8%. Команда говорит «всё штатно». Ваши данные говорят иначе.</div>
+        </div>
+        <div class="situation-options">
+          <div class="situation-option" onclick="selectSituation(3,1,this)">Иду смотреть на процесс без предупреждения — просто наблюдаю.</div>
+          <div class="situation-option" onclick="selectSituation(3,2,this)">Запрашиваю письменные объяснения от каждого руководителя участка.</div>
+          <div class="situation-option" onclick="selectSituation(3,3,this)">Собираю руководителей участков: выкладываю свои данные и прошу объяснить расхождение с тем, что они докладывают.</div>
+          <div class="situation-option" onclick="selectSituation(3,4,this)">Параллельно с наблюдением запускаю замер по каждому этапу обработки — ищу, где именно растёт время.</div>
+        </div>
+        <button class="back-link" onclick="showSituation(2)">← Назад</button>
+      </div>
+
+      <div class="situation" data-situation="4">
+        <div class="progress-indicator">Ситуация 4 из 5</div>
+        <h1 class="situation-instrument-title">Рабочие ситуации</h1>
+        <p class="situation-subtitle">Пять ситуаций из вашей текущей роли — около месяца после выхода. По каждой выберите одно действие.</p>
+        <div class="situation-card">
+          <h2 class="situation-title">Давление сверху на качество</h2>
+          <div class="situation-context">Генеральный директор говорит, что нужно ускорить открытие региона на две недели. Это означает запускаться без завершённой системы контроля качества.</div>
+        </div>
+        <div class="situation-options">
+          <div class="situation-option" onclick="selectSituation(4,1,this)">Соглашаюсь — бизнес-решение принимает он.</div>
+          <div class="situation-option" onclick="selectSituation(4,2,this)">Соглашаюсь при условии, что снижаем ожидания по ряду показателей эффективности на старте — фиксируем это до запуска.</div>
+          <div class="situation-option" onclick="selectSituation(4,3,this)">Прошу 30 минут: показываю конкретные риски и что нужно для их снижения.</div>
+          <div class="situation-option" onclick="selectSituation(4,4,this)">Предлагаю запуститься раньше с усиленным ручным контролем и еженедельным мониторингом отклонений.</div>
+        </div>
+        <button class="back-link" onclick="showSituation(3)">← Назад</button>
+      </div>
+
+      <div class="situation" data-situation="5">
+        <div class="progress-indicator">Ситуация 5 из 5</div>
+        <h1 class="situation-instrument-title">Рабочие ситуации</h1>
+        <p class="situation-subtitle">Пять ситуаций из вашей текущей роли — около месяца после выхода. По каждой выберите одно действие.</p>
+        <div class="situation-card">
+          <h2 class="situation-title">Конфликт приоритетов внутри команды</h2>
+          <div class="situation-context">Два руководителя участков не могут договориться о распределении складской площади под новую товарную категорию. Оба пришли к вам одновременно. У каждого своя логика, оба правы по-своему.</div>
+        </div>
+        <div class="situation-options">
+          <div class="situation-option" onclick="selectSituation(5,1,this)">Прошу каждого изложить логику — выслушиваю, принимаю решение сам на основе операционных данных.</div>
+          <div class="situation-option" onclick="selectSituation(5,2,this)">Прошу их уйти и вернуться с совместным предложением — это их уровень ответственности.</div>
+          <div class="situation-option" onclick="selectSituation(5,3,this)">Собираю данные по загрузке прямо сейчас — решение принимаю в течение часа.</div>
+          <div class="situation-option" onclick="selectSituation(5,4,this)">Определяю принцип распределения площади исходя из стратегического приоритета категорий: объясняю обоим логику.</div>
+        </div>
+        <button class="back-link" onclick="showSituation(4)">← Назад</button>
+      </div>
+
     </div>
   </div>
+</section>
 
-</div>
-</div>
-</div>
+<section id="screen-5" class="screen">
+  <div class="profile-container">
+    <div class="profile-kicker">Ваш профиль</div>
+    <h1 class="profile-title">Что увидели инструменты</h1>
+
+    <div id="profile-thesis" class="profile-thesis"></div>
+
+    <div id="profile-blocks" class="profile-blocks"></div>
+
+    <div id="profile-closing" class="profile-closing"></div>
+
+    <div class="profile-cta">
+      <button class="btn-primary" onclick="showScreen('screen-6')">К профилям финалистов →</button>
+    </div>
+
+    <div class="profile-footer">
+      <button class="back-link" onclick="showScreen('screen-4'); showSituation(5);">← Назад</button>
+    </div>
+  </div>
+</section>
+
+<section id="screen-6" class="screen">
+  <div class="s6">
+    <div class="s6-kicker">Финалисты</div>
+    <h1 class="s6-title">Профили четырёх кандидатов в задаче найма</h1>
+    <p class="s6-subtitle">У всех четырёх — одинаковые «галочки» в стандартном процессе отбора. Разные профили — в реальных управленческих ситуациях.</p>
+
+    <div class="finalists-grid">
+      <div class="finalist-card" data-finalist="viktor">
+        <div class="finalist-mark">Ваш выбор в задаче найма</div>
+        <div class="finalist-name">Виктор Сомов</div>
+        <div class="finalist-subtitle">Скорость · Признание · Система</div>
+        <div class="finalist-section-title">Ценности</div>
+        <div class="finalist-section-body">Ориентирован на видимый результат и внешнюю оценку. Предсказуемость процесса для него важнее адаптивности.</div>
+        <div class="finalist-section-title">Приоритеты</div>
+        <div class="finalist-section-body">Реактивный. В «сейчас» — отчёт для генерального и планёрка. Отклонение в поставках отложил на третье место в очереди, стратегическую сессию делегировал.</div>
+        <div class="finalist-section-title">Ситуации</div>
+        <div class="finalist-section-body">Принимает давление. В ситуациях с неполными данными действовал быстро, без уточнений. Под давлением сверху уступал, сохраняя процедурный вид, диагностику оставляя в стороне.</div>
+      </div>
+
+      <div class="finalist-card" data-finalist="karina">
+        <div class="finalist-mark">Ваш выбор в задаче найма</div>
+        <div class="finalist-name">Карина Игнатьева</div>
+        <div class="finalist-subtitle">Точность · Автономия · Основа</div>
+        <div class="finalist-section-title">Ценности</div>
+        <div class="finalist-section-body">Независимость суждений для неё важнее признания. Долгосрочная основа важнее быстрого результата.</div>
+        <div class="finalist-section-title">Приоритеты</div>
+        <div class="finalist-section-body">Системный. В «сейчас» — отклонение в поставках. Стратегическая сессия первой в очереди, отчёт делегирован, планёрка сокращена и перенесена.</div>
+        <div class="finalist-section-title">Ситуации</div>
+        <div class="finalist-section-body">Диагностирует. В каждой ситуации начинала с уточнения природы проблемы. Под давлением держала позицию с аргументами, не переходя к действию без достаточных данных.</div>
+      </div>
+
+      <div class="finalist-card" data-finalist="artyom">
+        <div class="finalist-mark">Ваш выбор в задаче найма</div>
+        <div class="finalist-name">Артём Лебедев</div>
+        <div class="finalist-subtitle">Результат · Измеримость · Исполнение</div>
+        <div class="finalist-section-title">Ценности</div>
+        <div class="finalist-section-body">Ориентирован на чёткие метрики и измеримый результат. Качество исполнения для него важнее стратегического влияния.</div>
+        <div class="finalist-section-title">Приоритеты</div>
+        <div class="finalist-section-body">Операционный. В «сейчас» — поставки и планёрка. Отчёт первым в очереди, конфликт сотрудников делегирован, стратегическая сессия последней в очереди.</div>
+        <div class="finalist-section-title">Ситуации</div>
+        <div class="finalist-section-body">Директивный. Принимал решения быстро, не объясняя логики. На давление отказывал без аргументации: команда видела решение, но не понимала причину.</div>
+      </div>
+
+      <div class="finalist-card" data-finalist="svetlana">
+        <div class="finalist-mark">Ваш выбор в задаче найма</div>
+        <div class="finalist-name">Светлана Миронова</div>
+        <div class="finalist-subtitle">Команда · Признание · Стратегия</div>
+        <div class="finalist-section-title">Ценности</div>
+        <div class="finalist-section-body">Принадлежность к команде — сильный мотиватор. Стратегическое влияние ценится выше совершенства в текущей роли.</div>
+        <div class="finalist-section-title">Приоритеты</div>
+        <div class="finalist-section-body">Человеческий фокус. В «сейчас» — конфликт сотрудников и планёрка. Отклонение в поставках делегировано, стратегическая сессия второй в очереди, отчёт первым.</div>
+        <div class="finalist-section-title">Ситуации</div>
+        <div class="finalist-section-body">Фасилитирует. В ситуациях с людьми действует уверенно. В операционных ищет консенсус там, где нужно решение, удерживая влияние через выстраивание отношений, а не через позицию.</div>
+      </div>
+    </div>
+
+    <div class="s6-choice">
+      <div class="s6-choice-header">
+        <h3 class="s6-choice-title">Кого из финалистов выбрать</h3>
+        <p class="s6-choice-context">В кейсе про найм операционного руководителя — розничная сеть на третьем году масштабирования, 120 точек продаж, открытие двух новых регионов в текущем квартале. Впервые нанимается выделенный операционный руководитель. Задача первого года — построить операционную систему с нуля.</p>
+      </div>
+      <div class="s6-choice-body">
+        <p class="s6-choice-thesis">Под содержание этой задачи из четырёх финалистов подходит Карина.</p>
+        <p class="s6-choice-block">Карина работает в логике системного сигнала: первым в фокус попадает отклонение в показателях, а не то, что заметно сверху. В управленческих ситуациях она диагностирует природу происходящего и держит позицию при давлении сверху. В работе с командой выстраивает понимание прежде, чем требовать исполнения. Это и есть содержание задачи построения операционной системы с нуля: на этапе, где готовых процессов ещё нет, выигрывает руководитель, который умеет видеть причину, а не реагировать на видимое.</p>
+        <p class="s6-choice-block">Виктор силён в задачах, где основное — скорость реакции на видимое сверху и работа в готовой системе. В задаче с длинным горизонтом и без существующих процессов его реактивный фокус оставляет в очереди системные сигналы, с которых построение и начинается.</p>
+        <p class="s6-choice-block">Артём силён в задачах, где готовые процессы нужно отладить или ускорить. В построении с нуля его директивный стиль без вовлечения команды создаёт сопротивление в момент, когда нужно собрать поддержку под решения, у которых ещё нет истории.</p>
+        <p class="s6-choice-block">Светлана сильна в работе с людьми и в проектах изменений сложившейся команды. На этапе, когда команда формируется, а основные риски лежат в операционном контуре, её человеческий фокус оставляет операционные сигналы без своевременного внимания.</p>
+      </div>
+    </div>
+
+    <div class="s6-back">
+      <button class="back-link" onclick="showScreen('screen-5')">← Назад к вашему профилю</button>
+    </div>
+
+    <div class="s6-final">
+      <div class="s6-final-kicker">Вывод</div>
+      <h2 class="s6-final-title">Эти различия не видны в резюме, оценке потенциала или интервью.</h2>
+      <p class="s6-final-body">Они проявляются только в инструментах, которые воспроизводят реальные ситуации — с конфликтующими приоритетами, неполными данными и давлением.</p>
+      <div class="s6-actions">
+        <a href="/recruitment" class="return-to-landing">Вернуться к лендингу</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <script>
-// ── CINEMATIC SCROLL STORYTELLING ──
-function initReveal(){const revealEls=document.querySelectorAll('.rv,.rl,.rr,.rm,.rs,.stagger,.rl-line,.step-row');
-const sObs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      e.target.classList.add('on');
-      // Cascade: if section parent has data-cascade, stagger siblings
+const userChoiceFromDemo1 = localStorage.getItem('demo1_choice') || null;
+
+const userChoices = {
+  tool1: {},
+  tool2: {},
+  tool3: {}
+};
+
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  const target = document.getElementById(id);
+  if(target) target.classList.add('active');
+  window.scrollTo({top:0, behavior:'instant'});
+  if(id === 'screen-5') renderProfileScreen();
+  if(id === 'screen-6') renderFinalistsScreen();
+}
+
+function renderFinalistsScreen(){
+  document.querySelectorAll('.finalist-card').forEach(c => c.classList.remove('selected-from-demo1'));
+  const demo1Choice = localStorage.getItem('demo1_choice');
+  if(!demo1Choice) return;
+  const card = document.querySelector(`.finalist-card[data-finalist="${demo1Choice}"]`);
+  if(card) card.classList.add('selected-from-demo1');
+}
+
+function restartDemo2(){
+  userChoices.tool1 = {};
+  userChoices.tool2 = {};
+  userChoices.tool3 = {};
+  try { localStorage.removeItem('demo2_profile'); } catch(e) {}
+
+  document.querySelectorAll('#screen-2 .option-card.selected').forEach(c => c.classList.remove('selected'));
+  document.querySelectorAll('#screen-4 .situation-option.selected').forEach(c => c.classList.remove('selected'));
+
+  resetTool2Layout();
+  showPair(1);
+  showSituation(1);
+
+  showScreen('screen-1');
+}
+
+function resetTool2Layout(){
+  const unsortedZone = document.getElementById('unsorted-zone');
+  if(!unsortedZone) return;
+  const order = ['A','B','C','D','E','F'];
+  order.forEach(id => {
+    const card = document.querySelector(`#screen-3 .task-card[data-task="${id}"]`);
+    if(card){
+      card.classList.remove('selected','dragging');
+      unsortedZone.appendChild(card);
     }
   });
-},{threshold:0.12,rootMargin:'0px 0px -48px 0px'});
-revealEls.forEach(el=>sObs.observe(el));}
-document.addEventListener('DOMContentLoaded',initReveal);
-
-// ── PARALLAX HERO BG WORD ──
-const bgWord=document.querySelector('.hero-bg-word');
-window.addEventListener('scroll',()=>{
-  if(bgWord){const sy=window.scrollY;bgWord.style.transform=`translateY(calc(-50% + ${sy*0.15}px))`;}
-},{passive:true});
-
-// ── SECTION COUNTER / PROGRESS ──
-const sections=document.querySelectorAll('section[id]');
-const progBar=document.createElement('div');
-progBar.style.cssText='position:fixed;top:0;left:0;height:2px;background:var(--accent);z-index:999;transition:width 0.2s;width:0%;pointer-events:none;';
-document.body.appendChild(progBar);
-window.addEventListener('scroll',()=>{
-  const s=window.scrollY,h=document.body.scrollHeight-window.innerHeight;
-  progBar.style.width=(s/h*100)+'%';
-},{passive:true});
-
-// ── FAQ ──
-// FAQ: handled via inline onclick
-
-
-// ──────────────────────────────────────────────
-// MECHANIC 1: HIRE APP
-// ──────────────────────────────────────────────
-
-function makeHireChoice(who){
-  const choseA=who==='A';
-  const chosenName=choseA?'Алину Звонарёву':'Дмитрия Кравцова';
-
-  const sA=[
-    {q:'Про защиту кандидата',t:'Обобщённый пример без верифицируемых деталей. Нет роли, нет решения, нет результата. Именно так выглядит заученный или подготовленный с ИИ ответ.',ok:false},
-    {q:'Про дедлайн',t:'«Действовать системно» без описания системы. «Не жертвовать качеством» — декларация без механизма. Что именно будет сделано — неизвестно.',ok:false},
-    {q:'Про культурный фиттинг',t:'«Хорошо развитая интуиция» — не инструмент оценки. Именно интуиция без операционализации является одним из главных источников когнитивных искажений в найме.',ok:false}
-  ];
-  const sB=[
-    {q:'Про защиту кандидата',t:'Конкретный кейс: три навыка, два пробела, один критерий, договорённость на испытательный, метрики через 3 месяца. Структурный подход вместо декларации.',ok:true},
-    {q:'Про дедлайн',t:'Диагностирует причину до действия. Различает типы ситуации. Управляет рисками явно и с фиксацией, а не снимает с себя ответственность.',ok:true},
-    {q:'Про культурный фиттинг',t:'Операционализирует через поведенческие паттерны — единственный надёжный способ. Не работает с общим впечатлением — работает с проверяемыми признаками.',ok:true}
-  ];
-
-  const myS=choseA?sA:sB;
-  const theirS=choseA?sB:sA;
-  const otherName=choseA?'Дмитрий Кравцов':'Алина Звонарёва';
-
-  const mkSig=arr=>arr.map(s=>`<div class="hire-signal"><div class="hire-signal-dot" style="background:${s.ok?'#28a745':'#e05a4e'};"></div><div style="flex:1;"><div class="hire-signal-label">${s.q}</div><div class="hire-signal-text">${s.t}</div></div></div>`).join('');
-
-  const verdict=choseA
-    ?`<div style="background:#fff9f2;border:1px solid rgba(158,126,90,0.25);padding:20px 24px;margin-bottom:28px;"><div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;">Распространённый выбор</div><div style="font-family:var(--serif);font-size:22px;font-weight:400;line-height:1.3;color:var(--black);margin-bottom:10px;">Алина производит сильное впечатление — и именно это настораживает</div><div style="font-size:13px;color:var(--mid);line-height:1.65;">Все три ответа грамотно построены. Но грамотно построенный ответ — не то же самое, что компетентный ответ. Посмотрите на сигналы.</div></div>`
-    :`<div style="background:#f0fff4;border:1px solid rgba(40,167,69,0.2);padding:20px 24px;margin-bottom:28px;"><div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#28a745;margin-bottom:8px;">Выбор совпадает с методологией</div><div style="font-family:var(--serif);font-size:22px;font-weight:400;line-height:1.3;color:var(--black);margin-bottom:10px;">Дмитрий — методологически обоснованный выбор</div><div style="font-size:13px;color:var(--mid);line-height:1.65;">Три ответа содержат конкретные детали, верифицируемые решения и явный структурный подход к неоднозначным ситуациям.</div></div>`;
-
-  document.getElementById('hireResultInner').innerHTML=`${verdict}
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;">
-      <div><div style="font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#888;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--line);">${chosenName} — сигналы</div>${mkSig(myS)}</div>
-      <div><div style="font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#888;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--line);">${otherName} — для сравнения</div>${mkSig(theirS)}
-        <div style="margin-top:20px;padding:18px 20px;background:var(--black);"><div style="font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;">Принцип оценки</div><div style="font-size:13px;color:rgba(255,255,255,0.65);line-height:1.65;">Это один из форматов структурированного анализа по методологии ЛББ. В реальной сессии к нему добавляются ситуационные задачи и поведенческие индикаторы.</div></div>
-        <button onclick="resetHireApp()" style="margin-top:14px;font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;border:1px solid var(--black);padding:10px 20px;background:transparent;cursor:pointer;width:100%;transition:all 0.2s;" onmouseenter="this.style.background='var(--black)';this.style.color='var(--white)'" onmouseleave="this.style.background='transparent';this.style.color='var(--black)'">Попробовать другой выбор</button>
-      </div>
-    </div>`;
-
-  document.getElementById('hireCandidates').style.display='none';
-  document.getElementById('hireInstBar').innerHTML=`<div><div style="font-size:13px;font-weight:500;color:var(--black);">Разбор выбора — методология ЛББ</div><div style="font-size:12px;color:var(--mid);margin-top:2px;">Вы выбрали ${chosenName}</div></div><div style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);font-weight:600;">Шаг 2 из 2</div>`;
-  document.getElementById('hireResult').style.display='block';
-  document.getElementById('hireOverlay').scrollTop=0;
+  selectedTaskCard = null;
+  updateTool2State();
 }
 
-function resetHireApp(){
-  document.getElementById('hireResult').style.display='none';
-  document.getElementById('hireCandidates').style.display='grid';
-  document.getElementById('hireInstBar').innerHTML='<div><div style="font-size:13px;font-weight:500;color:var(--black);">Руководитель по развитию · Финальный этап</div><div style="font-size:12px;color:var(--mid);margin-top:2px;">Прочитайте ответы обоих кандидатов и нажмите «Нанять»</div></div><div style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);font-weight:600;">Шаг 1 из 2</div>';
-  document.getElementById('hireOverlay').scrollTop=0;
-}
-
-// ──────────────────────────────────────────────
-// MECHANIC 2: THREE LAYERS
-// ──────────────────────────────────────────────
-const vpData=[
-  {a:'Скорость результата',b:'Глубина проработки',sA:'Ориентация на видимый вклад',sB:'Методологическая культура',dA:'Скорость',dB:'Глубина'},
-  {a:'Признание в команде',b:'Автономия в решениях',sA:'Социальная принадлежность',sB:'Независимость суждений',dA:'Команда',dB:'Независимость'},
-  {a:'Предсказуемость процессов',b:'Свобода экспериментировать',sA:'Стабильность и контроль',sB:'Адаптивность и риск',dA:'Стабильность',dB:'Гибкость'},
-  {a:'Чёткие KPI',b:'Широкий контекст задачи',sA:'Операциональная фокусировка',sB:'Стратегическое мышление',dA:'KPI',dB:'Контекст'},
-  {a:'Влияние на стратегию',b:'Качество исполнения',sA:'Амбиция на масштаб',sB:'Мастерство в роли',dA:'Стратегия',dB:'Исполнение'},
-  {a:'Карьерный рост',b:'Мастерство в текущей роли',sA:'Вертикальная мотивация',sB:'Горизонтальная экспертиза',dA:'Рост',dB:'Мастерство'}
-];
-let vpChoices={};
-
-function initValuePairs(){
-  const c=document.getElementById('valuePairs');
-  if(!c)return;
-  c.innerHTML='';vpChoices={};
-  vpData.forEach((p,i)=>{
-    const r=document.createElement('div');
-    r.className='vp-row';r.id='vpr'+i;
-    r.innerHTML=`<div class="vp-opt" id="vpa${i}" onclick="chooseVal(${i},'a')">${p.a}</div><div class="vp-vs">vs</div><div class="vp-opt" id="vpb${i}" onclick="chooseVal(${i},'b')">${p.b}</div>`;
-    c.appendChild(r);
-  });
-}
-
-function chooseVal(idx,side){
-  vpChoices[idx]=side;
-  document.getElementById('vpa'+idx).classList.toggle('chosen',side==='a');
-  document.getElementById('vpb'+idx).classList.toggle('chosen',side==='b');
-  const cnt=Object.keys(vpChoices).length;
-  document.getElementById('pairProgress').textContent=cnt+' / 6 выборов';
-  const btn=document.getElementById('toLayer1Btn');
-  btn.disabled=cnt<6;btn.style.opacity=cnt<6?'0.3':'1';
-}
-
-function goToLayer1(){
-  const ap=document.getElementById('assessorPairs');ap.innerHTML='';
-  vpData.forEach((p,i)=>{
-    const ch=vpChoices[i];
-    const r=document.createElement('div');r.className='asr-row';
-    r.innerHTML=`<div class="asr-opt ${ch==='a'?'chosen':'not-chosen'}"><div class="asr-tag">${p.dA}</div><div class="asr-val">${p.a}</div><div class="asr-signal">${p.sA}</div></div><div class="asr-opt ${ch==='b'?'chosen':'not-chosen'}"><div class="asr-tag">${p.dB}</div><div class="asr-val">${p.b}</div><div class="asr-signal">${p.sB}</div></div>`;
-    ap.appendChild(r);
-  });
-
-  const pb=document.getElementById('patternBlock');pb.innerHTML='';
-  vpData.forEach((p,i)=>{
-    const isA=vpChoices[i]==='a';
-    const d=document.createElement('div');
-    d.style.cssText='display:flex;align-items:center;gap:8px;';
-    d.innerHTML=`<span style="font-size:11px;color:${isA?'var(--black)':'var(--mid)'};font-weight:${isA?600:400};min-width:72px;text-align:right;line-height:1.3;">${p.dA}</span><div style="width:80px;height:4px;background:var(--line);border-radius:2px;overflow:hidden;position:relative;"><div style="position:absolute;height:100%;width:50%;background:var(--accent);border-radius:2px;${isA?'left:0':'right:0'};"></div></div><span style="font-size:11px;color:${!isA?'var(--black)':'var(--mid)'};font-weight:${!isA?600:400};min-width:72px;line-height:1.3;">${p.dB}</span>`;
-    pb.appendChild(d);
-  });
-
-  const aCount=Object.values(vpChoices).filter(v=>v==='a').length;
-  const summaries=[
-    'Выражена ориентация на скорость, признание и операционный контроль. Сильный исполнитель в предсказуемой среде.',
-    'Смешанный профиль с небольшим смещением к операционной ориентации. Гибкость зависит от роли.',
-    'Смешанный профиль с небольшим смещением к стратегической независимости. Хорошо работает в условиях неопределённости.',
-    'Выражена ориентация на глубину, автономию и стратегический контекст. Сильный в условиях неопределённости.'
-  ];
-  const idx = aCount>=5?0:aCount>=4?1:aCount<=1?3:2;
-  document.getElementById('patternSummary').textContent=summaries[idx];
-  switchLayer(1);
-}
-
-function goToLayer2(){switchLayer(2);}
-
-function switchLayer(idx){
-  [0,1,2].forEach(i=>{
-    document.getElementById('layer'+i).style.display=i===idx?'block':'none';
-    const tab=document.getElementById('ltab'+i);
-    if(tab){tab.classList.toggle('active',i===idx);if(i<=idx){tab.style.pointerEvents='auto';tab.style.opacity='1';}}
-  });
-}
-
-document.addEventListener('DOMContentLoaded',()=>{initValuePairs();});
-
-
-
-// ── MECHANIC 1 ──
-const NAMES=['Виктор Сомов','Карина Игнатьева','Артём Лебедев','Светлана Миронова'];
-const CTEXT=[
-  'Хороший выбор — как и все три остальных. Стандартный процесс это подтверждает. Но смотрите, что он не даёт.',
-  'Сильный профиль. Как и у остальных трёх. Вопрос не в том, кто лучше по оценке — вопрос в том, чего эти инструменты не видят.',
-  'Убедительный кандидат. И все остальные тоже убедительные. Именно в этом и проблема — смотрите дальше.',
-  'Интересный профиль. И это не делает выбор проще — смотрите, почему.',
-];
-
-function openHireApp(){
-  document.getElementById('hireOverlay').style.display='block';
-  setTimeout(()=>{const w=document.getElementById('hireWin');w.style.transform='translateY(0) scale(1)';w.style.opacity='1';},30);
-  document.body.style.overflow='hidden';
-  hShowC(0);
-}
-function closeHireApp(){
-  const w=document.getElementById('hireWin');w.style.transform='translateY(40px) scale(0.97)';w.style.opacity='0';
-  setTimeout(()=>{document.getElementById('hireOverlay').style.display='none';document.body.style.overflow='';},420);
-}
-document.addEventListener('DOMContentLoaded',()=>{
-  document.getElementById('hireOverlay').addEventListener('click',e=>{if(e.target===document.getElementById('hireOverlay'))closeHireApp();});
-});
-function hGoTo(n){
-  document.querySelectorAll('#hireWin .screen').forEach(s=>s.classList.remove('on'));
-  document.getElementById('s'+n).classList.add('on');
-  document.getElementById('hireOverlay').scrollTop=0;
-  const T=['','Контекст задачи','Профили финалистов','Разбор: что показал процесс'];
-  const S=['','Прочитайте ситуацию перед тем, как смотреть кандидатов','Биография, оценка потенциала и интервью каждого финалиста',''];
-  document.getElementById('sTitle').textContent=T[n];
-  document.getElementById('sSub').textContent=S[n];
-  ['p1','p2','p3'].forEach((id,i)=>{const el=document.getElementById(id);el.className='pip';if(i+1<n)el.classList.add('done');else if(i+1===n)el.classList.add('act');});
-}
-function hShowC(i){
-  document.querySelectorAll('#hireWin .cpanel').forEach(p=>p.classList.remove('on'));
-  document.getElementById('c'+i).classList.add('on');
-  document.querySelectorAll('#hireWin .ctab').forEach((t,j)=>t.classList.toggle('act',j===i));
-  document.getElementById('t'+i).classList.add('read');
-}
-function hPick(i){
-  document.getElementById('csname').textContent=NAMES[i];
-  document.getElementById('cstext').textContent=CTEXT[i];
-  hGoTo(3);
-}
-function hRestart(){
-  document.querySelectorAll('#hireWin .ctab').forEach(t=>t.classList.remove('read','act'));
-  const w=document.getElementById('hireWin');
-  w.style.opacity='0';
-  setTimeout(()=>{hGoTo(1);hShowC(0);w.style.opacity='1';document.getElementById('hireOverlay').scrollTop=0;},250);
-}
-
-// ── MECHANIC 2 ──
-// ── DATA ──
-const vPairs=[
-  {a:'Принять решение сейчас, даже с неполными данными',b:'Дождаться достаточной информации, чтобы решить точнее',tagA:'Скорость',tagB:'Точность'},
-  {a:'Выстроить систему, которая работает без вас',b:'Оставаться ключевым звеном в критических решениях',tagA:'Автономия системы',tagB:'Личный контроль'},
-  {a:'Сохранить отношения с командой ценой компромисса',b:'Настоять на непопулярном решении, которое считаете правильным',tagA:'Команда',tagB:'Позиция'},
-  {a:'Получить быстрый и измеримый результат',b:'Вложить время в основу, результат которой — через год',tagA:'Краткосрочный результат',tagB:'Долгосрочная основа'},
-  {a:'Изменить процесс, который выглядит неэффективным',b:'Сначала разобраться, зачем он устроен именно так',tagA:'Действие',tagB:'Понимание'},
-];
-
-const calItems=[
-  {time:'09:15',t:'Ежедневная планёрка команды',d:'В календаре 45 минут. Команда ждёт.',sys:false},
-  {time:'до 12:00',t:'Отчёт для генерального директора',d:'Запрошен позавчера. Дедлайн сегодня. Данные у вас есть.',sys:false},
-  {time:'с утра',t:'Конфликт между двумя руководителями участков',d:'Оба написали вам. Каждый ждёт вашей позиции.',sys:false},
-  {time:'↑14% 3 дня',t:'Отклонение в показателях поставок',d:'Третий день подряд. Причина неизвестна. Данные — у вас.',sys:true},
-  {time:'пятница',t:'Подготовка к стратегической сессии',d:'Через три дня. Нужно сформулировать операционные приоритеты на квартал.',sys:true},
-  {time:'17 сообщений',t:'Накопившиеся рабочие сообщения',d:'За вчера и утро. Часть от команды, часть от смежных отделов. Срочных нет.',sys:false},
-];
-
-const sits=[
-  {ctx:'Руководитель отдела продаж приходит и просит срочно изменить план поставок на следующую неделю под крупную сделку. О сделке вы слышите впервые. Дедлайн, по его словам, — завтра.',
-   opts:['Говорю: без данных по сделке — объём, тип товара, регион — разговор не имеет смысла. Прошу прислать параметры.',
-         'Обещаю изучить возможности и ответить через два часа.',
-         'Объясняю, что план поставок за такой срок не меняется — это нарушит другие обязательства.',
-         'Предлагаю вместе пойти к генеральному — решение на его уровне.'],best:0},
-  {ctx:'Один из лучших сотрудников команды сообщает, что рассматривает другой оффер. Это неожиданно. Причины пока неясны.',
-   opts:['Сразу предлагаю повышение — не хочу его потерять.',
-         'Прошу рассказать подробнее: что в оффере привлекает, что у нас не устраивает.',
-         'Говорю, что решение за ним, но что его уход будет потерей.',
-         'Прошу время до конца недели — собираю данные по рынку, потом разговариваем.'],best:1},
-  {ctx:'Три недели подряд время обработки заказов растёт на 7–8%. Команда говорит «всё штатно». Ваши данные говорят иначе.',
-   opts:['Иду смотреть на процесс без предупреждения — просто наблюдаю.',
-         'Запрашиваю письменные объяснения от каждого руководителя участка.',
-         'Созываю срочное совещание — нужна общая картина.',
-         'Жду ещё неделю: возможно, тренд развернётся сам.'],best:0},
-  {ctx:'Генеральный директор говорит, что нужно ускорить открытие региона на две недели. Это означает запускаться без завершённой системы контроля качества.',
-   opts:['Соглашаюсь — бизнес-решение принимает он.',
-         'Говорю, что в таких условиях не могу гарантировать качество, и отказываюсь.',
-         'Прошу 30 минут: хочу показать конкретные риски и что нужно для их снижения.',
-         'Предлагаю запуститься раньше, но с усиленным ручным контролем на старте.'],best:2},
-  {ctx:'Два руководителя участков не могут договориться о распределении складской площади. Оба пришли к вам одновременно. Каждый уверен, что прав.',
-   opts:['Прошу каждого изложить логику своего варианта — выслушиваю, потом решаю сам.',
-         'Прошу их уйти и вернуться с совместным предложением.',
-         'Принимаю решение здесь и сейчас, исходя из операционных данных.',
-         'Говорю, что завтра соберу данные по загрузке и вернусь с обоснованным решением.'],best:0},
-];
-
-// ── STATE ──
-let vC={}, calC={}, sitC={}, sitStep=0, done=[false,false,false];
-// calC[i] = 0|1|2 (zone); zone1order = array of item indices in queue order
-let zone1order=[];
-
-// ── CONTROLS ──
-function openToolsApp(){
-  document.getElementById('toolsOverlay').style.display='block';
-  setTimeout(()=>{const w=document.getElementById('toolsWin');w.style.transform='translateY(0) scale(1)';w.style.opacity='1';},30);
-  document.body.style.overflow='hidden';tResetAll();
-}
-function closeToolsApp(){
-  const w=document.getElementById('toolsWin');w.style.transform='translateY(40px) scale(0.97)';w.style.opacity='0';
-  setTimeout(()=>{document.getElementById('toolsOverlay').style.display='none';document.body.style.overflow='';},420);
-}
-document.addEventListener('DOMContentLoaded',()=>{
-  document.getElementById('toolsOverlay').addEventListener('click',e=>{if(e.target===document.getElementById('toolsOverlay'))closeToolsApp();});
-});
-function tGoTo(n){
-  document.querySelectorAll('#toolsWin .screen').forEach(s=>s.classList.remove('on'));
-  document.getElementById('t_s'+n).classList.add('on');
-  document.getElementById('toolsOverlay').scrollTop=0;
-  const T={1:'О механике',2:'Инструменты оценки',3:'Ваш профиль',4:'Профили финалистов'};
-  const S={1:'Что вы пройдёте',2:'Три инструмента — пройдите последовательно',3:'Результаты трёх инструментов',4:'Четыре финалиста задачи найма'};
-  document.getElementById('t_sTitle').textContent=T[n]||'';
-  document.getElementById('t_sSub').textContent=S[n]||'';
-  ['t_p1','t_p2','t_p3','t_p4'].forEach((id,i)=>{const el=document.getElementById(id);el.className='pip';if(i+1<n)el.classList.add('done');else if(i+1===n)el.classList.add('act');});
-}
-function tShowTask(i){
-  document.querySelectorAll('#toolsWin .tpanel').forEach(p=>p.classList.remove('on'));
-  document.getElementById('tp'+i).classList.add('on');
-  document.querySelectorAll('#toolsWin .ttab').forEach((t,j)=>t.classList.toggle('act',j===i));
-}
-
-// ── RESET ──
-function tResetAll(){
-  vC={};calC={};sitC={};sitStep=0;done=[false,false,false];zone1order=[];
-  initValues();initCal();initSits();
-  ['tt0','tt1','tt2'].forEach(id=>document.getElementById(id).classList.remove('done-tab'));
-  tShowTask(0);
-}
-function tRestart(){tResetAll();tGoTo(1);}
-
-// ── VALUES ──
-function initValues(){
-  const list=document.getElementById('vpList');
-  list.innerHTML='';
-  vPairs.forEach((p,i)=>{
-    const row=document.createElement('div');row.className='vp-row';
-    row.innerHTML=`<div class="vp-opt" id="va${i}" onclick="pickV(${i},'a')">${p.a}</div><div class="vp-vs">или</div><div class="vp-opt" id="vb${i}" onclick="pickV(${i},'b')">${p.b}</div>`;
-    list.appendChild(row);
-  });
-  updV();
-}
-function pickV(i,s){
-  vC[i]=s;
-  document.getElementById('va'+i).classList.toggle('chosen',s==='a');
-  document.getElementById('vb'+i).classList.toggle('chosen',s==='b');
-  updV();
-}
-function updV(){
-  const n=Object.keys(vC).length;
-  document.getElementById('v1Prog').textContent=n+' / 5';
-  document.getElementById('v1Btn').disabled=n<5;
-}
-
-// ── CALENDAR ──
-function initCal(){
-  calC={};zone1order=[];
-  const cards=document.getElementById('calCards');
-  cards.innerHTML='';
-  calItems.forEach((item,i)=>{
-    const d=document.createElement('div');
-    d.className='cal-card';d.id='card'+i;
-    d.innerHTML=`<div class="cc-time">${item.time}</div><div class="cc-body"><div class="cc-title">${item.t}</div><div class="cc-desc">${item.d}</div></div><div class="cc-btns"><button class="ccb" id="b0_${i}" onclick="assignCal(${i},0)">Сейчас</button><button class="ccb" id="b1_${i}" onclick="assignCal(${i},1)">В очередь</button><button class="ccb" id="b2_${i}" onclick="assignCal(${i},2)">Делегировать</button></div>`;
-    cards.appendChild(d);
-  });
-  renderZones();updC();
-}
-
-function assignCal(i,z){
-  const prev=calC[i];
-  // Remove from previous zone if exists
-  if(prev!==undefined){
-    if(prev===1){zone1order=zone1order.filter(x=>x!==i);}
-    // clear active styling
-    [0,1,2].forEach(j=>{
-      const el=document.getElementById('b'+j+'_'+i);
-      if(el)el.classList.remove('active-z0','active-z1','active-z2');
-    });
+function showPair(n){
+  document.querySelectorAll('#screen-2 .pair').forEach(p => p.classList.remove('active'));
+  const target = document.querySelector(`#screen-2 .pair[data-pair="${n}"]`);
+  if(target){
+    target.classList.add('active');
+    target.querySelectorAll('.option-card.selected').forEach(c => c.classList.remove('selected'));
   }
-  if(prev===z){
-    // Clicking same zone = unassign
-    delete calC[i];
-    document.getElementById('card'+i).classList.remove('assigned');
-  } else {
-    calC[i]=z;
-    if(z===1)zone1order.push(i);
-    document.getElementById('card'+i).classList.add('assigned');
-    const cls=['active-z0','active-z1','active-z2'][z];
-    document.getElementById('b'+z+'_'+i).classList.add(cls);
-  }
-  renderZones();updC();
+  window.scrollTo({top:0, behavior:'instant'});
 }
 
-function removeFromZone(i){
-  const z=calC[i];
-  if(z===undefined)return;
-  if(z===1)zone1order=zone1order.filter(x=>x!==i);
-  delete calC[i];
-  [0,1,2].forEach(j=>{const el=document.getElementById('b'+j+'_'+i);if(el)el.classList.remove('active-z0','active-z1','active-z2');});
-  document.getElementById('card'+i).classList.remove('assigned');
-  renderZones();updC();
-}
-
-function renderZones(){
-  [0,1,2].forEach(z=>{
-    const body=document.getElementById('zone'+z);
-    const empty=document.getElementById('z'+z+'empty');
-    const items=Object.keys(calC).filter(k=>calC[k]===parseInt(z)).map(Number);
-    const ordered=z===1?zone1order.filter(x=>calC[x]===1):items;
-    // clear non-empty items
-    Array.from(body.children).forEach(c=>{if(!c.id||!c.id.startsWith('z'))body.removeChild(c);});
-    if(ordered.length>0){
-      empty.style.display='none';
-      ordered.forEach((idx,pos)=>{
-        const div=document.createElement('div');
-        div.className='cz-item';
-        div.onclick=()=>removeFromZone(idx);
-        div.innerHTML=(z===1?`<div class="cz-item-num">${pos+1}.</div>`:'')+`<div class="cz-item-name">${calItems[idx].t}</div><div class="cz-item-time">${calItems[idx].time}</div>`;
-        body.appendChild(div);
-      });
+function selectPair(pairNumber, choice, card){
+  userChoices.tool1[`pair${pairNumber}`] = choice;
+  card.classList.add('selected');
+  setTimeout(() => {
+    if(pairNumber < 5){
+      showPair(pairNumber + 1);
     } else {
-      empty.style.display='block';
+      showScreen('screen-3');
     }
+  }, 300);
+}
+
+/* ============ TOOL 03 — situations ============ */
+
+function showSituation(n){
+  document.querySelectorAll('#screen-4 .situation').forEach(s => s.classList.remove('active'));
+  const target = document.querySelector(`#screen-4 .situation[data-situation="${n}"]`);
+  if(target){
+    target.classList.add('active');
+    target.querySelectorAll('.situation-option.selected').forEach(o => o.classList.remove('selected'));
+  }
+  window.scrollTo({top:0, behavior:'instant'});
+}
+
+function selectSituation(situationNumber, variantNumber, card){
+  userChoices.tool3[`situation${situationNumber}`] = variantNumber;
+  card.classList.add('selected');
+  setTimeout(() => {
+    if(situationNumber < 5){
+      showSituation(situationNumber + 1);
+    } else {
+      showScreen('screen-5');
+    }
+  }, 300);
+}
+
+/* ============ PROFILE — scoring + narrative ============ */
+
+function scoreDimension1(){
+  let score = 0;
+  if(userChoices.tool1.pair1 === 'A') score -= 1;
+  if(userChoices.tool1.pair1 === 'B') score += 1;
+  if(userChoices.tool1.pair4 === 'A') score -= 1;
+  if(userChoices.tool1.pair4 === 'B') score += 1;
+  return score;
+}
+
+function scoreDimension2(){
+  let score = 0;
+  if(userChoices.tool1.pair2 === 'B') score -= 1;
+  if(userChoices.tool1.pair3 === 'A') score += 1;
+  if(userChoices.tool1.pair3 === 'B') score -= 1;
+  return score;
+}
+
+function scoreDimension3(){
+  const taskValues = {D:-2, E:-1, C:0, A:1, F:1, B:2};
+  const mult = {container1:1, container2:0, container3:-1};
+  let raw = 0;
+  for(const [k, list] of Object.entries(userChoices.tool2 || {})){
+    const m = mult[k] ?? 0;
+    for(const id of list) raw += (taskValues[id] || 0) * m;
+  }
+  return Math.max(-3, Math.min(3, Math.round(raw / 2.5)));
+}
+
+function scoreDimension4(){
+  const taskValues = {D:-2, F:-1, B:0, E:0, A:1, C:2};
+  const mult = {container1:1, container2:0, container3:-1};
+  let raw = 0;
+  for(const [k, list] of Object.entries(userChoices.tool2 || {})){
+    const m = mult[k] ?? 0;
+    for(const id of list) raw += (taskValues[id] || 0) * m;
+  }
+  return Math.max(-3, Math.min(3, Math.round(raw / 2.5)));
+}
+
+function scoreDimension5(){
+  let score = 0;
+  if(userChoices.tool1.pair5 === 'A') score -= 1;
+  if(userChoices.tool1.pair5 === 'B') score += 1;
+  const sit1 = userChoices.tool3.situation1;
+  if(sit1 === 1 || sit1 === 2) score -= 1;
+  if(sit1 === 3) score += 1;
+  const sit3 = userChoices.tool3.situation3;
+  if(sit3 === 2) score -= 1;
+  if(sit3 === 4) score += 1;
+  return Math.max(-3, Math.min(3, score));
+}
+
+function scoreDimension6(){
+  let score = 0;
+  const sit1 = userChoices.tool3.situation1;
+  if(sit1 === 1) score -= 1;
+  if(sit1 === 3) score += 1;
+  const sit4 = userChoices.tool3.situation4;
+  if(sit4 === 1) score -= 2;
+  if(sit4 === 2) score -= 1;
+  if(sit4 === 3) score += 1;
+  return Math.max(-3, Math.min(3, score));
+}
+
+function calculateProfile(){
+  return {
+    d1: scoreDimension1(),
+    d2: scoreDimension2(),
+    d3: scoreDimension3(),
+    d4: scoreDimension4(),
+    d5: scoreDimension5(),
+    d6: scoreDimension6()
+  };
+}
+
+function getPolarity(score){
+  if(score <= -2) return 'left';
+  if(score >= 2) return 'right';
+  return 'middle';
+}
+
+const profileTexts = {
+  d1: {
+    left: "Между «решить сейчас» и «дождаться данных» вы выбираете первое. У такого выбора есть цена — допущенные ошибки в обстоятельствах, где материал ещё не сложился. И есть выигрыш: движение в задачах, где остановка обходится дороже самой ошибки. В ролях с коротким окном для действия этот баланс складывается в вашу пользу. В долгих проектах и в работе с критическими данными он чаще оказывается против.",
+    middle: "Между скоростью и тщательностью у вас нет устойчивого предпочтения, выбор зависит от обстановки. На большинстве задач такой подход даёт результат. Разрыв возникает в крайних точках: если ситуация требует решения в одну или другую сторону, а внутренних правил, по которым делать выбор, не сформулировано, основное время уходит на сам выбор подхода.",
+    right: "Между «решить сейчас» и «дождаться данных» вы выбираете второе. Цена этого выбора — упущенные окна и репутация осторожного руководителя. Выигрыш — решения, которые не приходится откатывать, и обоснование, защищаемое перед собственником. В реструктуризациях и кадровых решениях по ключевым позициям этот баланс складывается в вашу пользу. В кризисных режимах и при выходе на новые рынки он чаще оказывается против."
+  },
+  d2: {
+    left: "Когда команда не согласна с вашим решением, вы скорее доводите его до результата, чем переделываете под её возражения. В моменте это даёт ясность направления. На длинной дистанции формирует команду, привыкшую к режиму исполнения, не к режиму со-решения. На этапах, где скорость и определённость важнее вовлечённости, такой подход уместен. В проектах изменений он создаёт сложности: команда без собственного отношения к решению реализует его формально.",
+    middle: "В одних ситуациях вы настаиваете на своей позиции, в других даёте команде формировать решение. Команда получает контакт, в котором обе плоскости присутствуют, но не всегда понимает, в каком режиме идёт конкретный разговор: где решение уже принято и обсуждаются способы реализации, а где у неё есть пространство для влияния. Прояснение режима в начале каждого такого разговора снимает большую часть напряжения от этого паттерна.",
+    right: "Когда у вас есть решение, вы редко защищаете его без участия команды в его формировании. Решение, к которому команда пришла вместе с вами, реализуется иначе: с большей энергией и меньшим сопротивлением. Цена такого подхода — время на согласование, которое не всегда есть. В проектах изменений и в работе с новыми направлениями такой стиль уместен. В кризисных режимах он буксует."
+  },
+  d3: {
+    left: "В первый контур внимания у вас попало не самое срочное и не самое видимое. Этот выбор показывает чувствительность к сигналам, которые ещё не выходят на поверхность, и готовность работать с ними прежде, чем они станут срочными. В ролях, где результат меряется устойчивостью системы, такой подход даёт результат. В ролях с высокой видимостью отчётности руководство может считывать такую расстановку как недостаточную скорость реакции на видимые задачи.",
+    middle: "В первый контур внимания у вас попало и видимое срочное, и более глубокий сигнал. В большинстве задач этот баланс даёт результат. Сложность одна: сигналы разной природы требуют разного типа реакции, и одновременное удержание обоих в фокусе ограничивает глубину работы с каждым.",
+    right: "В первый контур внимания у вас попало то, что заметно сверху и срочно в моменте. Такой подход даёт краткосрочную управляемость и работает в ролях, где это критично для отношений с руководством. Сигналы более глубокого уровня при таком распределении остаются в очереди. В момент, когда они выходят на поверхность, их исправление обходится значительно дороже своевременной работы с ними."
+  },
+  d4: {
+    left: "Когда задача требует решения, ваш первый вопрос про процесс. Где идёт сбой, что замедляет, какую логику нужно перенастроить. Люди в этой картине занимают роли в системе, и сложности между ними часто решаются через перестройку этой системы. В задачах построения операционных моделей такой подход даёт результат. В проектах изменений, где команда сама проходит переход, оптимизация процесса вокруг людей не заменяет работу с ними самими.",
+    middle: "Внимание распределяется и на процессы, и на людей, без сведения одного к другому. В большинстве задач это устойчивая позиция. Сложность возникает в моменты, когда оба слоя требуют участия одновременно: без явного решения, что идёт первым, происходит распыление внимания и пропуск важных сигналов в обоих контурах.",
+    right: "Когда задача требует решения, ваш первый вопрос про людей. Что между ними происходит, как они реагируют, что им сейчас важно. Это даёт раннее считывание ситуаций, которые ещё не проявились в метриках. В проектах изменений такой подход даёт результат. В задачах построения операционной модели, где логика проблемы лежит в процессах, работа с людьми не заменяет работу с самим процессом."
+  },
+  d5: {
+    left: "В обычной работе этот паттерн не заметен — в стабильных задачах действие и есть работа. Сигнал становится виден в работе с системными сбоями: когда время обработки растёт три недели подряд, прямое действие закрепляет проблему. Симптомы и причины в таких случаях часто расходятся, и реакция без диагностики чаще усугубляет ситуацию. В кризисных режимах ваш подход в вашу пользу. В задачах с латентными сбоями он против.",
+    middle: "В большинстве ситуаций ваш выбор между действием и анализом адекватен обстановке. Сигнал проблемы становится виден в одной точке: когда призыв к действию приходит от давления, а не от понимания обстановки. Пауза в таких ситуациях полезнее, чем кажется в моменте, и её сложно взять под прямым внешним давлением.",
+    right: "В обычной работе этот паттерн читается как проработанность и осторожность. Сигнал становится виден в режимах с коротким окном для влияния: время на диагностику оказывается временем, за которое ситуация уходит из управляемого состояния. В задачах со сложной причинно-следственной картиной ваш подход в вашу пользу. В кризисных режимах он против."
+  },
+  d6: {
+    left: "Под давлением сверху вы скорее идёте навстречу, чем выстраиваете встречную позицию. В системах с высоким доверием к решениям руководства такой подход уместен: встречная позиция в них воспринимается как нарушение, и её цена выше, чем риск самого решения. В ролях, где руководству нужен носитель экспертной позиции, ваш подход создаёт сложности: согласие без обозначения рисков может означать, что дорогое решение прошло без необходимой проверки.",
+    middle: "Реакция на давление зависит от содержания: где-то вы соглашаетесь, где-то держите позицию с аргументами. Это даёт хорошие отношения с руководством без потери экспертной позиции. Сложность одна: важно, чтобы стороны решения были видны однозначно. Где вы действительно согласны, а где соглашаетесь из соображений отношений.",
+    right: "Под давлением вы держите позицию, если у неё есть профессиональное основание. В ролях, где руководству нужен носитель экспертной позиции, способный остановить дорогое решение, такой подход в вашу пользу. В системах с жёсткой вертикалью, где встречная позиция воспринимается как нарушение субординации, ваш подход обходится дороже самой возможной ошибки руководства."
+  }
+};
+
+const profileTheses = {
+  systemic_diagnostic: "Аналитический профиль с фокусом на природе происходящего. Уместен в задачах, где симптомы и причины часто расходятся. Менее уместен там, где время на разбор обходится дороже самой проблемы.",
+  reactive_executor: "Реактивный исполнительский профиль. Уместен в задачах с коротким окном для действия и в средах с высоким темпом. Менее уместен в работе со сложными системными задачами и в условиях, где требуется встречная позиция.",
+  team_people: "Командный профиль с фокусом на людях. Уместен в проектах изменений, где результат зависит от того, как команда проходит переход. Менее уместен в кризисных режимах и в задачах построения операционных моделей.",
+  professional_analytical: "Профессионально-аналитический профиль. Уместен в задачах с высокой ценой ошибки и в ролях, где руководству нужен носитель экспертной позиции. Менее уместен в режимах с коротким окном для действия.",
+  operational_directive: "Операционно-директивный профиль. Уместен в задачах построения и переналадки процессов. Менее уместен в проектах изменений, где успех зависит от готовности команды поддержать решение.",
+  methodological_operational: "Методологический операционный профиль. Уместен в проектах построения с нуля и в реструктуризациях. Менее уместен в задачах, требующих скорости и работы с людьми в моменте перехода.",
+  balanced: "Сбалансированный профиль без выраженной доминанты. Гибко адаптируется к разным задачам, но требует осознанного выбора подхода в каждой ситуации."
+};
+
+function selectThesis(profile){
+  const {d1, d2, d3, d4, d5, d6} = profile;
+
+  const maxAbs = Math.max(Math.abs(d1), Math.abs(d2), Math.abs(d3), Math.abs(d4), Math.abs(d5), Math.abs(d6));
+  if(maxAbs <= 1) return profileTheses.balanced;
+
+  if(d3 <= -2 && d5 >= 2) return profileTheses.systemic_diagnostic;
+  if(d1 <= -2 && d5 <= -2 && d6 <= -2) return profileTheses.reactive_executor;
+  if(d2 >= 1 && d4 >= 2) return profileTheses.team_people;
+  if(d1 >= 2 && d5 >= 2 && d6 >= 2) return profileTheses.professional_analytical;
+  if(d4 <= -2 && d5 <= -2 && d2 <= -2) return profileTheses.operational_directive;
+  if(d3 <= -2 && d4 <= -2 && d1 >= 2) return profileTheses.methodological_operational;
+
+  const dims = [
+    {val: d1, leftKey: 'reactive_executor', rightKey: 'professional_analytical'},
+    {val: d3, leftKey: 'systemic_diagnostic', rightKey: 'reactive_executor'},
+    {val: d4, leftKey: 'operational_directive', rightKey: 'team_people'}
+  ];
+  let strongest = dims[0];
+  for(const d of dims){
+    if(Math.abs(d.val) > Math.abs(strongest.val)) strongest = d;
+  }
+  const key = strongest.val < 0 ? strongest.leftKey : strongest.rightKey;
+  return profileTheses[key] || profileTheses.balanced;
+}
+
+const closingPhrase = "Профиль поведения, который вы только что прочитали, не оценка человека, а паттерн, который видят инструменты на материале конкретных выборов. Один и тот же человек в разных ролях разворачивает разные стороны этого паттерна.";
+
+function assembleProfileNarrative(){
+  const profile = calculateProfile();
+  return {
+    thesis: selectThesis(profile),
+    blocks: [
+      profileTexts.d1[getPolarity(profile.d1)],
+      profileTexts.d2[getPolarity(profile.d2)],
+      profileTexts.d3[getPolarity(profile.d3)],
+      profileTexts.d4[getPolarity(profile.d4)],
+      profileTexts.d5[getPolarity(profile.d5)],
+      profileTexts.d6[getPolarity(profile.d6)]
+    ],
+    closing: closingPhrase,
+    profile
+  };
+}
+
+const dimensionTitles = [
+  'Скорость решения',
+  'Тип лидерства',
+  'Фокус приоритетов',
+  'Содержание приоритетов',
+  'Готовность к действию',
+  'Реакция на давление'
+];
+
+function renderProfileScreen(){
+  const narrative = assembleProfileNarrative();
+  document.getElementById('profile-thesis').textContent = narrative.thesis;
+  const blocksContainer = document.getElementById('profile-blocks');
+  blocksContainer.innerHTML = '';
+  narrative.blocks.forEach((text, i) => {
+    const kicker = document.createElement('div');
+    kicker.className = 'profile-block-kicker';
+    kicker.textContent = dimensionTitles[i];
+    blocksContainer.appendChild(kicker);
+    const p = document.createElement('p');
+    p.className = 'profile-block';
+    p.textContent = text;
+    blocksContainer.appendChild(p);
+  });
+  document.getElementById('profile-closing').textContent = narrative.closing;
+  try {
+    localStorage.setItem('demo2_profile', JSON.stringify(narrative.profile));
+  } catch(e) {}
+}
+
+/* ============ TOOL 02 — drag-drop + tap ============ */
+
+function isMobile(){return window.innerWidth <= 768;}
+
+let selectedTaskCard = null;
+
+function initTool2(){
+  document.querySelectorAll('#screen-3 .task-card').forEach(card => {
+    card.addEventListener('dragstart', e => {
+      if(isMobile()){e.preventDefault();return;}
+      e.dataTransfer.setData('text/plain', card.dataset.task);
+      e.dataTransfer.effectAllowed = 'move';
+      card.classList.add('dragging');
+    });
+    card.addEventListener('dragend', () => {
+      card.classList.remove('dragging');
+    });
+    card.addEventListener('click', e => {
+      if(!isMobile()) return;
+      if(e.target.closest('.task-reorder')) return;
+      if(selectedTaskCard === card){
+        card.classList.remove('selected');
+        selectedTaskCard = null;
+      } else {
+        if(selectedTaskCard) selectedTaskCard.classList.remove('selected');
+        card.classList.add('selected');
+        selectedTaskCard = card;
+      }
+    });
+  });
+
+  document.querySelectorAll('#screen-3 .drop-zone').forEach(zone => {
+    zone.addEventListener('dragover', e => {
+      if(isMobile()) return;
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      zone.classList.add('drag-over');
+    });
+    zone.addEventListener('dragleave', e => {
+      if(e.currentTarget.contains(e.relatedTarget)) return;
+      zone.classList.remove('drag-over');
+    });
+    zone.addEventListener('drop', e => {
+      if(isMobile()) return;
+      e.preventDefault();
+      zone.classList.remove('drag-over');
+      const taskId = e.dataTransfer.getData('text/plain');
+      const taskCard = document.querySelector(`#screen-3 .task-card[data-task="${taskId}"]`);
+      if(!taskCard) return;
+      const afterElement = getDragAfterElement(zone, e.clientY);
+      if(afterElement == null){
+        zone.appendChild(taskCard);
+      } else {
+        zone.insertBefore(taskCard, afterElement);
+      }
+      updateTool2State();
+    });
+    zone.addEventListener('click', e => {
+      if(!isMobile()) return;
+      if(!selectedTaskCard) return;
+      if(e.target.closest('.task-card')) return;
+      zone.appendChild(selectedTaskCard);
+      selectedTaskCard.classList.remove('selected');
+      selectedTaskCard = null;
+      updateTool2State();
+    });
+  });
+
+  updateTool2State();
+}
+
+function getDragAfterElement(container, y){
+  const els = [...container.querySelectorAll('.task-card:not(.dragging)')];
+  return els.reduce((closest, child) => {
+    const box = child.getBoundingClientRect();
+    const offset = y - box.top - box.height / 2;
+    if(offset < 0 && offset > closest.offset){
+      return {offset, element: child};
+    }
+    return closest;
+  }, {offset: Number.NEGATIVE_INFINITY}).element;
+}
+
+function moveTask(btn, dir){
+  const card = btn.closest('.task-card');
+  if(!card) return;
+  const sibling = dir < 0 ? card.previousElementSibling : card.nextElementSibling;
+  if(!sibling || !sibling.classList.contains('task-card')) return;
+  if(dir < 0){
+    card.parentNode.insertBefore(card, sibling);
+  } else {
+    card.parentNode.insertBefore(sibling, card);
+  }
+  updateTool2State();
+}
+
+function updateTool2State(){
+  const unsortedZone = document.getElementById('unsorted-zone');
+  const unsortedTitle = document.getElementById('unsorted-title');
+  const nextBtn = document.getElementById('tool2-next-btn');
+  const tasksInUnsorted = unsortedZone.querySelectorAll('.task-card').length;
+
+  if(tasksInUnsorted === 0){
+    nextBtn.disabled = false;
+    unsortedTitle.textContent = 'Все задачи разложены';
+    unsortedTitle.classList.add('completed');
+  } else {
+    nextBtn.disabled = true;
+    unsortedTitle.textContent = 'Несортированные задачи';
+    unsortedTitle.classList.remove('completed');
+  }
+
+  document.querySelectorAll('#screen-3 .container-box').forEach(box => {
+    const cards = [...box.querySelectorAll('.task-card')];
+    cards.forEach((card, idx) => {
+      const up = card.querySelector('.reorder-up');
+      const down = card.querySelector('.reorder-down');
+      if(up) up.disabled = idx === 0;
+      if(down) down.disabled = idx === cards.length - 1;
+    });
   });
 }
 
-function updC(){
-  const n=Object.keys(calC).length;
-  document.getElementById('v2Prog').textContent=n+' / 6';
-  document.getElementById('v2Btn').disabled=n<6;
+function saveAndContinueTool2(){
+  const layout = {container1:[], container2:[], container3:[]};
+  document.querySelectorAll('#container-1 .task-card').forEach(c => layout.container1.push(c.dataset.task));
+  document.querySelectorAll('#container-2 .task-card').forEach(c => layout.container2.push(c.dataset.task));
+  document.querySelectorAll('#container-3 .task-card').forEach(c => layout.container3.push(c.dataset.task));
+  userChoices.tool2 = layout;
+  showScreen('screen-4');
 }
 
-// ── SITUATIONS ──
-function initSits(){sitStep=0;sitC={};renderSit(0);}
-function renderSit(step){
-  const pips=document.getElementById('sitPips');
-  pips.innerHTML='';
-  for(let i=0;i<5;i++){const d=document.createElement('div');d.className='sp'+(i<step?' done':i===step?' act':'');pips.appendChild(d);}
-  const s=sits[step];
-  document.getElementById('sitContent').innerHTML=`
-    <div class="sit-ctx">
-      <div class="sit-ctx-label">Ситуация ${step+1} из 5</div>
-      <div class="sit-ctx-text">${s.ctx}</div>
-    </div>
-    <div class="sit-opts">${s.opts.map((o,i)=>`<div class="sit-opt" id="so${i}" onclick="pickSit(${step},${i})">${o}</div>`).join('')}</div>
-    <div id="sitNav" style="display:${sitC[step]!==undefined?'block':'none'};">
-      ${step<4?`<button class="btn-p" onclick="nextSit(${step})">Следующая ситуация →</button>`:`<button class="btn-p" onclick="tDoneTask(2)">Посмотреть мой профиль →</button>`}
-    </div>`;
-  if(sitC[step]!==undefined)document.getElementById('so'+sitC[step]).classList.add('chosen');
-}
-function pickSit(step,i){
-  sitC[step]=i;
-  document.querySelectorAll('#toolsWin .sit-opt').forEach(o=>o.classList.remove('chosen'));
-  document.getElementById('so'+i).classList.add('chosen');
-  document.getElementById('sitNav').style.display='block';
-}
-function nextSit(step){sitStep=step+1;renderSit(sitStep);}
-
-// ── DONE TASK ──
-function tDoneTask(idx){
-  done[idx]=true;
-  document.getElementById('tt'+idx).classList.add('done-tab');
-  if(idx===0)tShowTask(1);
-  else if(idx===1)tShowTask(2);
-  else{tBuildMyResult();tGoTo(3);}
+function goBackToTool1(){
+  showScreen('screen-2');
+  showPair(5);
 }
 
-// ── MY RESULT ──
-function tBuildMyResult(){
-  // Values
-  const bCount=Object.values(vC).filter(v=>v==='b').length;
-  let vTag,vColor,vDesc;
-  if(bCount>=4){vTag='Ориентирован на глубину и основу';vColor='var(--green)';vDesc='Точность важнее скорости. Автономия системы важнее личного контроля. Готовы инвестировать в долгосрочный фундамент.';}
-  else if(bCount<=1){vTag='Ориентирован на результат и скорость';vColor='var(--amber)';vDesc='Скорость и измеримость в приоритете. Предсказуемость процесса ценится выше адаптивности. Фокус на быстром видимом вкладе.';}
-  else{vTag='Смешанный профиль';vColor='var(--mid)';vDesc='Баланс между скоростью и точностью, системой и контролем. Профиль варьируется в зависимости от контекста задачи.';}
-
-  // Calendar — systemic = поставки or стратсессия in zone 0 or first in zone 1
-  const sysInNow=calItems.filter((item,i)=>item.sys&&calC[i]===0).length;
-  const sysFirst=zone1order.length>0&&calItems[zone1order[0]]&&calItems[zone1order[0]].sys;
-  const nonSysNowCount=calItems.filter((item,i)=>!item.sys&&calC[i]===0).length;
-  let cTag,cColor,cDesc;
-  if(sysInNow>=1||sysFirst){cTag='Системный';cColor='var(--green)';cDesc='Задачи с системным влиянием — в приоритете. Данные и стратегические решения идут раньше операционной срочности.';}
-  else if(nonSysNowCount>=2&&sysInNow===0){cTag='Реактивный';cColor='var(--red)';cDesc='Приоритизируете по видимой срочности. Задачи с долгосрочным влиянием уходят в конец очереди или делегируются.';}
-  else{cTag='Операционный';cColor='var(--amber)';cDesc='Фокус на операционной стабильности. Срочные задачи — первыми, стратегические — позже.';}
-
-  // Situations
-  const diagCount=Object.keys(sitC).filter(k=>parseInt(sitC[k])===sits[parseInt(k)].best).length;
-  let sTag,sColor,sDesc;
-  if(diagCount>=4){sTag='Диагностический';sColor='var(--green)';sDesc='В большинстве ситуаций сначала уточняете природу проблемы. Держите позицию с аргументами под давлением.';}
-  else if(diagCount<=1){sTag='Реактивный';sColor='var(--red)';sDesc='Действуете быстро, часто без предварительного уточнения ситуации. Под давлением склонны к быстрому согласию или жёсткому отказу.';}
-  else{sTag='Ситуативный';sColor='var(--amber)';sDesc='Часть ситуаций диагностируете, часть — решаете напрямую. Паттерн зависит от типа давления и знакомости ситуации.';}
-
-  document.getElementById('mrGrid').innerHTML=`
-    <div class="mr-cell">
-      <div class="mr-cell-label">Ценности</div>
-      <span class="mr-cell-tag" style="background:${vColor}18;color:${vColor};">${vTag}</span>
-      <div class="mr-cell-body">${vDesc}</div>
-    </div>
-    <div class="mr-cell">
-      <div class="mr-cell-label">Приоритеты</div>
-      <span class="mr-cell-tag" style="background:${cColor}18;color:${cColor};">${cTag}</span>
-      <div class="mr-cell-body">${cDesc}</div>
-    </div>
-    <div class="mr-cell">
-      <div class="mr-cell-label">Ситуации</div>
-      <span class="mr-cell-tag" style="background:${sColor}18;color:${sColor};">${sTag}</span>
-      <div class="mr-cell-body">${sDesc}</div>
-    </div>`;
-
-  document.getElementById('mrNote').textContent='Это поведенческий профиль по трём инструментам — не оценка. Для разных ролей и контекстов нужны разные профили.';
-}
-
-
-function openContact(){
-  const ov=document.getElementById('contactOverlay');
-  ov.style.display='flex';
-  setTimeout(()=>{const m=document.getElementById('contactModal');m.style.transform='translateY(0) scale(1)';m.style.opacity='1';},30);
-  document.body.style.overflow='hidden';
-}
-function closeContact(){
-  const m=document.getElementById('contactModal');
-  m.style.transform='translateY(36px) scale(0.97)';m.style.opacity='0';
-  setTimeout(()=>{
-    document.getElementById('contactOverlay').style.display='none';
-    document.body.style.overflow='';
-    const ty=document.getElementById('contactThanks');
-    const err=document.getElementById('contactError');
-    const form=document.getElementById('contactForm');
-    if(ty)ty.style.display='none';
-    if(err)err.style.display='none';
-    if(form){form.style.display='block';form.reset();}
-    const errBox=document.getElementById('cf_error');
-    if(errBox){errBox.style.display='none';errBox.textContent='';}
-    const btn=document.getElementById('cf_submit');
-    if(btn){btn.disabled=false;btn.textContent='Отправить';btn.style.opacity='1';}
-  },400);
-}
-async function submitContact(){
-  const errBox=document.getElementById('cf_error');
-  const btn=document.getElementById('cf_submit');
-  const fio=document.getElementById('cf_fio').value.trim();
-  const company=document.getElementById('cf_company').value.trim();
-  const email=document.getElementById('cf_email').value.trim();
-  const consent=document.getElementById('cf_consent').checked;
-  const showErr=t=>{errBox.textContent=t;errBox.style.display='block';};
-  errBox.style.display='none';
-  if(!fio||!company||!email){showErr('Заполните обязательные поля');return;}
-  if(!email.includes('@')||!email.includes('.')){showErr('Проверьте адрес электронной почты');return;}
-  if(!consent){showErr('Необходимо согласие на обработку персональных данных');return;}
-  btn.disabled=true;btn.style.opacity='.6';btn.textContent='Отправляем…';
-  try{
-    const res=await fetch('/api/submit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({fio,company,email,consent})});
-    if(!res.ok)throw new Error('bad status');
-    document.getElementById('contactForm').style.display='none';
-    document.getElementById('contactThanks').style.display='block';
-    setTimeout(()=>closeContact(),4000);
-  }catch(e){
-    document.getElementById('contactForm').style.display='none';
-    document.getElementById('contactError').style.display='block';
-  }
-}
-document.addEventListener('DOMContentLoaded',()=>{
-  const cov=document.getElementById('contactOverlay');
-  if(cov)cov.addEventListener('click',e=>{if(e.target===cov)closeContact();});
-  const hov=document.getElementById('hireOverlay');
-  if(hov)hov.addEventListener('click',e=>{if(e.target===hov)closeHireApp();});
-  const tov=document.getElementById('toolsOverlay');
-  if(tov)tov.addEventListener('click',e=>{if(e.target===tov)closeToolsApp();});
-});
-
-
-/* standalone page overrides: close button navigates back to landing,
-   demo is visible immediately on load (no open animation),
-   and the three tools are initialised so their content renders on first paint. */
-function closeToolsApp(){window.location.href='/recruitment#demo-teasers';}
-window.addEventListener('DOMContentLoaded',function(){
-  var ov=document.getElementById('toolsOverlay');
-  if(ov){ov.style.display='block';ov.style.position='static';ov.style.background='transparent';ov.style.padding='24px 16px 60px';}
-  var w=document.getElementById('toolsWin');
-  if(w){w.style.transform='translateY(0) scale(1)';w.style.opacity='1';}
-  if(typeof tResetAll==='function')tResetAll();
-});
+initTool2();
 </script>
+
 </body>
 </html>
