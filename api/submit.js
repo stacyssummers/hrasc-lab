@@ -27,6 +27,7 @@ export default async function handler(req, res) {
   const company = String(body.company || '').trim();
   const contactType = body.contact_type === 'telegram' ? 'telegram' : 'phone';
   const contact = String(body.contact || '').trim();
+  const source = String(body.source || '').trim();
 
   if (!name || !company || !contact) {
     return res.status(400).json({ error: 'Обязательные поля не заполнены' });
@@ -34,13 +35,15 @@ export default async function handler(req, res) {
 
   const contactLabel = contactType === 'telegram' ? 'Telegram' : 'Телефон';
 
-  const text = [
+  const lines = [
     '📝 <b>Новая заявка с hrasc-lab.ru</b>',
     '',
     `<b>ФИО:</b> ${escapeHtml(name)}`,
     `<b>Компания:</b> ${escapeHtml(company)}`,
     `<b>Контакт (${contactLabel}):</b> ${escapeHtml(contact)}`,
-  ].join('\n');
+  ];
+  if (source) lines.push(`<b>Источник:</b> ${escapeHtml(source)}`);
+  const text = lines.join('\n');
 
   try {
     const tgRes = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {

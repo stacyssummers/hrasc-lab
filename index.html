@@ -834,8 +834,9 @@ p{font-size:14px;line-height:1.55;}
   position:fixed;top:0;left:0;right:0;bottom:0;
   background:rgba(26,26,26,0.6);
   z-index:1000;
-  display:flex;align-items:center;justify-content:center;
+  display:flex;align-items:flex-start;justify-content:center;
   padding:20px;
+  overflow-y:auto;
   animation:fadeIn 200ms;
 }
 .modal-content{
@@ -844,8 +845,8 @@ p{font-size:14px;line-height:1.55;}
   max-width:480px;width:100%;
   padding:32px;
   position:relative;
+  margin:auto;
   animation:slideUp 200ms;
-  max-height:90vh;overflow-y:auto;
 }
 .modal-close{
   position:absolute;top:16px;right:16px;
@@ -933,7 +934,7 @@ p{font-size:14px;line-height:1.55;}
 }
 </style>
 </head>
-<body>
+<body data-contact-source="Подбор персонала">
 
 <header class="header">
   <div class="header-inner">
@@ -1344,11 +1345,12 @@ p{font-size:14px;line-height:1.55;}
     <button class="modal-close" type="button" aria-label="Закрыть">×</button>
 
     <div class="modal-header">
-      <span class="modal-kicker">Обсудить задачу</span>
-      <h2>Оставьте контакты — мы свяжемся в течение дня.</h2>
+      <span class="modal-kicker">Связаться с нами</span>
+      <h2>Оставьте контакты, и мы вернёмся с ответом в течение рабочего дня.</h2>
     </div>
 
     <form id="contact-form" class="modal-form">
+      <input type="hidden" name="source" id="cm-source">
       <div class="form-field">
         <label for="cm-name">ФИО</label>
         <input type="text" id="cm-name" name="name" required autocomplete="name">
@@ -1404,7 +1406,10 @@ p{font-size:14px;line-height:1.55;}
   const contactInput = document.getElementById('cm-contact');
   const radios = modal.querySelectorAll('input[name="contact_type"]');
 
+  const sourceInput = document.getElementById('cm-source');
+
   function openModal(){
+    if(sourceInput) sourceInput.value = document.body.dataset.contactSource || '';
     modal.style.display = 'flex';
     document.body.style.overflow = 'hidden';
   }
@@ -1447,7 +1452,8 @@ p{font-size:14px;line-height:1.55;}
       name: formData.get('name'),
       company: formData.get('company'),
       contact_type: formData.get('contact_type'),
-      contact: formData.get('contact')
+      contact: formData.get('contact'),
+      source: formData.get('source') || ''
     };
 
     try {
