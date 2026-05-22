@@ -170,13 +170,19 @@ p{font-size:14px;line-height:1.55;}
 }
 .hero-image-wrap{
   display:flex;
-  align-items:center;
+  align-items:flex-start;
   justify-content:center;
+  margin:0;
+  padding:0;
 }
 .hero-image{
   width:100%;
   height:auto;
+  max-height:520px;
+  object-fit:contain;
+  object-position:top center;
   display:block;
+  margin:0;
 }
 
 /* Секция направлений */
@@ -236,9 +242,9 @@ p{font-size:14px;line-height:1.55;}
   color:var(--color-accent);
 }
 
-/* Финальный CTA */
+/* Финальный CTA — стиль идентичен block-12 на /recruitment */
 .final-cta{
-  padding:48px 40px;
+  padding:44px 40px;
   background:#e8e3d6;
   position:relative;
   overflow:hidden;
@@ -265,11 +271,17 @@ p{font-size:14px;line-height:1.55;}
   margin:0 auto;
   text-align:center;
 }
-.final-cta .kicker{
+.final-cta-inner .kicker{
   display:block;
   margin-bottom:14px;
 }
-.final-cta h2{margin-bottom:24px;}
+.final-cta-inner h2{margin-bottom:14px;}
+.final-cta-body{
+  font-size:14px;
+  line-height:1.55;
+  color:var(--color-text);
+  margin-bottom:20px;
+}
 
 /* Футер */
 .footer{
@@ -565,8 +577,9 @@ p{font-size:14px;line-height:1.55;}
 
   <section class="final-cta">
     <div class="final-cta-inner">
-      <span class="kicker">Связаться с нами</span>
+      <span class="kicker">Следующий шаг</span>
       <h2>Расскажите о вашей задаче.</h2>
+      <p class="final-cta-body">Первая встреча — диагностическая, 45 минут. Разбираем вашу задачу, контекст и действующие процессы. На выходе — общее понимание, нужен ли вам отдельный инструмент и какого типа.</p>
       <a href="#" class="btn-primary btn-primary--lg" data-open-modal="contact" data-contact-source="Главная Лаборатории · Финальный CTA">Связаться с нами</a>
     </div>
   </section>
