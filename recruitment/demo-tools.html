@@ -3,9 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Три инструмента оценки — Исследовательская лаборатория</title>
+<title>Три инструмента оценки · Демо · Исследовательская лаборатория</title>
+<meta name="description" content="Демонстрация: три инструмента оценки — форсированный выбор, расстановка приоритетов, рабочие ситуации.">
+<link rel="canonical" href="https://hrasc-lab.ru/recruitment/demo-tools">
 <link rel="icon" type="image/png" sizes="32x32" href="/files/pictures/favicon.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/files/pictures/apple-touch-icon.png">
+<meta property="og:title" content="Три инструмента оценки · Демо">
+<meta property="og:description" content="Демонстрация инструментов подбора Исследовательской лаборатории.">
+<meta property="og:image" content="https://hrasc-lab.ru/files/pictures/og-image.png">
+<meta property="og:url" content="https://hrasc-lab.ru/recruitment/demo-tools">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Исследовательская лаборатория">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Три инструмента оценки · Демо">
+<meta name="twitter:description" content="Демонстрация инструментов подбора Исследовательской лаборатории.">
+<meta name="twitter:image" content="https://hrasc-lab.ru/files/pictures/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
 <style>
@@ -726,7 +739,7 @@ body{background:#0D0D0D;min-height:100vh;}
 <header class="header">
   <div class="header-inner">
     <div class="header-logo"><a href="/" class="header-logo-link"><span class="header-logo-full">Исследовательская лаборатория</span><span class="header-logo-short">Лаборатория</span></a><span class="header-logo-sep"> · </span><span class="header-logo-sub">Подбор персонала</span></div>
-    <a href="/" class="header-btn">← Назад к лендингу</a>
+    <a href="/recruitment" class="header-btn">← Назад к лендингу</a>
   </div>
 </header>
 <div id="toolsOverlay" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:1000;background:rgba(0,0,0,0.78);overflow-y:auto;-webkit-overflow-scrolling:touch;padding:24px 16px 60px;">
@@ -948,7 +961,7 @@ body{background:#0D0D0D;min-height:100vh;}
       <div class="ins-label">Вывод</div>
       <div class="ins-title">У всех четырёх — одинаковые галочки в стандартном процессе. Разные профили в реальных ситуациях.</div>
       <div class="ins-body" style="font-size:13px;color:rgba(255,255,255,0.6);line-height:1.8;">Виктор убедительно рассказывает на интервью, потому что умеет выбирать правильную историю. Светлана — сильный управленец людьми, но операционные приоритеты расставляет через человеческую логику, а не системную. Артём принимает решения, не объясняя логику — риск при построении культуры с нуля. Карина ставит системные задачи первыми даже под давлением.<br><br><strong>Эти данные не появляются в резюме, в оценке потенциала или в интервью. Они появляются только в инструментах, которые воспроизводят реальные рабочие ситуации — с конфликтующими приоритетами, неполными данными и управленческим давлением.</strong></div>
-      <div class="brow"><a href="/" class="return-to-landing">Вернуться к лендингу</a></div>
+      <div class="brow"><a href="/recruitment" class="return-to-landing">Вернуться к лендингу</a></div>
     </div>
   </div>
 
@@ -1502,7 +1515,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 /* standalone page overrides: close button navigates back to landing,
    demo is visible immediately on load (no open animation),
    and the three tools are initialised so their content renders on first paint. */
-function closeToolsApp(){window.location.href='/#demo-teasers';}
+function closeToolsApp(){window.location.href='/recruitment#demo-teasers';}
 window.addEventListener('DOMContentLoaded',function(){
   var ov=document.getElementById('toolsOverlay');
   if(ov){ov.style.display='block';ov.style.position='static';ov.style.background='transparent';ov.style.padding='24px 16px 60px';}

@@ -1,4 +1,8 @@
 {
   "framework": null,
-  "cleanUrls": true
+  "cleanUrls": true,
+  "redirects": [
+    { "source": "/demo-finalists", "destination": "/recruitment/demo-finalists", "permanent": true },
+    { "source": "/demo-tools", "destination": "/recruitment/demo-tools", "permanent": true }
+  ]
 }

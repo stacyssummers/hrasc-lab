@@ -3,9 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Четыре финалиста — Исследовательская лаборатория</title>
+<title>Четыре финалиста · Демо · Исследовательская лаборатория</title>
+<meta name="description" content="Демонстрация: четыре финалиста, прошедшие резюме, оценку потенциала и интервью. Видно, где заканчиваются возможности стандартного процесса.">
+<link rel="canonical" href="https://hrasc-lab.ru/recruitment/demo-finalists">
 <link rel="icon" type="image/png" sizes="32x32" href="/files/pictures/favicon.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/files/pictures/apple-touch-icon.png">
+<meta property="og:title" content="Четыре финалиста · Демо">
+<meta property="og:description" content="Демонстрация инструментов подбора Исследовательской лаборатории.">
+<meta property="og:image" content="https://hrasc-lab.ru/files/pictures/og-image.png">
+<meta property="og:url" content="https://hrasc-lab.ru/recruitment/demo-finalists">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Исследовательская лаборатория">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Четыре финалиста · Демо">
+<meta name="twitter:description" content="Демонстрация инструментов подбора Исследовательской лаборатории.">
+<meta name="twitter:image" content="https://hrasc-lab.ru/files/pictures/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
 <style>
@@ -698,7 +711,7 @@ body{background:#0D0D0D;min-height:100vh;}
 <header class="header">
   <div class="header-inner">
     <div class="header-logo"><a href="/" class="header-logo-link"><span class="header-logo-full">Исследовательская лаборатория</span><span class="header-logo-short">Лаборатория</span></a><span class="header-logo-sep"> · </span><span class="header-logo-sub">Подбор персонала</span></div>
-    <a href="/" class="header-btn">← Назад к лендингу</a>
+    <a href="/recruitment" class="header-btn">← Назад к лендингу</a>
   </div>
 </header>
 <div id="hireOverlay" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:1000;background:rgba(0,0,0,0.78);overflow-y:auto;-webkit-overflow-scrolling:touch;padding:24px 16px 60px;">
@@ -970,7 +983,7 @@ body{background:#0D0D0D;min-height:100vh;}
       <div class="conc-label">Вывод</div>
       <div class="conc-title">Стандартный процесс отбора решает не ту задачу, которую вы думаете.</div>
       <div class="conc-body" style="font-size:13px;color:rgba(255,255,255,0.6);line-height:1.8;">Резюме, оценка потенциала и интервью — <strong>хорошие инструменты отсечения</strong>. Они убирают явно неподходящих кандидатов. С этой задачей они справляются. Но у финального выбора другая задача: <strong>предсказать, кто создаст ценность в вашем конкретном контексте</strong> — при вашей культуре, вашем масштабе, вашей скорости изменений. Это требует других данных. Именно их мы помогаем получить.</div>
-      <a href="/" class="return-to-landing">Вернуться к лендингу</a>
+      <a href="/recruitment" class="return-to-landing">Вернуться к лендингу</a>
     </div>
 
   </div><!-- /s3 -->
@@ -1523,7 +1536,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 
 /* standalone page overrides: close button navigates back to landing,
    and the demo is visible immediately on load (no open animation). */
-function closeHireApp(){window.location.href='/#demo-teasers';}
+function closeHireApp(){window.location.href='/recruitment#demo-teasers';}
 window.addEventListener('DOMContentLoaded',function(){
   var ov=document.getElementById('hireOverlay');
   if(ov){ov.style.display='block';ov.style.position='static';ov.style.background='transparent';ov.style.padding='24px 16px 60px';}
