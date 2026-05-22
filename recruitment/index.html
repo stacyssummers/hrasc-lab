@@ -1435,6 +1435,35 @@ p{font-size:14px;line-height:1.55;}
 </div>
 
 <script>
+// Отключаем плавный скролл при возврате с демо.
+// Демо передаёт ?return=demo в URL — мы прыгаем мгновенно на блок карточек.
+(function() {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('return') === 'demo') {
+    const originalScrollBehavior = document.documentElement.style.scrollBehavior;
+    document.documentElement.style.scrollBehavior = 'auto';
+
+    const target = document.getElementById('demo-teasers');
+    if (target) {
+      const headerOffset = 96;
+      const elementTop = target.getBoundingClientRect().top + window.pageYOffset;
+      window.scrollTo({
+        top: elementTop - headerOffset,
+        behavior: 'auto'
+      });
+    }
+
+    const cleanUrl = window.location.pathname + window.location.hash;
+    window.history.replaceState({}, '', cleanUrl);
+
+    setTimeout(() => {
+      document.documentElement.style.scrollBehavior = originalScrollBehavior;
+    }, 100);
+  }
+})();
+</script>
+
+<script>
 (function(){
   const modal = document.getElementById('contact-modal');
   if(!modal) return;
