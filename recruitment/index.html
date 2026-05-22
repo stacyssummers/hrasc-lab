@@ -501,7 +501,7 @@ p{font-size:14px;line-height:1.55;}
 }
 
 /* Тизеры демо */
-.demo-teasers{padding:16px 40px 32px;}
+.demo-teasers{padding:16px 40px 32px;scroll-margin-top:96px;}
 .teaser-grid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
@@ -933,6 +933,41 @@ p{font-size:14px;line-height:1.55;}
   from{transform:translateY(20px);opacity:0;}
   to{transform:translateY(0);opacity:1;}
 }
+
+/* Floating «Наверх» button — only on landing */
+.scroll-to-top-btn{
+  position:fixed;
+  bottom:24px;
+  right:24px;
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  background:var(--color-accent);
+  color:#fff;
+  border:none;
+  cursor:pointer;
+  font-size:20px;
+  line-height:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 2px 8px rgba(0,0,0,0.15);
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transition:opacity 200ms ease,background 200ms ease,visibility 0s linear 200ms;
+  z-index:90;
+  font-family:inherit;
+}
+.scroll-to-top-btn.visible{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+  transition:opacity 200ms ease,background 200ms ease,visibility 0s;
+}
+@media (hover:hover){
+  .scroll-to-top-btn:hover{background:#4a1810;}
+}
 </style>
 </head>
 <body data-contact-source="Подбор персонала">
@@ -1341,6 +1376,8 @@ p{font-size:14px;line-height:1.55;}
   </div>
 </footer>
 
+<button id="scroll-to-top" aria-label="Наверх" class="scroll-to-top-btn" type="button">↑</button>
+
 <div id="contact-modal" class="modal-overlay" style="display:none;">
   <div class="modal-content">
     <button class="modal-close" type="button" aria-label="Закрыть">×</button>
@@ -1475,6 +1512,24 @@ p{font-size:14px;line-height:1.55;}
       submitBtn.disabled = false;
       submitBtn.textContent = 'Отправить';
     }
+  });
+})();
+</script>
+
+<script>
+(function(){
+  const btn = document.getElementById('scroll-to-top');
+  if(!btn) return;
+  let visible = false;
+  window.addEventListener('scroll', () => {
+    const shouldShow = window.scrollY > 400;
+    if(shouldShow !== visible){
+      visible = shouldShow;
+      btn.classList.toggle('visible', visible);
+    }
+  }, { passive: true });
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 })();
 </script>
