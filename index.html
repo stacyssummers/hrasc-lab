@@ -169,26 +169,31 @@ p{font-size:14px;line-height:1.55;}
   flex-wrap:wrap;
 }
 .hero-image-wrap{
-  align-self:start;
-  justify-self:stretch;
   display:flex;
-  align-items:flex-start;
-  justify-content:flex-start;
   margin:0;
   padding:0;
   line-height:0;
 }
 .hero-image{
-  width:auto !important;
-  height:auto !important;
-  max-width:100% !important;
-  max-height:480px !important;
-  object-fit:contain;
-  object-position:top left;
   display:block;
   margin:0;
   padding:0;
   vertical-align:top;
+}
+@media (min-width:769px){
+  .hero-image-wrap{
+    align-self:stretch;
+    justify-content:flex-end;
+    align-items:stretch;
+  }
+  .hero-image{
+    width:auto !important;
+    height:100% !important;
+    max-height:100% !important;
+    max-width:100%;
+    object-fit:contain;
+    object-position:top right;
+  }
 }
 
 /* Секция направлений */
