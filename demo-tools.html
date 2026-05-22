@@ -1,0 +1,1812 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" sizes="32x32" href="/files/pictures/favicon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/files/pictures/apple-touch-icon.png">
+<title>Демо · Инструменты — Laboratory</title>
+<meta name="description" content="Демо: три инструмента, которые дают данные там, где стандартный процесс останавливается.">
+<meta name="robots" content="noindex">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+:root{
+  --bg:#fafaf8;
+  --bg-secondary:#f7f5f1;
+  --accent:#5c1c14;
+  --accent-hover:#4a1810;
+  --text:#1a1a1a;
+  --text-secondary:#4a4a4a;
+  --text-tertiary:#8a8680;
+  --border:#e8e4dc;
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  font-size:13px;
+  line-height:1.55;
+  font-weight:400;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+.container{
+  max-width:1080px;
+  margin:0 auto;
+  padding:0 24px;
+}
+
+.screen{display:none;}
+.screen.active{display:block;}
+
+#screen-1.screen.active,
+#screen-2.screen.active,
+#screen-4.screen.active{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  min-height:100vh;
+}
+
+.kicker{
+  font-size:9px;
+  font-weight:500;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:6px;
+}
+
+.btn-primary{
+  background:var(--accent);
+  color:#fafaf8;
+  border:none;
+  padding:10px 20px;
+  height:36px;
+  font-family:inherit;
+  font-size:12px;
+  font-weight:500;
+  border-radius:2px;
+  cursor:pointer;
+  transition:background 200ms ease;
+}
+
+.btn-primary:hover{background:var(--accent-hover);}
+
+.btn-secondary{
+  background:transparent;
+  color:var(--text-secondary);
+  border:1px solid var(--border);
+  padding:8px 16px;
+  font-family:inherit;
+  font-size:12px;
+  font-weight:500;
+  border-radius:2px;
+  cursor:pointer;
+  transition:border-color 200ms ease, color 200ms ease;
+}
+
+.btn-secondary:hover{
+  border-color:var(--text-tertiary);
+  color:var(--text);
+}
+
+/* ============ SCREEN 1 ============ */
+
+.s1{padding:16px 0;}
+
+.s1-inner{
+  max-width:720px;
+  margin:0 auto;
+}
+
+.s1-header{margin-bottom:8px;}
+
+.s1-h1{
+  font-size:17px;
+  font-weight:500;
+  line-height:1.3;
+  letter-spacing:-0.01em;
+  color:var(--text);
+  margin-bottom:8px;
+}
+
+.s1-cards{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-bottom:12px;
+}
+
+.tool-card{
+  background:var(--bg-secondary);
+  border-radius:2px;
+  padding:12px;
+}
+
+.tool-card-title{
+  font-size:13px;
+  font-weight:600;
+  color:var(--text);
+  margin-bottom:8px;
+}
+
+.tool-card-body{
+  font-size:13px;
+  line-height:1.55;
+  color:var(--text);
+}
+
+.s1-promise{
+  font-size:13px;
+  line-height:1.55;
+  color:var(--text-secondary);
+  max-width:600px;
+  margin:16px auto 0;
+  text-align:center;
+}
+
+.s1-cta{
+  display:flex;
+  justify-content:center;
+  margin-top:20px;
+}
+
+/* ============ SCREEN 2 — TOOL 01 ============ */
+
+.s2{padding:16px 0;}
+
+.s2-inner{
+  max-width:720px;
+  margin:0 auto;
+  width:100%;
+}
+
+.pair{display:none;}
+.pair.active{display:block;}
+
+.progress-indicator{
+  font-size:11px;
+  color:var(--text-tertiary);
+  letter-spacing:0.05em;
+  margin-bottom:12px;
+}
+
+.pair-title{
+  font-size:15px;
+  font-weight:500;
+  color:var(--text);
+  letter-spacing:-0.01em;
+  margin-bottom:8px;
+}
+
+.pair-subtitle{
+  font-size:13px;
+  line-height:1.55;
+  color:var(--text-secondary);
+  margin-bottom:32px;
+}
+
+.pair-options{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+
+.option-card{
+  background:var(--bg-secondary);
+  border:1px solid transparent;
+  border-radius:2px;
+  padding:20px;
+  min-height:120px;
+  font-size:13px;
+  line-height:1.55;
+  color:var(--text);
+  cursor:pointer;
+  transition:background 150ms ease, border-color 150ms ease;
+}
+
+.option-card:hover{
+  border-color:var(--accent);
+  background:#f0ece3;
+}
+
+.option-card.selected{
+  border-color:var(--accent);
+  background:#e8e3d6;
+}
+
+.back-link{
+  display:inline-block;
+  background:none;
+  border:none;
+  color:var(--accent);
+  font-family:inherit;
+  font-size:12px;
+  padding:8px 0;
+  margin-top:32px;
+  cursor:pointer;
+  text-decoration:underline;
+}
+
+.back-link:hover{color:var(--accent-hover);}
+
+/* ============ SCREEN 3 — TOOL 02 ============ */
+
+.s3{
+  max-width:1080px;
+  margin:0 auto;
+  padding:24px;
+}
+
+.s3-title{
+  font-size:15px;
+  font-weight:500;
+  color:var(--text);
+  letter-spacing:-0.01em;
+  margin-bottom:12px;
+}
+
+.s3-context{
+  background:var(--bg-secondary);
+  border-left:3px solid var(--accent);
+  padding:12px 16px;
+  margin-bottom:20px;
+  font-size:13px;
+  line-height:1.55;
+}
+
+.s3-context-time{
+  font-weight:500;
+  color:var(--text);
+  margin-bottom:6px;
+}
+
+.s3-context-body{
+  color:var(--text-secondary);
+  margin-bottom:6px;
+}
+
+.s3-context-instruction{
+  color:var(--text);
+}
+
+.unsorted-title{
+  font-size:11px;
+  font-weight:500;
+  letter-spacing:0.05em;
+  text-transform:uppercase;
+  color:var(--text-tertiary);
+  margin-bottom:8px;
+}
+
+.unsorted-title.completed{color:var(--text-tertiary);}
+
+.unsorted-zone{
+  border:1px dashed var(--border);
+  border-radius:2px;
+  padding:12px;
+  min-height:80px;
+  margin-bottom:20px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  transition:border-color 150ms ease, background 150ms ease;
+}
+
+.unsorted-zone.drag-over{
+  border:2px dashed var(--accent);
+  background:#f0ece3;
+}
+
+.containers{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:16px;
+}
+
+.container-box{
+  background:var(--bg-secondary);
+  border-radius:2px;
+  padding:16px;
+  min-height:200px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  border:1px solid transparent;
+  transition:border-color 150ms ease, background 150ms ease;
+}
+
+.container-box.drag-over{
+  border:2px dashed var(--accent);
+  background:#f0ece3;
+  padding:15px;
+}
+
+.container-head{margin-bottom:4px;}
+
+.container-title{
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:0.05em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:4px;
+}
+
+.container-subtitle{
+  font-size:10px;
+  color:var(--text-tertiary);
+  margin-bottom:8px;
+  text-transform:none;
+  letter-spacing:0;
+}
+
+.task-card{
+  background:var(--bg);
+  border:1px solid var(--border);
+  border-radius:2px;
+  padding:10px 12px;
+  cursor:grab;
+  transition:border-color 150ms ease, background 150ms ease, opacity 150ms ease;
+  max-width:280px;
+  width:100%;
+  display:flex;
+  align-items:flex-start;
+  gap:8px;
+}
+
+.task-card:hover{border-color:var(--accent);}
+
+.task-card.dragging{
+  opacity:0.5;
+  cursor:grabbing;
+}
+
+.task-card-content{flex:1;min-width:0;}
+
+.task-marker{
+  font-size:10px;
+  font-weight:500;
+  color:var(--accent);
+  margin-bottom:4px;
+}
+
+.task-name{
+  font-size:13px;
+  font-weight:500;
+  color:var(--text);
+  margin-bottom:4px;
+  line-height:1.4;
+}
+
+.task-context{
+  font-size:11px;
+  color:var(--text-tertiary);
+  line-height:1.4;
+}
+
+.task-reorder{
+  display:none;
+  flex-direction:column;
+  gap:4px;
+}
+
+.task-reorder button{
+  background:none;
+  border:none;
+  width:16px;
+  height:16px;
+  padding:0;
+  color:var(--accent);
+  cursor:pointer;
+  font-size:12px;
+  line-height:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.task-reorder button:disabled{
+  color:var(--text-tertiary);
+  opacity:0.4;
+  cursor:not-allowed;
+}
+
+.s3-footer{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-top:24px;
+}
+
+.s3-footer .back-link{margin-top:0;}
+
+.btn-next{
+  background:var(--accent);
+  color:#fafaf8;
+  border:none;
+  padding:10px 20px;
+  height:36px;
+  font-family:inherit;
+  font-size:12px;
+  font-weight:500;
+  border-radius:2px;
+  cursor:pointer;
+  transition:background 200ms ease, opacity 200ms ease;
+}
+
+.btn-next:hover{background:var(--accent-hover);}
+
+.btn-next:disabled{
+  background:var(--text-tertiary);
+  opacity:0.4;
+  cursor:not-allowed;
+}
+
+/* ============ SCREEN 4 — TOOL 03 ============ */
+
+.s4{padding:16px 0;}
+
+.s4-inner{
+  max-width:720px;
+  margin:0 auto;
+  width:100%;
+}
+
+.situation{display:none;}
+.situation.active{display:block;}
+
+.situation-instrument-title{
+  font-size:15px;
+  font-weight:500;
+  color:var(--text);
+  letter-spacing:-0.01em;
+  margin-bottom:8px;
+}
+
+.situation-subtitle{
+  font-size:13px;
+  line-height:1.55;
+  color:var(--text-secondary);
+  margin-bottom:24px;
+}
+
+.situation-card{
+  background:#ebd9d4;
+  padding:20px;
+  margin-bottom:32px;
+}
+
+.situation-title{
+  font-size:17px;
+  font-weight:600;
+  color:var(--text);
+  margin:0 0 12px 0;
+}
+
+.situation-context{
+  font-size:13px;
+  line-height:1.55;
+  color:var(--text);
+  margin:0;
+}
+
+.situation-options{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+.situation-option{
+  background:var(--bg-secondary);
+  border:1px solid transparent;
+  border-radius:2px;
+  padding:14px 16px;
+  font-size:13px;
+  line-height:1.55;
+  color:var(--text);
+  cursor:pointer;
+  transition:background 150ms ease, border-color 150ms ease;
+}
+
+.situation-option:hover{
+  border-color:var(--accent);
+  background:#f0ece3;
+}
+
+.situation-option.selected{
+  border-color:var(--accent);
+  background:#e8e3d6;
+}
+
+/* ============ SCREEN 5 — PROFILE ============ */
+
+.profile-container{
+  max-width:720px;
+  margin:0 auto;
+  padding:32px 20px;
+}
+
+.profile-kicker{
+  font-size:9px;
+  font-weight:500;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:12px;
+}
+
+.profile-title{
+  font-size:17px;
+  font-weight:500;
+  letter-spacing:-0.01em;
+  color:var(--text);
+  margin-bottom:24px;
+}
+
+.profile-thesis{
+  background:var(--bg-secondary);
+  border-left:3px solid var(--accent);
+  padding:16px 20px;
+  font-size:14px;
+  font-style:italic;
+  line-height:1.55;
+  color:var(--text);
+  margin-bottom:32px;
+}
+
+.profile-blocks{margin-bottom:0;}
+
+.profile-block-kicker{
+  font-size:10px;
+  font-weight:500;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-top:28px;
+  margin-bottom:6px;
+}
+
+.profile-blocks > .profile-block-kicker:first-child{margin-top:0;}
+
+.profile-block{
+  font-size:13px;
+  line-height:1.7;
+  color:var(--text);
+  margin-bottom:20px;
+}
+
+.profile-block:last-child{margin-bottom:0;}
+
+.profile-closing{
+  font-size:12px;
+  font-style:italic;
+  line-height:1.55;
+  color:var(--text-tertiary);
+  margin-top:24px;
+  margin-bottom:32px;
+}
+
+.profile-cta{
+  display:flex;
+  justify-content:center;
+  margin-top:32px;
+}
+
+.profile-footer{
+  margin-top:24px;
+}
+
+/* ============ SCREEN 6 — FINALISTS ============ */
+
+.s6{
+  max-width:1080px;
+  margin:0 auto;
+  padding:32px 20px;
+}
+
+.s6-kicker{
+  font-size:9px;
+  font-weight:500;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:12px;
+}
+
+.s6-title{
+  font-size:17px;
+  font-weight:500;
+  letter-spacing:-0.01em;
+  color:var(--text);
+  margin-bottom:12px;
+}
+
+.s6-subtitle{
+  font-size:13px;
+  line-height:1.55;
+  color:var(--text-secondary);
+  max-width:600px;
+  margin-bottom:32px;
+}
+
+.finalists-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+
+.finalist-card{
+  position:relative;
+  background:var(--bg-secondary);
+  border:1px solid transparent;
+  border-radius:2px;
+  padding:20px;
+  min-height:280px;
+}
+
+.finalist-card.selected-from-demo1{
+  border-color:var(--accent);
+  background:#e8e3d6;
+}
+
+.finalist-mark{
+  display:none;
+  position:absolute;
+  top:12px;
+  right:12px;
+  font-size:9px;
+  font-weight:600;
+  letter-spacing:0.05em;
+  text-transform:uppercase;
+  color:var(--accent);
+}
+
+.finalist-card.selected-from-demo1 .finalist-mark{display:block;}
+
+.finalist-name{
+  font-size:16px;
+  font-weight:600;
+  color:var(--text);
+  margin-bottom:2px;
+}
+
+.finalist-subtitle{
+  font-size:10px;
+  font-weight:500;
+  letter-spacing:0.05em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:16px;
+}
+
+.finalist-section-title{
+  font-size:9px;
+  font-weight:500;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--text-tertiary);
+  margin-top:12px;
+  margin-bottom:4px;
+}
+
+.finalist-section-body{
+  font-size:12px;
+  line-height:1.55;
+  color:var(--text);
+}
+
+.s6-back{
+  margin-top:24px;
+}
+
+.s6-choice{
+  max-width:720px;
+  margin:32px auto;
+  padding:0;
+  background:transparent;
+}
+
+.s6-choice-header{
+  background:#e8e3d6;
+  padding:24px;
+  margin-bottom:32px;
+}
+
+.s6-choice-title{
+  font-size:17px;
+  font-weight:600;
+  color:var(--text);
+  margin:0 0 12px 0;
+}
+
+.s6-choice-context{
+  font-size:13px;
+  line-height:1.6;
+  color:var(--text);
+  margin:0;
+}
+
+.s6-choice-thesis{
+  font-size:18px;
+  font-weight:600;
+  line-height:1.4;
+  color:var(--text);
+  margin:0 0 24px 0;
+}
+
+.s6-choice-block{
+  font-size:13px;
+  line-height:1.6;
+  color:var(--text);
+  margin:0 0 16px 0;
+}
+
+.s6-choice-block:last-child{margin-bottom:0;}
+
+.s6-final{
+  background:#e8e3d6;
+  padding:32px 24px;
+  margin-top:32px;
+  border-radius:2px;
+  text-align:center;
+}
+
+.s6-final-kicker{
+  font-size:9px;
+  font-weight:500;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:12px;
+}
+
+.s6-final-title{
+  font-size:18px;
+  font-weight:500;
+  letter-spacing:-0.01em;
+  color:var(--text);
+  margin-bottom:12px;
+  line-height:1.3;
+}
+
+.s6-final-body{
+  font-size:14px;
+  line-height:1.6;
+  color:var(--text);
+  max-width:600px;
+  margin:0 auto 24px;
+}
+
+.s6-actions{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:12px;
+}
+
+.s6-actions .btn-primary{padding:10px 24px;}
+
+.landing-link{
+  background:none;
+  border:none;
+  color:var(--accent);
+  font-family:inherit;
+  font-size:13px;
+  padding:4px 0;
+  cursor:pointer;
+  text-decoration:underline;
+}
+
+.landing-link:hover{color:var(--accent-hover);}
+
+/* ============ PLACEHOLDER SCREENS ============ */
+
+.placeholder{
+  max-width:720px;
+  margin:0 auto;
+  padding:48px 0;
+  text-align:center;
+}
+
+.placeholder h2{
+  font-size:15px;
+  font-weight:500;
+  color:var(--text);
+  margin-bottom:8px;
+  letter-spacing:-0.01em;
+}
+
+.placeholder p{
+  font-size:13px;
+  line-height:1.55;
+  color:var(--text-secondary);
+  margin-bottom:20px;
+}
+
+/* ============ MOBILE ============ */
+
+@media (max-width:768px){
+  .container{padding:0 16px;}
+
+  .s1{padding:12px 0;}
+
+  .s1-h1{font-size:15px;}
+
+  .s1-cards{
+    grid-template-columns:1fr;
+    gap:10px;
+  }
+
+  .tool-card-title{font-size:12px;}
+  .tool-card-body{font-size:12px;}
+
+  .s1-promise{font-size:12px;}
+
+  .btn-primary{min-width:200px;}
+
+  .placeholder{padding:32px 0;}
+  .placeholder h2{font-size:14px;}
+  .placeholder p{font-size:12px;}
+
+  .s2{padding:12px 0;}
+
+  .pair-title{font-size:14px;}
+  .pair-subtitle{font-size:12px;margin-bottom:24px;}
+
+  .pair-options{
+    grid-template-columns:1fr;
+    gap:12px;
+  }
+
+  .option-card{
+    padding:16px;
+    min-height:100px;
+    font-size:12px;
+  }
+
+  .back-link{margin-top:24px;}
+
+  .s3{padding:16px;}
+
+  .s3-context{font-size:12px;padding:10px 14px;margin-bottom:16px;}
+
+  .containers{
+    grid-template-columns:1fr;
+    gap:12px;
+  }
+
+  .container-box{min-height:auto;}
+
+  .task-card{
+    max-width:100%;
+    cursor:pointer;
+  }
+
+  .task-card.selected{
+    border:2px solid var(--accent);
+    background:#e8e3d6;
+    padding:9px 11px;
+  }
+
+  .container-box .task-reorder{display:flex;}
+
+  .task-name{font-size:12px;}
+
+  .s3-footer{
+    flex-direction:column-reverse;
+    gap:12px;
+    align-items:stretch;
+  }
+
+  .btn-next{width:100%;}
+
+  .s3-footer .back-link{margin-top:0;text-align:left;}
+
+  #screen-4.screen.active{min-height:auto;}
+
+  .s4{padding:12px 0;}
+
+  .situation-instrument-title{font-size:14px;}
+  .situation-subtitle{font-size:12px;margin-bottom:20px;}
+  .situation-title{font-size:15px;}
+  .situation-card{padding:16px;margin-bottom:24px;}
+  .situation-context{font-size:12px;}
+  .situation-option{font-size:12px;padding:12px 14px;}
+
+  .profile-container{padding:24px 16px;}
+  .profile-title{font-size:15px;margin-bottom:20px;}
+  .profile-thesis{font-size:13px;padding:14px 16px;}
+  .profile-block{font-size:12px;line-height:1.65;}
+  .profile-closing{font-size:11px;}
+  .profile-cta .btn-primary{width:100%;}
+
+  .s6{padding:24px 16px;}
+  .s6-title{font-size:15px;}
+  .s6-subtitle{font-size:12px;margin-bottom:24px;}
+
+  .finalists-grid{
+    grid-template-columns:1fr;
+    gap:12px;
+  }
+
+  .finalist-card{min-height:auto;padding:16px;}
+  .finalist-name{font-size:15px;}
+
+  .s6-final{padding:24px 20px;}
+  .s6-final-title{font-size:16px;}
+  .s6-final-body{font-size:13px;}
+
+  .s6-actions .btn-primary{width:100%;}
+
+  .s6-choice-header{padding:20px;}
+  .s6-choice-title{font-size:16px;}
+  .s6-choice-thesis{font-size:16px;}
+  .s6-choice-context,
+  .s6-choice-block{font-size:12px;}
+}
+</style>
+</head>
+<body>
+
+<section id="screen-1" class="screen active">
+  <div class="container s1">
+    <div class="s1-inner">
+      <div class="s1-header">
+        <div class="kicker">О механике</div>
+        <h1 class="s1-h1">Три инструмента, которые дают данные там, где стандартный процесс останавливается.</h1>
+      </div>
+
+      <div class="s1-cards">
+        <div class="tool-card">
+          <div class="tool-card-title">Форсированный выбор ценностей</div>
+          <div class="tool-card-body">Пять пар. Оба варианта в каждой паре профессионально обоснованы. Выбрать можно только один — выбор без правильного ответа показывает реальную иерархию ценностей.</div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-card-title">Расстановка приоритетов</div>
+          <div class="tool-card-body">Шесть задач. Три контейнера: что делаете прямо сейчас, что делаете сами и в каком порядке, что делегируете. Конфликты заложены намеренно.</div>
+        </div>
+        <div class="tool-card">
+          <div class="tool-card-title">Рабочие ситуации</div>
+          <div class="tool-card-body">Пять управленческих ситуаций. Каждая воспроизводит реальный момент выбора в роли. Из пяти ответов складывается поведенческий профиль.</div>
+        </div>
+      </div>
+
+      <p class="s1-promise">После трёх инструментов — ваш профиль рядом с профилями четырёх финалистов из задачи найма. У всех четырёх резюме, оценка потенциала и интервью были хорошими.</p>
+
+      <div class="s1-cta">
+        <button class="btn-primary" onclick="showScreen('screen-2')">Начать →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="screen-2" class="screen">
+  <div class="container s2">
+    <div class="s2-inner">
+
+      <div class="pair active" data-pair="1">
+        <div class="progress-indicator">Пара 1 из 5</div>
+        <h1 class="pair-title">Форсированный выбор ценностей</h1>
+        <p class="pair-subtitle">В каждой паре — два варианта. Выберите тот, что ближе вам в работе.</p>
+        <div class="pair-options">
+          <div class="option-card" onclick="selectPair(1,'A',this)">Принять решение с теми данными, что есть, и скорректировать по ходу</div>
+          <div class="option-card" onclick="selectPair(1,'B',this)">Зафиксировать решение после того, как данные достаточны для понимания риска</div>
+        </div>
+        <button class="back-link" onclick="showScreen('screen-1')">← Назад</button>
+      </div>
+
+      <div class="pair" data-pair="2">
+        <div class="progress-indicator">Пара 2 из 5</div>
+        <h1 class="pair-title">Форсированный выбор ценностей</h1>
+        <p class="pair-subtitle">В каждой паре — два варианта. Выберите тот, что ближе вам в работе.</p>
+        <div class="pair-options">
+          <div class="option-card" onclick="selectPair(2,'A',this)">Выстроить операционную систему, которая работает без вас</div>
+          <div class="option-card" onclick="selectPair(2,'B',this)">Сохранить прямое участие в решениях, где цена ошибки высока</div>
+        </div>
+        <button class="back-link" onclick="showPair(1)">← Назад</button>
+      </div>
+
+      <div class="pair" data-pair="3">
+        <div class="progress-indicator">Пара 3 из 5</div>
+        <h1 class="pair-title">Форсированный выбор ценностей</h1>
+        <p class="pair-subtitle">В каждой паре — два варианта. Выберите тот, что ближе вам в работе.</p>
+        <div class="pair-options">
+          <div class="option-card" onclick="selectPair(3,'A',this)">Услышать аргументы команды и найти компромисс, сохранив её включённость</div>
+          <div class="option-card" onclick="selectPair(3,'B',this)">Настоять на сложном и непопулярном решении, которое даст новые возможности бизнесу</div>
+        </div>
+        <button class="back-link" onclick="showPair(2)">← Назад</button>
+      </div>
+
+      <div class="pair" data-pair="4">
+        <div class="progress-indicator">Пара 4 из 5</div>
+        <h1 class="pair-title">Форсированный выбор ценностей</h1>
+        <p class="pair-subtitle">В каждой паре — два варианта. Выберите тот, что ближе вам в работе.</p>
+        <div class="pair-options">
+          <div class="option-card" onclick="selectPair(4,'A',this)">Использовать рыночные возможности, пока они есть</div>
+          <div class="option-card" onclick="selectPair(4,'B',this)">Строить процессы, которые работают вне зависимости от конъюнктуры</div>
+        </div>
+        <button class="back-link" onclick="showPair(3)">← Назад</button>
+      </div>
+
+      <div class="pair" data-pair="5">
+        <div class="progress-indicator">Пара 5 из 5</div>
+        <h1 class="pair-title">Форсированный выбор ценностей</h1>
+        <p class="pair-subtitle">В каждой паре — два варианта. Выберите тот, что ближе вам в работе.</p>
+        <div class="pair-options">
+          <div class="option-card" onclick="selectPair(5,'A',this)">Оперативно пересобрать западающий процесс</div>
+          <div class="option-card" onclick="selectPair(5,'B',this)">Сначала разобраться, зачем он устроен именно так</div>
+        </div>
+        <button class="back-link" onclick="showPair(4)">← Назад</button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="screen-3" class="screen">
+  <div class="s3">
+    <h1 class="s3-title">Расстановка приоритетов</h1>
+
+    <div class="s3-context">
+      <div class="s3-context-time">Вторник, 9:15. Вы работаете в роли около месяца.</div>
+      <div class="s3-context-body">Контекст: Открытие нового региона — через пять недель. Команда вас знает. Часть процессов уже выстроена, часть ещё в работе.</div>
+      <div class="s3-context-instruction">Разложите шесть задач по трём контейнерам. Порядок внутри каждого контейнера тоже имеет значение — расставьте задачи так, как будете к ним подходить по очереди.</div>
+    </div>
+
+    <div id="unsorted-title" class="unsorted-title">Несортированные задачи</div>
+
+    <div id="unsorted-zone" class="unsorted-zone drop-zone">
+      <div class="task-card" draggable="true" data-task="A">
+        <div class="task-card-content">
+          <div class="task-marker">09:15</div>
+          <div class="task-name">Ежедневная планёрка команды</div>
+          <div class="task-context">В календаре 45 минут. Команда ждёт.</div>
+        </div>
+        <div class="task-reorder">
+          <button class="reorder-up" onclick="moveTask(this,-1)">↑</button>
+          <button class="reorder-down" onclick="moveTask(this,1)">↓</button>
+        </div>
+      </div>
+      <div class="task-card" draggable="true" data-task="B">
+        <div class="task-card-content">
+          <div class="task-marker">до 12:00</div>
+          <div class="task-name">Отчёт для генерального директора</div>
+          <div class="task-context">Запрошен позавчера. Дедлайн сегодня. Данные у вас есть.</div>
+        </div>
+        <div class="task-reorder">
+          <button class="reorder-up" onclick="moveTask(this,-1)">↑</button>
+          <button class="reorder-down" onclick="moveTask(this,1)">↓</button>
+        </div>
+      </div>
+      <div class="task-card" draggable="true" data-task="C">
+        <div class="task-card-content">
+          <div class="task-marker">с утра</div>
+          <div class="task-name">Конфликт между двумя руководителями участков</div>
+          <div class="task-context">Оба написали вам. Каждый ждёт вашей позиции.</div>
+        </div>
+        <div class="task-reorder">
+          <button class="reorder-up" onclick="moveTask(this,-1)">↑</button>
+          <button class="reorder-down" onclick="moveTask(this,1)">↓</button>
+        </div>
+      </div>
+      <div class="task-card" draggable="true" data-task="D">
+        <div class="task-card-content">
+          <div class="task-marker">↑14% 3 дня</div>
+          <div class="task-name">Отклонение в показателях поставок</div>
+          <div class="task-context">Третий день подряд. Причина неизвестна. Данные у вас.</div>
+        </div>
+        <div class="task-reorder">
+          <button class="reorder-up" onclick="moveTask(this,-1)">↑</button>
+          <button class="reorder-down" onclick="moveTask(this,1)">↓</button>
+        </div>
+      </div>
+      <div class="task-card" draggable="true" data-task="E">
+        <div class="task-card-content">
+          <div class="task-marker">пятница</div>
+          <div class="task-name">Подготовка к стратегической сессии</div>
+          <div class="task-context">Через три дня. Нужно сформулировать операционные приоритеты на квартал.</div>
+        </div>
+        <div class="task-reorder">
+          <button class="reorder-up" onclick="moveTask(this,-1)">↑</button>
+          <button class="reorder-down" onclick="moveTask(this,1)">↓</button>
+        </div>
+      </div>
+      <div class="task-card" draggable="true" data-task="F">
+        <div class="task-card-content">
+          <div class="task-marker">17 сообщений</div>
+          <div class="task-name">Накопившиеся рабочие сообщения</div>
+          <div class="task-context">За вчера и утро. Часть от команды, часть от смежных отделов. Срочных нет.</div>
+        </div>
+        <div class="task-reorder">
+          <button class="reorder-up" onclick="moveTask(this,-1)">↑</button>
+          <button class="reorder-down" onclick="moveTask(this,1)">↓</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="containers">
+      <div id="container-1" class="container-box drop-zone">
+        <div class="container-head">
+          <div class="container-title">01 · Делаю сейчас</div>
+          <div class="container-subtitle">До того, как заниматься чем-то ещё</div>
+        </div>
+      </div>
+      <div id="container-2" class="container-box drop-zone">
+        <div class="container-head">
+          <div class="container-title">02 · Делаю сам — в очереди</div>
+          <div class="container-subtitle">После текущего, в указанном порядке</div>
+        </div>
+      </div>
+      <div id="container-3" class="container-box drop-zone">
+        <div class="container-head">
+          <div class="container-title">03 · Делегирую</div>
+          <div class="container-subtitle">Передаю кому-то из команды</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="s3-footer">
+      <button class="back-link" onclick="goBackToTool1()">← Назад</button>
+      <button id="tool2-next-btn" class="btn-next" disabled onclick="saveAndContinueTool2()">Далее →</button>
+    </div>
+  </div>
+</section>
+
+<section id="screen-4" class="screen">
+  <div class="container s4">
+    <div class="s4-inner">
+
+      <div class="situation active" data-situation="1">
+        <div class="progress-indicator">Ситуация 1 из 5</div>
+        <h1 class="situation-instrument-title">Рабочие ситуации</h1>
+        <p class="situation-subtitle">Пять ситуаций из вашей текущей роли — около месяца после выхода. По каждой выберите одно действие.</p>
+        <div class="situation-card">
+          <h2 class="situation-title">Давление сверху без данных</h2>
+          <div class="situation-context">Руководитель отдела продаж сообщает, что завтра закрывается крупная сделка — объём в три раза выше стандартного заказа. Мощности распределены под текущих клиентов. Окно для манёвра — сутки.</div>
+        </div>
+        <div class="situation-options">
+          <div class="situation-option" onclick="selectSituation(1,1,this)">Организую дополнительные мощности через подрядчиков — это дороже, но сделка закрывается в срок, хоть и с меньшей маржой.</div>
+          <div class="situation-option" onclick="selectSituation(1,2,this)">Связываюсь с текущими клиентами с наименьшими объёмами: передоговариваюсь на сдвиг сроков, освобождаю окно, принимая риск их возможной потери в будущем.</div>
+          <div class="situation-option" onclick="selectSituation(1,3,this)">Возвращаюсь к продажам с реалистичными сроками: предлагаю крупному клиенту сдвиг на несколько дней как условие сделки, принимая риск не закрыть её в изначальные сроки.</div>
+          <div class="situation-option" onclick="selectSituation(1,4,this)">Предлагаю частичную отгрузку завтра, остаток — в течение недели по мере высвобождения мощностей, с риском повреждения части заказа из-за перезатарки.</div>
+        </div>
+        <button class="back-link" onclick="showScreen('screen-3')">← Назад</button>
+      </div>
+
+      <div class="situation" data-situation="2">
+        <div class="progress-indicator">Ситуация 2 из 5</div>
+        <h1 class="situation-instrument-title">Рабочие ситуации</h1>
+        <p class="situation-subtitle">Пять ситуаций из вашей текущей роли — около месяца после выхода. По каждой выберите одно действие.</p>
+        <div class="situation-card">
+          <h2 class="situation-title">Конфликт операционных и коммерческих интересов</h2>
+          <div class="situation-context">Крупный клиент систематически нарушает окна приёмки — приезжает на 2-3 часа позже согласованного. Платит вовремя, объёмы значительные. Каждый раз это блокирует рампу и срывает отгрузки следующим клиентам. Коммерческий директор просит не трогать — клиент стратегический.</div>
+        </div>
+        <div class="situation-options">
+          <div class="situation-option" onclick="selectSituation(2,1,this)">Фиксирую каждое нарушение официально и инициирую применение штрафных условий по договору — даже если коммерческий директор против.</div>
+          <div class="situation-option" onclick="selectSituation(2,2,this)">Выделяю клиенту отдельное окно с буфером, перестраиваю расписание под него: операция адаптируется к реальности.</div>
+          <div class="situation-option" onclick="selectSituation(2,3,this)">Выношу на уровень генерального: операционные потери от клиента должны быть видны наравне с его выручкой.</div>
+          <div class="situation-option" onclick="selectSituation(2,4,this)">Перестраиваю операционный цикл так, чтобы его опоздания не блокировали остальных — решаю проблему внутри, не трогая отношения с клиентом.</div>
+        </div>
+        <button class="back-link" onclick="showSituation(1)">← Назад</button>
+      </div>
+
+      <div class="situation" data-situation="3">
+        <div class="progress-indicator">Ситуация 3 из 5</div>
+        <h1 class="situation-instrument-title">Рабочие ситуации</h1>
+        <p class="situation-subtitle">Пять ситуаций из вашей текущей роли — около месяца после выхода. По каждой выберите одно действие.</p>
+        <div class="situation-card">
+          <h2 class="situation-title">Системный сбой, который команда не признаёт</h2>
+          <div class="situation-context">Три недели подряд время обработки заказов растёт на 7–8%. Команда говорит «всё штатно». Ваши данные говорят иначе.</div>
+        </div>
+        <div class="situation-options">
+          <div class="situation-option" onclick="selectSituation(3,1,this)">Иду смотреть на процесс без предупреждения — просто наблюдаю.</div>
+          <div class="situation-option" onclick="selectSituation(3,2,this)">Запрашиваю письменные объяснения от каждого руководителя участка.</div>
+          <div class="situation-option" onclick="selectSituation(3,3,this)">Собираю руководителей участков: выкладываю свои данные и прошу объяснить расхождение с тем, что они докладывают.</div>
+          <div class="situation-option" onclick="selectSituation(3,4,this)">Параллельно с наблюдением запускаю замер по каждому этапу обработки — ищу, где именно растёт время.</div>
+        </div>
+        <button class="back-link" onclick="showSituation(2)">← Назад</button>
+      </div>
+
+      <div class="situation" data-situation="4">
+        <div class="progress-indicator">Ситуация 4 из 5</div>
+        <h1 class="situation-instrument-title">Рабочие ситуации</h1>
+        <p class="situation-subtitle">Пять ситуаций из вашей текущей роли — около месяца после выхода. По каждой выберите одно действие.</p>
+        <div class="situation-card">
+          <h2 class="situation-title">Давление сверху на качество</h2>
+          <div class="situation-context">Генеральный директор говорит, что нужно ускорить открытие региона на две недели. Это означает запускаться без завершённой системы контроля качества.</div>
+        </div>
+        <div class="situation-options">
+          <div class="situation-option" onclick="selectSituation(4,1,this)">Соглашаюсь — бизнес-решение принимает он.</div>
+          <div class="situation-option" onclick="selectSituation(4,2,this)">Соглашаюсь при условии, что снижаем ожидания по ряду показателей эффективности на старте — фиксируем это до запуска.</div>
+          <div class="situation-option" onclick="selectSituation(4,3,this)">Прошу 30 минут: показываю конкретные риски и что нужно для их снижения.</div>
+          <div class="situation-option" onclick="selectSituation(4,4,this)">Предлагаю запуститься раньше с усиленным ручным контролем и еженедельным мониторингом отклонений.</div>
+        </div>
+        <button class="back-link" onclick="showSituation(3)">← Назад</button>
+      </div>
+
+      <div class="situation" data-situation="5">
+        <div class="progress-indicator">Ситуация 5 из 5</div>
+        <h1 class="situation-instrument-title">Рабочие ситуации</h1>
+        <p class="situation-subtitle">Пять ситуаций из вашей текущей роли — около месяца после выхода. По каждой выберите одно действие.</p>
+        <div class="situation-card">
+          <h2 class="situation-title">Конфликт приоритетов внутри команды</h2>
+          <div class="situation-context">Два руководителя участков не могут договориться о распределении складской площади под новую товарную категорию. Оба пришли к вам одновременно. У каждого своя логика, оба правы по-своему.</div>
+        </div>
+        <div class="situation-options">
+          <div class="situation-option" onclick="selectSituation(5,1,this)">Прошу каждого изложить логику — выслушиваю, принимаю решение сам на основе операционных данных.</div>
+          <div class="situation-option" onclick="selectSituation(5,2,this)">Прошу их уйти и вернуться с совместным предложением — это их уровень ответственности.</div>
+          <div class="situation-option" onclick="selectSituation(5,3,this)">Собираю данные по загрузке прямо сейчас — решение принимаю в течение часа.</div>
+          <div class="situation-option" onclick="selectSituation(5,4,this)">Определяю принцип распределения площади исходя из стратегического приоритета категорий: объясняю обоим логику.</div>
+        </div>
+        <button class="back-link" onclick="showSituation(4)">← Назад</button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="screen-5" class="screen">
+  <div class="profile-container">
+    <div class="profile-kicker">Ваш профиль</div>
+    <h1 class="profile-title">Что увидели инструменты</h1>
+
+    <div id="profile-thesis" class="profile-thesis"></div>
+
+    <div id="profile-blocks" class="profile-blocks"></div>
+
+    <div id="profile-closing" class="profile-closing"></div>
+
+    <div class="profile-cta">
+      <button class="btn-primary" onclick="showScreen('screen-6')">К профилям финалистов →</button>
+    </div>
+
+    <div class="profile-footer">
+      <button class="back-link" onclick="showScreen('screen-4'); showSituation(5);">← Назад</button>
+    </div>
+  </div>
+</section>
+
+<section id="screen-6" class="screen">
+  <div class="s6">
+    <div class="s6-kicker">Финалисты</div>
+    <h1 class="s6-title">Профили четырёх кандидатов в задаче найма</h1>
+    <p class="s6-subtitle">У всех четырёх — одинаковые «галочки» в стандартном процессе отбора. Разные профили — в реальных управленческих ситуациях.</p>
+
+    <div class="finalists-grid">
+      <div class="finalist-card" data-finalist="viktor">
+        <div class="finalist-mark">Ваш выбор в задаче найма</div>
+        <div class="finalist-name">Виктор Сомов</div>
+        <div class="finalist-subtitle">Скорость · Признание · Система</div>
+        <div class="finalist-section-title">Ценности</div>
+        <div class="finalist-section-body">Ориентирован на видимый результат и внешнюю оценку. Предсказуемость процесса для него важнее адаптивности.</div>
+        <div class="finalist-section-title">Приоритеты</div>
+        <div class="finalist-section-body">Реактивный. В «сейчас» — отчёт для генерального и планёрка. Отклонение в поставках отложил на третье место в очереди, стратегическую сессию делегировал.</div>
+        <div class="finalist-section-title">Ситуации</div>
+        <div class="finalist-section-body">Принимает давление. В ситуациях с неполными данными действовал быстро, без уточнений. Под давлением сверху уступал, сохраняя процедурный вид, диагностику оставляя в стороне.</div>
+      </div>
+
+      <div class="finalist-card" data-finalist="karina">
+        <div class="finalist-mark">Ваш выбор в задаче найма</div>
+        <div class="finalist-name">Карина Игнатьева</div>
+        <div class="finalist-subtitle">Точность · Автономия · Основа</div>
+        <div class="finalist-section-title">Ценности</div>
+        <div class="finalist-section-body">Независимость суждений для неё важнее признания. Долгосрочная основа важнее быстрого результата.</div>
+        <div class="finalist-section-title">Приоритеты</div>
+        <div class="finalist-section-body">Системный. В «сейчас» — отклонение в поставках. Стратегическая сессия первой в очереди, отчёт делегирован, планёрка сокращена и перенесена.</div>
+        <div class="finalist-section-title">Ситуации</div>
+        <div class="finalist-section-body">Диагностирует. В каждой ситуации начинала с уточнения природы проблемы. Под давлением держала позицию с аргументами, не переходя к действию без достаточных данных.</div>
+      </div>
+
+      <div class="finalist-card" data-finalist="artyom">
+        <div class="finalist-mark">Ваш выбор в задаче найма</div>
+        <div class="finalist-name">Артём Лебедев</div>
+        <div class="finalist-subtitle">Результат · Измеримость · Исполнение</div>
+        <div class="finalist-section-title">Ценности</div>
+        <div class="finalist-section-body">Ориентирован на чёткие метрики и измеримый результат. Качество исполнения для него важнее стратегического влияния.</div>
+        <div class="finalist-section-title">Приоритеты</div>
+        <div class="finalist-section-body">Операционный. В «сейчас» — поставки и планёрка. Отчёт первым в очереди, конфликт сотрудников делегирован, стратегическая сессия последней в очереди.</div>
+        <div class="finalist-section-title">Ситуации</div>
+        <div class="finalist-section-body">Директивный. Принимал решения быстро, не объясняя логики. На давление отказывал без аргументации: команда видела решение, но не понимала причину.</div>
+      </div>
+
+      <div class="finalist-card" data-finalist="svetlana">
+        <div class="finalist-mark">Ваш выбор в задаче найма</div>
+        <div class="finalist-name">Светлана Миронова</div>
+        <div class="finalist-subtitle">Команда · Признание · Стратегия</div>
+        <div class="finalist-section-title">Ценности</div>
+        <div class="finalist-section-body">Принадлежность к команде — сильный мотиватор. Стратегическое влияние ценится выше совершенства в текущей роли.</div>
+        <div class="finalist-section-title">Приоритеты</div>
+        <div class="finalist-section-body">Человеческий фокус. В «сейчас» — конфликт сотрудников и планёрка. Отклонение в поставках делегировано, стратегическая сессия второй в очереди, отчёт первым.</div>
+        <div class="finalist-section-title">Ситуации</div>
+        <div class="finalist-section-body">Фасилитирует. В ситуациях с людьми действует уверенно. В операционных ищет консенсус там, где нужно решение, удерживая влияние через выстраивание отношений, а не через позицию.</div>
+      </div>
+    </div>
+
+    <div class="s6-choice">
+      <div class="s6-choice-header">
+        <h3 class="s6-choice-title">Кого из финалистов выбрать</h3>
+        <p class="s6-choice-context">В кейсе про найм операционного руководителя — розничная сеть на третьем году масштабирования, 120 точек продаж, открытие двух новых регионов в текущем квартале. Впервые нанимается выделенный операционный руководитель. Задача первого года — построить операционную систему с нуля.</p>
+      </div>
+      <div class="s6-choice-body">
+        <p class="s6-choice-thesis">Под содержание этой задачи из четырёх финалистов подходит Карина.</p>
+        <p class="s6-choice-block">Карина работает в логике системного сигнала: первым в фокус попадает отклонение в показателях, а не то, что заметно сверху. В управленческих ситуациях она диагностирует природу происходящего и держит позицию при давлении сверху. В работе с командой выстраивает понимание прежде, чем требовать исполнения. Это и есть содержание задачи построения операционной системы с нуля: на этапе, где готовых процессов ещё нет, выигрывает руководитель, который умеет видеть причину, а не реагировать на видимое.</p>
+        <p class="s6-choice-block">Виктор силён в задачах, где основное — скорость реакции на видимое сверху и работа в готовой системе. В задаче с длинным горизонтом и без существующих процессов его реактивный фокус оставляет в очереди системные сигналы, с которых построение и начинается.</p>
+        <p class="s6-choice-block">Артём силён в задачах, где готовые процессы нужно отладить или ускорить. В построении с нуля его директивный стиль без вовлечения команды создаёт сопротивление в момент, когда нужно собрать поддержку под решения, у которых ещё нет истории.</p>
+        <p class="s6-choice-block">Светлана сильна в работе с людьми и в проектах изменений сложившейся команды. На этапе, когда команда формируется, а основные риски лежат в операционном контуре, её человеческий фокус оставляет операционные сигналы без своевременного внимания.</p>
+      </div>
+    </div>
+
+    <div class="s6-back">
+      <button class="back-link" onclick="showScreen('screen-5')">← Назад к вашему профилю</button>
+    </div>
+
+    <div class="s6-final">
+      <div class="s6-final-kicker">Вывод</div>
+      <h2 class="s6-final-title">Эти различия не видны в резюме, оценке потенциала или интервью.</h2>
+      <p class="s6-final-body">Они проявляются только в инструментах, которые воспроизводят реальные ситуации — с конфликтующими приоритетами, неполными данными и давлением.</p>
+      <div class="s6-actions">
+        <button class="btn-primary" onclick="restartDemo2()">Пройти заново</button>
+        <button class="landing-link" onclick="window.location.href='/'">← Вернуться к лендингу</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+const userChoiceFromDemo1 = localStorage.getItem('demo1_choice') || null;
+
+const userChoices = {
+  tool1: {},
+  tool2: {},
+  tool3: {}
+};
+
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  const target = document.getElementById(id);
+  if(target) target.classList.add('active');
+  window.scrollTo({top:0, behavior:'instant'});
+  if(id === 'screen-5') renderProfileScreen();
+  if(id === 'screen-6') renderFinalistsScreen();
+}
+
+function renderFinalistsScreen(){
+  document.querySelectorAll('.finalist-card').forEach(c => c.classList.remove('selected-from-demo1'));
+  const demo1Choice = localStorage.getItem('demo1_choice');
+  if(!demo1Choice) return;
+  const card = document.querySelector(`.finalist-card[data-finalist="${demo1Choice}"]`);
+  if(card) card.classList.add('selected-from-demo1');
+}
+
+function restartDemo2(){
+  userChoices.tool1 = {};
+  userChoices.tool2 = {};
+  userChoices.tool3 = {};
+  try { localStorage.removeItem('demo2_profile'); } catch(e) {}
+
+  document.querySelectorAll('#screen-2 .option-card.selected').forEach(c => c.classList.remove('selected'));
+  document.querySelectorAll('#screen-4 .situation-option.selected').forEach(c => c.classList.remove('selected'));
+
+  resetTool2Layout();
+  showPair(1);
+  showSituation(1);
+
+  showScreen('screen-1');
+}
+
+function resetTool2Layout(){
+  const unsortedZone = document.getElementById('unsorted-zone');
+  if(!unsortedZone) return;
+  const order = ['A','B','C','D','E','F'];
+  order.forEach(id => {
+    const card = document.querySelector(`#screen-3 .task-card[data-task="${id}"]`);
+    if(card){
+      card.classList.remove('selected','dragging');
+      unsortedZone.appendChild(card);
+    }
+  });
+  selectedTaskCard = null;
+  updateTool2State();
+}
+
+function showPair(n){
+  document.querySelectorAll('#screen-2 .pair').forEach(p => p.classList.remove('active'));
+  const target = document.querySelector(`#screen-2 .pair[data-pair="${n}"]`);
+  if(target){
+    target.classList.add('active');
+    target.querySelectorAll('.option-card.selected').forEach(c => c.classList.remove('selected'));
+  }
+  window.scrollTo({top:0, behavior:'instant'});
+}
+
+function selectPair(pairNumber, choice, card){
+  userChoices.tool1[`pair${pairNumber}`] = choice;
+  card.classList.add('selected');
+  setTimeout(() => {
+    if(pairNumber < 5){
+      showPair(pairNumber + 1);
+    } else {
+      showScreen('screen-3');
+    }
+  }, 300);
+}
+
+/* ============ TOOL 03 — situations ============ */
+
+function showSituation(n){
+  document.querySelectorAll('#screen-4 .situation').forEach(s => s.classList.remove('active'));
+  const target = document.querySelector(`#screen-4 .situation[data-situation="${n}"]`);
+  if(target){
+    target.classList.add('active');
+    target.querySelectorAll('.situation-option.selected').forEach(o => o.classList.remove('selected'));
+  }
+  window.scrollTo({top:0, behavior:'instant'});
+}
+
+function selectSituation(situationNumber, variantNumber, card){
+  userChoices.tool3[`situation${situationNumber}`] = variantNumber;
+  card.classList.add('selected');
+  setTimeout(() => {
+    if(situationNumber < 5){
+      showSituation(situationNumber + 1);
+    } else {
+      showScreen('screen-5');
+    }
+  }, 300);
+}
+
+/* ============ PROFILE — scoring + narrative ============ */
+
+function scoreDimension1(){
+  let score = 0;
+  if(userChoices.tool1.pair1 === 'A') score -= 1;
+  if(userChoices.tool1.pair1 === 'B') score += 1;
+  if(userChoices.tool1.pair4 === 'A') score -= 1;
+  if(userChoices.tool1.pair4 === 'B') score += 1;
+  return score;
+}
+
+function scoreDimension2(){
+  let score = 0;
+  if(userChoices.tool1.pair2 === 'B') score -= 1;
+  if(userChoices.tool1.pair3 === 'A') score += 1;
+  if(userChoices.tool1.pair3 === 'B') score -= 1;
+  return score;
+}
+
+function scoreDimension3(){
+  const taskValues = {D:-2, E:-1, C:0, A:1, F:1, B:2};
+  const mult = {container1:1, container2:0, container3:-1};
+  let raw = 0;
+  for(const [k, list] of Object.entries(userChoices.tool2 || {})){
+    const m = mult[k] ?? 0;
+    for(const id of list) raw += (taskValues[id] || 0) * m;
+  }
+  return Math.max(-3, Math.min(3, Math.round(raw / 2.5)));
+}
+
+function scoreDimension4(){
+  const taskValues = {D:-2, F:-1, B:0, E:0, A:1, C:2};
+  const mult = {container1:1, container2:0, container3:-1};
+  let raw = 0;
+  for(const [k, list] of Object.entries(userChoices.tool2 || {})){
+    const m = mult[k] ?? 0;
+    for(const id of list) raw += (taskValues[id] || 0) * m;
+  }
+  return Math.max(-3, Math.min(3, Math.round(raw / 2.5)));
+}
+
+function scoreDimension5(){
+  let score = 0;
+  if(userChoices.tool1.pair5 === 'A') score -= 1;
+  if(userChoices.tool1.pair5 === 'B') score += 1;
+  const sit1 = userChoices.tool3.situation1;
+  if(sit1 === 1 || sit1 === 2) score -= 1;
+  if(sit1 === 3) score += 1;
+  const sit3 = userChoices.tool3.situation3;
+  if(sit3 === 2) score -= 1;
+  if(sit3 === 4) score += 1;
+  return Math.max(-3, Math.min(3, score));
+}
+
+function scoreDimension6(){
+  let score = 0;
+  const sit1 = userChoices.tool3.situation1;
+  if(sit1 === 1) score -= 1;
+  if(sit1 === 3) score += 1;
+  const sit4 = userChoices.tool3.situation4;
+  if(sit4 === 1) score -= 2;
+  if(sit4 === 2) score -= 1;
+  if(sit4 === 3) score += 1;
+  return Math.max(-3, Math.min(3, score));
+}
+
+function calculateProfile(){
+  return {
+    d1: scoreDimension1(),
+    d2: scoreDimension2(),
+    d3: scoreDimension3(),
+    d4: scoreDimension4(),
+    d5: scoreDimension5(),
+    d6: scoreDimension6()
+  };
+}
+
+function getPolarity(score){
+  if(score <= -2) return 'left';
+  if(score >= 2) return 'right';
+  return 'middle';
+}
+
+const profileTexts = {
+  d1: {
+    left: "Между «решить сейчас» и «дождаться данных» вы выбираете первое. У такого выбора есть цена — допущенные ошибки в обстоятельствах, где материал ещё не сложился. И есть выигрыш: движение в задачах, где остановка обходится дороже самой ошибки. В ролях с коротким окном для действия этот баланс складывается в вашу пользу. В долгих проектах и в работе с критическими данными он чаще оказывается против.",
+    middle: "Между скоростью и тщательностью у вас нет устойчивого предпочтения, выбор зависит от обстановки. На большинстве задач такой подход даёт результат. Разрыв возникает в крайних точках: если ситуация требует решения в одну или другую сторону, а внутренних правил, по которым делать выбор, не сформулировано, основное время уходит на сам выбор подхода.",
+    right: "Между «решить сейчас» и «дождаться данных» вы выбираете второе. Цена этого выбора — упущенные окна и репутация осторожного руководителя. Выигрыш — решения, которые не приходится откатывать, и обоснование, защищаемое перед собственником. В реструктуризациях и кадровых решениях по ключевым позициям этот баланс складывается в вашу пользу. В кризисных режимах и при выходе на новые рынки он чаще оказывается против."
+  },
+  d2: {
+    left: "Когда команда не согласна с вашим решением, вы скорее доводите его до результата, чем переделываете под её возражения. В моменте это даёт ясность направления. На длинной дистанции формирует команду, привыкшую к режиму исполнения, не к режиму со-решения. На этапах, где скорость и определённость важнее вовлечённости, такой подход уместен. В проектах изменений он создаёт сложности: команда без собственного отношения к решению реализует его формально.",
+    middle: "В одних ситуациях вы настаиваете на своей позиции, в других даёте команде формировать решение. Команда получает контакт, в котором обе плоскости присутствуют, но не всегда понимает, в каком режиме идёт конкретный разговор: где решение уже принято и обсуждаются способы реализации, а где у неё есть пространство для влияния. Прояснение режима в начале каждого такого разговора снимает большую часть напряжения от этого паттерна.",
+    right: "Когда у вас есть решение, вы редко защищаете его без участия команды в его формировании. Решение, к которому команда пришла вместе с вами, реализуется иначе: с большей энергией и меньшим сопротивлением. Цена такого подхода — время на согласование, которое не всегда есть. В проектах изменений и в работе с новыми направлениями такой стиль уместен. В кризисных режимах он буксует."
+  },
+  d3: {
+    left: "В первый контур внимания у вас попало не самое срочное и не самое видимое. Этот выбор показывает чувствительность к сигналам, которые ещё не выходят на поверхность, и готовность работать с ними прежде, чем они станут срочными. В ролях, где результат меряется устойчивостью системы, такой подход даёт результат. В ролях с высокой видимостью отчётности руководство может считывать такую расстановку как недостаточную скорость реакции на видимые задачи.",
+    middle: "В первый контур внимания у вас попало и видимое срочное, и более глубокий сигнал. В большинстве задач этот баланс даёт результат. Сложность одна: сигналы разной природы требуют разного типа реакции, и одновременное удержание обоих в фокусе ограничивает глубину работы с каждым.",
+    right: "В первый контур внимания у вас попало то, что заметно сверху и срочно в моменте. Такой подход даёт краткосрочную управляемость и работает в ролях, где это критично для отношений с руководством. Сигналы более глубокого уровня при таком распределении остаются в очереди. В момент, когда они выходят на поверхность, их исправление обходится значительно дороже своевременной работы с ними."
+  },
+  d4: {
+    left: "Когда задача требует решения, ваш первый вопрос про процесс. Где идёт сбой, что замедляет, какую логику нужно перенастроить. Люди в этой картине занимают роли в системе, и сложности между ними часто решаются через перестройку этой системы. В задачах построения операционных моделей такой подход даёт результат. В проектах изменений, где команда сама проходит переход, оптимизация процесса вокруг людей не заменяет работу с ними самими.",
+    middle: "Внимание распределяется и на процессы, и на людей, без сведения одного к другому. В большинстве задач это устойчивая позиция. Сложность возникает в моменты, когда оба слоя требуют участия одновременно: без явного решения, что идёт первым, происходит распыление внимания и пропуск важных сигналов в обоих контурах.",
+    right: "Когда задача требует решения, ваш первый вопрос про людей. Что между ними происходит, как они реагируют, что им сейчас важно. Это даёт раннее считывание ситуаций, которые ещё не проявились в метриках. В проектах изменений такой подход даёт результат. В задачах построения операционной модели, где логика проблемы лежит в процессах, работа с людьми не заменяет работу с самим процессом."
+  },
+  d5: {
+    left: "В обычной работе этот паттерн не заметен — в стабильных задачах действие и есть работа. Сигнал становится виден в работе с системными сбоями: когда время обработки растёт три недели подряд, прямое действие закрепляет проблему. Симптомы и причины в таких случаях часто расходятся, и реакция без диагностики чаще усугубляет ситуацию. В кризисных режимах ваш подход в вашу пользу. В задачах с латентными сбоями он против.",
+    middle: "В большинстве ситуаций ваш выбор между действием и анализом адекватен обстановке. Сигнал проблемы становится виден в одной точке: когда призыв к действию приходит от давления, а не от понимания обстановки. Пауза в таких ситуациях полезнее, чем кажется в моменте, и её сложно взять под прямым внешним давлением.",
+    right: "В обычной работе этот паттерн читается как проработанность и осторожность. Сигнал становится виден в режимах с коротким окном для влияния: время на диагностику оказывается временем, за которое ситуация уходит из управляемого состояния. В задачах со сложной причинно-следственной картиной ваш подход в вашу пользу. В кризисных режимах он против."
+  },
+  d6: {
+    left: "Под давлением сверху вы скорее идёте навстречу, чем выстраиваете встречную позицию. В системах с высоким доверием к решениям руководства такой подход уместен: встречная позиция в них воспринимается как нарушение, и её цена выше, чем риск самого решения. В ролях, где руководству нужен носитель экспертной позиции, ваш подход создаёт сложности: согласие без обозначения рисков может означать, что дорогое решение прошло без необходимой проверки.",
+    middle: "Реакция на давление зависит от содержания: где-то вы соглашаетесь, где-то держите позицию с аргументами. Это даёт хорошие отношения с руководством без потери экспертной позиции. Сложность одна: важно, чтобы стороны решения были видны однозначно. Где вы действительно согласны, а где соглашаетесь из соображений отношений.",
+    right: "Под давлением вы держите позицию, если у неё есть профессиональное основание. В ролях, где руководству нужен носитель экспертной позиции, способный остановить дорогое решение, такой подход в вашу пользу. В системах с жёсткой вертикалью, где встречная позиция воспринимается как нарушение субординации, ваш подход обходится дороже самой возможной ошибки руководства."
+  }
+};
+
+const profileTheses = {
+  systemic_diagnostic: "Аналитический профиль с фокусом на природе происходящего. Уместен в задачах, где симптомы и причины часто расходятся. Менее уместен там, где время на разбор обходится дороже самой проблемы.",
+  reactive_executor: "Реактивный исполнительский профиль. Уместен в задачах с коротким окном для действия и в средах с высоким темпом. Менее уместен в работе со сложными системными задачами и в условиях, где требуется встречная позиция.",
+  team_people: "Командный профиль с фокусом на людях. Уместен в проектах изменений, где результат зависит от того, как команда проходит переход. Менее уместен в кризисных режимах и в задачах построения операционных моделей.",
+  professional_analytical: "Профессионально-аналитический профиль. Уместен в задачах с высокой ценой ошибки и в ролях, где руководству нужен носитель экспертной позиции. Менее уместен в режимах с коротким окном для действия.",
+  operational_directive: "Операционно-директивный профиль. Уместен в задачах построения и переналадки процессов. Менее уместен в проектах изменений, где успех зависит от готовности команды поддержать решение.",
+  methodological_operational: "Методологический операционный профиль. Уместен в проектах построения с нуля и в реструктуризациях. Менее уместен в задачах, требующих скорости и работы с людьми в моменте перехода.",
+  balanced: "Сбалансированный профиль без выраженной доминанты. Гибко адаптируется к разным задачам, но требует осознанного выбора подхода в каждой ситуации."
+};
+
+function selectThesis(profile){
+  const {d1, d2, d3, d4, d5, d6} = profile;
+
+  const maxAbs = Math.max(Math.abs(d1), Math.abs(d2), Math.abs(d3), Math.abs(d4), Math.abs(d5), Math.abs(d6));
+  if(maxAbs <= 1) return profileTheses.balanced;
+
+  if(d3 <= -2 && d5 >= 2) return profileTheses.systemic_diagnostic;
+  if(d1 <= -2 && d5 <= -2 && d6 <= -2) return profileTheses.reactive_executor;
+  if(d2 >= 1 && d4 >= 2) return profileTheses.team_people;
+  if(d1 >= 2 && d5 >= 2 && d6 >= 2) return profileTheses.professional_analytical;
+  if(d4 <= -2 && d5 <= -2 && d2 <= -2) return profileTheses.operational_directive;
+  if(d3 <= -2 && d4 <= -2 && d1 >= 2) return profileTheses.methodological_operational;
+
+  const dims = [
+    {val: d1, leftKey: 'reactive_executor', rightKey: 'professional_analytical'},
+    {val: d3, leftKey: 'systemic_diagnostic', rightKey: 'reactive_executor'},
+    {val: d4, leftKey: 'operational_directive', rightKey: 'team_people'}
+  ];
+  let strongest = dims[0];
+  for(const d of dims){
+    if(Math.abs(d.val) > Math.abs(strongest.val)) strongest = d;
+  }
+  const key = strongest.val < 0 ? strongest.leftKey : strongest.rightKey;
+  return profileTheses[key] || profileTheses.balanced;
+}
+
+const closingPhrase = "Профиль поведения, который вы только что прочитали, не оценка человека, а паттерн, который видят инструменты на материале конкретных выборов. Один и тот же человек в разных ролях разворачивает разные стороны этого паттерна.";
+
+function assembleProfileNarrative(){
+  const profile = calculateProfile();
+  return {
+    thesis: selectThesis(profile),
+    blocks: [
+      profileTexts.d1[getPolarity(profile.d1)],
+      profileTexts.d2[getPolarity(profile.d2)],
+      profileTexts.d3[getPolarity(profile.d3)],
+      profileTexts.d4[getPolarity(profile.d4)],
+      profileTexts.d5[getPolarity(profile.d5)],
+      profileTexts.d6[getPolarity(profile.d6)]
+    ],
+    closing: closingPhrase,
+    profile
+  };
+}
+
+const dimensionTitles = [
+  'Скорость решения',
+  'Тип лидерства',
+  'Фокус приоритетов',
+  'Содержание приоритетов',
+  'Готовность к действию',
+  'Реакция на давление'
+];
+
+function renderProfileScreen(){
+  const narrative = assembleProfileNarrative();
+  document.getElementById('profile-thesis').textContent = narrative.thesis;
+  const blocksContainer = document.getElementById('profile-blocks');
+  blocksContainer.innerHTML = '';
+  narrative.blocks.forEach((text, i) => {
+    const kicker = document.createElement('div');
+    kicker.className = 'profile-block-kicker';
+    kicker.textContent = dimensionTitles[i];
+    blocksContainer.appendChild(kicker);
+    const p = document.createElement('p');
+    p.className = 'profile-block';
+    p.textContent = text;
+    blocksContainer.appendChild(p);
+  });
+  document.getElementById('profile-closing').textContent = narrative.closing;
+  try {
+    localStorage.setItem('demo2_profile', JSON.stringify(narrative.profile));
+  } catch(e) {}
+}
+
+/* ============ TOOL 02 — drag-drop + tap ============ */
+
+function isMobile(){return window.innerWidth <= 768;}
+
+let selectedTaskCard = null;
+
+function initTool2(){
+  document.querySelectorAll('#screen-3 .task-card').forEach(card => {
+    card.addEventListener('dragstart', e => {
+      if(isMobile()){e.preventDefault();return;}
+      e.dataTransfer.setData('text/plain', card.dataset.task);
+      e.dataTransfer.effectAllowed = 'move';
+      card.classList.add('dragging');
+    });
+    card.addEventListener('dragend', () => {
+      card.classList.remove('dragging');
+    });
+    card.addEventListener('click', e => {
+      if(!isMobile()) return;
+      if(e.target.closest('.task-reorder')) return;
+      if(selectedTaskCard === card){
+        card.classList.remove('selected');
+        selectedTaskCard = null;
+      } else {
+        if(selectedTaskCard) selectedTaskCard.classList.remove('selected');
+        card.classList.add('selected');
+        selectedTaskCard = card;
+      }
+    });
+  });
+
+  document.querySelectorAll('#screen-3 .drop-zone').forEach(zone => {
+    zone.addEventListener('dragover', e => {
+      if(isMobile()) return;
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      zone.classList.add('drag-over');
+    });
+    zone.addEventListener('dragleave', e => {
+      if(e.currentTarget.contains(e.relatedTarget)) return;
+      zone.classList.remove('drag-over');
+    });
+    zone.addEventListener('drop', e => {
+      if(isMobile()) return;
+      e.preventDefault();
+      zone.classList.remove('drag-over');
+      const taskId = e.dataTransfer.getData('text/plain');
+      const taskCard = document.querySelector(`#screen-3 .task-card[data-task="${taskId}"]`);
+      if(!taskCard) return;
+      const afterElement = getDragAfterElement(zone, e.clientY);
+      if(afterElement == null){
+        zone.appendChild(taskCard);
+      } else {
+        zone.insertBefore(taskCard, afterElement);
+      }
+      updateTool2State();
+    });
+    zone.addEventListener('click', e => {
+      if(!isMobile()) return;
+      if(!selectedTaskCard) return;
+      if(e.target.closest('.task-card')) return;
+      zone.appendChild(selectedTaskCard);
+      selectedTaskCard.classList.remove('selected');
+      selectedTaskCard = null;
+      updateTool2State();
+    });
+  });
+
+  updateTool2State();
+}
+
+function getDragAfterElement(container, y){
+  const els = [...container.querySelectorAll('.task-card:not(.dragging)')];
+  return els.reduce((closest, child) => {
+    const box = child.getBoundingClientRect();
+    const offset = y - box.top - box.height / 2;
+    if(offset < 0 && offset > closest.offset){
+      return {offset, element: child};
+    }
+    return closest;
+  }, {offset: Number.NEGATIVE_INFINITY}).element;
+}
+
+function moveTask(btn, dir){
+  const card = btn.closest('.task-card');
+  if(!card) return;
+  const sibling = dir < 0 ? card.previousElementSibling : card.nextElementSibling;
+  if(!sibling || !sibling.classList.contains('task-card')) return;
+  if(dir < 0){
+    card.parentNode.insertBefore(card, sibling);
+  } else {
+    card.parentNode.insertBefore(sibling, card);
+  }
+  updateTool2State();
+}
+
+function updateTool2State(){
+  const unsortedZone = document.getElementById('unsorted-zone');
+  const unsortedTitle = document.getElementById('unsorted-title');
+  const nextBtn = document.getElementById('tool2-next-btn');
+  const tasksInUnsorted = unsortedZone.querySelectorAll('.task-card').length;
+
+  if(tasksInUnsorted === 0){
+    nextBtn.disabled = false;
+    unsortedTitle.textContent = 'Все задачи разложены';
+    unsortedTitle.classList.add('completed');
+  } else {
+    nextBtn.disabled = true;
+    unsortedTitle.textContent = 'Несортированные задачи';
+    unsortedTitle.classList.remove('completed');
+  }
+
+  document.querySelectorAll('#screen-3 .container-box').forEach(box => {
+    const cards = [...box.querySelectorAll('.task-card')];
+    cards.forEach((card, idx) => {
+      const up = card.querySelector('.reorder-up');
+      const down = card.querySelector('.reorder-down');
+      if(up) up.disabled = idx === 0;
+      if(down) down.disabled = idx === cards.length - 1;
+    });
+  });
+}
+
+function saveAndContinueTool2(){
+  const layout = {container1:[], container2:[], container3:[]};
+  document.querySelectorAll('#container-1 .task-card').forEach(c => layout.container1.push(c.dataset.task));
+  document.querySelectorAll('#container-2 .task-card').forEach(c => layout.container2.push(c.dataset.task));
+  document.querySelectorAll('#container-3 .task-card').forEach(c => layout.container3.push(c.dataset.task));
+  userChoices.tool2 = layout;
+  showScreen('screen-4');
+}
+
+function goBackToTool1(){
+  showScreen('screen-2');
+  showPair(5);
+}
+
+initTool2();
+</script>
+
+</body>
+</html>
