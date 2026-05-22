@@ -182,13 +182,14 @@ p{font-size:14px;line-height:1.55;}
 }
 @media (min-width:769px){
   .hero-inner{
-    align-items:stretch;
+    align-items:start;
   }
   .hero-image-wrap{
     display:flex;
-    align-items:center;
+    align-items:flex-start;
     justify-content:center;
     overflow:hidden;
+    height:520px;
   }
   .hero-image{
     height:100% !important;
@@ -196,6 +197,7 @@ p{font-size:14px;line-height:1.55;}
     max-width:100% !important;
     max-height:none !important;
     object-fit:contain;
+    object-position:top center;
   }
 }
 
