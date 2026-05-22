@@ -137,7 +137,16 @@ p{font-size:14px;line-height:1.55;}
   font-weight:500;
   letter-spacing:-0.01em;
   color:var(--color-text);
+  white-space:nowrap;
 }
+.header-logo-link{
+  color:inherit;
+  text-decoration:none;
+  transition:color 0.2s ease;
+}
+.header-logo-link:hover{color:var(--color-accent);}
+.header-logo-sep{color:var(--color-text-tertiary);}
+.header-logo-short{display:none;}
 .header-right{
   display:flex;
   align-items:center;
@@ -745,8 +754,9 @@ p{font-size:14px;line-height:1.55;}
   .demo-teasers{padding-top:18px;padding-bottom:36px;}
   .block-about-team{padding-top:36px;padding-bottom:36px;}
   .block-12{padding-top:48px;padding-bottom:48px;}
-  .header-inner{gap:16px;}
-  .header-nav{display:none;}
+  .header-inner{gap:12px;padding-left:20px;padding-right:20px;}
+  .header-logo-full{display:none;}
+  .header-logo-short{display:inline;}
   .footer-inner{grid-template-columns:1fr;}
   .footer-links{align-items:flex-start;}
   h1{font-size:28px;}
@@ -927,12 +937,9 @@ p{font-size:14px;line-height:1.55;}
 
 <header class="header">
   <div class="header-inner">
-    <a href="/" class="header-logo">Исследовательская лаборатория</a>
+    <div class="header-logo"><a href="/" class="header-logo-link"><span class="header-logo-full">Исследовательская лаборатория</span><span class="header-logo-short">Лаборатория</span></a><span class="header-logo-sep"> · </span><span class="header-logo-sub">Подбор персонала</span></div>
     <div class="header-right">
-      <nav class="header-nav" aria-label="Основная навигация">
-        <a href="#block-7">Подход</a>
-      </nav>
-      <a href="#" class="btn-primary" data-open-modal="contact">Записаться</a>
+      <a href="#" class="btn-primary" data-open-modal="contact">Связаться с нами</a>
     </div>
   </div>
 </header>
@@ -945,8 +952,8 @@ p{font-size:14px;line-height:1.55;}
         <h1 class="hero-h1">Стандартные инструменты найма перестали давать предсказуемый результат. Лаборатория проектирует новые&nbsp;— под задачи конкретного работодателя.</h1>
         <p class="hero-sub">Стандартные инструменты отбора утратили предиктивную способность. Мы проектируем новые под задачи и ценности работодателя.</p>
         <div class="hero-ctas">
-          <a href="#" class="btn-primary" data-open-modal="contact">Обсудить задачу</a>
-          <a href="#demo-teasers" class="btn-secondary">Посмотреть, как работает</a>
+          <a href="#" class="btn-primary" data-open-modal="contact">Связаться с нами</a>
+          <a href="#demo-teasers" class="btn-secondary">Посмотреть демо</a>
         </div>
       </div>
       <div class="hero-image-wrap">
@@ -1306,7 +1313,7 @@ p{font-size:14px;line-height:1.55;}
     <div class="next-step-inner">
       <span class="kicker">Следующий шаг</span>
       <p class="next-step-body">Первая встреча — диагностическая, 45 минут. Разбираем вашу задачу, контекст и действующие процессы. На выходе — общее понимание, нужен ли вам отдельный инструмент и какого типа.</p>
-      <a href="#" class="btn-primary btn-primary--lg" data-open-modal="contact">Обсудить задачу</a>
+      <a href="#" class="btn-primary btn-primary--lg" data-open-modal="contact">Связаться с нами</a>
     </div>
   </section>
 </main>
