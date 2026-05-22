@@ -189,7 +189,6 @@ p{font-size:14px;line-height:1.55;}
     align-items:flex-start;
     justify-content:center;
     overflow:hidden;
-    height:100%;
     align-self:stretch;
   }
   .hero-image{
@@ -781,6 +780,22 @@ p{font-size:14px;line-height:1.55;}
   btn.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
+})();
+</script>
+
+<script>
+(function(){
+  function syncHeroHeight(){
+    if(window.innerWidth < 769) return;
+    const text = document.querySelector('.hero-text');
+    const wrap = document.querySelector('.hero-image-wrap');
+    if(text && wrap){
+      wrap.style.height = text.offsetHeight + 'px';
+    }
+  }
+  window.addEventListener('load', syncHeroHeight);
+  window.addEventListener('resize', syncHeroHeight);
+  if(document.fonts) document.fonts.ready.then(syncHeroHeight);
 })();
 </script>
 
