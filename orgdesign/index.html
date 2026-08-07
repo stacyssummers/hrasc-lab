@@ -1,0 +1,1755 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Микросервис организационного дизайна · Исследовательская лаборатория</title>
+<meta name="description" content="Оргструктура перестала быть схемой. Инструмент, в котором её можно считать: сценарии реорганизации, AI-расчёт финансовых последствий, флаги структурных рисков.">
+
+<!-- TODO: уточнить — в репозитории нет отдельного favicon.ico и apple-touch-icon.png,
+     используем hero-laboratory-Photoroom.png как временный placeholder -->
+<link rel="icon" type="image/png" href="../files/pictures/hero-laboratory-Photoroom.png">
+<link rel="apple-touch-icon" href="../files/pictures/hero-laboratory-Photoroom.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ─── Reset ─────────────────────────────────────────────── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+/* ─── Tokens ─────────────────────────────────────────────── */
+:root {
+  --accent:      #5c1c14;
+  --accent-dark: #4a1810;
+  --bg:          #fafaf8;
+  --bg-alt:      #f7f5f1;
+  --text-1:      #1a1a1a;
+  --text-2:      #4a4a4a;
+  --text-3:      #8a8680;
+  --border:      #e8e4dc;
+
+  --font: 'Inter', system-ui, Arial, sans-serif;
+
+  --max-text:  680px;
+  --max-wide:  1080px;
+
+  --px-desk:   40px;
+  --px-tab:    32px;
+  --px-mob:    20px;
+}
+
+/* ─── Base ───────────────────────────────────────────────── */
+body {
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-1);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Layout helpers ─────────────────────────────────────── */
+.container {
+  width: 100%;
+  max-width: var(--max-wide);
+  margin-inline: auto;
+  padding-inline: var(--px-desk);
+}
+.container--narrow {
+  max-width: var(--max-text);
+}
+
+/* ─── Leaf SVG (used inline, not as img) ─────────────────── */
+.leaf {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+.leaf--sm  { width: 12px; height: 12px; }
+.leaf--md  { width: 22px; height: 22px; }
+.leaf--lg  { width: 64px; height: 64px; }
+
+/* ─── Kicker ─────────────────────────────────────────────── */
+.kicker {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  line-height: 1.3;
+  margin-bottom: 10px;
+}
+.kicker--neutral { color: var(--text-3); }
+
+/* ─── Typography ─────────────────────────────────────────── */
+.display-xl {
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  font-optical-sizing: auto;
+}
+.display-l {
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  font-optical-sizing: auto;
+}
+.body-l {
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--text-2);
+}
+.body {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.55;
+}
+
+/* ─── Buttons ────────────────────────────────────────────── */
+.btn {
+  display: inline-block;
+  font-family: var(--font);
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 6px;
+  padding: 14px 28px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  text-decoration: none;
+  transition: background 200ms ease, border-color 200ms ease, color 200ms ease;
+  white-space: nowrap;
+}
+.btn--primary {
+  background: var(--accent);
+  color: #fafaf8;
+  border-color: var(--accent);
+}
+.btn--primary:hover { background: var(--accent-dark); border-color: var(--accent-dark); }
+
+.site-header .btn--primary {
+  padding: 9px 18px;
+  font-size: 13px;
+  border-radius: 4px;
+}
+
+.btn--secondary {
+  background: transparent;
+  color: var(--text-1);
+  border-color: var(--border);
+}
+.btn--secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ─── Section spacing ────────────────────────────────────── */
+.section {
+  padding-block: 64px;
+}
+.section--alt { background: var(--bg-alt); }
+
+/* ─── Divider ────────────────────────────────────────────── */
+.divider { border: none; border-top: 1px solid var(--border); }
+
+/* ═══════════════════════════════════════════════════════════
+   HEADER
+═══════════════════════════════════════════════════════════ */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+.site-header__logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: var(--text-1);
+}
+.site-header__logo-text {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   HERO (Блок 1)
+═══════════════════════════════════════════════════════════ */
+.hero {
+  min-height: calc(100dvh - 64px);
+  display: flex;
+  align-items: center;
+  padding-block: 40px;
+}
+.hero__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+.hero__text { max-width: 560px; }
+.hero__title {
+  margin-top: 16px;
+  margin-bottom: 24px;
+}
+.hero__subtitle {
+  margin-bottom: 40px;
+}
+.hero__ctas {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.hero__visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translateY(-5%); /* чуть выше центра по вертикали */
+}
+.hero__visual-img {
+  max-width: 500px;
+  width: 100%;
+  display: block;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   БЛОК 2 · Что происходит с реорганизациями
+═══════════════════════════════════════════════════════════ */
+.block-2 {}
+.block-2__text {
+  max-width: var(--max-text);
+}
+.block-2__title { margin-bottom: 24px; }
+.block-2__body p + p { margin-top: 16px; }
+
+/* ═══════════════════════════════════════════════════════════
+   БЛОК 3 · Масштаб потерь
+═══════════════════════════════════════════════════════════ */
+.block-3__title { margin-bottom: 48px; }
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.stat-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 24px;
+}
+.stat-num {
+  font-size: clamp(36px, 4vw, 44px);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  font-optical-sizing: auto;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+.stat-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 16px;
+}
+.stat-desc {
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--text-2);
+  margin-bottom: 16px;
+}
+.stat-source {
+  font-size: 10px;
+  color: var(--text-3);
+  line-height: 1.4;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   БЛОК 4 · Почему стандартные инструменты больше не справляются
+═══════════════════════════════════════════════════════════ */
+.block-4__title { margin-bottom: 24px; }
+.problem-intro {
+  max-width: var(--max-text);
+  margin-bottom: 24px;
+}
+.problem-list {
+  max-width: var(--max-text);
+}
+.problem-item {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 16px;
+  padding: 20px 0;
+  border-top: 1px solid var(--border);
+}
+.problem-item:last-child {
+  border-bottom: 1px solid var(--border);
+}
+.problem-num {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-2);
+  padding-top: 3px;
+}
+.problem-title {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--text-1);
+  margin-bottom: 12px;
+}
+.problem-body {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text-2);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   БЛОК 5 · Что делает Микросервис
+═══════════════════════════════════════════════════════════ */
+.block-5__title { margin-bottom: 16px; }
+.features-subtitle {
+  max-width: var(--max-text);
+  margin-bottom: 48px;
+}
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+.feature-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 4px 4px 0;
+  padding: 24px;
+  transition: border-color 200ms ease;
+}
+.feature-card:hover {
+  border-top-color: var(--accent);
+  border-right-color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+.feature-card:hover .feature-title {
+  color: var(--accent);
+}
+.feature-num {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--text-2);
+  margin-bottom: 12px;
+}
+.feature-title {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--text-1);
+  margin-bottom: 12px;
+}
+.feature-body {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text-2);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   БЛОК 6 · Для кого
+═══════════════════════════════════════════════════════════ */
+.block-6__title { margin-bottom: 48px; }
+.audience-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.audience-card {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 24px;
+}
+.audience-card__header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.audience-card__num {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--text-3);
+}
+.audience-card__category {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.audience-card__title {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--text-1);
+  margin-bottom: 12px;
+}
+.audience-card__body {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text-2);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   БЛОК 7 · Как мы работаем
+═══════════════════════════════════════════════════════════ */
+.block-7__title { margin-bottom: 16px; }
+.work-subtitle {
+  max-width: var(--max-text);
+  margin-bottom: 0;
+}
+.work-cols {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 40px;
+}
+.work-col__title {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--text-1);
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+.work-col__body {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-2);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   БЛОК 8 · Демо (заглушка)
+═══════════════════════════════════════════════════════════ */
+.block-8__title { margin-bottom: 24px; }
+.demos-intro {
+  max-width: var(--max-text);
+  margin-bottom: 48px;
+}
+.demos-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+.demo-card {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+}
+.demo-card__label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 16px;
+}
+.demo-card__title {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--text-1);
+  margin-bottom: 16px;
+}
+.demo-card__desc {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text-2);
+  flex-grow: 1;
+  margin-bottom: 24px;
+}
+.demo-card__footer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.demo-card__status {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-3);
+}
+.btn--disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   БЛОК 9 · Процесс работы
+═══════════════════════════════════════════════════════════ */
+.block-9__title { margin-bottom: 40px; }
+.process-list {
+  position: relative;
+  padding-left: 32px;
+  max-width: 680px;
+}
+.process-list::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  left: 4px;
+  width: 1px;
+  background: var(--border);
+}
+.process-step {
+  position: relative;
+  padding-bottom: 20px;
+}
+.process-step:last-child { padding-bottom: 0; }
+.process-step::before {
+  content: "";
+  position: absolute;
+  left: -32px;
+  top: 4px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.process-step__meta {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 4px;
+  flex-wrap: wrap;
+}
+.process-step__num {
+  font-size: 13px;
+  color: var(--text-2);
+}
+.process-step__title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-1);
+}
+.process-step__duration {
+  font-size: 13px;
+  color: var(--accent);
+  font-weight: 500;
+}
+.process-step__body {
+  font-size: 14px;
+  color: var(--text-2);
+  line-height: 1.55;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   БЛОКИ 10–11 · Про нас + Кто за этим стоит
+═══════════════════════════════════════════════════════════ */
+.about-wrap { max-width: var(--max-text); }
+.about-title { margin-bottom: 24px; }
+.about-body {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text-2);
+}
+.about-body p + p { margin-top: 16px; }
+.team-divider {
+  margin-top: 48px;
+  padding-top: 48px;
+  border-top: 1px solid var(--border);
+}
+.team-title { margin-bottom: 32px; }
+.team-card {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+.team-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text-3);
+  flex-shrink: 0;
+  letter-spacing: 0.02em;
+}
+.team-card__name {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--text-1);
+  margin-bottom: 4px;
+}
+.team-card__role {
+  font-size: 14px;
+  color: var(--text-3);
+  margin-bottom: 16px;
+}
+.team-card__body {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text-2);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   БЛОК 12 · FAQ
+═══════════════════════════════════════════════════════════ */
+.faq { max-width: var(--max-text); }
+.faq__title { margin-bottom: 32px; }
+.faq-item { border-top: 1px solid var(--border); }
+.faq-item:last-child { border-bottom: 1px solid var(--border); }
+.faq-item > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 0;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--text-1);
+  list-style: none;
+  transition: color 200ms ease;
+}
+.faq-item > summary::-webkit-details-marker { display: none; }
+.faq-item > summary::marker { content: ""; }
+.faq-item > summary:hover { color: var(--accent); }
+.faq-icon {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-3);
+  transition: border-color 200ms ease, color 200ms ease;
+}
+.faq-icon svg { transition: transform 200ms ease; }
+.faq-item > summary:hover .faq-icon { border-color: var(--accent); color: var(--accent); }
+.faq-item[open] > summary .faq-icon { border-color: var(--accent); color: var(--accent); }
+.faq-item[open] > summary .faq-icon svg { transform: rotate(180deg); }
+.faq-item__body {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text-2);
+  padding-bottom: 20px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   БЛОК 13 · Следующий шаг
+═══════════════════════════════════════════════════════════ */
+.cta-final { padding-block: 64px; text-align: center; }
+.cta-final__inner {
+  max-width: 560px;
+  margin-inline: auto;
+}
+.cta-final__inner .kicker { justify-content: center; }
+.cta-final__title { margin-bottom: 16px; }
+.cta-final__body {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text-2);
+  margin-top: 20px;
+  margin-bottom: 32px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════════════════ */
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding-block: 40px;
+}
+.site-footer__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.site-footer__brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-1);
+}
+.site-footer__legal {
+  font-size: 12px;
+  color: var(--text-3);
+  line-height: 1.6;
+}
+.site-footer__links {
+  display: flex;
+  gap: 20px;
+  font-size: 13px;
+}
+.site-footer__links a {
+  color: var(--text-2);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 200ms ease;
+}
+.site-footer__links a:hover { color: var(--accent); }
+
+/* ═══════════════════════════════════════════════════════════
+   MOBILE
+═══════════════════════════════════════════════════════════ */
+@media (max-width: 640px) {
+  :root {
+    --px-desk: var(--px-mob);
+  }
+
+  .display-xl { font-size: 28px; }
+  .display-l { font-size: 20px; }
+
+  .section { padding-block: 40px; }
+
+  .hero { min-height: auto; padding-block: 40px 24px; }
+  .hero__inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .hero__text { max-width: 100%; }
+  .hero__visual { transform: none; }
+  .hero__visual-img { max-width: 240px; margin-inline: auto; }
+  .hero__ctas { flex-direction: column; }
+  .hero__ctas .btn { width: 100%; text-align: center; }
+
+  .site-header__inner { height: 56px; }
+
+  .stats-grid { grid-template-columns: 1fr; }
+  .features-grid { grid-template-columns: 1fr; }
+  .problem-item { grid-template-columns: 36px 1fr; gap: 16px; }
+
+  .audience-grid { grid-template-columns: 1fr; }
+  .work-cols { grid-template-columns: 1fr; gap: 24px; }
+  .demos-grid { grid-template-columns: 1fr; }
+
+  .team-card { flex-direction: column; gap: 16px; }
+
+  .faq-item > summary { font-size: 15px; padding: 14px 0; }
+  .cta-final { padding-block: 48px; }
+  .cta-final .btn { width: 100%; text-align: center; }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  :root { --px-desk: var(--px-tab); }
+  .hero__inner { gap: 40px; }
+}
+
+@media (max-width: 768px) {
+  .work-cols { grid-template-columns: 1fr; }
+}
+
+/* ─── Modal: contact form ────────────────────────────────── */
+.contact-modal {
+  border: none;
+  border-radius: 8px;
+  padding: 0;
+  background: var(--bg);
+  max-width: 520px;
+  width: calc(100% - 32px);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 200ms ease, transform 200ms ease;
+}
+.contact-modal.is-open {
+  opacity: 1;
+  transform: scale(1);
+}
+.contact-modal::backdrop {
+  background: rgba(26,26,26,0.45);
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+.contact-modal.is-open::backdrop {
+  opacity: 1;
+}
+
+body.modal-open { overflow: hidden; }
+
+.modal-inner {
+  position: relative;
+  padding: 40px;
+  overflow-y: auto;
+  max-height: 90vh;
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-3);
+  padding: 4px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 200ms;
+}
+.modal-close:hover { color: var(--text-1); }
+
+.modal-kicker {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+.modal-title {
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--text-1);
+  margin-bottom: 28px;
+  padding-right: 24px;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-label {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-3);
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="tel"] {
+  border: none;
+  border-bottom: 1px solid var(--border);
+  padding: 8px 0;
+  font-family: var(--font);
+  font-size: 16px;
+  color: var(--text-1);
+  background: transparent;
+  outline: none;
+  width: 100%;
+  transition: border-color 200ms;
+}
+.contact-form input[type="text"]::placeholder,
+.contact-form input[type="tel"]::placeholder { color: var(--text-3); }
+.contact-form input[type="text"]:focus,
+.contact-form input[type="tel"]:focus { border-bottom-color: var(--accent); }
+.contact-form input.is-error { border-bottom-color: var(--accent); }
+
+.form-error {
+  font-size: 12px;
+  color: var(--accent);
+  min-height: 16px;
+  display: block;
+}
+
+.contact-toggle {
+  display: inline-flex;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.toggle-option { cursor: pointer; }
+.toggle-option input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+.toggle-option span {
+  display: block;
+  padding: 7px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-2);
+  transition: background 150ms, color 150ms;
+  user-select: none;
+}
+.toggle-option + .toggle-option span { border-left: 1px solid var(--border); }
+.toggle-option input:checked + span {
+  background: var(--accent);
+  color: #fafaf8;
+}
+
+.form-field--check .checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--text-2);
+  line-height: 1.5;
+}
+.form-field--check input[type="checkbox"] {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+.form-field--check .checkbox-label a {
+  color: var(--accent);
+  text-underline-offset: 3px;
+}
+.checkbox-label.is-error { color: var(--accent); }
+
+.btn--wide { display: block; width: 100%; text-align: center; }
+
+.modal-success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 0;
+  text-align: center;
+}
+.modal-success__text {
+  font-size: 16px;
+  color: var(--text-1);
+  line-height: 1.6;
+}
+
+@media (max-width: 640px) {
+  .contact-modal {
+    max-width: 100%;
+    width: 100%;
+    height: 100dvh;
+    border-radius: 0;
+    margin: 0;
+    opacity: 0;
+    transform: translateY(4%);
+  }
+  .contact-modal.is-open {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .modal-inner {
+    padding: 32px 20px 40px;
+    max-height: 100dvh;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════
+     ШАПКА
+════════════════════════════════════════════════════════ -->
+<header class="site-header">
+  <div class="container">
+    <div class="site-header__inner">
+      <a href="/orgdesign/" class="site-header__logo" aria-label="Исследовательская лаборатория">
+        <svg class="leaf leaf--md" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M 18 62 C 18 34, 38 14, 62 18 C 62 46, 42 66, 18 62 Z" fill="#5c1c14"/>
+        </svg>
+        <span class="site-header__logo-text">Исследовательская лаборатория</span>
+      </a>
+      <button class="btn btn--primary" data-open-modal="contact">Обсудить задачу</button>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════════════
+     БЛОК 1 · Hero
+════════════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="container">
+    <div class="hero__inner">
+      <div class="hero__text">
+        <div class="kicker">
+          <svg class="leaf leaf--sm" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M 18 62 C 18 34, 38 14, 62 18 C 62 46, 42 66, 18 62 Z" fill="#5c1c14"/>
+          </svg>
+          Микросервис организационного дизайна · Исследовательская лаборатория
+        </div>
+        <h1 class="display-xl hero__title">
+          Оргструктура перестала быть схемой. Мы строим инструмент, в котором её можно считать.
+        </h1>
+        <p class="body-l hero__subtitle">
+          Структура, которую можно тестировать сценариями реорганизации и оценивать в деньгах до принятия решения. Импорт из 1С:ЗУП, параллельные варианты, AI-расчёт финансовых последствий, флаги структурных рисков.
+        </p>
+        <div class="hero__ctas">
+          <button class="btn btn--primary" data-open-modal="contact">Обсудить задачу</button>
+          <a href="#block-5" class="btn btn--secondary">Посмотреть, как работает</a>
+        </div>
+      </div>
+
+      <div class="hero__visual">
+        <img
+          class="hero__visual-img"
+          src="../files/pictures/hero-laboratory-Photoroom.png"
+          alt="Иллюстрация Микросервиса организационного дизайна"
+          width="500"
+          height="500"
+        >
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════════════
+     БЛОК 2 · Что происходит с реорганизациями
+════════════════════════════════════════════════════════ -->
+<section class="section block-2" id="block-2">
+  <div class="container">
+    <div class="block-2__text">
+      <div class="kicker">
+        <svg class="leaf leaf--sm" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M 18 62 C 18 34, 38 14, 62 18 C 62 46, 42 66, 18 62 Z" fill="#5c1c14"/>
+        </svg>
+        Что происходит с реорганизациями
+      </div>
+      <h2 class="display-l block-2__title">
+        Инструменты планирования отстали от масштаба задачи.
+      </h2>
+      <div class="block-2__body body">
+        <p>
+          Реорганизация — одна из самых дорогих операций в жизни компании. Стоимость ошибки измеряется в десятках миллионов: переплата по ФОТ, потери производительности, уходы ключевых людей, откат изменений через полгода.
+        </p>
+        <p>
+          При этом сам процесс планирования остаётся ручным. Структуру рисуют в PowerPoint, ФОТ считают в Excel, сценарии сравнивают на словах в переговорных. Ни один из этих способов не показывает, что будет с компанией после принятия решения.
+        </p>
+        <p>
+          Разрыв между ценой решения и инструментом, которым оно принимается, — это и есть та проблема, с которой мы работаем.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TODO-заглушки для блоков 3–13 ─────────────────────── -->
+<!-- ═══════════════════════════════════════════════════════
+     БЛОК 3 · Масштаб потерь
+════════════════════════════════════════════════════════ -->
+<section class="section section--alt" id="block-3">
+  <div class="container">
+    <div class="kicker">
+      <svg class="leaf leaf--sm" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M 18 62 C 18 34, 38 14, 62 18 C 62 46, 42 66, 18 62 Z" fill="#5c1c14"/>
+      </svg>
+      Масштаб потерь
+    </div>
+    <h2 class="display-l block-3__title">
+      Реорганизации проваливаются чаще, чем срабатывают.
+    </h2>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-num">5</div>
+        <div class="stat-label">Крупных изменений за 3 года</div>
+        <p class="stat-desc">Столько структурных изменений в среднем проходит одна компания. Реорганизация — не разовый проект, а постоянная работа, которая идёт волнами.</p>
+        <div class="stat-source">CEB Corporate Leadership Council</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">44%</div>
+        <div class="stat-label">Бросают на полпути</div>
+        <p class="stat-desc">Доля реорганизаций, которые начинают, но не доводят до конца. Проект останавливается уже в исполнении — ресурсы потрачены, результата нет.</p>
+        <div class="stat-source">McKinsey</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">менее&nbsp;25%</div>
+        <div class="stat-label">Достигают целей</div>
+        <p class="stat-desc">Доля реорганизаций, которые завершаются и приносят компании то, что планировалось. Из пяти запущенных проектов четыре либо буксуют, либо не дают заявленного результата.</p>
+        <div class="stat-source">McKinsey</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     БЛОК 4 · Почему стандартные инструменты больше не справляются
+════════════════════════════════════════════════════════ -->
+<section class="section" id="block-4">
+  <div class="container">
+    <div class="kicker">
+      <svg class="leaf leaf--sm" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M 18 62 C 18 34, 38 14, 62 18 C 62 46, 42 66, 18 62 Z" fill="#5c1c14"/>
+      </svg>
+      Почему стандартные инструменты больше не справляются
+    </div>
+    <h2 class="display-l block-4__title">
+      Структуру видно. Решение — нет.
+    </h2>
+    <p class="body-l problem-intro">
+      Привычные инструменты отвечают на один вопрос: «как это выглядит». У реорганизации вопросов больше.
+    </p>
+    <div class="problem-list">
+      <div class="problem-item">
+        <div class="problem-num">01</div>
+        <div>
+          <div class="problem-title">Сколько это будет стоить</div>
+          <p class="problem-body">Стоимость варианта структуры складывается из ФОТ, страховых взносов, накладных расходов и налоговой нагрузки — и меняется при каждом переводе функции, объединении отделов, сокращении уровня управления. Посчитать это вручную для одного сценария занимает дни, для пяти — не делается вовсе. Решение принимают по интуиции, цифры подгоняют после.</p>
+        </div>
+      </div>
+      <div class="problem-item">
+        <div class="problem-num">02</div>
+        <div>
+          <div class="problem-title">Какой из вариантов лучше</div>
+          <p class="problem-body">Альтернативы обсуждают на словах или переключают слайды в презентации. В переговорной одновременно держать три структуры с их финансовыми последствиями невозможно — внимание возвращается к последнему показанному. Выбирают тот вариант, который защищали громче.</p>
+        </div>
+      </div>
+      <div class="problem-item">
+        <div class="problem-num">03</div>
+        <div>
+          <div class="problem-title">Что сломается после внедрения</div>
+          <p class="problem-body">Превышение нормы управляемости, критические роли без замены, дублирование функций между подразделениями — всё это проявляется после внедрения, в первые месяцы работы новой структуры. На этапе схемы этих проблем не видно: схема показывает, кто кому подчиняется, а не как система будет работать под нагрузкой.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     БЛОК 5 · Что делает Микросервис
+════════════════════════════════════════════════════════ -->
+<section class="section section--alt" id="block-5">
+  <div class="container">
+    <div class="kicker">
+      <svg class="leaf leaf--sm" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M 18 62 C 18 34, 38 14, 62 18 C 62 46, 42 66, 18 62 Z" fill="#5c1c14"/>
+      </svg>
+      Что делает Микросервис
+    </div>
+    <h2 class="display-l block-5__title">
+      Инструмент, в котором структуру можно считать.
+    </h2>
+    <p class="body-l features-subtitle">
+      Оргструктура подгружается из 1С:ЗУП и превращается в рабочую модель: сценарии, расчёт последствий, проверка на риски — в одном интерфейсе, собранном под задачу заказчика.
+    </p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-num">01</div>
+        <div class="feature-title">Визуализация структуры из 1С:ЗУП</div>
+        <p class="feature-body">Живая схема оргструктуры, построенная из данных 1С:ЗУП. Видно все подразделения, должности, подчинение, численность — в одной интерактивной карте. Актуальность не нужно отдельно поддерживать — схема синхронизирована с 1С.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">02</div>
+        <div class="feature-title">AI-расчёт финансового результата</div>
+        <p class="feature-body">Изменение ФОТ, страховых взносов, накладных расходов и налоговой нагрузки — для каждой конфигурации структуры, в моменте. Цифры пересчитываются при любом действии: переводе функции, объединении отделов, сокращении уровня управления. Решение опирается на расчёт, а не на интуицию.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">03</div>
+        <div class="feature-title">Сценарное моделирование</div>
+        <p class="feature-body">Режим «что если»: переносите подразделения, объединяете функции, убираете уровни управления — и видите, как меняется структура и её финансовый результат. Три-пять сценариев существуют параллельно, на одном экране. Можно сравнивать их, откатывать изменения, собирать гибриды из лучших частей разных вариантов.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-num">04</div>
+        <div class="feature-title">Флаги структурных рисков</div>
+        <p class="feature-body">Каждый вариант структуры автоматически проверяется против типовых структурных дефектов — тех самых, которые в схеме не видны, а в работе проявляются через три-шесть месяцев. Проблемные зоны помечаются прямо на схеме, на этапе моделирования. Риск становится видимым тогда, когда структуру ещё можно изменить.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ═══════════════════════════════════════════════════════
+     БЛОК 6 · Для кого
+════════════════════════════════════════════════════════ -->
+<section class="section" id="block-6">
+  <div class="container">
+    <div class="kicker">
+      <svg class="leaf leaf--sm" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M 18 62 C 18 34, 38 14, 62 18 C 62 46, 42 66, 18 62 Z" fill="#5c1c14"/>
+      </svg>
+      Для кого
+    </div>
+    <h2 class="display-l block-6__title">Три типа задач, с которыми приходят к нам.</h2>
+    <div class="audience-grid">
+      <div class="audience-card">
+        <div class="audience-card__header">
+          <div class="audience-card__num">01</div>
+          <div class="audience-card__category">Стратегия</div>
+        </div>
+        <div class="audience-card__title">Компании на пороге структурного решения</div>
+        <p class="audience-card__body">Стратегическое решение принято — надо выбрать операционную модель под него. Объединять функции или разнести по бизнес-юнитам. Централизовать или оставить региональную автономию. Каждая альтернатива — на десятки миллионов, решение надо принять в ближайшие недели. Нужен способ сравнить варианты не на словах, а в цифрах — и зафиксировать основание для выбора.</p>
+      </div>
+      <div class="audience-card">
+        <div class="audience-card__header">
+          <div class="audience-card__num">02</div>
+          <div class="audience-card__category">Оптимизация</div>
+        </div>
+        <div class="audience-card__title">Компании в режиме сокращения расходов</div>
+        <p class="audience-card__body">Цель — сократить ФОТ и операционные расходы, цифра утверждена. Вопрос в том, откуда именно резать, чтобы через квартал структура не развалилась и не пришлось добирать людей обратно. Чтобы сокращение держалось, оно должно быть точечным: видно, какой управленческий слой избыточен, какие функции дублируются, где объединение не ломает процесс.</p>
+      </div>
+      <div class="audience-card">
+        <div class="audience-card__header">
+          <div class="audience-card__num">03</div>
+          <div class="audience-card__category">Масштаб</div>
+        </div>
+        <div class="audience-card__title">Компании в фазе роста</div>
+        <p class="audience-card__body">Приобретённая компания, новое бизнес-направление, вышли в другой регион — структура расширяется. Главный вопрос расширения — не где разместить новый блок, а как он встанет рядом с действующим без конфликтов зон ответственности. Стык проявится в работе, а не в схеме.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     БЛОК 7 · Как мы работаем
+════════════════════════════════════════════════════════ -->
+<section class="section section--alt" id="block-7">
+  <div class="container">
+    <div class="kicker">
+      <svg class="leaf leaf--sm" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M 18 62 C 18 34, 38 14, 62 18 C 62 46, 42 66, 18 62 Z" fill="#5c1c14"/>
+      </svg>
+      Как мы работаем
+    </div>
+    <h2 class="display-l block-7__title">Инструмент собирается из трёх частей.</h2>
+    <p class="body-l work-subtitle">Каждая компания приносит свою структуру, своё штатное расписание и свой контур систем. Под этот контур мы собираем Микросервис из трёх компонентов — методики, расчётной модели и интеграции.</p>
+    <div class="work-cols">
+      <div class="work-col">
+        <div class="work-col__title">Методика</div>
+        <p class="work-col__body">Что и как считается. Нормы управляемости, правила декомпозиции функций, признаки дублирования, критерии критичности роли — собираются в начале проекта, в опоре на отраслевую практику и внутренние регламенты заказчика. Методика — не «лучшая практика вообще», а та логика, по которой будет приниматься решение в этой компании.</p>
+      </div>
+      <div class="work-col">
+        <div class="work-col__title">Расчётная модель</div>
+        <p class="work-col__body">Что меняется, когда меняется структура. Изменение ФОТ, страховых взносов, накладных и налоговой нагрузки рассчитывается для каждой версии оргструктуры в моменте. Часть расчётов закрыта формулами, часть — задачи на интерпретацию (компетенции, преемственность, контекст роли) — берёт на себя языковая модель.</p>
+      </div>
+      <div class="work-col">
+        <div class="work-col__title">Сборка под задачу</div>
+        <p class="work-col__body">Состав инструмента — от объёма импорта из 1С:ЗУП до глубины сценарного дерева и формата выгрузки — определяется задачей и масштабом компании. Формат интеграции обсуждается на старте проекта.</p>
+      </div>
+    </div><!-- /work-cols -->
+  </div><!-- /container -->
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     БЛОК 8 · Демо (заглушка — содержимое тизеров в следующих запусках)
+════════════════════════════════════════════════════════ -->
+<section class="section" id="block-8">
+  <div class="container">
+    <h2 class="display-l block-8__title">Посмотрите, как это работает.</h2>
+    <p class="body-l demos-intro">Чтобы показать логику Микросервиса в работе, мы собрали две короткие демонстрации. В первой — выбор между сценариями реорганизации с расчётом последствий. Во второй — диагностика готовой структуры по четырём типам рисков. В обеих — упрощённый фрагмент логики, по которой Микросервис собирается под реальный проект.</p>
+    <div class="demos-grid">
+      <div class="demo-card">
+        <div class="demo-card__label">Демонстрация 1 · 5 минут</div>
+        <div class="demo-card__title">Три сценария реорганизации. Какой вы выберете?</div>
+        <p class="demo-card__desc">Производственный холдинг, 4&nbsp;200 человек. Задача — сократить ФОТ на 15%. Финансовый директор предложил три варианта. Ваше решение — за тридцать секунд на каждый.</p>
+        <div class="demo-card__footer">
+          <a href="/orgdesign/demo-scenarios/" class="btn btn--primary">
+            Запустить демо
+          </a>
+        </div>
+      </div>
+      <div class="demo-card">
+        <div class="demo-card__label">Демонстрация 2 · 4 минуты</div>
+        <div class="demo-card__title">Посмотрите на оргструктуру глазами Микросервиса.</div>
+        <p class="demo-card__desc">Реальная анонимизированная схема. На первый взгляд — нормальная иерархия. Микросервис нашёл четыре структурных дефекта, три из которых проявятся в первые шесть месяцев работы.</p>
+        <div class="demo-card__footer">
+          <button class="btn btn--primary btn--disabled" disabled aria-disabled="true">Открыть схему</button>
+          <span class="demo-card__status">Демо в разработке</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ═══════════════════════════════════════════════════════
+     БЛОК 9 · Процесс работы
+════════════════════════════════════════════════════════ -->
+<section class="section section--alt" id="block-9">
+  <div class="container">
+    <div class="kicker">
+      <svg class="leaf leaf--sm" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M 18 62 C 18 34, 38 14, 62 18 C 62 46, 42 66, 18 62 Z" fill="#5c1c14"/>
+      </svg>
+      Процесс работы
+    </div>
+    <h2 class="display-l block-9__title">Как устроена работа с нами.</h2>
+    <div class="process-list">
+      <div class="process-step">
+        <div class="process-step__meta">
+          <span class="process-step__num">01</span>
+          <span class="process-step__title">Диагностическая встреча</span>
+          <span class="process-step__duration">· 45 минут</span>
+        </div>
+        <p class="process-step__body">Разбираем задачу, структуру, ожидания. Решаем, нужен ли Микросервис и в какой конфигурации.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-step__meta">
+          <span class="process-step__num">02</span>
+          <span class="process-step__title">Коммерческое предложение</span>
+          <span class="process-step__duration">· 1 неделя</span>
+        </div>
+        <p class="process-step__body">Готовим КП с объёмом, сроками, стоимостью. При подтверждении подписываем договор.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-step__meta">
+          <span class="process-step__num">03</span>
+          <span class="process-step__title">Проектирование</span>
+          <span class="process-step__duration">· 2–3 недели</span>
+        </div>
+        <p class="process-step__body">Согласовываем состав инструмента, правила расчёта, сценарии. На выходе — спецификация.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-step__meta">
+          <span class="process-step__num">04</span>
+          <span class="process-step__title">Разработка</span>
+          <span class="process-step__duration">· 6–14 недель</span>
+        </div>
+        <p class="process-step__body">Собираем, интегрируем с 1С:ЗУП, калибруем модель. Показываем промежуточные версии.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-step__meta">
+          <span class="process-step__num">05</span>
+          <span class="process-step__title">Внедрение и сопровождение</span>
+          <span class="process-step__duration">· далее</span>
+        </div>
+        <p class="process-step__body">Запускаем, обучаем команду, сопровождаем первый проект реорганизации в инструменте.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ═══════════════════════════════════════════════════════
+     БЛОКИ 10–11 · Про нас + Кто за этим стоит
+════════════════════════════════════════════════════════ -->
+<section class="section" id="block-10">
+  <div class="container">
+    <div class="about-wrap">
+      <div class="kicker">
+        <svg class="leaf leaf--sm" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M 18 62 C 18 34, 38 14, 62 18 C 62 46, 42 66, 18 62 Z" fill="#5c1c14"/>
+        </svg>
+        Про нас
+      </div>
+      <h2 class="display-l about-title">Исследовательская лаборатория — прикладное направление профессиональной ассоциации.</h2>
+      <div class="about-body">
+        <p>НКО «Люди. Бизнес. Будущее.» объединяет HR-директоров и экспертов рынка труда, которые работают с задачами работодателей: исследование рынка, формирование отраслевых стандартов, продвижение HR-повестки в СМИ.</p>
+        <p>Исследовательская лаборатория — направление, которое превращает исследования рынка труда в прикладные инструменты для конкретных компаний.</p>
+      </div>
+      <div class="team-divider" id="block-11">
+        <h2 class="display-l team-title">Кто за этим стоит.</h2>
+        <div class="team-card">
+          <!-- TODO: подставить фото -->
+          <div class="team-avatar" aria-label="Анастасия Юрлова">АЮ</div>
+          <div>
+            <div class="team-card__name">Анастасия Юрлова</div>
+            <div class="team-card__role">Основатель и директор НКО «Люди. Бизнес. Будущее.», руководитель Исследовательской лаборатории</div>
+            <p class="team-card__body">15 лет в HR крупного бизнеса. В Сбербанке (300&nbsp;000+ сотрудников, 52&nbsp;000 наймов в год) перевела функцию подбора на agile, собрала 14 продуктовых команд, подняла удовлетворённость внутренних клиентов с 37% до 77%. Возглавляла подбор, развитие и удержание в ПИК (25&nbsp;000+ сотрудников). С 2024 — HR-директор группы HR-компаний, руководит проектами трансформации. В executive search с 2011 года, начинала в Kontakt InterSearch.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ═══════════════════════════════════════════════════════
+     БЛОК 12 · FAQ
+════════════════════════════════════════════════════════ -->
+<section class="section" id="block-12">
+  <div class="container">
+    <div class="faq">
+      <div class="kicker">
+        <svg class="leaf leaf--sm" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M 18 62 C 18 34, 38 14, 62 18 C 62 46, 42 66, 18 62 Z" fill="#5c1c14"/>
+        </svg>
+        FAQ
+      </div>
+      <h2 class="display-l faq__title">Что спрашивают до того как начать работу.</h2>
+      <div class="faq-list">
+
+        <details class="faq-item" open>
+          <summary>
+            <span>Где хранятся данные оргструктуры? Нужна ли отдельная среда?</span>
+            <span class="faq-icon" aria-hidden="true">
+              <svg viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg" width="10" height="6">
+                <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </summary>
+          <div class="faq-item__body">
+            <p>Все данные остаются в контуре заказчика. Микросервис разворачивается на инфраструктуре компании или в выделенной среде, согласованной с её службой ИБ. Лаборатория не хранит штатные расписания, не копирует данные сотрудников, не использует их вне проекта. Состав прав доступа, способ синхронизации с 1С:ЗУП и контур развёртывания согласовываются на этапе проектирования.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span>У нас не 1С:ЗУП. Это проблема?</span>
+            <span class="faq-icon" aria-hidden="true">
+              <svg viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg" width="10" height="6">
+                <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </summary>
+          <div class="faq-item__body">
+            <p>Нет. 1С:ЗУП — самая частая система кадрового учёта в крупных российских компаниях, поэтому интеграция с ней предусмотрена по умолчанию. Для SAP HCM, БОСС-Кадровик, Босс-Референт или собственных систем учёта интеграция собирается на этапе проектирования — это не меняет логику Микросервиса, меняет только модуль импорта. Уточнить применимость к вашей системе можно на диагностической встрече.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span>Сколько стоит проект?</span>
+            <span class="faq-icon" aria-hidden="true">
+              <svg viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg" width="10" height="6">
+                <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </summary>
+          <div class="faq-item__body">
+            <p>Стоимость определяется масштабом компании, сложностью расчётной модели и объёмом интеграционной работы. Расчёт готовится после диагностической встречи, когда сформулированы задача, контур систем и требования к составу инструмента.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span>Сколько времени потребуется от нашей команды?</span>
+            <span class="faq-icon" aria-hidden="true">
+              <svg viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg" width="10" height="6">
+                <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </summary>
+          <div class="faq-item__body">
+            <p>Больше, чем обычно предполагается на старте. Проект требует регулярных рабочих сессий с ключевыми стейкхолдерами — не для формального согласования, а для совместной проработки задачи и методики расчёта. На этапе проектирования — одна-две встречи в неделю, на этапе разработки — участие в тестировании промежуточных версий, на внедрении — обучение команды трансформации. Точный объём определяется на диагностической встрече.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span>Насколько можно доверять расчётам, если их делает языковая модель?</span>
+            <span class="faq-icon" aria-hidden="true">
+              <svg viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg" width="10" height="6">
+                <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </summary>
+          <div class="faq-item__body">
+            <p>Языковая модель в Микросервисе не считает деньги — деньги считают формулы по правилам, согласованным на проектировании и проверяемым в ручном пересчёте. Языковая модель отвечает за задачи, где формула невозможна: оценка контекста роли, признаки критичности позиции, классификация дублирующих функций. Каждое такое решение модели сопровождается обоснованием и доступно для проверки экспертом.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span>Что мы получаем после завершения проекта?</span>
+            <span class="faq-icon" aria-hidden="true">
+              <svg viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg" width="10" height="6">
+                <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </summary>
+          <div class="faq-item__body">
+            <p>Заказчику передаётся неисключительное право использования Микросервиса. Развитие инструмента в дальнейшем может вестись командой Лаборатории, силами заказчика или сторонним подрядчиком. Зависимости от единственного исполнителя не возникает.</p>
+          </div>
+        </details>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     БЛОК 13 · Следующий шаг
+════════════════════════════════════════════════════════ -->
+<section class="section section--alt cta-final" id="block-13">
+  <div class="container">
+    <div class="cta-final__inner">
+      <div class="kicker">
+        <svg class="leaf leaf--sm" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M 18 62 C 18 34, 38 14, 62 18 C 62 46, 42 66, 18 62 Z" fill="#5c1c14"/>
+        </svg>
+        Следующий шаг
+      </div>
+      <h2 class="display-l cta-final__title">Обсудим вашу задачу.</h2>
+      <p class="cta-final__body">Первая встреча — диагностическая, 45 минут. Разбираем вашу задачу, контекст и действующие процессы. На выходе — общее понимание, нужен ли вам отдельный инструмент и какого типа.</p>
+      <button class="btn btn--primary" type="button" data-open-modal="contact">Обсудить задачу</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     ФУТЕР
+════════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__inner">
+      <div class="site-footer__brand">
+        <svg class="leaf leaf--sm" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M 18 62 C 18 34, 38 14, 62 18 C 62 46, 42 66, 18 62 Z" fill="#5c1c14"/>
+        </svg>
+        Исследовательская лаборатория · НКО «Люди. Бизнес. Будущее.»
+      </div>
+      <p class="site-footer__legal">
+        Ассоциация экспертов кадрового развития «ЛЮДИ. БИЗНЕС. БУДУЩЕЕ.»<br>
+        ИНН 9715490977 · ОГРН 1247700557774
+      </p>
+      <nav class="site-footer__links" aria-label="Ссылки футера">
+        <a href="/privacy">Политика конфиденциальности</a>
+        <a href="https://hrasc.ru" target="_blank" rel="noopener noreferrer">Сайт НКО</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════════════════
+     МОДАЛКА: ФОРМА «ОБСУДИТЬ ЗАДАЧУ»
+════════════════════════════════════════════════════════ -->
+<dialog id="contact-modal" class="contact-modal" aria-labelledby="modal-title" aria-modal="true">
+  <div class="modal-inner">
+
+    <button class="modal-close" type="button" aria-label="Закрыть">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M15 5L5 15M5 5l10 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </button>
+
+    <div class="modal-kicker">
+      Обсудить задачу
+    </div>
+
+    <h2 id="modal-title" class="modal-title">Оставьте контакты — мы свяжемся в течение дня.</h2>
+
+    <form id="contact-form" class="contact-form" novalidate>
+
+      <div class="form-field">
+        <label for="field-name" class="form-label">ФИО</label>
+        <input type="text" id="field-name" name="name" placeholder="Как к вам обращаться" autocomplete="name">
+        <span class="form-error" id="err-name" aria-live="polite"></span>
+      </div>
+
+      <div class="form-field">
+        <label for="field-company" class="form-label">Компания</label>
+        <input type="text" id="field-company" name="company" placeholder="Название организации" autocomplete="organization">
+        <span class="form-error" id="err-company" aria-live="polite"></span>
+      </div>
+
+      <div class="form-field">
+        <div class="form-label">Как связаться</div>
+        <div class="contact-toggle" role="group" aria-label="Способ связи">
+          <label class="toggle-option">
+            <input type="radio" name="contact_type" value="phone" checked>
+            <span>Телефон</span>
+          </label>
+          <label class="toggle-option">
+            <input type="radio" name="contact_type" value="telegram">
+            <span>Telegram</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label for="field-contact" class="form-label">Контакт</label>
+        <input type="tel" id="field-contact" name="contact" placeholder="+7 ...">
+        <span class="form-error" id="err-contact" aria-live="polite"></span>
+      </div>
+
+      <div class="form-field form-field--check">
+        <label class="checkbox-label">
+          <input type="checkbox" id="field-privacy" name="privacy">
+          <span>Согласен(а) на <a href="/privacy" target="_blank" rel="noopener">обработку персональных данных</a></span>
+        </label>
+        <span class="form-error" id="err-privacy" aria-live="polite"></span>
+      </div>
+
+      <button type="submit" class="btn btn--primary btn--wide">Отправить</button>
+
+    </form>
+
+    <div class="modal-success" id="modal-success" hidden>
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="20" cy="20" r="19" stroke="#5c1c14" stroke-width="1.5"/>
+        <path d="M12 20l6 6 10-12" stroke="#5c1c14" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <p class="modal-success__text">Спасибо, мы получили запрос.<br>Свяжемся в течение дня.</p>
+      <button class="btn btn--secondary" type="button" id="modal-success-close">Закрыть</button>
+    </div>
+
+  </div>
+</dialog>
+
+<script>
+(function () {
+  var dialog = document.getElementById('contact-modal');
+  var form = document.getElementById('contact-form');
+  var successBlock = document.getElementById('modal-success');
+  var successCloseBtn = document.getElementById('modal-success-close');
+  var contactInput = document.getElementById('field-contact');
+  var contactRadios = document.querySelectorAll('input[name="contact_type"]');
+  function openModal() {
+    dialog.showModal();
+    document.body.classList.add('modal-open');
+    requestAnimationFrame(function () {
+      dialog.classList.add('is-open');
+    });
+  }
+
+  function closeModal() {
+    dialog.classList.remove('is-open');
+    dialog.addEventListener('transitionend', function onEnd() {
+      dialog.removeEventListener('transitionend', onEnd);
+      dialog.close();
+      document.body.classList.remove('modal-open');
+      resetForm();
+    });
+  }
+
+  function resetForm() {
+    form.reset();
+    successBlock.hidden = true;
+    form.hidden = false;
+    clearErrors();
+    contactInput.type = 'tel';
+    contactInput.placeholder = '+7 ...';
+  }
+
+  /* Trigger buttons */
+  document.querySelectorAll('[data-open-modal="contact"]').forEach(function (btn) {
+    btn.addEventListener('click', openModal);
+  });
+
+  /* Close (X) button */
+  document.querySelector('.modal-close').addEventListener('click', closeModal);
+
+  /* Success state close */
+  successCloseBtn.addEventListener('click', closeModal);
+
+  /* Backdrop click */
+  dialog.addEventListener('click', function (e) {
+    if (e.target === dialog) closeModal();
+  });
+
+  /* Esc — intercept native cancel to apply animation */
+  dialog.addEventListener('cancel', function (e) {
+    e.preventDefault();
+    closeModal();
+  });
+
+  /* Auto-open modal if URL hash is #contact */
+  if (window.location.hash === '#contact') {
+    requestAnimationFrame(function() {
+      openModal();
+      history.replaceState(null, '', window.location.pathname);
+    });
+  }
+
+  /* Contact type switch */
+  contactRadios.forEach(function (radio) {
+    radio.addEventListener('change', function () {
+      if (radio.value === 'phone') {
+        contactInput.type = 'tel';
+        contactInput.placeholder = '+7 ...';
+      } else {
+        contactInput.type = 'text';
+        contactInput.placeholder = '@username';
+      }
+      contactInput.value = '';
+      clearFieldError('field-contact', 'err-contact');
+    });
+  });
+
+  /* Validation */
+  function clearErrors() {
+    document.querySelectorAll('.form-error').forEach(function (el) { el.textContent = ''; });
+    document.querySelectorAll('.is-error').forEach(function (el) { el.classList.remove('is-error'); });
+  }
+
+  function clearFieldError(fieldId, errId) {
+    var f = document.getElementById(fieldId);
+    var e = document.getElementById(errId);
+    if (f) f.classList.remove('is-error');
+    if (e) e.textContent = '';
+  }
+
+  function setError(fieldId, errId, msg) {
+    var f = document.getElementById(fieldId);
+    var e = document.getElementById(errId);
+    if (f) f.classList.add('is-error');
+    if (e) e.textContent = msg;
+  }
+
+  function validateForm() {
+    clearErrors();
+    var valid = true;
+
+    if (!document.getElementById('field-name').value.trim()) {
+      setError('field-name', 'err-name', 'Пожалуйста, укажите ваше имя');
+      valid = false;
+    }
+    if (!document.getElementById('field-company').value.trim()) {
+      setError('field-company', 'err-company', 'Пожалуйста, укажите компанию');
+      valid = false;
+    }
+    if (!contactInput.value.trim()) {
+      setError('field-contact', 'err-contact', 'Пожалуйста, укажите контакт для связи');
+      valid = false;
+    }
+    if (!document.getElementById('field-privacy').checked) {
+      document.querySelector('.checkbox-label').classList.add('is-error');
+      document.getElementById('err-privacy').textContent = 'Необходимо согласие на обработку данных';
+      valid = false;
+    }
+
+    return valid;
+  }
+
+  /* Submit */
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!validateForm()) return;
+
+    var checked = document.querySelector('input[name="contact_type"]:checked');
+    var data = {
+      name:         document.getElementById('field-name').value.trim(),
+      company:      document.getElementById('field-company').value.trim(),
+      contact_type: checked ? checked.value : 'phone',
+      contact:      contactInput.value.trim()
+    };
+
+    console.log('[ContactForm] Данные формы:', data);
+
+    form.hidden = true;
+    successBlock.hidden = false;
+  });
+})();
+</script>
+
+</body>
+</html>

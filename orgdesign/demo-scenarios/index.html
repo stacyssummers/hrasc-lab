@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Демо · Три сценария реорганизации · Микросервис оргдизайна</title>
+<meta name="description" content="Демонстрация: три сценария реорганизации производственного холдинга с расчётом структурных и финансовых последствий.">
+
+<link rel="icon" type="image/png" href="../../files/pictures/hero-laboratory-Photoroom.png">
+<link rel="apple-touch-icon" href="../../files/pictures/hero-laboratory-Photoroom.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ─── Reset ─────────────────────────────────────────────── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+/* ─── Tokens ─────────────────────────────────────────────── */
+:root {
+  --accent:      #5c1c14;
+  --accent-dark: #4a1810;
+  --bg:          #fafaf8;
+  --bg-alt:      #f7f5f1;
+  --text-1:      #1a1a1a;
+  --text-2:      #4a4a4a;
+  --text-3:      #8a8680;
+  --border:      #e8e4dc;
+
+  --font: 'Inter', system-ui, Arial, sans-serif;
+
+  --max-text:  680px;
+  --max-wide:  1080px;
+
+  --px-desk:   40px;
+  --px-tab:    32px;
+  --px-mob:    20px;
+}
+
+/* ─── Base ───────────────────────────────────────────────── */
+body {
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-1);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Layout helpers ─────────────────────────────────────── */
+.container {
+  width: 100%;
+  max-width: var(--max-wide);
+  margin-inline: auto;
+  padding-inline: var(--px-desk);
+}
+.container--narrow {
+  max-width: var(--max-text);
+}
+
+/* ─── Leaf SVG ───────────────────────────────────────────── */
+.leaf {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+.leaf--sm  { width: 12px; height: 12px; }
+.leaf--md  { width: 22px; height: 22px; }
+
+/* ─── Kicker ─────────────────────────────────────────────── */
+.kicker {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  line-height: 1.3;
+  margin-bottom: 10px;
+}
+
+/* ─── Typography ─────────────────────────────────────────── */
+.display-l {
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  font-optical-sizing: auto;
+}
+.body-l {
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--text-2);
+}
+.body {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.55;
+}
+
+/* ─── Buttons ────────────────────────────────────────────── */
+.btn {
+  display: inline-block;
+  font-family: var(--font);
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 6px;
+  padding: 14px 28px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  text-decoration: none;
+  transition: background 200ms ease, border-color 200ms ease, color 200ms ease;
+  white-space: nowrap;
+}
+.btn--primary {
+  background: var(--accent);
+  color: #fafaf8;
+  border-color: var(--accent);
+}
+.btn--primary:hover { background: var(--accent-dark); border-color: var(--accent-dark); }
+
+.btn--secondary {
+  background: transparent;
+  color: var(--text-1);
+  border-color: var(--border);
+}
+.btn--secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+.btn--sm {
+  padding: 9px 18px;
+  font-size: 13px;
+  border-radius: 4px;
+}
+
+/* ─── Divider ────────────────────────────────────────────── */
+.divider { border: none; border-top: 1px solid var(--border); }
+
+/* ═══════════════════════════════════════════════════════════
+   HEADER
+═══════════════════════════════════════════════════════════ */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+.site-header__logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: var(--text-1);
+}
+.site-header__logo-text {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PROGRESS INDICATOR
+═══════════════════════════════════════════════════════════ */
+.progress {
+  border-bottom: 1px solid var(--border);
+  padding-block: 20px;
+  background: var(--bg);
+}
+.progress__list {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  list-style: none;
+  gap: 0;
+}
+.progress__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+}
+.progress__item:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 14px;
+  left: calc(50% + 14px);
+  width: calc(100% - 28px);
+  height: 1px;
+  background: var(--border);
+}
+/* Distribute items evenly */
+.progress__list {
+  width: 100%;
+  max-width: 560px;
+  margin-inline: auto;
+}
+.progress__item {
+  flex: 1;
+}
+.progress__dot {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-3);
+  font-family: var(--font);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 200ms ease, border-color 200ms ease, color 200ms ease;
+  position: relative;
+  z-index: 1;
+}
+.progress__dot:disabled {
+  cursor: not-allowed;
+}
+.progress__item.is-active .progress__dot {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fafaf8;
+}
+.progress__item.is-visited:not(.is-active) .progress__dot {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.progress__label {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-3);
+  text-align: center;
+  line-height: 1.2;
+}
+.progress__item.is-active .progress__label {
+  color: var(--text-1);
+}
+.progress__item.is-visited .progress__label {
+  color: var(--text-2);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   DEMO CONTENT AREA
+═══════════════════════════════════════════════════════════ */
+.demo-main {
+  padding-block: 48px;
+  min-height: calc(100dvh - 64px - 61px - 120px);
+}
+.screen { display: none; }
+.screen.is-visible { display: block; }
+
+/* ─── Screen 1 layout ────────────────────────────────────── */
+.screen-1__cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  margin-top: 32px;
+  align-items: start;
+}
+
+/* ─── Company card ───────────────────────────────────────── */
+.company-card {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 24px;
+}
+.company-card__row {
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+.company-card__row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+.company-card__label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 6px;
+}
+.company-card__value {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-1);
+  line-height: 1.5;
+}
+.company-card__value--accent {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-1);
+  line-height: 1.5;
+}
+.company-card__note {
+  font-size: 12px;
+  color: var(--text-3);
+}
+
+/* ─── Task column ────────────────────────────────────────── */
+.task-col__heading {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-1);
+  margin-bottom: 12px;
+}
+.task-col__lead {
+  margin-bottom: 16px;
+}
+.task-col__body {
+  color: var(--text-2);
+}
+
+/* ─── Screen navigation ──────────────────────────────────── */
+.screen-nav {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+}
+.screen-nav--stub {
+  align-items: flex-start;
+}
+.screen-nav__back {
+  font-size: 13px;
+  color: var(--text-2);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font);
+  font-weight: 500;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 200ms ease;
+}
+.screen-nav__back:hover { color: var(--accent); }
+
+/* ═══════════════════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════════════════ */
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding-block: 40px;
+}
+.site-footer__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.site-footer__brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-1);
+}
+.site-footer__legal {
+  font-size: 12px;
+  color: var(--text-3);
+  line-height: 1.6;
+}
+.site-footer__links {
+  display: flex;
+  gap: 20px;
+  font-size: 13px;
+}
+.site-footer__links a {
+  color: var(--text-2);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 200ms ease;
+}
+.site-footer__links a:hover { color: var(--accent); }
+
+/* ═══════════════════════════════════════════════════════════
+   MOBILE
+═══════════════════════════════════════════════════════════ */
+@media (max-width: 640px) {
+  :root {
+    --px-desk: var(--px-mob);
+  }
+
+  .display-l { font-size: 20px; }
+
+  .site-header__inner { height: 56px; }
+
+  .progress__label { display: none; }
+  .progress__dot { width: 24px; height: 24px; font-size: 12px; }
+  .progress__item:not(:last-child)::after {
+    top: 12px;
+    left: calc(50% + 12px);
+    width: calc(100% - 24px);
+  }
+
+  .screen-1__cols {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .screen-nav { align-items: stretch; }
+  .screen-nav .btn--primary { width: 100%; text-align: center; }
+  .screen-nav--stub { align-items: stretch; }
+
+  .demo-main { padding-block: 32px; }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  :root { --px-desk: var(--px-tab); }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SCENARIO SCREENS — SHARED STYLES
+═══════════════════════════════════════════════════════════ */
+
+/* ─── Scenario description ───────────────────────────────── */
+.scenario-desc {
+  max-width: var(--max-text);
+  margin-top: 24px;
+}
+.scenario-desc__lead {
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--text-2);
+  margin-bottom: 10px;
+}
+.scenario-desc__note {
+  font-size: 14px;
+  color: var(--text-2);
+  line-height: 1.55;
+}
+
+/* ─── Choice block ───────────────────────────────────────── */
+.choice-block {
+  margin-top: 36px;
+  text-align: center;
+}
+.choice-block__question {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-1);
+  margin-bottom: 16px;
+}
+.choice-block__btns {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+.choice-btn {
+  padding: 16px 32px;
+  font-size: 15px;
+  transition: all 200ms ease;
+}
+.choice-btn.is-selected {
+  background: var(--accent);
+  color: #fafaf8;
+  border-color: var(--accent);
+}
+.choice-btn.is-disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ─── Calc block ─────────────────────────────────────────── */
+.calc-block {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 400ms ease, opacity 300ms ease;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 32px;
+  margin-top: 32px;
+}
+.calc-block.is-revealed {
+  max-height: 3000px;
+  opacity: 1;
+}
+.calc-block__heading {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text-1);
+  margin-bottom: 24px;
+}
+
+/* ─── Calc params ────────────────────────────────────────── */
+.calc-params__row {
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+.calc-params__row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+.calc-params__label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 6px;
+}
+.calc-params__value {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-1);
+  line-height: 1.5;
+}
+
+/* ─── Structural risks ───────────────────────────────────── */
+.risks-section {
+  margin-top: 32px;
+}
+.risks-section__kicker {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 16px;
+}
+.risk-item {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.risk-item:last-child { margin-bottom: 0; }
+.risk-flag {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 7px;
+}
+.risk-flag--red   { background: var(--accent); }
+.risk-flag--amber { background: #c08a00; }
+.risk-flag--green { background: #2d7d4f; }
+.risk-content { flex: 1; }
+.risk-title {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-1);
+  margin-bottom: 4px;
+}
+.risk-text {
+  font-size: 14px;
+  color: var(--text-2);
+  line-height: 1.5;
+}
+
+/* ─── Calc conclusion ────────────────────────────────────── */
+.calc-conclusion {
+  border-left: 3px solid var(--accent);
+  padding-left: 16px;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--text-1);
+  font-style: italic;
+  margin-top: 32px;
+}
+
+/* ─── Nav next: disabled until choice made ───────────────── */
+.nav-next:not(.is-enabled) {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* ─── Mobile: scenario screens ───────────────────────────── */
+@media (max-width: 640px) {
+  .choice-block__btns {
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+  .choice-block__btns .choice-btn {
+    width: 100%;
+    text-align: center;
+  }
+  .calc-block {
+    padding: 20px;
+  }
+  .risk-item {
+    gap: 10px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ЭКРАН 5 · ФИНАЛЬНЫЙ
+═══════════════════════════════════════════════════════════ */
+.final-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+  margin-block: 24px 0;
+}
+.final-summary__title,
+.final-analysis h3 {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-1);
+  margin-bottom: 16px;
+}
+.final-summary__body {
+  font-size: 14px;
+  color: var(--text-2);
+  line-height: 1.6;
+}
+.final-summary__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.final-summary__list li {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-1);
+  font-size: 14px;
+}
+.final-summary__list li:last-child { border-bottom: none; }
+.final-summary__none {
+  color: var(--text-2);
+  font-size: 14px;
+  line-height: 1.6;
+}
+.final-analysis p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-2);
+  margin-bottom: 12px;
+}
+.final-analysis p:last-child { margin-bottom: 0; }
+.final-analysis__lead {
+  font-size: 15px !important;
+  font-weight: 500 !important;
+  color: var(--text-1) !important;
+}
+.final-analysis__note {
+  font-style: italic;
+}
+
+.final-cta {
+  text-align: center;
+  max-width: var(--max-text);
+  margin-inline: auto;
+}
+.final-cta__btn {
+  margin-top: 8px;
+}
+.restart-link {
+  display: block;
+  font-size: 13px;
+  color: var(--text-3);
+  margin-top: 24px;
+  text-decoration: none;
+}
+.restart-link:hover { color: var(--accent); }
+
+hr.divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin-block: 48px;
+}
+
+@media (max-width: 640px) {
+  .final-cols {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .final-cta__btn { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════
+     ШАПКА
+════════════════════════════════════════════════════════ -->
+<header class="site-header">
+  <div class="container">
+    <div class="site-header__inner">
+      <a href="/orgdesign/" class="site-header__logo" aria-label="Исследовательская лаборатория">
+        <svg class="leaf leaf--md" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M 18 62 C 18 34, 38 14, 62 18 C 62 46, 42 66, 18 62 Z" fill="#5c1c14"/>
+        </svg>
+        <span class="site-header__logo-text">Исследовательская лаборатория</span>
+      </a>
+      <a href="/orgdesign/" class="btn btn--secondary btn--sm">← К Микросервису</a>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════════════
+     ПРОГРЕСС-ИНДИКАТОР
+════════════════════════════════════════════════════════ -->
+<nav class="progress" aria-label="Прогресс демо">
+  <div class="container">
+    <ol class="progress__list">
+      <li class="progress__item is-active is-visited" data-step="1">
+        <button class="progress__dot" aria-current="step">1</button>
+        <span class="progress__label">Постановка</span>
+      </li>
+      <li class="progress__item" data-step="2">
+        <button class="progress__dot" disabled>2</button>
+        <span class="progress__label">Сценарий А</span>
+      </li>
+      <li class="progress__item" data-step="3">
+        <button class="progress__dot" disabled>3</button>
+        <span class="progress__label">Сценарий Б</span>
+      </li>
+      <li class="progress__item" data-step="4">
+        <button class="progress__dot" disabled>4</button>
+        <span class="progress__label">Сценарий В</span>
+      </li>
+      <li class="progress__item" data-step="5">
+        <button class="progress__dot" disabled>5</button>
+        <span class="progress__label">Итог</span>
+      </li>
+    </ol>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════
+     ОСНОВНОЙ КОНТЕНТ
+════════════════════════════════════════════════════════ -->
+<main class="demo-main">
+  <div class="container">
+
+    <!-- ─── Экран 1: Постановка задачи ──────────────────── -->
+    <section class="screen is-visible" data-screen="1" aria-label="Постановка задачи">
+      <h1 class="display-l">Знакомство с компанией</h1>
+
+      <div class="screen-1__cols">
+
+        <!-- Левая колонка: карточка компании -->
+        <div class="company-card">
+          <div class="company-card__row">
+            <div class="company-card__label">Отрасль</div>
+            <div class="company-card__value">Производственный холдинг, металлообработка, два региональных дивизиона</div>
+          </div>
+          <div class="company-card__row">
+            <div class="company-card__label">Численность</div>
+            <div class="company-card__value">4&nbsp;200 человек</div>
+          </div>
+          <div class="company-card__row">
+            <div class="company-card__label">Управленческий персонал</div>
+            <div class="company-card__value">504 человека (12%)</div>
+          </div>
+          <div class="company-card__row">
+            <div class="company-card__label">Линейный персонал</div>
+            <div class="company-card__value">3&nbsp;696 человек (88%)</div>
+          </div>
+          <div class="company-card__row">
+            <div class="company-card__label">Годовой ФОТ</div>
+            <div class="company-card__value company-card__value--accent">5,2 млрд&nbsp;₽</div>
+          </div>
+          <div class="company-card__row">
+            <div class="company-card__label">Полные затраты на персонал</div>
+            <div class="company-card__value">6,8 млрд&nbsp;₽<br><span class="company-card__note">с учётом страховых взносов 30,2%</span></div>
+          </div>
+        </div>
+
+        <!-- Правая колонка: постановка задачи -->
+        <div class="task-col">
+          <p class="task-col__heading">Цель собственника</p>
+          <p class="body-l task-col__lead">Сократить годовой ФОТ на 15% — это <strong>780 млн ₽</strong> в год.</p>
+          <p class="body task-col__body">Финансовый директор подготовил три сценария. Каждый достигает цели разными путями и с разными последствиями. Пройдите по всем трём — и решите, какой бы вы поддержали на правлении.</p>
+        </div>
+
+      </div>
+
+      <div class="screen-nav">
+        <button class="btn btn--primary" id="btn-to-2">Перейти к сценарию А →</button>
+      </div>
+    </section>
+
+    <!-- ─── Экран 2: Сценарий А ──────────────────────────── -->
+    <section class="screen" data-screen="2" hidden aria-label="Сценарий А">
+      <h1 class="display-l">Сценарий А · Сократить средний управленческий уровень</h1>
+
+      <!-- [2] Описание сценария -->
+      <div class="scenario-desc">
+        <p class="scenario-desc__lead">Между топ-менеджментом и линейными руководителями — три уровня среднего управления. Предложение: убрать средний слой целиком, перевести его задачи частью наверх, частью вниз.</p>
+        <p class="scenario-desc__note">Сокращение затрагивает 168 управленческих позиций.</p>
+      </div>
+
+      <!-- [3] Блок выбора -->
+      <div class="choice-block">
+        <p class="choice-block__question">Поддержать сценарий А?</p>
+        <div class="choice-block__btns">
+          <button data-scenario="A" data-choice="support" class="btn btn--secondary choice-btn">Да, поддержать</button>
+          <button data-scenario="A" data-choice="reject" class="btn btn--secondary choice-btn">Нет, не поддержать</button>
+        </div>
+      </div>
+
+      <!-- [4] Расчёт микросервиса (скрыт до выбора) -->
+      <div class="calc-block" data-calc-for="A" hidden>
+
+        <h2 class="calc-block__heading">Что показал бы Микросервис</h2>
+
+        <!-- 4.2 Финансовый блок -->
+        <div class="calc-params">
+          <div class="calc-params__row">
+            <div class="calc-params__label">Изменение ФОТ</div>
+            <div class="calc-params__value"><strong>−820 млн ₽ / год</strong> (−15,8%)</div>
+          </div>
+          <div class="calc-params__row">
+            <div class="calc-params__label">Цель по сокращению</div>
+            <div class="calc-params__value"><strong>достигнута и превышена</strong></div>
+          </div>
+          <div class="calc-params__row">
+            <div class="calc-params__label">Единовременные затраты на сокращение</div>
+            <div class="calc-params__value">≈ 340 млн ₽</div>
+          </div>
+          <div class="calc-params__row">
+            <div class="calc-params__label">Срок окупаемости решения</div>
+            <div class="calc-params__value"><strong>5 месяцев</strong></div>
+          </div>
+        </div>
+
+        <!-- 4.3 Структурные риски -->
+        <div class="risks-section">
+          <div class="risks-section__kicker">Структурные риски</div>
+
+          <div class="risk-item">
+            <span class="risk-flag risk-flag--red"></span>
+            <div class="risk-content">
+              <div class="risk-title">Превышение нормы управляемости в 7 дирекциях</div>
+              <p class="risk-text">После сокращения среднего слоя у руководителей верхнего уровня в подчинении окажется по 18–24 человека вместо рекомендуемых 7–9. Качество управления падает уже в первый квартал.</p>
+            </div>
+          </div>
+
+          <div class="risk-item">
+            <span class="risk-flag risk-flag--red"></span>
+            <div class="risk-content">
+              <div class="risk-title">Критические роли без замены — 12 позиций</div>
+              <p class="risk-text">Среди сокращаемых — носители уникальной экспертизы (главные технологи участков, ведущие инженеры по качеству). На рынке такие специалисты не закрываются за 2–3 месяца.</p>
+            </div>
+          </div>
+
+          <div class="risk-item">
+            <span class="risk-flag risk-flag--red"></span>
+            <div class="risk-content">
+              <div class="risk-title">Риск каскадных уходов</div>
+              <p class="risk-text">Линейные руководители, лишившиеся прямого начальника-эксперта, традиционно начинают искать работу в течение 6–9 месяцев после реорганизации. Прогноз дополнительных уходов: 8–12% линейного руководящего состава.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4.4 Вывод -->
+        <p class="calc-conclusion">Цель по деньгам достигнута. Через 6 месяцев структура потребует достройки — частично откатывая экономию.</p>
+
+      </div>
+
+      <!-- [5] Навигация -->
+      <div class="screen-nav screen-nav--stub">
+        <button class="btn btn--primary nav-next" id="btn-to-3" disabled>Перейти к сценарию Б →</button>
+        <button class="screen-nav__back" id="btn-back-2">← Назад</button>
+      </div>
+    </section>
+
+    <!-- ─── Экран 3: Сценарий Б ──────────────────────────── -->
+    <section class="screen" data-screen="3" hidden aria-label="Сценарий Б">
+      <h1 class="display-l">Сценарий Б · Объединить региональные подразделения</h1>
+
+      <!-- [2] Описание сценария -->
+      <div class="scenario-desc">
+        <p class="scenario-desc__lead">Два региональных дивизиона работают как зеркальные структуры — у каждого свой бэк-офис, своя финансовая служба, свой HR. Предложение: объединить дублирующие функции в единый сервисный центр.</p>
+        <p class="scenario-desc__note">Сокращение затрагивает 96 позиций бэк-офиса.</p>
+      </div>
+
+      <!-- [3] Блок выбора -->
+      <div class="choice-block">
+        <p class="choice-block__question">Поддержать сценарий Б?</p>
+        <div class="choice-block__btns">
+          <button data-scenario="B" data-choice="support" class="btn btn--secondary choice-btn">Да, поддержать</button>
+          <button data-scenario="B" data-choice="reject" class="btn btn--secondary choice-btn">Нет, не поддержать</button>
+        </div>
+      </div>
+
+      <!-- [4] Расчёт микросервиса (скрыт до выбора) -->
+      <div class="calc-block" data-calc-for="B" hidden>
+
+        <h2 class="calc-block__heading">Что показал бы Микросервис</h2>
+
+        <div class="calc-params">
+          <div class="calc-params__row">
+            <div class="calc-params__label">Изменение ФОТ</div>
+            <div class="calc-params__value"><strong>−520 млн ₽ / год</strong> (−10,0%)</div>
+          </div>
+          <div class="calc-params__row">
+            <div class="calc-params__label">Цель по сокращению</div>
+            <div class="calc-params__value">не достигнута (нужно ещё <strong>−260 млн ₽</strong>)</div>
+          </div>
+          <div class="calc-params__row">
+            <div class="calc-params__label">Единовременные затраты на сокращение</div>
+            <div class="calc-params__value">≈ 195 млн ₽</div>
+          </div>
+          <div class="calc-params__row">
+            <div class="calc-params__label">Срок окупаемости решения</div>
+            <div class="calc-params__value"><strong>4,5 месяца</strong></div>
+          </div>
+        </div>
+
+        <div class="risks-section">
+          <div class="risks-section__kicker">Структурные риски</div>
+
+          <div class="risk-item">
+            <span class="risk-flag risk-flag--green"></span>
+            <div class="risk-content">
+              <div class="risk-title">Норма управляемости — в пределах нормы</div>
+              <p class="risk-text">Объединение не нарушает управленческую вертикаль. Все руководители сохраняют разумное число подчинённых.</p>
+            </div>
+          </div>
+
+          <div class="risk-item">
+            <span class="risk-flag risk-flag--amber"></span>
+            <div class="risk-content">
+              <div class="risk-title">Региональная автономия в принятии решений снижается</div>
+              <p class="risk-text">Скорость реакции на запросы производства из регионов вырастет с 1–2 дней до 3–5 рабочих дней в первые полгода — пока сервисный центр выстраивает процессы.</p>
+            </div>
+          </div>
+
+          <div class="risk-item">
+            <span class="risk-flag risk-flag--green"></span>
+            <div class="risk-content">
+              <div class="risk-title">Критических ролей без замены — нет</div>
+              <p class="risk-text">Сокращаемые функции дублированы между регионами, экспертиза сохраняется на стороне объединённого центра.</p>
+            </div>
+          </div>
+        </div>
+
+        <p class="calc-conclusion">Структурно решение чистое. По деньгам — закрывает только две трети цели. Нужен либо второй шаг, либо комбинация с другим сценарием.</p>
+
+      </div>
+
+      <!-- [5] Навигация -->
+      <div class="screen-nav screen-nav--stub">
+        <button class="btn btn--primary nav-next" id="btn-to-4" disabled>Перейти к сценарию В →</button>
+        <button class="screen-nav__back" id="btn-back-3">← Назад</button>
+      </div>
+    </section>
+
+    <!-- ─── Экран 4: Сценарий В ──────────────────────────── -->
+    <section class="screen" data-screen="4" hidden aria-label="Сценарий В">
+      <h1 class="display-l">Сценарий В · Вывести сервисные функции на аутсорс</h1>
+
+      <!-- [2] Описание сценария -->
+      <div class="scenario-desc">
+        <p class="scenario-desc__lead">IT-поддержка, клининг, охрана, часть бухгалтерии — функции, в которых рынок предлагает зрелые внешние сервисы. Предложение: передать эти функции подрядчикам.</p>
+        <p class="scenario-desc__note">Сокращение затрагивает 187 позиций.</p>
+      </div>
+
+      <!-- [3] Блок выбора -->
+      <div class="choice-block">
+        <p class="choice-block__question">Поддержать сценарий В?</p>
+        <div class="choice-block__btns">
+          <button data-scenario="C" data-choice="support" class="btn btn--secondary choice-btn">Да, поддержать</button>
+          <button data-scenario="C" data-choice="reject" class="btn btn--secondary choice-btn">Нет, не поддержать</button>
+        </div>
+      </div>
+
+      <!-- [4] Расчёт микросервиса (скрыт до выбора) -->
+      <div class="calc-block" data-calc-for="C" hidden>
+
+        <h2 class="calc-block__heading">Что показал бы Микросервис</h2>
+
+        <div class="calc-params">
+          <div class="calc-params__row">
+            <div class="calc-params__label">Изменение ФОТ</div>
+            <div class="calc-params__value"><strong>−890 млн ₽ / год</strong> (−17,1%)</div>
+          </div>
+          <div class="calc-params__row">
+            <div class="calc-params__label">Цель по сокращению</div>
+            <div class="calc-params__value"><strong>достигнута с запасом</strong></div>
+          </div>
+          <div class="calc-params__row">
+            <div class="calc-params__label">Единовременные затраты на сокращение</div>
+            <div class="calc-params__value">≈ 280 млн ₽</div>
+          </div>
+          <div class="calc-params__row">
+            <div class="calc-params__label">Контракты с подрядчиками (новые расходы, не в ФОТ)</div>
+            <div class="calc-params__value"><strong>+410 млн ₽ / год</strong></div>
+          </div>
+          <div class="calc-params__row">
+            <div class="calc-params__label">Чистый эффект на полные затраты</div>
+            <div class="calc-params__value"><strong>−480 млн ₽ / год</strong></div>
+          </div>
+        </div>
+
+        <div class="risks-section">
+          <div class="risks-section__kicker">Структурные риски</div>
+
+          <div class="risk-item">
+            <span class="risk-flag risk-flag--red"></span>
+            <div class="risk-content">
+              <div class="risk-title">Дублирование функций между внутренней и внешней структурой</div>
+              <p class="risk-text">Полностью передать ИТ и бухгалтерию подрядчику нельзя — остаются позиции «контролёров контракта», «владельцев процесса», «приёмки работ». Прогноз: 35–50 позиций придётся вернуть в течение года.</p>
+            </div>
+          </div>
+
+          <div class="risk-item">
+            <span class="risk-flag risk-flag--red"></span>
+            <div class="risk-content">
+              <div class="risk-title">Зависимость от подрядчика по критическим процессам</div>
+              <p class="risk-text">ИТ-поддержка производственных систем — точка отказа. Замена подрядчика занимает 4–6 месяцев. На этот срок производство становится заложником качества внешнего сервиса.</p>
+            </div>
+          </div>
+
+          <div class="risk-item">
+            <span class="risk-flag risk-flag--amber"></span>
+            <div class="risk-content">
+              <div class="risk-title">Скрытый рост накладных</div>
+              <p class="risk-text">В первый год расходы на управление подрядчиками, юридическое сопровождение и контроль качества прибавляют ещё 80–120 млн ₽ к стоимости решения.</p>
+            </div>
+          </div>
+        </div>
+
+        <p class="calc-conclusion">На бумаге — лучшая экономия. По полной стоимости решения — близко ко второму сценарию. Главный риск — потеря управляемости критическими процессами.</p>
+
+      </div>
+
+      <!-- [5] Навигация -->
+      <div class="screen-nav screen-nav--stub">
+        <button class="btn btn--primary nav-next" id="btn-to-5" disabled>Посмотреть итог →</button>
+        <button class="screen-nav__back" id="btn-back-4">← Назад</button>
+      </div>
+    </section>
+
+    <!-- ─── Экран 5: Итог ────────────────────────────────── -->
+    <section class="screen" data-screen="5" hidden aria-label="Итог">
+      <h1 class="display-l">Что вы выбрали — и что показал расчёт</h1>
+
+      <!-- [2] Двухколоночный блок -->
+      <div class="final-cols">
+
+        <!-- Левая колонка: персонализированный итог -->
+        <div class="final-summary">
+          <h3 class="final-summary__title">Ваш выбор</h3>
+          <div class="final-summary__body" id="final-summary-body">
+            <!-- сюда JS вставляет контент -->
+          </div>
+        </div>
+
+        <!-- Правая колонка: анализ Микросервиса -->
+        <div class="final-analysis">
+          <h3>Что показал бы Микросервис на правлении</h3>
+          <p class="final-analysis__lead">Ни один из трёх сценариев не закрывает задачу полностью.</p>
+          <p>Сценарий А — даёт деньги, но создаёт структурный долг, который вернётся откатами через полгода.</p>
+          <p>Сценарий Б — структурно чистый, но цель по деньгам не достигает.</p>
+          <p>Сценарий В — лучший по виду, худший по полной стоимости после учёта подрядчиков и оставленных контролёров.</p>
+          <p>Оптимум — гибрид: объединение бэк-офиса (Б) + точечный аутсорс непроизводственных функций (часть В), без сокращения управленческого слоя. Расчётная экономия — 740 млн ₽/год при структурно сохранной модели.</p>
+          <p class="final-analysis__note">В реальном проекте таких сценариев — не три, а двадцать. Микросервис позволяет держать их параллельно, считать в моменте и сравнивать по сопоставимым метрикам.</p>
+        </div>
+
+      </div>
+
+      <!-- [3] Разделитель -->
+      <hr class="divider">
+
+      <!-- [4] Финальный блок по центру -->
+      <div class="final-cta">
+        <h2 class="display-l" style="margin-block: 12px 16px;">Это был фрагмент логики</h2>
+        <p class="body-l" style="margin-bottom: 32px;">В реальном Микросервисе сценарии собираются под структуру вашей компании, цифры подгружаются из 1С:ЗУП, расчёт идёт в моменте.</p>
+        <a href="/orgdesign/#contact" class="btn btn--primary final-cta__btn">
+          Обсудить задачу
+        </a>
+        <a href="#" class="restart-link">↻ Пройти демо ещё раз</a>
+      </div>
+
+    </section>
+
+  </div>
+</main>
+
+<!-- ═══════════════════════════════════════════════════════
+     ФУТЕР
+════════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__inner">
+      <div class="site-footer__brand">
+        <svg class="leaf leaf--sm" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M 18 62 C 18 34, 38 14, 62 18 C 62 46, 42 66, 18 62 Z" fill="#5c1c14"/>
+        </svg>
+        Исследовательская лаборатория · НКО «Люди. Бизнес. Будущее.»
+      </div>
+      <p class="site-footer__legal">
+        Ассоциация экспертов кадрового развития «ЛЮДИ. БИЗНЕС. БУДУЩЕЕ.»<br>
+        ИНН 9715490977 · ОГРН 1247700557774
+      </p>
+      <nav class="site-footer__links" aria-label="Ссылки футера">
+        <a href="/privacy">Политика конфиденциальности</a>
+        <a href="https://hrasc.ru" target="_blank" rel="noopener noreferrer">Сайт НКО</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var currentStep = 1;
+  var visitedSteps = [1];
+
+  var progressItems = document.querySelectorAll('.progress__item');
+
+  function updateProgress() {
+    progressItems.forEach(function (item) {
+      var step = parseInt(item.getAttribute('data-step'), 10);
+      var dot = item.querySelector('.progress__dot');
+      var isVisited = visitedSteps.indexOf(step) !== -1;
+      var isActive = step === currentStep;
+
+      item.classList.toggle('is-active', isActive);
+      item.classList.toggle('is-visited', isVisited);
+
+      dot.disabled = !isVisited;
+      if (isActive) {
+        dot.setAttribute('aria-current', 'step');
+      } else {
+        dot.removeAttribute('aria-current');
+      }
+    });
+  }
+
+  function goToStep(n) {
+    if (n < 1 || n > 5) return;
+
+    var screens = document.querySelectorAll('.screen');
+    screens.forEach(function (screen) {
+      screen.classList.remove('is-visible');
+      screen.hidden = true;
+    });
+
+    var target = document.querySelector('.screen[data-screen="' + n + '"]');
+    if (target) {
+      target.hidden = false;
+      target.classList.add('is-visible');
+    }
+
+    currentStep = n;
+    if (visitedSteps.indexOf(n) === -1) {
+      visitedSteps.push(n);
+    }
+
+    updateProgress();
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (n === 5) renderFinalSummary();
+  }
+
+  /* Progress dot clicks */
+  progressItems.forEach(function (item) {
+    var dot = item.querySelector('.progress__dot');
+    var step = parseInt(item.getAttribute('data-step'), 10);
+    dot.addEventListener('click', function () {
+      if (visitedSteps.indexOf(step) !== -1) {
+        goToStep(step);
+      }
+    });
+  });
+
+  /* Forward buttons */
+  document.getElementById('btn-to-2').addEventListener('click', function () { goToStep(2); });
+  document.getElementById('btn-to-3').addEventListener('click', function () { goToStep(3); });
+  document.getElementById('btn-to-4').addEventListener('click', function () { goToStep(4); });
+  document.getElementById('btn-to-5').addEventListener('click', function () { goToStep(5); });
+
+  /* Back buttons */
+  document.getElementById('btn-back-2').addEventListener('click', function () { goToStep(1); });
+  document.getElementById('btn-back-3').addEventListener('click', function () { goToStep(2); });
+  document.getElementById('btn-back-4').addEventListener('click', function () { goToStep(3); });
+
+  /* Init */
+  updateProgress();
+
+  /* ─── Scenario choices state ─────────────────────────────── */
+  var choices = { A: null, B: null, C: null };
+  window.demoChoices = choices;
+
+  function onChoiceClick(scenario, choice) {
+    choices[scenario] = choice;
+
+    /* Mark buttons */
+    var btns = document.querySelectorAll('.choice-btn[data-scenario="' + scenario + '"]');
+    btns.forEach(function (btn) {
+      btn.disabled = true;
+      if (btn.dataset.choice === choice) {
+        btn.classList.add('is-selected');
+      } else {
+        btn.classList.add('is-disabled');
+      }
+    });
+
+    /* Reveal calc block with CSS transition */
+    var calcBlock = document.querySelector('.calc-block[data-calc-for="' + scenario + '"]');
+    if (calcBlock) {
+      calcBlock.removeAttribute('hidden');
+      requestAnimationFrame(function () {
+        calcBlock.classList.add('is-revealed');
+      });
+      setTimeout(function () {
+        calcBlock.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 400);
+    }
+
+    /* Enable the nav-next button in the parent screen */
+    var anyChoiceBtn = document.querySelector('.choice-btn[data-scenario="' + scenario + '"]');
+    if (anyChoiceBtn) {
+      var parentScreen = anyChoiceBtn.closest('.screen');
+      if (parentScreen) {
+        var navNext = parentScreen.querySelector('.nav-next');
+        if (navNext) {
+          navNext.disabled = false;
+          navNext.classList.add('is-enabled');
+        }
+      }
+    }
+  }
+
+  /* Delegated choice click handler */
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.choice-btn');
+    if (!btn) return;
+    if (btn.disabled) return;
+    var sc = btn.dataset.scenario;
+    var ch = btn.dataset.choice;
+    if (choices[sc] !== null) return;
+    onChoiceClick(sc, ch);
+  });
+
+  function renderFinalSummary() {
+    var body = document.getElementById('final-summary-body');
+    if (!body) return;
+    var supported = [];
+    if (window.demoChoices.A === 'support') supported.push('Сценарий А');
+    if (window.demoChoices.B === 'support') supported.push('Сценарий Б');
+    if (window.demoChoices.C === 'support') supported.push('Сценарий В');
+
+    if (supported.length === 0) {
+      body.innerHTML = '<p class="final-summary__none">Вы не поддержали ни одного из вариантов — это тоже валидное решение. На правлении такая позиция означает: «Ни один из трёх не оправдывает рисков, нужен четвёртый сценарий».</p>';
+    } else {
+      var items = supported.map(function(s) {
+        return '<li>' + s + '</li>';
+      }).join('');
+      body.innerHTML = '<ul class="final-summary__list">' + items + '</ul>';
+    }
+  }
+
+  /* Restart link */
+  var restartLink = document.querySelector('.restart-link');
+  if (restartLink) {
+    restartLink.addEventListener('click', function(e) {
+      e.preventDefault();
+      window.demoChoices.A = null;
+      window.demoChoices.B = null;
+      window.demoChoices.C = null;
+      document.querySelectorAll('.choice-btn').forEach(function(btn) {
+        btn.classList.remove('is-selected', 'is-disabled');
+        btn.disabled = false;
+      });
+      document.querySelectorAll('.calc-block').forEach(function(cb) {
+        cb.classList.remove('is-revealed');
+        cb.hidden = true;
+      });
+      document.querySelectorAll('.nav-next').forEach(function(btn) {
+        btn.classList.remove('is-enabled');
+        btn.disabled = true;
+      });
+      if (typeof visitedSteps !== 'undefined') {
+        visitedSteps.length = 0;
+        visitedSteps.push(1);
+      }
+      goToStep(1);
+    });
+  }
+})();
+</script>
+
+</body>
+</html>
